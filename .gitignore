@@ -1,0 +1,7 @@
+# Front-end
+# Back-end
+node_modules
+dist
+.env
+build
+# Other
