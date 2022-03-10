@@ -6,6 +6,12 @@ Group web project for INFO30005 2022, University of Melbourne
 
 - Lam Nguyen Khoa
 - Wenzheng Du (William)
-- Hai Ha Nguyen (Hai Ha)
+- Hai Ha Nguyen
 - Ngoc Bao Luong
 - Andrew Pham
+
+## Internal links
+
+- Trello:
+- Confluence:
+- etc.
