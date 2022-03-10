@@ -12,6 +12,7 @@ Group web project for INFO30005 2022, University of Melbourne
 
 ## Internal links
 
+- Adobe XD:
 - Trello:
 - Confluence:
 - etc.
