@@ -83,3 +83,18 @@ A plan of each page and their functionality on the website.
 ## Clinician account management
 
 * Allows clinician to set personal details, password etc.
+
+## Page header
+
+* Logo
+* Access home page
+* Sign in/sign out
+* Access dashboard home
+    * For patients, this needs to link to patient dashboard
+    * For clinicians, this needs to link to clinician dashboard
+
+## Page footer
+
+* About pages - about diabetes, about D@H
+* Contact information, copyright etc.
+* Logo
