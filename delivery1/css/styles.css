@@ -118,5 +118,31 @@ a{
     text-align: center;
 }
 
+iframe {
+    display: block;
+    margin: 0 auto;
+}
 
+img {
+    width: 560px;
+    height: 315px;
+    display: block;
+    margin: 0 auto;
+}
 
+p {
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-size: 26px;
+    margin-bottom: 20px;
+}
+
+div.home-component a {
+    color:black;
+}
+
+div.home-component div {
+    margin-bottom: 5px;
+}
