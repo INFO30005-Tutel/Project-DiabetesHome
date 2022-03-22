@@ -1,0 +1,122 @@
+*{
+    font-family: Roboto;
+    font-size: 20px;
+    padding:0;
+    margin: 0;
+    box-sizing: border-box;
+}
+a{
+    color:white;
+    font-weight: bold;
+}
+
+.footer{
+    width: 100%;
+    background-color: #552FDB;
+    height: 300px;
+    margin-top: 100px;
+    position: relative;
+}
+.footer-logo{
+    position: absolute;
+    left:100px;
+    top: 79px;
+    color: white;
+}
+.footer img{
+    width: 211px;
+    height: 87px;
+}
+.footer-logo{
+    text-align: center;
+}
+
+.footer-items{
+    position: absolute;
+    right: 179px;
+    top: 79px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+
+.navbar{
+    background-color: #552FDB;
+    width: 100%;
+    height: 80px;
+    font-size: 20px;
+    position: relative;
+}
+.navbar img{
+    width: 109px;
+    height: 45px;
+    margin-left: 100px;
+    margin-top: 17.5px;
+}
+.navbar .nav-items{
+    position: absolute;
+    right: 100px;
+    top:28px;
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+}
+
+.navbar button{
+    color: white;
+    height: 40px;
+    width: 160px;
+    border-radius: 16px;
+    color: black;
+}
+.home{
+    display: flex;
+    flex-direction: column;
+    width: 1428px;
+    padding-left: 100px;
+    padding-top: 100px;
+    gap: 36px;
+}
+.title{
+    font-size: 48px;
+    text-align: center;
+    color: #552FDB;
+}
+.sub-title{
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #552FDB;
+
+}
+.users{
+    display: flex;
+    flex-direction: row;
+    gap:48px;
+    width: 100%;
+    margin-top: 11px;
+}
+#clinicians{
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    padding:0;
+    gap: 51px;
+}
+.verticle-line{
+    border-left: 2px solid #707070;
+    height: 276px;
+    width:1%;
+}
+
+.user{
+    padding-left: 23px;
+    padding-right:23px;
+}
+.user-text h2{
+    text-align: center;
+}
+
+
+
