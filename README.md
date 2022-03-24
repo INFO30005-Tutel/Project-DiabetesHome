@@ -12,7 +12,7 @@ Group web project for INFO30005 2022, University of Melbourne
 
 ## Internal links
 
-- Adobe XD:
-- Trello:
-- Confluence:
-- etc.
+* Adobe XD:
+* Trello: 
+    * Prototype board: https://trello.com/b/66DvmHCZ/prototype
+    * Implementation board: 

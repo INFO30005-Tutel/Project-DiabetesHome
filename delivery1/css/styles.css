@@ -84,9 +84,9 @@ a {
 .home {
   display: flex;
   flex-direction: column;
-  width: 1428px;
-  padding-left: 100px;
-  padding-top: 100px;
+  width: auto;
+  padding: 0 12.8125vw 0 12.8125vw;
+  padding-top: 140px;
   gap: 36px;
 }
 .title {
