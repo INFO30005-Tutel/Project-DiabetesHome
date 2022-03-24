@@ -12,7 +12,7 @@ a {
 
 .footer {
   width: 100%;
-  background-color: #6fb2fa;
+  background-color: #0A57AE;
   height: 300px;
   margin-top: 100px;
   position: relative;
@@ -41,8 +41,15 @@ a {
   gap: 12px;
 }
 
+.footer-copyright{
+  position: absolute;
+  left: 45%;
+  bottom:10px;
+  color: white;
+}
+
 .navbar {
-  background-color: #6fb2fa;
+  background-color: #0A57AE;
   width: 100%;
   height: 80px;
   font-size: 20px;
@@ -82,12 +89,26 @@ a {
 .title {
   font-size: 48px;
   text-align: center;
-  color: #6fb2fa;
+  color: #0A57AE;
 }
 .sub-title {
   font-size: 36px;
   margin-bottom: 20px;
-  color: #6fb2fa;
+  color: #0A57AE;
+}
+.misson{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 100px;
+}
+.misson div{
+  width: 60%;
+}
+#misson-img{
+  margin: 0;
+  position: relative;
+  bottom: 100px;
 }
 .users {
   display: flex;
@@ -105,8 +126,8 @@ a {
 }
 .verticle-line {
   border-left: 2px solid #707070;
-  height: 276px;
-  width: 1%;
+  height: 560px;
+  width: 0;
 }
 
 .user {
@@ -145,3 +166,5 @@ div.home-component a {
 div.home-component div {
   margin-bottom: 5px;
 }
+
+
