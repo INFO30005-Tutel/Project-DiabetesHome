@@ -65,18 +65,21 @@ a {
 .navbar .nav-items {
   position: absolute;
   right: 100px;
-  top: 28px;
+  top: 20px;
   display: flex;
   flex-direction: row;
   gap: 60px;
 }
 
+.navbar .nav-items a{
+  padding-top: 5px;
+}
 .navbar button {
-  color: white;
+  
   height: 40px;
   width: 160px;
   border-radius: 16px;
-  color: black;
+
 }
 .home {
   display: flex;
