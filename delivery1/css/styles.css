@@ -1,149 +1,147 @@
-*{
-    font-family: Roboto;
-    font-size: 20px;
-    padding:0;
-    margin: 0;
-    box-sizing: border-box;
+* {
+  font-family: Roboto;
+  font-size: 20px;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
-a{
-    color:white;
-    font-weight: bold;
-}
-
-.footer{
-    width: 100%;
-    background-color: #6fb2fa;
-    height: 300px;
-    margin-top: 100px;
-    position: relative;
-}
-.footer-logo{
-    position: absolute;
-    left:100px;
-    top: 79px;
-    color: white;
-}
-.footer img{
-    width: 211px;
-    height: 87px;
-}
-.footer-logo{
-    text-align: center;
+a {
+  color: white;
+  font-weight: bold;
 }
 
-.footer-items{
-    position: absolute;
-    right: 179px;
-    top: 79px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 12px;
+.footer {
+  width: 100%;
+  background-color: #6fb2fa;
+  height: 300px;
+  margin-top: 100px;
+  position: relative;
+}
+.footer-logo {
+  position: absolute;
+  left: 100px;
+  top: 79px;
+  color: white;
+}
+.footer img {
+  width: 211px;
+  height: 87px;
+}
+.footer-logo {
+  text-align: center;
 }
 
-
-.navbar{
-    background-color: #6fb2fa;
-    width: 100%;
-    height: 80px;
-    font-size: 20px;
-    position: relative;
-}
-.navbar img{
-    width: 109px;
-    height: 45px;
-    position: absolute;
-    margin-left: 100px;
-    margin-top: 17.5px;
-}
-.navbar .nav-items{
-    position: absolute;
-    right: 100px;
-    top:28px;
-    display: flex;
-    flex-direction: row;
-    gap: 60px;
+.footer-items {
+  position: absolute;
+  right: 179px;
+  top: 79px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
 }
 
-.navbar button{
-    color: white;
-    height: 40px;
-    width: 160px;
-    border-radius: 16px;
-    color: black;
+.navbar {
+  background-color: #6fb2fa;
+  width: 100%;
+  height: 80px;
+  font-size: 20px;
+  position: relative;
 }
-.home{
-    display: flex;
-    flex-direction: column;
-    width: 1428px;
-    padding-left: 100px;
-    padding-top: 100px;
-    gap: 36px;
+.navbar img {
+  width: 109px;
+  height: 45px;
+  position: absolute;
+  margin-left: 100px;
+  margin-top: 17.5px;
 }
-.title{
-    font-size: 48px;
-    text-align: center;
-    color: #6fb2fa;
-}
-.sub-title{
-    font-size: 36px;
-    margin-bottom: 20px;
-    color: #6fb2fa;
-
-}
-.users{
-    display: flex;
-    flex-direction: row;
-    gap:48px;
-    width: 100%;
-    margin-top: 11px;
-}
-#clinicians{
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    padding:0;
-    gap: 51px;
-}
-.verticle-line{
-    border-left: 2px solid #707070;
-    height: 276px;
-    width:1%;
+.navbar .nav-items {
+  position: absolute;
+  right: 100px;
+  top: 28px;
+  display: flex;
+  flex-direction: row;
+  gap: 60px;
 }
 
-.user{
-    padding-left: 23px;
-    padding-right:23px;
+.navbar button {
+  color: white;
+  height: 40px;
+  width: 160px;
+  border-radius: 16px;
+  color: black;
 }
-.user-text h2{
-    text-align: center;
+.home {
+  display: flex;
+  flex-direction: column;
+  width: 1428px;
+  padding-left: 100px;
+  padding-top: 100px;
+  gap: 36px;
+}
+.title {
+  font-size: 48px;
+  text-align: center;
+  color: #6fb2fa;
+}
+.sub-title {
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: #6fb2fa;
+}
+.users {
+  display: flex;
+  flex-direction: row;
+  gap: 48px;
+  width: 100%;
+  margin-top: 11px;
+}
+#clinicians {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  gap: 51px;
+}
+.verticle-line {
+  border-left: 2px solid #707070;
+  height: 276px;
+  width: 1%;
+}
+
+.user {
+  padding-left: 23px;
+  padding-right: 23px;
+}
+.user-text h2 {
+  text-align: center;
 }
 
 iframe {
-    display: block;
-    margin: 0 auto;
+  display: block;
+  margin: 0 auto;
 }
 
 img {
-    width: 560px;
-    height: 315px;
-    display: block;
-    margin: 0 auto;
+  width: auto;
+  height: 315px;
+  display: block;
+  margin: 20px auto;
 }
 
 p {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 h3 {
-    font-size: 26px;
-    margin-bottom: 20px;
+  font-size: 26px;
+  margin-bottom: 20px;
 }
 
 div.home-component a {
-    color:black;
+  color: black;
 }
 
 div.home-component div {
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 }
