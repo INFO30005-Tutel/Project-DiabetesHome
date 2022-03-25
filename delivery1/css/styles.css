@@ -62,11 +62,14 @@ a {
   position: fixed;
   top: 0;
   z-index: 1;
+  display: flex;
+  justify-content: space-between;
 }
 
 .navbar img {
-  width: 109px;
+  width: auto;
   height: 45px;
+<<<<<<< HEAD
   position: absolute;
   margin-left: 12.8125vw;
   margin-top: 17.5px;
@@ -74,10 +77,17 @@ a {
 .navbar .nav-items {
   position: absolute;
   right: 12.8125vw;
+=======
+  margin-left: 5vw;
+}
+.navbar .nav-items {
+  right: 100px;
+>>>>>>> c8a0911c6dd04b7903a2b53cc2d9665bdb09c6f0
   top: 20px;
   display: flex;
-  flex-direction: row;
-  gap: 60px;
+  align-items: center;
+  gap: 2vw;
+  margin-right: 5vw;
 }
 
 .navbar .nav-items a {
@@ -89,7 +99,6 @@ a {
   border-radius: 16px;
   border-style: none;
   background-color: white;
-  
 }
 
 .navbar button:hover {
