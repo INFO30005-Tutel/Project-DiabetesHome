@@ -81,12 +81,12 @@ a {
   top: 20px;
   display: flex;
   align-items: center;
-  gap: 2vw;
+  gap: 3.125vw;
   margin-right: 5vw;
 }
 
 .navbar .nav-items a {
-  padding-top: 8px;
+  padding-top: 4px;
 }
 .navbar button {
   height: 40px;
