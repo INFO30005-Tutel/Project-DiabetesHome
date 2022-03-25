@@ -5,6 +5,7 @@
   margin: 0;
   box-sizing: border-box;
   color: #3d3d3d;
+  line-height: 120%;
 }
 
 a {
@@ -16,13 +17,13 @@ a {
   width: 100%;
   background-color: #0a57ae;
   height: 300px;
-  margin-top: 100px;
+  margin-top: 140px;
   display: flex;
   flex-direction: column;
-  padding-left: 10vw;
-  padding-right: 10vw;
-  padding-top: 5vw;
-  padding-bottom: 1vw;
+  padding-left: 12.8125vw;
+  padding-right: 12.8125vw;
+  padding-top: 72px;
+  padding-bottom: 32px;
   justify-content: space-between;
 }
 
@@ -60,7 +61,6 @@ a {
   font-size: 20px;
   position: fixed;
   top: 0;
-  width: 100%;
   z-index: 1;
 }
 
@@ -68,12 +68,12 @@ a {
   width: 109px;
   height: 45px;
   position: absolute;
-  margin-left: 100px;
+  margin-left: 12.8125vw;
   margin-top: 17.5px;
 }
 .navbar .nav-items {
   position: absolute;
-  right: 100px;
+  right: 12.8125vw;
   top: 20px;
   display: flex;
   flex-direction: row;
@@ -81,19 +81,27 @@ a {
 }
 
 .navbar .nav-items a {
-  padding-top: 5px;
+  padding-top: 8px;
 }
 .navbar button {
   height: 40px;
   width: 160px;
   border-radius: 16px;
+  border-style: none;
+  background-color: white;
+  
 }
+
+.navbar button:hover {
+  background-color: #D0E0F1;
+  transition: 0.1s;
+}
+
 .home {
   display: flex;
   flex-direction: column;
   width: auto;
-  padding: 0 12.8125vw 0 12.8125vw;
-  padding-top: 140px;
+  padding: 220px 12.8125vw 0 12.8125vw;
   gap: 36px;
 }
 .title {
