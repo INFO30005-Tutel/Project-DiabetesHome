@@ -69,7 +69,6 @@ a {
 .navbar img {
   width: auto;
   height: 45px;
-<<<<<<< HEAD
   position: absolute;
   margin-left: 12.8125vw;
   margin-top: 17.5px;
@@ -77,12 +76,6 @@ a {
 .navbar .nav-items {
   position: absolute;
   right: 12.8125vw;
-=======
-  margin-left: 5vw;
-}
-.navbar .nav-items {
-  right: 100px;
->>>>>>> c8a0911c6dd04b7903a2b53cc2d9665bdb09c6f0
   top: 20px;
   display: flex;
   align-items: center;
