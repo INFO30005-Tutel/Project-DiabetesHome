@@ -87,6 +87,7 @@ a {
   height: 40px;
   width: 160px;
   border-radius: 16px;
+  background-color: white;
 }
 .home {
   display: flex;
