@@ -2,6 +2,10 @@
 
 Group web project for INFO30005 2022, University of Melbourne.
 
+## Installation
+
+Run `npm install` at root folder to install all required packages
+
 ## Members
 
 - Lam Nguyen Khoa

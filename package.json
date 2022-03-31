@@ -1,0 +1,27 @@
+{
+  "name": "project-diabeteshome",
+  "version": "1.0.0",
+  "description": "Group web project for INFO30005 2022, University of Melbourne.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/INFO30005-Tutel/Project-DiabetesHome.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/INFO30005-Tutel/Project-DiabetesHome/issues"
+  },
+  "homepage": "https://github.com/INFO30005-Tutel/Project-DiabetesHome#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "express-handlebars": "^6.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
