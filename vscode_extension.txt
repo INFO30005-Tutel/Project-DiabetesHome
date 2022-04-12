@@ -1,3 +1,6 @@
 Recommended extension for VS Code:
--Material Icon Theme
--Prettier code formatter
+
+Material Icon Theme
+Prettier Code Formatter
+Bracket Pair Colorizer
+ESLint
