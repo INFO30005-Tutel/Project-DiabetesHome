@@ -123,6 +123,9 @@ a {
   .sidebar-icon {
     display: none;
   }
+  .mission p {
+    width: 50%;
+  }
 }
 /* SMALL SCREENS */
 @media (max-width: 964px) {
@@ -133,6 +136,7 @@ a {
     display: none;
   }
   .sidebar-icon {
+    padding-left: 15px;
     color: #fff !important;
     background-color: #0a57ae !important;
     position: absolute;
@@ -147,7 +151,7 @@ a {
   div.home-component {
     text-align: center;
   }
-  .misson div {
+  .mission p {
     width: 100%;
   }
   div.home-component img {
@@ -167,6 +171,17 @@ a {
     left: 0;
     width: 100%;
     height: 100%;
+  }
+  .mission {
+    flex-direction: column;
+    gap: 100px;
+  }
+  .verticle-line {
+    display: none;
+  }
+  .users {
+    flex-direction: column;
+    gap: 48px;
   }
 }
 
@@ -222,24 +237,19 @@ a {
   margin-bottom: 20px;
   color: #0a57ae;
 }
-.misson {
+.mission {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 100px;
+  justify-content: space-between;
 }
-.misson div {
-  width: 60%;
-}
-#misson-img {
+
+.mission img {
   margin: 0;
   position: relative;
   bottom: 100px;
 }
 .users {
   display: flex;
-  flex-direction: row;
-  gap: 48px;
+  justify-content: space-between;
   width: 100%;
   margin-top: 11px;
 }
@@ -256,12 +266,10 @@ a {
   width: 0;
 }
 
-.user {
-  padding-left: 23px;
-  padding-right: 23px;
-}
-.user-text h2 {
+.user-text {
   text-align: center;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 iframe {
