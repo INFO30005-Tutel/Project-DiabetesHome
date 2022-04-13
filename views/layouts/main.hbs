@@ -12,6 +12,15 @@
     />
   </head>
   <body>
+    {{!-- SIDE BAR --}}
+    <div class='sidebar' id="sidebar">
+      <button onclick='sidebar_close()'>&times;</button>
+      <a href='about-diabetes'>About Diabetes</a>
+      <a href='about-this-website'>About This Website</a>
+    </div>
+    {{!-- END OF SIDE BAR --}}
+
+    {{!-- HEADER --}}
     <header class='header'>
       <nav class='navbar'>
         <button class='sidebar-icon xxlarge' style='width: 60px;' onclick='sidebar_open()'>&#9776;</button>
@@ -24,10 +33,17 @@
           <button><b>Login</b></button>
         </div>
       </nav>
+      
     </header>
+    {{!-- END OF HEADER --}}
+
+    {{!-- PAGE'S CONTENT --}}
     <main>
       {{{body}}}
     </main>
+    {{!-- END OF PAGE'S CONTENT --}}
+
+    {{!-- FOOTER --}}
     <footer class='footer'>
       <div class='footer-upper'>
         <div class='footer-logo'>
@@ -43,17 +59,18 @@
       </div>
       <p class='footer-copyright'>©Diabetes@Home 2021</p>
     </footer>
+    {{!-- END OF FOOTER --}}
 
-    <!-- -- >
     <script>
     // Functions to interact with side bar
     function sidebar_open() {
-      document.getElementById("sidebar").style.display = "block";
+      document.getElementById('sidebar').style.width = '250px';
     }
 
     function sidebar_close() {
-      document.getElementById("sidebar").style.display = "none";
+      document.getElementById('sidebar').style.width = '0px';
     }
     </script>
+
   </body>
 </html>
