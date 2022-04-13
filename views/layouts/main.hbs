@@ -14,6 +14,7 @@
   <body>
     <header class='header'>
       <nav class='navbar'>
+        <button class='sidebar-icon xxlarge' style='width: 60px;' onclick='sidebar_open()'>&#9776;</button>
         <a href='/'>
           <img src='./images/logo.png' />
         </a>
@@ -42,5 +43,17 @@
       </div>
       <p class='footer-copyright'>©Diabetes@Home 2021</p>
     </footer>
+
+    <!-- -- >
+    <script>
+    // Functions to interact with side bar
+    function sidebar_open() {
+      document.getElementById("sidebar").style.display = "block";
+    }
+
+    function sidebar_close() {
+      document.getElementById("sidebar").style.display = "none";
+    }
+    </script>
   </body>
 </html>
