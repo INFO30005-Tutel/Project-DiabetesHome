@@ -12,18 +12,22 @@
     />
   </head>
   <body>
-    {{!-- SIDE BAR --}}
-    <div class='sidebar' id="sidebar">
+    {{! SIDE BAR }}
+    <div class='sidebar' id='sidebar'>
       <button onclick='sidebar_close()'>&times;</button>
       <a href='about-diabetes'>About Diabetes</a>
       <a href='about-this-website'>About This Website</a>
     </div>
-    {{!-- END OF SIDE BAR --}}
+    {{! END OF SIDE BAR }}
 
-    {{!-- HEADER --}}
+    {{! HEADER }}
     <header class='header'>
       <nav class='navbar'>
-        <button class='sidebar-icon xxlarge' style='width: 60px;' onclick='sidebar_open()'>&#9776;</button>
+        <button
+          class='sidebar-icon xxlarge'
+          style='width: 60px;'
+          onclick='sidebar_open()'
+        >&#9776;</button>
         <a href='/'>
           <img src='./images/logo.png' />
         </a>
@@ -33,17 +37,17 @@
           <button><b>Login</b></button>
         </div>
       </nav>
-      
-    </header>
-    {{!-- END OF HEADER --}}
 
-    {{!-- PAGE'S CONTENT --}}
+    </header>
+    {{! END OF HEADER }}
+
+    {{! PAGE'S CONTENT }}
     <main>
       {{{body}}}
     </main>
-    {{!-- END OF PAGE'S CONTENT --}}
+    {{! END OF PAGE'S CONTENT }}
 
-    {{!-- FOOTER --}}
+    {{! FOOTER }}
     <footer class='footer'>
       <div class='footer-upper'>
         <div class='footer-logo'>
@@ -51,25 +55,21 @@
           <p>Diabetes@Home</p>
         </div>
         <div class='footer-items'>
-          <a href='./about-this-website.html'>About Diabetes@Home</a>
-          <a href='./about-diabetes.html'>About Diabetes</a>
+          <a href='./about-this-website'>About Diabetes@Home</a>
+          <a href='./about-diabetes'>About Diabetes</a>
           <a href='contact.html'>Contact us</a>
           <a href='press-kit.html'>Press kit</a>
         </div>
       </div>
       <p class='footer-copyright'>©Diabetes@Home 2021</p>
     </footer>
-    {{!-- END OF FOOTER --}}
+    {{! END OF FOOTER }}
 
     <script>
-    // Functions to interact with side bar
-    function sidebar_open() {
-      document.getElementById('sidebar').style.width = '250px';
-    }
-
-    function sidebar_close() {
-      document.getElementById('sidebar').style.width = '0px';
-    }
+      // Functions to interact with side bar function sidebar_open() {
+      document.getElementById('sidebar').style.width = '250px'; } function
+      sidebar_close() { document.getElementById('sidebar').style.width = '0px';
+      }
     </script>
 
   </body>
