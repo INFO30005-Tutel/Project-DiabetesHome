@@ -28,6 +28,11 @@ app.get('/about-diabetes', (req, res) => {
 app.get('/about-this-website', (req, res) => {
   res.render('about-this-website.hbs');
 });
+// CLINICIAN
+app.get('/cli/:id1', (req, res) => {
+  res.render('clinician/dashboard.hbs', {layout: 'clinician-layout.hbs'});
+});
+
 
 // app.all('*', (req, res) => {
 //   // 'default' route to catch user errors
