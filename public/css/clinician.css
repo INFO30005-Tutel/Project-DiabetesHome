@@ -19,6 +19,7 @@
   border-radius: 30px;
   border-style: none;
   background-color: white;
+  color: #0a57ae;
 }
 
 .cli-navbar img {
@@ -30,6 +31,33 @@
   display: flex;
   align-items: center;
   gap: 1.5vw;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  padding-top: 50px;
+  padding-left: 10vw;
+  padding-right: 10vw;
+  gap: 20px;
+}
+
+.dashboard .dash-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dashboard .dash-header .cli-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.dashboard .dash-header .cli-info p {
+  margin-bottom: 5px;
 }
 
 /* SMALL SCREENS */
