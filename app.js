@@ -1,4 +1,7 @@
-require('dotenv').config();
+// Load envioronment variables 
+if (process.env.NODE_ENV !== 'production') { 
+  require('dotenv').config();
+}
 const express = require('express');
 const mongoose = require('mongoose');
 const config = require('./config');
@@ -70,14 +73,19 @@ function stop(callback) {
     useUnifiedTopology: true,
   };
 
+  // Exit on error 
+  mongoose.connection.on('error', err => { 
+    console.error(err); 
+    process.exit(1) 
+  });
   mongoose.connection.on('connecting', () => {
     console.log('🐌Connecting. State🐌 ' + mongoose.connection.readyState); // state 2
   });
   mongoose.connection.on('connected', () => {
-    console.log('Connected. State ✔️ ' + mongoose.connection.readyState); // state 1
+    console.log('Connected. State ✔️  ' + mongoose.connection.readyState); // state 1
   });
   mongoose.connection.on('disconnected', () => {
-    console.log('Disconnected. State ❌ ' + mongoose.connection.readyState); // state 0
+    console.log('Disconnected. State ❌  ' + mongoose.connection.readyState); // state 0
   });
 
   // Actual connection part
@@ -89,7 +97,8 @@ function stop(callback) {
     process.exit(1);
   });
 
-  db.once('open', () => {
+  db.once('open', async () => {
+    console.log(`Mongo connection started on ${db.host}:${db.port}`);
     console.log('DB Name: ' + db.name);
     callback();
   });
