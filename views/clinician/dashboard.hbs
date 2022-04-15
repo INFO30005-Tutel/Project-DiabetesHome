@@ -1,4 +1,5 @@
 <div class='dashboard'>
+  {{! HEADINGS }}
   <div class='dash-header'>
     <h1 class='title'>Clinician Dashboard</h1>
     <div class='cli-info'>
@@ -15,5 +16,12 @@
         document.getElementById('date').innerHTML = date;
       </script>
     </div>
+  </div>
+
+  {{! SEARCHING BAR }}
+  <div class='searching-area'>
+    <input type='text' placeholder="Search patient..">
+    <button class='icon-button'><i class='fa fa-search'></i></button>
+    <button class='icon-button'><i class='fa fa-plus'></i></button>
   </div>
 </div>
