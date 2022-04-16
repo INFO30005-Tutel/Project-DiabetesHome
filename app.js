@@ -1,4 +1,11 @@
+// Load envioronment variables 
+if (process.env.NODE_ENV !== 'production') { 
+  require('dotenv').config();
+}
 const express = require('express');
+const mongoose = require('mongoose');
+const config = require('./config');
+const cors = require('cors');
 const app = express();
 //app.use(express.json())
 app.use(express.urlencoded({ extended: true })); // replaces body-parser
@@ -44,4 +51,60 @@ app.get('/cli/:id1', (req, res) => {
 // Tells the app to listen on port 3000 and logs that information to the
 app.listen(3000, () => {
   console.log('Diabetes Home is listening on port 3000!');
+  initMongooseConnection();
 });
+
+/** Function to stop connecting the DB and close the app */
+function stop(callback) {
+  mongoose.disconnect();
+  mongoose.connection.once('close', () => {
+    server.close(callback);
+  });
+}
+
+/**
+ * Initialize connection to mongoDB and setup on-event emitters.
+ * Callback is usually used in test for done()
+ * @param {function} callback
+ */
+ function initMongooseConnection(callback = () => {}) {
+   console.log("hi");
+  const dbURI = config.dbURI;
+
+  var options = {
+    keepAlive: 1,
+    connectTimeoutMS: 30000,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  };
+
+  // Exit on error 
+  mongoose.connection.on('error', err => { 
+    console.error(err); 
+    process.exit(1) 
+  });
+  mongoose.connection.on('connecting', () => {
+    console.log('🐌Connecting. State🐌 ' + mongoose.connection.readyState); // state 2
+  });
+  mongoose.connection.on('connected', () => {
+    console.log('Connected. State ✔️  ' + mongoose.connection.readyState); // state 1
+  });
+  mongoose.connection.on('disconnected', () => {
+    console.log('Disconnected. State ❌  ' + mongoose.connection.readyState); // state 0
+  });
+
+  // Actual connection part
+  mongoose.connect(dbURI, options);
+  var db = mongoose.connection;
+  db.on('error', (err) => {
+    console.log('Failed to connect to database');
+    console.log(err);
+    process.exit(1);
+  });
+
+  db.once('open', async () => {
+    console.log(`Mongo connection started on ${db.host}:${db.port}`);
+    console.log('DB Name: ' + db.name);
+    callback();
+  });
+}
