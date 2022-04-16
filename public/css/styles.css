@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+:root {
+  --primary-color: #0a57ae;
+}
 
 * {
   font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -302,4 +305,38 @@ h3 {
   text-align: left;
   list-style-type: none;
   margin-bottom: 1vh;
+}
+
+.homepage-section {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.homepage-section .left-side {
+  background-color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  flex: 1 1 0;
+}
+
+.homepage-section .left-side p {
+  color: white;
+  box-sizing: border-box;
+  padding: 0 5vw;
+}
+
+.homepage-section .right-side {
+  flex: 1 1 0;
+}
+
+.homepage-section img {
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
 }
