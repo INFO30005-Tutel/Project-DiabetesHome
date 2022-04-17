@@ -308,24 +308,25 @@ h3 {
 }
 
 .homepage-section {
-  text-align: center;
+  text-align: left;
   display: flex;
   flex-direction: row;
+  margin-bottom: 5vh;
+}
+.homepage-section .left-side {
+  flex: 1 1 0;
 }
 
-.homepage-section .left-side {
-  background-color: var(--primary-color);
+.homepage-section .text-box {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 0;
   padding: 0;
-  flex: 1 1 0;
 }
 
-.homepage-section .left-side p {
-  color: white;
+.homepage-section p {
   box-sizing: border-box;
   padding: 0 5vw;
 }
@@ -337,6 +338,19 @@ h3 {
 .homepage-section img {
   width: 100%;
   height: auto;
-  margin: 0;
+}
+
+.homepage-section .feature-image {
+  padding: 5vh 5vw;
+  border-radius: 25%;
+}
+
+.homepage-section .hero-image {
   padding: 0;
+  margin: 0;
+}
+
+.homepage-hero {
+  background-color: var(--primary-color);
+  color: white;
 }
