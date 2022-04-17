@@ -366,6 +366,15 @@ h3 {
   margin: 0;
 }
 
+.homepage-section button {
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 16px;
+  border: 0;
+  padding: 1vh 1vw;
+  cursor: pointer;
+}
+
 .homepage-hero {
   background-color: var(--primary-color);
   color: white;
