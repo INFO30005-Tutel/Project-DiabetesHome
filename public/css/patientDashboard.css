@@ -1,0 +1,266 @@
+.dashboard{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-auto-rows: max-content;
+    padding: 5% 7% 7% 5%;
+    grid-row-gap: 20px;
+    color: #3D3D3D;
+    font-size: 20px;
+}
+h3{
+    color:#0A57AE;
+    font-weight: bold;
+}
+h4{
+    color:#0A57AE;
+    font-weight: bold;
+    position: relative;
+    bottom: 20px;
+}
+.black-title{
+    font-weight: bold;
+}
+form{
+    position: relative;
+    bottom: 25px;
+}
+button{
+    border-radius: 16px;
+    background-color: #0A57AE;
+    border-style: none;
+}
+form > ul > .black-title{
+    margin-bottom: 0;
+}
+.left{
+    /*color: blue;*/
+    grid-column-end: span 3;
+    grid-row-end: span 3;
+
+}
+.tasks div img{
+    position: absolute;
+    
+    right: 30px;
+}
+@media(min-width: 768px){
+    h4{
+        font-size: 1.25vw;
+    }
+    h3{
+        font-size: 2.5vw;
+    }
+    .tasks{
+   
+        display: flex;
+       
+        flex-direction: row;
+        flex-wrap: wrap;
+        flex-grow: 1;
+        gap: 48px;
+        
+    }
+    .tasks > div{
+        
+        background-color: #D0E0F1;
+        width: 23.125vw;
+        height: 38.24vh;
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-bottom: 10px;
+        padding-top: 20px;
+        border-radius: 16px;
+        position: relative;
+    
+    }
+    
+
+}
+
+
+/*SMALL SCREEN*/
+@media(max-width: 768px){
+    html{
+        font-size: 15px;
+    }
+    h4{
+        font-size: 18px;
+    
+    }
+    
+    .tasks{
+    
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        position:relative;
+    
+    }
+    .tasks > div{
+        width: 100%;
+        background-color: #D0E0F1;
+        height: 100%;
+        
+        border-radius: 16px;
+    }
+
+    li:nth-of-type(2n) input{
+        padding:0;
+        width: 100%;
+    }
+    .big-button{
+        width: 37.3vw !important;
+        height: 5vh !important;
+    }
+
+    /*resize right section*/
+    .message-box{
+        width: 100%;
+        height:auto;
+    }
+}
+
+::placeholder{
+    padding-top: 0;
+}
+
+/*the first text box */
+li:first-child input{
+    height: 4.167vh;
+    width: 6.67vw;
+    border: 1px solid #0A57AE;
+    border-radius: 4px;
+}
+
+/*increases the height for note text box*/
+li:nth-of-type(2n) input{
+    padding: 0;
+    border: 1px solid #0A57AE;
+    border-radius: 4px;
+    width: 23vw;
+    height: 12.96vh;
+}
+
+/*edit the third input for submission and view data*/
+li:last-child input{
+    position: relative;
+    top: 20px;
+    width: 8.33vw;
+    height: 3.7vh;
+
+}
+
+#submit-input{
+    margin-left: 6vw;
+}
+
+.view-data-input{
+    width:auto !important;
+
+}
+form > ul{
+    list-style: none;
+    padding-left: 0;
+}
+
+.small-button{
+    width: 8rem;
+    height: 2rem;
+    position: absolute;
+    left: 30%;
+    bottom: 10%;
+}
+
+/*change background color from blue to grey for inactive tasks*/
+.inactive-tasks{
+    background-color: #E1E1E1 !important;
+}
+.inactive-tasks h4{
+    color: #3D3D3D;
+}
+
+/*message*/
+#message{
+    position: relative;
+}
+#message div:first-child{
+    background-color: aqua;
+    margin-bottom: 2.2rem;
+    text-align: center;
+}
+
+#message>p{
+    
+    left:1.5rem;
+}
+
+.message-box{
+    background-color:#D0E0F1;
+    height: fit-content;
+    width:100%;
+    margin-top: 1rem;
+    position: relative;
+}
+.message-box p:first-child{
+    padding: 1rem;
+}
+.message-box p:last-child{
+    text-decoration: underline;
+    color:#0A57AE;
+    text-align: center;
+    padding-bottom: 1rem;
+}
+#message .small-button{
+   position:relative;
+    top: 0.3rem !important;
+
+}
+
+/*engagement*/
+
+.streak{
+    background-color: #D0E0F1;
+}
+.streak img{
+    padding-left: 3.325rem;
+    padding-top: 1rem;
+}
+span{
+    color:#0A57AE;
+    margin-left: 1rem;
+}
+.streak p:first-child{
+    padding-left: 1rem;
+    margin-top:1.775rem;
+}
+
+.streak p:last-child{
+    margin-top: 0.5rem;
+    padding-left: 0.8rem;
+}
+
+
+/*patient resources*/
+#patient-resources-content{
+    display:flex;
+    flex-direction: row;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    gap: 2.5vw;
+}
+.content{
+    flex-basis: 30vw;
+}
+
+#patient-resources-content img{
+    flex-basis: 16.7vw;
+}
+.big-button{
+    background-color: #0A57AE;
+    position: relative;
+    left: 20%;
+    width:12.5vw;
+    height:5.56vh;
+    margin-top: 2%;
+}
+
