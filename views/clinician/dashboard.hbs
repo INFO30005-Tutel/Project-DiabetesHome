@@ -1,0 +1,71 @@
+<div class='dashboard'>
+  {{! HEADINGS }}
+  <div class='dash-header'>
+    <h1 class='title'>Clinician Dashboard</h1>
+    <div class='cli-info'>
+      <p style='margin-bottom: 20px'>Hello, <b id='cli_name'>clinician name</b></p>
+      <p id='time'><var>time</var></p>
+      <p id='date'><var>date</var></p>
+      <script>
+        var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        var today = new Date();
+        var time = today.getHours() + ':' + today.getMinutes() + ' ' + Intl.DateTimeFormat().resolvedOptions().timeZone;
+        document.getElementById('time').innerHTML = time;
+        var date = days[today.getDay()] + ', ' + today.getDate() + ' ' + months[today.getMonth()] + ' ' + today.getFullYear();
+        document.getElementById('date').innerHTML = date;
+      </script>
+    </div>
+  </div>
+  {{! SEARCHING BAR }}
+  <div class='searching-area'>
+    <input type='text' placeholder="Search patient..">
+    <button><i class='fa fa-search'></i></button>
+    <button><i class='fa fa-plus'></i></button>
+  </div>
+  {{! TABLE BODY}}
+  <div class='table-section'>
+    <table class='dash-table'>
+      <tr>
+        <th>STATUS</th>
+        <th>NAME</th>
+        <th>BLOOD GLUCOSE LEVEL</th>
+        <th>WEIGHT</th>
+        <th>DOSES OF INSULIN TAKEN</th>
+        <th>STEP COUNTS</th>
+      </tr>
+      <tr>
+        <td><i class='fa fa-check-circle' style='font-size:xx-large; color: green'></i></td>
+        <td><a href='something-lol'>John Doe</a></td>
+        <td>135 nmol/L</td>
+        <td>91 kg</td>
+        <td> </td>
+        <td>5000</td>
+      </tr>
+      <tr>
+        <td><i class='fa fa-exclamation-circle' style='font-size:xx-large; color: #b01717'></i></td>
+        <td><a href='something-lol'>Jack Smith</a></td>
+        <td style='color: #b01717'>221 nmol/L</td>
+        <td>72 kg</td>
+        <td> </td>
+        <td>1200</td>
+      </tr>
+      <tr>
+        <td><i class='fa fa-question-circle' style='font-size:xx-large; color: #ffd025'></i></td>
+        <td><a href='something-lol'>Adam Jerry</a></td>
+        <td style='color: #c59c09'>???</td>
+        <td style='color: #c59c09'>???</td>
+        <td style='color: #c59c09'>???</td>
+        <td>500</td>
+      </tr>
+    </table>
+    <div class='page-change'>
+      <p style='text-align: center'>Show 1-10 of 47</p>
+      <div class='page-num'>
+        <button><i class='fa fa-arrow-left'></i></button>
+        <h1><b>1</b></h1>
+        <button><i class='fa fa-arrow-right'></i></button>
+      </div>
+    </div>
+  </div>
+</div>
