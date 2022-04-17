@@ -6,7 +6,6 @@ app.use(express.static('public')); // define where static assets live
 
 // Setup Handlebars
 const exphbs = require('express-handlebars');
-const res = require('express/lib/response');
 app.engine(
   'hbs',
   exphbs.engine({
@@ -29,10 +28,6 @@ app.get('/about-diabetes', (req, res) => {
 app.get('/about-this-website', (req, res) => {
   res.render('about-this-website.hbs');
 });
-app.get('/patient-dashboard', (req, res)=>{
-  res.render('patient-dashboard.hbs');
-
-}
 
 // app.all('*', (req, res) => {
 //   // 'default' route to catch user errors
