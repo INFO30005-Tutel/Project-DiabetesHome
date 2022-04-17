@@ -12,7 +12,7 @@
 ## Database's structure
 
 <p align="center">
-  <img src="img and resources/DB structure.png"  width="650" >
+  <img src="img-and-resources/DB-structure.png"  width="650" >
 </p>
 	
 ## Notes
