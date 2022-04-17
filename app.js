@@ -35,6 +35,11 @@ app.get('/about-diabetes', (req, res) => {
 app.get('/about-this-website', (req, res) => {
   res.render('about-this-website.hbs');
 });
+// CLINICIAN
+app.get('/cli/:id1', (req, res) => {
+  res.render('clinician/dashboard.hbs', {layout: 'clinician-layout.hbs'});
+});
+
 
 // app.all('*', (req, res) => {
 //   // 'default' route to catch user errors
@@ -67,7 +72,7 @@ function stop(callback) {
   const dbURI = config.dbURI;
 
   var options = {
-    keepAlive: 1,
+    keepAlive: true,
     connectTimeoutMS: 30000,
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -85,7 +90,7 @@ function stop(callback) {
     console.log('Connected. State ✔️  ' + mongoose.connection.readyState); // state 1
   });
   mongoose.connection.on('disconnected', () => {
-    console.log('Disconnected. State ❌  ' + mongoose.connection.readyState); // state 0
+    console.log('Disconnected. State ❌ ' + mongoose.connection.readyState); // state 0
   });
 
   // Actual connection part
