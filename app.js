@@ -72,7 +72,7 @@ function stop(callback) {
   const dbURI = config.dbURI;
 
   var options = {
-    keepAlive: 1,
+    keepAlive: true,
     connectTimeoutMS: 30000,
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -90,7 +90,7 @@ function stop(callback) {
     console.log('Connected. State ✔️  ' + mongoose.connection.readyState); // state 1
   });
   mongoose.connection.on('disconnected', () => {
-    console.log('Disconnected. State ❌  ' + mongoose.connection.readyState); // state 0
+    console.log('Disconnected. State ❌ ' + mongoose.connection.readyState); // state 0
   });
 
   // Actual connection part
