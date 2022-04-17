@@ -29,7 +29,6 @@ const UserSchema = new mongoose.Schema(
     },
     clinicId: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
     },
     clinicianId: {
       type: mongoose.Schema.Types.ObjectId,
