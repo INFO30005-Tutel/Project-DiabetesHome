@@ -30,6 +30,7 @@ const UserSchema = new mongoose.Schema(
     clinicId: {
       type: mongoose.Schema.Types.ObjectId,
     },
+    // This can be null for now
     clinicianId: {
       type: mongoose.Schema.Types.ObjectId,
       required: false, // Null if clinician

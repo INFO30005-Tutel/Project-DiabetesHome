@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
 
 const AchivementSchema = new mongoose.Schema(
   {
@@ -21,6 +20,7 @@ const AchivementSchema = new mongoose.Schema(
     totalEngagement: {
       type: Number,
     }
+    // More information to be added when we start working on this
   }
 );
 

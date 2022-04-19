@@ -1,10 +1,9 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
 
 const UserDataSchema = new mongoose.Schema(
   {
     userId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId, // Id of patient only 
       required: true,
     },
     bloodData: [{

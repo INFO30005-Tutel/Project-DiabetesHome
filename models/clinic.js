@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
 
 const ClinicSchema = new mongoose.Schema(
   {
@@ -19,6 +18,7 @@ const ClinicSchema = new mongoose.Schema(
     // logo: {
     //   type: String,      
     // },
+    // 
   }
 );
 
