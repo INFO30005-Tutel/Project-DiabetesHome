@@ -29,6 +29,10 @@ app.get('/about-this-website', (req, res) => {
   res.render('about-this-website.hbs');
 });
 
+app.get('/patient-main-dashboard', (req, res)=>{
+  res.render('patient-main-dashboard.hbs');
+
+});
 // app.all('*', (req, res) => {
 //   // 'default' route to catch user errors
 //   res
