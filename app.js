@@ -27,7 +27,7 @@ const demoRouter = require('./routes/demo-router');
 app.use('/demo-management', demoRouter);
 
 app.get('/', (req, res) => {
-  res.render('index.hbs');
+  res.render('homepage.hbs');
 });
 app.get('/about-diabetes', (req, res) => {
   res.render('about-diabetes.hbs');
