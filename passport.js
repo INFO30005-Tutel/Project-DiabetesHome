@@ -1,4 +1,3 @@
-//
 var JwtStrategy = require('passport-jwt').Strategy,
   ExtractJwt = require('passport-jwt').ExtractJwt;
 
@@ -6,7 +5,6 @@ var passport = require('passport'),
   LocalStrategy = require('passport-local');
 
 const User = require('mongoose').model('User');
-//const User = require('../models/user');
 
 // Checks for valid token when performing any route (except login and registration)
 passport.use(
