@@ -46,12 +46,12 @@ const UserSchema = new mongoose.Schema(
 );
 
 // This code block is for password encryption
-// UserSchema.methods.hashPassword = function (password) {
-//   return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
-// };
+UserSchema.methods.hashPassword = function (password) {
+ return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+};
 
-// UserSchema.methods.verifyPassword = function (password) {
-//   return bcrypt.compareSync(password, this.password);
-// };
+UserSchema.methods.verifyPassword = function (password) {
+  return bcrypt.compareSync(password, this.password);
+};
 
 module.exports = mongoose.model('User', UserSchema);
