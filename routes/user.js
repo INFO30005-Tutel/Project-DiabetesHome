@@ -70,6 +70,12 @@ app.delete(
   controller.delete
 );
 
+app.get(
+  'get-patients',
+  passport.authenticate('jwt', {session: false}),
+  controller.getPatients
+)
+
 
 // Additional apis for dev's debugging
 app.get('/user', controller.findAll);

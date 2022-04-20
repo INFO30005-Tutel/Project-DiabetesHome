@@ -31,6 +31,20 @@ exports.changePassword = async (req, res) => {
   }
 };
 
+exports.getPatients = (req, res) => {
+  if(req.user.clinicianId){
+    return;
+  }
+
+  User.findAll({clinicianId: req.user.id}).then((datas) => {
+    return res.status(200).send(datas);
+  })
+  .catch((err) => {
+      console.log(err);
+      res.status(500).send({ message: 'Error accessing the database!' });
+    });
+}
+
 
 // Debugging methods
 exports.findOne = (req, res) => {
