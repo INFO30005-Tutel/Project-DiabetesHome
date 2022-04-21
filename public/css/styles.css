@@ -93,6 +93,7 @@ footer img {
   border-radius: 16px;
   border-style: none;
   background-color: white;
+  cursor: pointer;
 }
 
 .navbar button:hover {
