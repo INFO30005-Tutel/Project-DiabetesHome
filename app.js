@@ -40,6 +40,7 @@ app.get('/login' , (req, res) => {
   res.render('login.hbs');
 })
 app.post('/login', (req, res) => {
+  // TODO: Implement login functionality
   const { email, password } = req.body
   console.log("login email: ", email, ", password: ", password)
   const isPatient = true;
