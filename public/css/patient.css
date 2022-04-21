@@ -14,15 +14,13 @@ h3{
 h4{
     color:#0A57AE;
     font-weight: bold;
-    position: relative;
-    bottom: 20px;
+
 }
 .black-title{
     font-weight: bold;
 }
 form{
-    position: relative;
-    bottom: 25px;
+    margin-top: 1rem;
 }
 button{
     border-radius: 16px;
@@ -40,46 +38,48 @@ form > ul > .black-title{
 }
 .tasks div img{
     position: absolute;
-
-    right: 30px;
+    width: 15%;
+    height: 15%;
+    right: 0px;
 }
-@media(min-width: 768px){
-    h4{
-        font-size: 1.25vw;
-    }
-    h3{
-        font-size: 2.5vw;
-    }
-    .tasks{
 
-        display: flex;
+.tasks{
 
-        flex-direction: row;
-        flex-wrap: wrap;
-        flex-grow: 1;
-        gap: 48px;
+    display: flex;
 
-    }
-    .tasks > div{
-
-        background-color: #D0E0F1;
-        width: 23.125vw;
-        height: 38.24vh;
-        padding-left: 30px;
-        padding-right: 30px;
-        padding-bottom: 10px;
-        padding-top: 20px;
-        border-radius: 16px;
-        position: relative;
-
-    }
-
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    gap: 48px;
 
 }
+.tasks > div{
+
+    background-color: #D0E0F1;
+    width: 24vw;
+    height: 38.24vh;
+    padding-left: 30px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-top: 20px;
+    border-radius: 16px;
+    position: relative;
+
+}
+h4{
+    font-size: 1.25vw;
+}
+h3{
+    font-size: 2.5vw;
+}
+
+
+
+
 
 
 /*SMALL SCREEN*/
-@media(max-width: 768px){
+@media(max-width: 850px){
     html{
         font-size: 15px;
     }
@@ -126,32 +126,30 @@ form > ul > .black-title{
 
 /*the first text box */
 li:first-child input{
-    height: 4.167vh;
-    width: 6.67vw;
+    height:10%;
+    width: 20%;
     border: 1px solid #0A57AE;
     border-radius: 4px;
 }
 
 /*increases the height for note text box*/
-li:nth-of-type(2n) input{
+li:nth-of-type(3n) input{
     padding: 0;
     border: 1px solid #0A57AE;
     border-radius: 4px;
-    width: 23vw;
-    height: 12.96vh;
+    width: 95%;
+    height: 30%;
 }
 
 /*edit the third input for submission and view data*/
 li:last-child input{
-    position: relative;
-    top: 20px;
     width: 8.33vw;
     height: 3.7vh;
 
 }
 
 #submit-input{
-    margin-left: 6vw;
+    margin-left: 20%;
 }
 
 .view-data-input{
@@ -161,6 +159,9 @@ li:last-child input{
 form > ul{
     list-style: none;
     padding-left: 0;
+}
+form ul li{
+    margin-top: 1rem;
 }
 
 .small-button{

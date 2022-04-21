@@ -42,7 +42,7 @@ app.get('/cli/:id1', (req, res) => {
 
 
 app.get('/patient-main-dashboard', (req, res)=>{
-  res.render('patient-main-dashboard.hbs');
+  res.render('patient/dashboard.hbs', {layout: 'patient-layout.hbs'});
 
 });
 // app.all('*', (req, res) => {
