@@ -24,6 +24,7 @@ app.set('View engine', 'hbs'); // set Handlebars view engine
 
 // Routes
 const demoRouter = require('./routes/demo-router');
+const res = require('express/lib/response');
 app.use('/demo-management', demoRouter);
 
 app.get('/', (req, res) => {
@@ -35,6 +36,10 @@ app.get('/about-diabetes', (req, res) => {
 app.get('/about-this-website', (req, res) => {
   res.render('about-this-website.hbs');
 });
+app.get('/login' , (req, res) => {
+  res.render('login.hbs');
+})
+
 // CLINICIAN
 app.get('/cli/:id1', (req, res) => {
   res.render('clinician/dashboard.hbs', {layout: 'clinician-layout.hbs'});
