@@ -93,7 +93,7 @@ app.delete(
 );
 
 app.get(
-  'get-patients',
+  '/get-patients',
   passport.authenticate('jwt', {session: false}),
   controller.getPatients
 )

@@ -76,7 +76,7 @@ exports.getPatients = (req, res) => {
     return;
   }
 
-  User.findAll({clinicianId: req.user._id}).then((datas) => {
+  User.find({clinicianId: req.user._id}).then((datas) => {
     return res.status(200).send(datas);
   })
   .catch((err) => {

@@ -60,7 +60,7 @@ function findData(controller, req, res) {
   const id = req.params.id;
   // Return all data using findOne()
   controller
-    .findOne(id)
+    .findOne({id: id})
     .then((data) => {
       res.send(data);
     })
