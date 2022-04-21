@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const controller = require('../controllers/user-data');
+const passport = require('../passport');
 
 // Other routes from this point require authentication ===========================================
 app.get(

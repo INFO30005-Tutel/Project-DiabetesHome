@@ -14,7 +14,9 @@ app.use(express.json()); // parse application/json
 app.use(cors());
 
 const userRoute = require('./routes/user');
+const userDataRoute = require('./routes/user-data');
 app.use(userRoute);
+app.use(userDataRoute);
 
 // Setup Handlebars
 const exphbs = require('express-handlebars');

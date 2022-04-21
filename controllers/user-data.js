@@ -1,4 +1,4 @@
-// Controller to perform CRUD on user parameter
+// Controller to perform CRUD on UserData parameter
 const UserData = require('../models/user-data');
 const helper = require('./helper');
 
@@ -24,8 +24,8 @@ exports.getDataDuring = (req, res) =>{
 
 // Debugging methods
 exports.findOne = (req, res) => {
-  helper.findData(User, req, res);
+  helper.findData(UserData, req, res);
 }
 exports.findAll = (req, res) => {
-  helper.findAllData(User, req, res);
+  helper.findAllData(UserData, req, res);
 }
