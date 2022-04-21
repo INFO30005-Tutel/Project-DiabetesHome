@@ -39,6 +39,16 @@ app.get('/about-this-website', (req, res) => {
 app.get('/login' , (req, res) => {
   res.render('login.hbs');
 })
+app.post('/login', (req, res) => {
+  const { email, password } = req.body
+  console.log("login email: ", email, ", password: ", password)
+  const isPatient = true;
+  if (isPatient) {
+    res.redirect("/patient-main-dashboard")
+  } else {
+    res.redirect("/cli/1")
+  }
+})
 
 // CLINICIAN
 app.get('/cli/:id1', (req, res) => {
