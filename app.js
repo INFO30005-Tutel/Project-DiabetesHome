@@ -50,6 +50,13 @@ app.post('/login', (req, res) => {
     res.redirect("/cli/1")
   }
 })
+app.get('/sign-up', (req, res) => {
+  res.render('sign-up.hbs')
+})
+app.post('/sign-up', (req, res) => {
+  // TODO: Implement sign up functionality
+  res.redirect('/cli/1')
+})
 
 // CLINICIAN
 app.get('/cli/:id1', (req, res) => {
