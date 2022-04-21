@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 
 const controller = require('../controllers/user');
+const UserData = require('../models/user-data');
 const passport = require('../passport');
 
 const jwt = require('jsonwebtoken');
@@ -41,6 +42,22 @@ app.post(
       expiresIn: '2d',
     });
     // When register successfully --> Auto-create empty user-data
+    const userdata = new UserData({
+      userId: req.user._id,
+      bloodData: [],
+      exerciseData: [],
+      insulinData: [],
+      weightData: [],
+    });
+    // Save this user-data to database
+    await userdata
+      .save()
+      .catch((err) => {
+        console.log(err);
+        res.status(500).send({
+          message: 'Error when creating user-data!',
+        });
+    });
     // Return token
     return res.json({ token: token });
   }

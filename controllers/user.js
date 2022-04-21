@@ -1,5 +1,6 @@
 // Controller to perform CRUD on user parameter
 const User = require('../models/user');
+const UserData = require('../models/user-data');
 const helper = require('./helper');
 
 exports.update = (req, res) => {
@@ -7,8 +8,30 @@ exports.update = (req, res) => {
 }
 
 // Delete this user and also his/her user-data block
-exports.delete = (req, res) => {
-  helper.deleteData(User, req, res);
+exports.delete = async (req, res) => {
+  const id = req.params.id;
+  User
+    .findByIdAndDelete(id)
+    .then(async (data) => {
+      if (!data) {
+        // If no id found -> return error message
+        return res
+          .status(404)
+          .send({ message: 'No data found to be deleted!' });
+      }
+      // Else, continue to delete its user-data data block
+      await UserData.findByIdAndDelete({userId: id}).then((userdata)=>{
+        if(!userdata){
+          res.status(500).send({ message: 'Missing userdata for this user!' });
+        }
+      });
+      res.status(200).send({ message: 'Data is deleted successfully!' });
+    })
+    // Catching error when accessing the database
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send({ message: 'Error accessing the database!' });
+    });
 }
 
 exports.changePassword = async (req, res) => {
@@ -37,7 +60,7 @@ exports.getPatients = (req, res) => {
     return;
   }
 
-  User.findAll({clinicianId: req.user.id}).then((datas) => {
+  User.findAll({clinicianId: req.user._id}).then((datas) => {
     return res.status(200).send(datas);
   })
   .catch((err) => {
