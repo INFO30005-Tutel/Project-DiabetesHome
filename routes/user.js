@@ -40,6 +40,7 @@ app.post(
     let token = jwt.sign({ _id: req.user._id }, process.env.PASSPORT_SECRET, {
       expiresIn: '2d',
     });
+    // When register successfully --> Auto-create empty user-data
     // Return token
     return res.json({ token: token });
   }

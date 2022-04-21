@@ -6,6 +6,7 @@ exports.update = (req, res) => {
   helper.updateData(User, req, res);
 }
 
+// Delete this user and also his/her user-data block
 exports.delete = (req, res) => {
   helper.deleteData(User, req, res);
 }
