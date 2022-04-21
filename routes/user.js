@@ -70,6 +70,10 @@ app.get(
   async (req, res) => { res.send(req.user); }
 );
 
+// {
+//   oldPassword: "oldpassword",
+//   newPassword: "newpassword"
+// }
 app.post(
   '/user/change-password',
   passport.authenticate('jwt', { session: false }), 
@@ -79,7 +83,7 @@ app.post(
 app.put(
   '/user',
   passport.authenticate('jwt', { session: false }), 
-  controller.update
+  controller.updateSelf
 );
 
 app.delete(
@@ -98,6 +102,7 @@ app.get(
 // Additional apis for dev's debugging
 app.get('/user', controller.findAll);
 app.get('/user/:id', controller.findOne);
+app.put('/user/:id', controller.update);
 
 
 module.exports = app;

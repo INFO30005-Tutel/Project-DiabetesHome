@@ -73,7 +73,6 @@ function stop(callback) {
  * @param {function} callback
  */
  function initMongooseConnection(callback = () => {}) {
-   console.log("hi");
   const dbURI = config.dbURI;
 
   var options = {

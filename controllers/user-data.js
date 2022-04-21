@@ -1,5 +1,5 @@
 // Controller to perform CRUD on user parameter
-const User = require('../models/user-data');
+const UserData = require('../models/user-data');
 const helper = require('./helper');
 
 exports.update = (req, res) => {
@@ -7,7 +7,14 @@ exports.update = (req, res) => {
 }
 
 exports.getTodayData = (req, res) =>{
-
+  var toReturn;
+  UserData.find({userId: req.user._id}).then((dataBlock)=>{
+    if(!dataBlock){
+      res.status(404).send({message: "Missing user-data for this user!"});
+    }
+    // Get access to each of data elements
+    var today = new Date();
+  })
 }
 
 exports.getDataDuring = (req, res) =>{

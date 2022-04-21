@@ -3,8 +3,24 @@ const User = require('../models/user');
 const UserData = require('../models/user-data');
 const helper = require('./helper');
 
-exports.update = (req, res) => {
-  helper.updateData(User, req, res);
+exports.updateSelf = (req, res) => {
+  console.log("updateSelf");
+  // Get the id
+  const id = req.user._id;
+
+  // Case of updated sucessfully
+  User
+    .findByIdAndUpdate(id, { $set: req.body }, { new: true })
+    .then((updatedData) => {
+      res.status(200).send(updatedData);
+    })
+    // Case of error
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send({
+        message: 'Error when updating Data!',
+      });
+    });
 }
 
 // Delete this user and also his/her user-data block
@@ -76,4 +92,7 @@ exports.findOne = (req, res) => {
 }
 exports.findAll = (req, res) => {
   helper.findAllData(User, req, res);
+}
+exports.update = (req, res) => {
+  helper.updateData(User, req, res);
 }

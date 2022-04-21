@@ -34,8 +34,8 @@ passport.use(
 // Does the login and returns a token if login successfully
 passport.use(
   'login',
-  new LocalStrategy((email, password, done) => {
-    User.findOne({ email: email }, function (err, user) {
+  new LocalStrategy((username, password, done) => {
+    User.findOne({ email: username.toLowerCase() }, function (err, user) {
       if (err) {
         return done(err);
       }
@@ -73,11 +73,11 @@ passport.use(
           newUser.password = newUser.hashPassword(password);
           newUser.firstname = req.body.firstname;
           newUser.lastname = req.body.lastname;
-          newUser.dob = req.body.dob;
-          newUser.phoneNo = req.body.phoneNo;
-          newUser.clinicId = req.body.clinicId; // Null for now
+          newUser.dob = new Date(req.body.dob);
+          newUser.phoneNo = req.body.phoneNo || '';
+          newUser.clinicId = req.body.clinicId || null; // Null for now
           // TODO: Validate clinicID
-          newUser.clinicianId = req.body.clinicianId;
+          newUser.clinicianId = req.body.clinicianId || null;
           
           if(req.body.clinicianId){
               // by default patient: all fields to be activated
