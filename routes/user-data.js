@@ -16,12 +16,16 @@ app.get(
 //     to: Date,
 //     type: int [blood/exercise/insulin/weight]
 // }
-app.get(
+app.post(
   '/getDataDuring',
   passport.authenticate('jwt', { session: false }),
   controller.getDataDuring
 );
 
+// {
+//   type: int (type index),
+//   data: double/float/number
+// }
 app.put(
   '/userdata',
   passport.authenticate('jwt', { session: false }), 
