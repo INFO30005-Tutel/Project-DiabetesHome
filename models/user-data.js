@@ -14,7 +14,7 @@ const UserDataSchema = new mongoose.Schema(
         type: Date,
       }
     }],
-    exerciseData: [{
+    weightData: [{
       data: {
         type: Number,
       },
@@ -30,7 +30,7 @@ const UserDataSchema = new mongoose.Schema(
         type: Date,
       }
     }],
-    weightData: [{
+    exerciseData: [{
       data: {
         type: Number,
       },
