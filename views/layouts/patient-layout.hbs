@@ -1,0 +1,76 @@
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Diabetes Home</title>
+    <link rel='stylesheet' href='/css/styles.css' />
+    <link rel='stylesheet' href='/patient.css' />
+    <link rel='preconnect' href='https://fonts.gstatic.com' />
+    <link
+      href='https://fonts.googleapis.com/css2?family=Lexend+Mega&family=Rammetto+One&display=swap'
+      rel='stylesheet'
+    />
+    <link 
+      rel="stylesheet" 
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+  <body>
+    
+    {{! HEADER }}
+    <header class='header'>
+      <nav class='navbar'>
+        <button
+          class='sidebar-icon xxlarge'
+          style='width: 60px;'
+          onclick='sidebar_open()'
+        >&#9776;</button>
+        <a href='/'>
+          <img src='./images/logo.png' />
+        </a>
+        <div class='nav-items'>
+          <a href='about-diabetes'>About Diabetes</a>
+          <a href='about-this-website'>About This Website</a>
+          Wezheng Du
+        </div>
+      </nav>
+
+    </header>
+    
+    {{! END OF HEADER }}
+
+    {{! PAGE'S CONTENT }}
+    <main>
+      {{{body}}}
+    </main>
+    {{! END OF PAGE'S CONTENT }}
+
+    {{! FOOTER }}
+     {{! FOOTER }}
+    <footer class='footer'>
+      <div class='footer-upper'>
+        <div class='footer-logo'>
+          <img src='./images/logo.png' />
+          <p>Diabetes@Home</p>
+        </div>
+        <div class='footer-items'>
+          <a href='./about-this-website'>About Diabetes@Home</a>
+          <a href='./about-diabetes'>About Diabetes</a>
+          <a href='contact.html'>Contact us</a>
+          <a href='press-kit.html'>Press kit</a>
+        </div>
+      </div>
+      <p class='footer-copyright'>©Diabetes@Home 2021</p>
+    </footer>
+    {{! END OF FOOTER }}
+
+    <script>
+      // Functions to interact with side bar function sidebar_open() {
+      document.getElementById('sidebar').style.width = '250px'; } function
+      sidebar_close() { document.getElementById('sidebar').style.width = '0px';
+      }
+    </script>
+
+  </body>
+</html>
