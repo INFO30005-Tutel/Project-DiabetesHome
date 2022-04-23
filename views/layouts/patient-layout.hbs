@@ -11,12 +11,13 @@
       href='https://fonts.googleapis.com/css2?family=Lexend+Mega&family=Rammetto+One&display=swap'
       rel='stylesheet'
     />
-    <link 
-      rel="stylesheet" 
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+      
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    <link href="https://cdn.lineicons.com/3.0/lineicons.css" rel="stylesheet">
 
   </head>
   <body>
@@ -126,6 +127,32 @@
    })
       })
       
+
+      {{!-- // Functions to interact with side bar function sidebar_open() {
+      document.getElementById('sidebar').style.width = '250px';
+      function sidebar_close() { 
+        document.getElementById('sidebar').style.width = '0px';
+      } --}}
+      // Functions to enable datepicker
+      var selectedDate = ['14-04-2022', '19-04-2022', '20-04-2022', '21-04-2022', '21-05-2022'];
+  
+      function highlightDays(date) {
+        var fDate = $.datepicker.formatDate('dd-mm-yy', date);
+        var result = [true, ""];
+        $.each(selectedDate, function(k, d) {
+          if (fDate === d) {
+            result = [true, "highlight-blue"];
+          }
+        });
+        return result;
+      };
+  
+      $(".datepicker").datepicker({
+        prevText: '<i class="fa fa-fw fa-angle-left"></i>',
+        nextText: '<i class="fa fa-fw fa-angle-right"></i>',
+        dateFormat: "dd/MM/yy",
+        beforeShowDay: highlightDays,
+      });
     </script>
 </html>
 
