@@ -35,11 +35,11 @@ Indexes of recorded fields noted as following:
 
 - **GET:** "/get-patients": (for clinician-only) get all patients that assigned
 
-* **Note:**
+**Note:**
 
 1. Passport stricly receives credentials as "username" and "password", so we set email as `username` for convenient coding.
-2. New user-data will be create automatically when new user is created successfully.
-3. And user-data will also be deleted when a user is\*
+2. New user-data will be created automatically when new user is created successfully.
+3. And user-data will also be deleted when a user is
 
 **Debugger's routes:**
 
@@ -64,10 +64,8 @@ Indexes of recorded fields noted as following:
 
 ## Database's structure
 
-<p align="center">
-  <img src="img-and-resources/DB-structure.png"  width="650" >
-</p>
-	
+![DBstructure](img-and-resources/DB-structure.png)
+
 ## Other notes
 
 ## Others

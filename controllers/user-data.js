@@ -1,4 +1,5 @@
 // Controller to perform CRUD on UserData parameter
+const { type } = require('express/lib/response');
 const UserData = require('../models/user-data');
 const helper = require('./helper');
 
@@ -72,8 +73,49 @@ exports.getTodayData = (req, res) =>{
   });
 }
 
-exports.getDataDuring = (req, res) =>{
+exports.getDataDuring = async (req, res) =>{
+  const from = new Date(req.body.from);
+  const to = new Date(req.body.to);
+  to.setHours(23,59,59,999);
 
+  var toReturn = [];
+
+  await UserData.findOne({userId: req.user._id}).then(async (dataBlock)=>{
+    if(!dataBlock){
+      res.status(404).send({message: "Missing user-data for this user!"});
+    }
+
+    var dataArray = [];
+    switch (req.body.type) {
+      case 0:
+        dataArray = dataBlock.bloodData;
+        break;
+      case 1:
+        dataArray = dataBlock.weightData;
+        break;
+      case 2:
+        dataArray = dataBlock.insulinData;
+        break;
+      default:
+        dataArray = dataBlock.exerciseData;
+        break;
+    }
+
+    dataArray.forEach(element => {
+      if(element.inputAt > from && element.inputAt < to){
+        toReturn.push(element);
+      }
+    });
+
+    res.status(200).send(toReturn);
+  })
+  // Case of error
+  .catch((err) => {
+    console.log(err);
+    res.status(500).send({
+      message: 'Error when getting Data!',
+    });
+  });
 }
 
 
