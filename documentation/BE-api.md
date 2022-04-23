@@ -64,8 +64,10 @@ Indexes of recorded fields noted as following:
 
 ## Database's structure
 
-![DBstructure](img-and-resources/DB-structure.png)
-
+<p align="center">
+  <img src="/img-and-resources/DB-structure.png"  width="650" >
+</p>
+	
 ## Other notes
 
 ## Others
