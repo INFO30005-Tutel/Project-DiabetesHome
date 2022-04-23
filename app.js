@@ -26,6 +26,7 @@ app.set('View engine', 'hbs'); // set Handlebars view engine
 const demoRouter = require('./routes/demo-router');
 app.use('/demo-management', demoRouter);
 
+// STATIC PAGES
 app.get('/', (req, res) => {
   res.render('homepage.hbs');
 });
@@ -35,6 +36,16 @@ app.get('/about-diabetes', (req, res) => {
 app.get('/about-this-website', (req, res) => {
   res.render('about-this-website.hbs');
 });
+app.get('/staying-motivated', (req, res) => {
+  res.render('staying-motivated.hbs');
+});
+app.get('/measuring-blood-glucose', (req, res) => {
+  res.render('measuring-blood-glucose.hbs');
+});
+app.get('/press-kit', (req, res) => {
+  res.render('press-kit.hbs');
+});
+
 // CLINICIAN
 app.get('/cli/:id1', (req, res) => {
   res.render('clinician/dashboard.hbs', {layout: 'clinician-layout.hbs'});
