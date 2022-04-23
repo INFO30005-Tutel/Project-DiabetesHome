@@ -1,3 +1,5 @@
+const UserData = require('../models/user-data');
+
 // Update a data identified by the data's Id =====================================
 function updateData(controller, req, res) {
   // Get the id
@@ -71,9 +73,25 @@ function findData(controller, req, res) {
     });
 }
 
+// Retrieve data from an array
+function retrieveTodayData(dataArray){
+  var now = new Date();
+  var todayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+  var latestData = dataArray[dataArray.length-1];
+  console.log(latestData)
+  if(latestData && latestData.inputAt > todayDate){
+    return latestData.data;
+  }
+  else {
+    return 0;
+  }
+}
+
 module.exports = {
   updateData,
   deleteData,
   findAllData,
   findData,
+  retrieveTodayData,
 };

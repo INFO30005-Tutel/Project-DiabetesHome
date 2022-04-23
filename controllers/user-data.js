@@ -36,7 +36,7 @@ exports.update = async (req, res) => {
   // Now update data
   await UserData.findByIdAndUpdate(id, { $set: savedData }).then((updatedData)=>{
     if(updatedData){
-      res.status(200).send(updatedData);
+      res.status(200).send({message: "Update data successfully!"});
     }
   })
   // Case of error
@@ -49,14 +49,27 @@ exports.update = async (req, res) => {
 }
 
 exports.getTodayData = (req, res) =>{
-  var toReturn;
-  UserData.find({userId: req.user._id}).then((dataBlock)=>{
+  var toReturn = {};
+  UserData.findOne({userId: req.user._id}).then(async (dataBlock)=>{
     if(!dataBlock){
       res.status(404).send({message: "Missing user-data for this user!"});
     }
+    console.log(dataBlock);
     // Get access to each of data elements
-    var today = new Date();
+    toReturn.bloodData = await helper.retrieveTodayData(dataBlock.bloodData);
+    toReturn.weightData = await helper.retrieveTodayData(dataBlock.weightData);
+    toReturn.insulinData = await helper.retrieveTodayData(dataBlock.insulinData);
+    toReturn.exerciseData = await helper.retrieveTodayData(dataBlock.exerciseData);
+
+    res.status(200).send(toReturn);
   })
+  // Case of error
+  .catch((err) => {
+    console.log(err);
+    res.status(500).send({
+      message: 'Error when getting Data!',
+    });
+  });
 }
 
 exports.getDataDuring = (req, res) =>{
