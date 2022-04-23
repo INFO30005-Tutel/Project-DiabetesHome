@@ -1,5 +1,5 @@
-// Load envioronment variables 
-if (process.env.NODE_ENV !== 'production') { 
+// Load envioronment variables
+if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 const express = require('express');
@@ -10,6 +10,8 @@ const app = express();
 //app.use(express.json())
 app.use(express.urlencoded({ extended: true })); // replaces body-parser
 app.use(express.static('public')); // define where static assets live
+
+const loginRoute = require('./routes/login');
 
 // Setup Handlebars
 const exphbs = require('express-handlebars');
@@ -26,6 +28,7 @@ app.set('View engine', 'hbs'); // set Handlebars view engine
 const demoRouter = require('./routes/demo-router');
 const res = require('express/lib/response');
 app.use('/demo-management', demoRouter);
+app.use(loginRoute);
 
 app.get('/', (req, res) => {
   res.render('homepage.hbs');
@@ -36,39 +39,14 @@ app.get('/about-diabetes', (req, res) => {
 app.get('/about-this-website', (req, res) => {
   res.render('about-this-website.hbs');
 });
-app.get('/login' , (req, res) => {
-  res.render('login.hbs');
-})
-app.post('/login', (req, res) => {
-  // TODO: Implement login functionality
-  const { email, password } = req.body
-  console.warn("SIGN IN NOT IMPLEMENTED")
-  console.debug("login email: ", email, ", password: ", password)
-  const isPatient = true;
-  if (isPatient) {
-    res.redirect("/patient-main-dashboard")
-  } else {
-    res.redirect("/cli/1")
-  }
-})
-app.get('/sign-up', (req, res) => {
-  res.render('sign-up.hbs')
-})
-app.post('/sign-up', (req, res) => {
-  // TODO: Implement sign up functionality
-  console.warn("SIGN UP NOT IMPLEMENTED")
-  res.redirect('/cli/1')
-})
 
 // CLINICIAN
 app.get('/cli/:id1', (req, res) => {
-  res.render('clinician/dashboard.hbs', {layout: 'clinician-layout.hbs'});
+  res.render('clinician/dashboard.hbs', { layout: 'clinician-layout.hbs' });
 });
 
-
-app.get('/patient-main-dashboard', (req, res)=>{
+app.get('/patient-main-dashboard', (req, res) => {
   res.render('patient-main-dashboard.hbs');
-
 });
 // app.all('*', (req, res) => {
 //   // 'default' route to catch user errors
@@ -96,8 +74,8 @@ function stop(callback) {
  * Callback is usually used in test for done()
  * @param {function} callback
  */
- function initMongooseConnection(callback = () => {}) {
-   console.log("hi");
+function initMongooseConnection(callback = () => {}) {
+  console.log('hi');
   const dbURI = config.dbURI;
 
   var options = {
@@ -107,10 +85,10 @@ function stop(callback) {
     useUnifiedTopology: true,
   };
 
-  // Exit on error 
-  mongoose.connection.on('error', err => { 
-    console.error(err); 
-    process.exit(1) 
+  // Exit on error
+  mongoose.connection.on('error', (err) => {
+    console.error(err);
+    process.exit(1);
   });
   mongoose.connection.on('connecting', () => {
     console.log('🐌Connecting. State🐌 ' + mongoose.connection.readyState); // state 2
