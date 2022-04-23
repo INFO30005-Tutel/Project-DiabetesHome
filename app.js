@@ -14,7 +14,9 @@ app.use(express.json()); // parse application/json
 app.use(cors());
 
 const userRoute = require('./routes/user');
+// const userDataRoute = require('./routes/user-data');
 app.use(userRoute);
+// app.use(us=erDataRoute);
 
 // Setup Handlebars
 const exphbs = require('express-handlebars');
@@ -44,12 +46,13 @@ app.get('/about-this-website', (req, res) => {
 app.get('/cli/:id1', (req, res) => {
   res.render('clinician/dashboard.hbs', {layout: 'clinician-layout.hbs'});
 });
+//PATIENT's DASHBOARD
+app.get('/patient-dashboard/:id', (req, res)=>{
+
+  res.render('patient/patient-dashboard.hbs',  {layout: 'patient-layout.hbs', userID: req.params.id});
+})
 
 
-app.get('/patient-main-dashboard', (req, res)=>{
-  res.render('patient/patient-dashboard.hbs', {layout: 'patient-layout.hbs'});
-
-});
 // app.all('*', (req, res) => {
 //   // 'default' route to catch user errors
 //   res
@@ -77,7 +80,6 @@ function stop(callback) {
  * @param {function} callback
  */
  function initMongooseConnection(callback = () => {}) {
-   console.log("hi");
   const dbURI = config.dbURI;
 
   var options = {

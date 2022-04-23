@@ -70,10 +70,27 @@ function findData(controller, req, res) {
       res.status(500).send({ message: 'Error when accessing the database!' });
     });
 }
+//controller here is user data
+ function updateHealthData(controller, req, res){
+  console.log(req.body);
+  const id = req.params.id;
 
+  controller.updateOne({userId: id}, {$addToSet:req.body}).then((updatedData) => {
+    res.status(200).send(updatedData);
+  })
+  // Case of error
+  .catch((err) => {
+    console.log(err);
+    res.status(500).send({
+      message: 'Error when updating Data!',
+    });
+  });
+}
+  //Find data for a current user by their ID
 module.exports = {
   updateData,
   deleteData,
   findAllData,
   findData,
+  updateHealthData
 };

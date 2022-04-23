@@ -15,11 +15,14 @@
       rel="stylesheet" 
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
   </head>
   <body>
     
     {{! HEADER }}
-    {{!<header class='header'>
+    <header class='header'>
       <nav class='navbar'>
         <button
           class='sidebar-icon xxlarge'
@@ -27,7 +30,7 @@
           onclick='sidebar_open()'
         >&#9776;</button>
         <a href='/'>
-          <img src='./images/logo.png' />
+           <img src='.././images/logo.png' />
         </a>
         <div class='nav-items'>
           <a href='about-diabetes'>About Diabetes</a>
@@ -36,7 +39,7 @@
         </div>
       </nav>
 
-    </header>}}
+    </header>
     
     {{! END OF HEADER }}
 
@@ -48,10 +51,10 @@
 
     {{! FOOTER }}l
      {{! FOOTER }}
-    {{!<footer class='footer'>
+    <footer class='footer'>
       <div class='footer-upper'>
         <div class='footer-logo'>
-          <img src='./images/logo.png' />
+            <img src='.././images/logo.png' />
           <p>Diabetes@Home</p>
         </div>
         <div class='footer-items'>
@@ -62,15 +65,68 @@
         </div>
       </div>
       <p class='footer-copyright'>©Diabetes@Home 2021</p>
-    </footer>}}
+    </footer>
     {{! END OF FOOTER }}
-
-    <script>
-      // Functions to interact with side bar function sidebar_open() {
-      document.getElementById('sidebar').style.width = '250px'; } function
-      sidebar_close() { document.getElementById('sidebar').style.width = '0px';
-      }
-    </script>
-
   </body>
+  <script type = "text/javascript">
+    const userID = {{{userID}}};
+      $(document).ready(function(){
+    
+      $((".task")).on('click', function(){
+      console.log('add active');
+        $(".form").addClass('active');  
+        $("#overlay").addClass('active');
+        let unit =  document.getElementById("unit");
+        let formTitle = document.getElementById("form-title");
+        //change the inner HTML for a corresponding label
+        if($(this).hasClass('glucose')){
+              unit.innerHTML = "nmod/L";
+              formTitle.innerHTML = "Blood glucose"
+        }
+         if($(this).hasClass('exercise')){
+              unit.innerHTML = "steps";
+              formTitle.innerHTML = "Exercise";
+        }
+        if($(this).hasClass('weight')){
+              unit.innerHTML = "kg";
+              formTitle.innerHTML = "Weight"
+        }
+         if($(this).hasClass('insulin')){
+              unit.innerHTML = "doses";
+              formTitle.innerHTML = "Insulin doses"
+        }
+      })
+        $(".exit-button").on('click', function(){
+        $(".form").removeClass('active');
+        $("#overlay").removeClass('active')});
+        //Make POST requests after a patient fill in form
+       
+       window.addEventListener('load', ()=>{
+         //get the current URL 
+     // const URL = window.location
+      
+       const form = document.querySelector('form');
+
+       form.addEventListener('submit', (e)=>{
+           //to prevent reload
+           e.preventDefault();
+           //creates a multipart/form-data object
+           let data = new FormData(form);
+           
+           axios({
+             method  : 'post',
+             url : `/patient/data/${userID}`,
+             data : data,
+           })
+           .then((res)=>{
+             console.log(res);
+           })
+           .catch((err) => {throw err});
+       });
+   })
+      })
+      
+    </script>
 </html>
+
+
