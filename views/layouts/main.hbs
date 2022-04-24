@@ -10,6 +10,9 @@
       href='https://fonts.googleapis.com/css2?family=Lexend+Mega&family=Rammetto+One&display=swap'
       rel='stylesheet'
     />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src = '../../script/contactUs.js'></script>
   </head>
   <body>
     {{! SIDE BAR }}
@@ -68,7 +71,23 @@
     <script>
       function sidebar_open() { document.getElementById('sidebar').style.width = '250px'; } 
       function sidebar_close() { document.getElementById('sidebar').style.width = '0px'; }
-    </script>
+      //The script below is for the contact us form
+         window.addEventListener('load', ()=>{
+              const form = document.getElementById("contact-form");
+                form.addEventListener("submit", (event)=>{
+        event.preventDefault();
+        let data = new FormData(event.target);
+        let sentData = {};
+        for(let key of data.keys()){
+          sentData[key] = data.get(key);
+        }
+        //make a post request using the axios module.
+        axios.post('/contact-us', sentData).then((res)=>{
+        }).catch((error)=>{throw error});
+      })
+         })
+    
+    </script> 
 
   </body>
 </html>

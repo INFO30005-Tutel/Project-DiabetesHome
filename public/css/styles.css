@@ -391,3 +391,25 @@ h3 {
   background-color: var(--primary-color);
   color: white;
 }
+
+/*Contact Us Form Styles*/
+.contact-us-page{
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  align-items: center;
+}
+#info-for-contact{
+  display: inline-block;
+  width: max-content;
+}
+#message-for-contact{
+  display: inline-block;
+}
+#contact-submit-button{
+  display: block;
+  position: absolute;
+  
+}
+
+

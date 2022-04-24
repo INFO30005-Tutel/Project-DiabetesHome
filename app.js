@@ -6,8 +6,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const config = require('./config');
 const cors = require('cors');
+const nodemailer = require('nodemailer');
 const app = express();
-//app.use(express.json())
+app.use(express.json())
 app.use(express.urlencoded({ extended: true })); // replaces body-parser
 app.use(express.static('public')); // define where static assets live
 
@@ -21,7 +22,8 @@ app.engine(
   })
 );
 app.set('View engine', 'hbs'); // set Handlebars view engine
-
+//Setup external javascript files for Handlebars
+var contactUsJs = [{script: './script/contactUs.js'}];
 // Routes
 const demoRouter = require('./routes/demo-router');
 app.use('/demo-management', demoRouter);
@@ -45,6 +47,37 @@ app.get('/measuring-blood-glucose', (req, res) => {
 app.get('/press-kit', (req, res) => {
   res.render('press-kit.hbs');
 });
+app.get('/contact-us', (req, res)=>{
+  res.render('contact-us.hbs');
+})
+
+app.post('/contact-us', (req, res) =>{
+
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth:{
+        user: process.env.HOST_EMAIL,
+        pass: process.env.HOST_PASS
+
+    }
+  })
+    const {name, email, message} = req.body;
+    const mailOption = {
+      from: email,
+      to: process.env.HOST_EMAIL,
+      subject: `Message from ${email}`,
+      text: message
+    }
+    transporter.sendMail(mailOption, (error, data)=>{
+      if(error){
+        console.log(error);
+        res.status(500).send("Something went wrong");
+      }
+      else{
+        res.status(200).send("Email is successfully sent to DiabetesHome");
+      }
+    })
+})
 
 // CLINICIAN
 app.get('/cli/:id1', (req, res) => {
@@ -123,3 +156,9 @@ function stop(callback) {
     callback();
   });
 }
+
+
+
+
+
+
