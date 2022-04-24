@@ -1,0 +1,33 @@
+<div class="home" style="text-align: center;">
+    <h1 class="title">Sign up</h1>
+    <p>
+    Sign up as patient? Contact your clinician.
+    <br>
+    Already got an account? <a href="/login">Sign in</a>
+    </p>
+    <form action="/sign-up" method="POST">
+        <label for="clinic">Clinic Name</label>
+        <br>
+        <input type="text" name="clinic" id="clinic" required>
+        <br>
+        <label for="email">Email</label>
+        <br>
+        <input type="email" name="email" id="email" required>
+        <br>
+        <label for"phone">Phone Number</label>
+        <br>
+        <input type="tel" name="phone" id="phone" required>
+        <br>
+        <label for="password">Password</label>
+        <br>
+        <input type="password" name="password" id="password" required>
+        <br>
+        <label for="confirm-password">Confirm Password</label>
+        <br>
+        <input type="password" name="confirm-password" id="confirm-password" required>
+        <br>
+        <div class="button-wrapper" style="width: 100%;">
+            <button type="submit" class="button large-button-variant">Sign Up</button>
+        </div>
+    </form>
+</div>
