@@ -74,18 +74,18 @@
       //The script below is for the contact us form
          window.addEventListener('load', ()=>{
               const form = document.getElementById("contact-form");
-                form.addEventListener("submit", (event)=>{
-        event.preventDefault();
-        let data = new FormData(event.target);
-        let sentData = {};
-        for(let key of data.keys()){
-          sentData[key] = data.get(key);
-        }
-        //make a post request using the axios module.
-        axios.post('/contact-us', sentData).then((res)=>{
-        }).catch((error)=>{throw error});
-      })
-         })
+              form.addEventListener("submit", (event)=>{
+                event.preventDefault();
+                let data = new FormData(event.target);
+                let sentData = {};
+                for(let key of data.keys()){
+                  sentData[key] = data.get(key);
+                }
+                //make a post request using the axios module.
+                axios.post('/contact-us', sentData).then((res)=>{
+                }).catch((error)=>{throw error});
+            })
+        })
     
     </script> 
 
