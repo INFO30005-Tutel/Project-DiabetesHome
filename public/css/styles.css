@@ -201,7 +201,51 @@ footer img {
   #reverse-when-phone {
     flex-direction: column-reverse;
   }
+   /*responsive design for the contact us form*/
+   .contact-us-page{
+     height: 90vh !important;
+   }
+   .contact-us-page div:first-child{
+     width: 60%;
+   }
+   .contact-sub-title{
+    text-align: center;
+  }
+   .contact-form{
+    width: 100vw;
+    display: flex;
+    position: relative;
+    bottom: 30px;
+   }
+
+   #contact-form{
+     position: absolute;
+     left: 20%;
+   }
+
+   #info-for-contact{
+    display: block !important;
+  }
+  #message-for-contact{
+    display: block !important;
+    position:relative !important;
+    margin-left: 0 !important;
+  }
+  #info-for-contact input{
+    width: 60vw !important;
+  
+  }
+  #message-for-contact input{
+    width: 60vw !important
+  }
+  #contact-submit-button{
+    left: 30% !important;
+    width: 180px !important;
+    height:  50px !important;
+  }
 }
+
+
 
 /* sidebar items */
 .sidebar {
@@ -396,20 +440,59 @@ h3 {
 .contact-us-page{
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 1.85vh;
   align-items: center;
+  margin-bottom: 2.5rem;
+  height:70vh;
+  margin-top:2.5rem;
+}
+.contact-us-page div:first-child p{
+  margin-top: 1rem;
+}
+#contact-form{
+  position: relative;
+  right: 10rem;
+  
+}
+#contact-form div p{
+  color:#3d3d3d;
+  font-weight: bold;
 }
 #info-for-contact{
   display: inline-block;
   width: max-content;
 }
+
+#info-for-contact input{
+  width: 25vw;
+  height: 8vh;
+  color: #707070;
+}
+#message-for-contact input{
+  width: 26vw;
+  height: 23vh;
+  color: #707070;
+}
+
 #message-for-contact{
   display: inline-block;
+  width: max-content;
+  margin-left: 2.35rem;
+  position: absolute;
+  top: 1rem;
 }
+
 #contact-submit-button{
   display: block;
   position: absolute;
-  
+  left: 70%;
+  margin-top: 11vh;
+  height:5.55vh;
+  width:12.5vw;
+  background-color: #0a57ae;
+  color: #fff;
+  border-radius: 16px;
+  border-style: none;
 }
 
 
