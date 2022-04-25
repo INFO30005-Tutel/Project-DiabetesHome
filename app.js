@@ -25,9 +25,6 @@ app.engine(
 app.set('View engine', 'hbs'); // set Handlebars view engine
 
 // Routes
-const demoRouter = require('./routes/demo-router');
-const res = require('express/lib/response');
-app.use('/demo-management', demoRouter);
 app.use(loginRoute);
 
 app.get('/', (req, res) => {
@@ -44,23 +41,6 @@ app.get('/about-this-website', (req, res) => {
 app.get('/cli/:id1', (req, res) => {
   res.render('clinician/dashboard.hbs', { layout: 'clinician-layout.hbs' });
 });
-
-<<<<<<< HEAD
-
-app.get('/patient-main-dashboard', (req, res)=>{
-  res.render('patient/dashboard.hbs', {layout: 'patient-layout.hbs'});
-
-=======
-app.get('/patient-main-dashboard', (req, res) => {
-  res.render('patient-main-dashboard.hbs');
->>>>>>> 5b4c738a8f6587e3d6a8abf79196234c3064fc96
-});
-// app.all('*', (req, res) => {
-//   // 'default' route to catch user errors
-//   res
-//     .status(404)
-//     .render('error', { errorCode: '404', message: 'That route is invalid.' });
-// });
 
 // Tells the app to listen on port 3000 and logs that information to the
 app.listen(3000, () => {
