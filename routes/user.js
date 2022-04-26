@@ -105,7 +105,4 @@ app.get('/user', controller.findAll);
 app.get('/user/:id', controller.findOne);
 app.put('/user/:id', controller.update);
 
-//Allow users to update the health data for user
-app.post('/patient/data/:id', controller.updateHealthData);
-
 module.exports = app;

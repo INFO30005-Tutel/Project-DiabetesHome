@@ -11,11 +11,6 @@ app.use(express.json()); // parse application/json
 app.use(cors());
 
 const userRoute = require('./routes/user');
-<<<<<<< HEAD
-// const userDataRoute = require('./routes/user-data');
-app.use(userRoute);
-// app.use(us=erDataRoute);
-=======
 const userDataRoute = require('./routes/user-data');
 const staticPageRoute = require('./routes/static-page');
 const delivery2MockLogin = require('./routes/delivery2-mock-login');
@@ -24,7 +19,6 @@ app.use(userRoute);
 app.use(userDataRoute);
 app.use(staticPageRoute);
 app.use(delivery2MockLogin);
->>>>>>> df99b5b9835e4ad7dc0d5df22fef6b432cfe4875
 
 // Setup Handlebars
 const exphbs = require('express-handlebars');
@@ -43,21 +37,9 @@ app.get('/cli/:id1', (req, res) => {
 });
 //PATIENT's DASHBOARD
 app.get('/patient-dashboard/:id', (req, res)=>{
-
-<<<<<<< HEAD
-  res.render('patient/patient-dashboard.hbs',  {layout: 'patient-layout.hbs', userID: req.params.id});
+  res.render('patient/patient-dashboard.hbs', { layout: 'patient-layout.hbs' });
 })
 
-
-// app.all('*', (req, res) => {
-//   // 'default' route to catch user errors
-//   res
-//     .status(404)
-//     .render('error', { errorCode: '404', message: 'That route is invalid.' });
-// });
-
-=======
->>>>>>> df99b5b9835e4ad7dc0d5df22fef6b432cfe4875
 // Tells the app to listen on port 3000 and logs that information to the
 app.listen(3000, () => {
   console.log('Diabetes Home is listening on port 3000!');
@@ -77,11 +59,7 @@ function stop(callback) {
  * Callback is usually used in test for done()
  * @param {function} callback
  */
-<<<<<<< HEAD
  function initMongooseConnection(callback = () => {}) {
-=======
-function initMongooseConnection(callback = () => {}) {
->>>>>>> df99b5b9835e4ad7dc0d5df22fef6b432cfe4875
   const dbURI = config.dbURI;
 
   var options = {
@@ -120,4 +98,4 @@ function initMongooseConnection(callback = () => {}) {
     console.log('DB Name: ' + db.name);
     callback();
   });
-}
+ }

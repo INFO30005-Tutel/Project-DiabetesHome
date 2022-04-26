@@ -74,7 +74,7 @@
     {{! END OF FOOTER }}
   </body>
   <script type = "text/javascript">
-    const userID = {{{userID}}};
+    const userID = {{{userID}}}
       $(document).ready(function(){
     
       $((".task")).on('click', function(){
@@ -102,41 +102,32 @@
         }
       })
         $(".exit-button").on('click', function(){
-        $(".form").removeClass('active');
-        $("#overlay").removeClass('active')});
-        //Make POST requests after a patient fill in form
-       
-       window.addEventListener('load', ()=>{
-         //get the current URL 
-     // const URL = window.location
-      
-       const form = document.querySelector('form');
-
-       form.addEventListener('submit', (e)=>{
-           //to prevent reload
-           e.preventDefault();
-           //creates a multipart/form-data object
-           let data = new FormData(form);
-           
-           axios({
-             method  : 'post',
-             url : `/patient/data/${userID}`,
-             data : data,
-           })
-           .then((res)=>{
-             console.log(res);
-           })
-           .catch((err) => {throw err});
-       });
-   })
+          $(".form").removeClass('active');
+          $("#overlay").removeClass('active')});
       })
-      
 
-      {{!-- // Functions to interact with side bar function sidebar_open() {
+      window.addEventListener('load', ()=>{
+         form.addEventListener("submit", (event)=>{
+                event.preventDefault();
+                let data = new FormData(event.target);
+                let sentData = {};
+                for(let key of data.keys()){
+                  sentData[key] = data.get(key);
+                }
+                //make a post request using the axios module.
+                axios.post('/', sentData).then((res)=>{
+                }).catch((error)=>{throw error});
+            })
+        })
+       
+
+     {{!-- // Functions to interact with side bar function sidebar_open() {
       document.getElementById('sidebar').style.width = '250px';
       function sidebar_close() { 
         document.getElementById('sidebar').style.width = '0px';
       } --}}
+      
+
       // Functions to enable datepicker
       var selectedDate = ['14-04-2022', '19-04-2022', '20-04-2022', '21-04-2022', '21-05-2022'];
   
