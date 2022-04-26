@@ -79,8 +79,8 @@ passport.use(
           newUser.clinicianId = req.body.clinicianId || null;
 
           if (req.body.clinicianId) {
-            // by default patient: all fields to be activated
-            newUser.requiredFields = [0, 1, 2, 3];
+            // by default patient: all fields to be activated (if not provided)
+            newUser.requiredFields = req.body.requiredFields || [0, 1, 2, 3];
           }
 
           newUser.save();

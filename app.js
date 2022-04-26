@@ -13,12 +13,12 @@ app.use(cors());
 const userRoute = require('./routes/user');
 const userDataRoute = require('./routes/user-data');
 const staticPageRoute = require('./routes/static-page');
-const delivery2MockLogin = require('./routes/delivery2-mock-login');
+const delivery2Mock = require('./routes/delivery2-mock');
 
-app.use(userRoute);
-app.use(userDataRoute);
+//app.use(userRoute); // Can be uncommented temporarily to register new user when testing in delivery2
+//app.use(userDataRoute);
+app.use(delivery2Mock); // if we use mock for delivery 2, need to comment the above 2 routes
 app.use(staticPageRoute);
-app.use(delivery2MockLogin);
 
 // Setup Handlebars
 const exphbs = require('express-handlebars');
