@@ -14,11 +14,12 @@ const userRoute = require('./routes/user');
 const userDataRoute = require('./routes/user-data');
 const staticPageRoute = require('./routes/static-page');
 const delivery2MockLogin = require('./routes/delivery2-mock-login');
+const clinicianRoute = require('./routes/clinician')
 
 app.use(userRoute);
 app.use(userDataRoute);
 app.use(staticPageRoute);
-app.use(delivery2MockLogin);
+app.use(clinicianRoute)
 
 // Setup Handlebars
 const exphbs = require('express-handlebars');
@@ -30,11 +31,6 @@ app.engine(
   })
 );
 app.set('View engine', 'hbs'); // set Handlebars view engine
-
-// CLINICIAN
-app.get('/cli/:id1', (req, res) => {
-  res.render('clinician/dashboard.hbs', { layout: 'clinician-layout.hbs' });
-});
 
 // Tells the app to listen on port 3000 and logs that information to the
 app.listen(3000, () => {
