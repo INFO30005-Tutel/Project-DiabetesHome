@@ -10,6 +10,13 @@ const app = express();
 //app.use(express.json())
 app.use(express.urlencoded({ extended: true })); // replaces body-parser
 app.use(express.static('public')); // define where static assets live
+app.use(express.json()); // parse application/json
+app.use(cors());
+
+const userRoute = require('./routes/user');
+const userDataRoute = require('./routes/user-data');
+app.use(userRoute);
+app.use(userDataRoute);
 
 const loginRoute = require('./routes/login');
 
