@@ -1,22 +1,30 @@
-// Load envioronment variables 
-if (process.env.NODE_ENV !== 'production') { 
-  require('dotenv').config();
-}
+// Load envioronment variables
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const config = require('./config');
 const cors = require('cors');
 const app = express();
-//app.use(express.json())
 app.use(express.urlencoded({ extended: true })); // replaces body-parser
 app.use(express.static('public')); // define where static assets live
 app.use(express.json()); // parse application/json
 app.use(cors());
 
 const userRoute = require('./routes/user');
+<<<<<<< HEAD
 // const userDataRoute = require('./routes/user-data');
 app.use(userRoute);
 // app.use(us=erDataRoute);
+=======
+const userDataRoute = require('./routes/user-data');
+const staticPageRoute = require('./routes/static-page');
+const delivery2MockLogin = require('./routes/delivery2-mock-login');
+
+app.use(userRoute);
+app.use(userDataRoute);
+app.use(staticPageRoute);
+app.use(delivery2MockLogin);
+>>>>>>> df99b5b9835e4ad7dc0d5df22fef6b432cfe4875
 
 // Setup Handlebars
 const exphbs = require('express-handlebars');
@@ -29,26 +37,14 @@ app.engine(
 );
 app.set('View engine', 'hbs'); // set Handlebars view engine
 
-// Routes
-const demoRouter = require('./routes/demo-router');
-app.use('/demo-management', demoRouter);
-
-app.get('/', (req, res) => {
-  res.render('homepage.hbs');
-});
-app.get('/about-diabetes', (req, res) => {
-  res.render('about-diabetes.hbs');
-});
-app.get('/about-this-website', (req, res) => {
-  res.render('about-this-website.hbs');
-});
 // CLINICIAN
 app.get('/cli/:id1', (req, res) => {
-  res.render('clinician/dashboard.hbs', {layout: 'clinician-layout.hbs'});
+  res.render('clinician/dashboard.hbs', { layout: 'clinician-layout.hbs' });
 });
 //PATIENT's DASHBOARD
 app.get('/patient-dashboard/:id', (req, res)=>{
 
+<<<<<<< HEAD
   res.render('patient/patient-dashboard.hbs',  {layout: 'patient-layout.hbs', userID: req.params.id});
 })
 
@@ -60,6 +56,8 @@ app.get('/patient-dashboard/:id', (req, res)=>{
 //     .render('error', { errorCode: '404', message: 'That route is invalid.' });
 // });
 
+=======
+>>>>>>> df99b5b9835e4ad7dc0d5df22fef6b432cfe4875
 // Tells the app to listen on port 3000 and logs that information to the
 app.listen(3000, () => {
   console.log('Diabetes Home is listening on port 3000!');
@@ -79,7 +77,11 @@ function stop(callback) {
  * Callback is usually used in test for done()
  * @param {function} callback
  */
+<<<<<<< HEAD
  function initMongooseConnection(callback = () => {}) {
+=======
+function initMongooseConnection(callback = () => {}) {
+>>>>>>> df99b5b9835e4ad7dc0d5df22fef6b432cfe4875
   const dbURI = config.dbURI;
 
   var options = {
@@ -89,10 +91,10 @@ function stop(callback) {
     useUnifiedTopology: true,
   };
 
-  // Exit on error 
-  mongoose.connection.on('error', err => { 
-    console.error(err); 
-    process.exit(1) 
+  // Exit on error
+  mongoose.connection.on('error', (err) => {
+    console.error(err);
+    process.exit(1);
   });
   mongoose.connection.on('connecting', () => {
     console.log('🐌Connecting. State🐌 ' + mongoose.connection.readyState); // state 2

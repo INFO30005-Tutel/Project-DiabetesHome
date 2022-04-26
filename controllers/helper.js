@@ -1,3 +1,5 @@
+const UserData = require('../models/user-data');
+
 // Update a data identified by the data's Id =====================================
 function updateData(controller, req, res) {
   // Get the id
@@ -5,7 +7,11 @@ function updateData(controller, req, res) {
 
   // Case of updated sucessfully
   controller
-    .findByIdAndUpdate(id, { $set: req.body }, { new: true })
+    .findByIdAndUpdate(
+      id,
+      { $set: req.body },
+      { new: true, runValidators: true }
+    )
     .then((updatedData) => {
       res.status(200).send(updatedData);
     })
@@ -60,7 +66,7 @@ function findData(controller, req, res) {
   const id = req.params.id;
   // Return all data using findOne()
   controller
-    .findOne(id)
+    .findOne({ id: id })
     .then((data) => {
       res.send(data);
     })
@@ -87,10 +93,25 @@ function findData(controller, req, res) {
   });
 }
   //Find data for a current user by their ID
+// Retrieve data from an array
+function retrieveTodayData(dataArray) {
+  var now = new Date();
+  var todayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+  var latestData = dataArray[dataArray.length - 1];
+  console.log(latestData);
+  if (latestData && latestData.inputAt > todayDate) {
+    return latestData.data;
+  } else {
+    return 0;
+  }
+}
+
 module.exports = {
   updateData,
   deleteData,
   findAllData,
   findData,
+  retrieveTodayData,
   updateHealthData
 };

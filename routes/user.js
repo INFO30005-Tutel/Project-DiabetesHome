@@ -83,7 +83,7 @@ app.post(
 app.put(
   '/user',
   passport.authenticate('jwt', { session: false }), 
-  controller.update
+  controller.updateSelf
 );
 
 app.delete(
