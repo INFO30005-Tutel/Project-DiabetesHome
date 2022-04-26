@@ -7,7 +7,11 @@ function updateData(controller, req, res) {
 
   // Case of updated sucessfully
   controller
-    .findByIdAndUpdate(id, { $set: req.body }, { new: true })
+    .findByIdAndUpdate(
+      id,
+      { $set: req.body },
+      { new: true, runValidators: true }
+    )
     .then((updatedData) => {
       res.status(200).send(updatedData);
     })
@@ -62,7 +66,7 @@ function findData(controller, req, res) {
   const id = req.params.id;
   // Return all data using findOne()
   controller
-    .findOne({id: id})
+    .findOne({ id: id })
     .then((data) => {
       res.send(data);
     })
@@ -74,16 +78,15 @@ function findData(controller, req, res) {
 }
 
 // Retrieve data from an array
-function retrieveTodayData(dataArray){
+function retrieveTodayData(dataArray) {
   var now = new Date();
   var todayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
-  var latestData = dataArray[dataArray.length-1];
-  console.log(latestData)
-  if(latestData && latestData.inputAt > todayDate){
+  var latestData = dataArray[dataArray.length - 1];
+  console.log(latestData);
+  if (latestData && latestData.inputAt > todayDate) {
     return latestData.data;
-  }
-  else {
+  } else {
     return 0;
   }
 }
