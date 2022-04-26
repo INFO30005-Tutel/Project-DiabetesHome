@@ -12,11 +12,13 @@ app.use(cors());
 
 const userRoute = require('./routes/user');
 const userDataRoute = require('./routes/user-data');
-const loginRoute = require('./routes/login');
+const staticPageRoute = require('./routes/static-page');
+const delivery2MockLogin = require('./routes/delivery2-mock-login');
 
 app.use(userRoute);
 app.use(userDataRoute);
-app.use(loginRoute);
+app.use(staticPageRoute);
+app.use(delivery2MockLogin);
 
 // Setup Handlebars
 const exphbs = require('express-handlebars');
@@ -28,16 +30,6 @@ app.engine(
   })
 );
 app.set('View engine', 'hbs'); // set Handlebars view engine
-
-app.get('/', (req, res) => {
-  res.render('homepage.hbs');
-});
-app.get('/about-diabetes', (req, res) => {
-  res.render('about-diabetes.hbs');
-});
-app.get('/about-this-website', (req, res) => {
-  res.render('about-this-website.hbs');
-});
 
 // CLINICIAN
 app.get('/cli/:id1', (req, res) => {
@@ -64,7 +56,6 @@ function stop(callback) {
  * @param {function} callback
  */
 function initMongooseConnection(callback = () => {}) {
-  console.log('hi');
   const dbURI = config.dbURI;
 
   var options = {

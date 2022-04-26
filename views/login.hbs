@@ -1,21 +1,23 @@
-<div class="home" style="text-align: center;">
-    <h1 class="title">Sign in</h1>
-    <p>
-    Have not got an account? <a href="/sign-up">Sign up as Clinician</a>
-    <br>
+<div class='home' style='text-align: center;'>
+  <h1 class='title'>Sign in</h1>
+  <p>
+    Have not got an account?
+    <a href='/sign-up'>Sign up as Clinician</a>
+    <br />
     (Patient registration require contact with your clinician)
-    </p>
-    <form action="/login" method="POST">
-        <label for="email">Email</label>
-        <br>
-        <input type="email" name="email" id="email" required>
-        <br>
-        <label for="password">Password</label>
-        <br>
-        <input type="password" name="password" id="password" required>
-        <br>
-        <div class="button-wrapper" style="width: 100%;">
-            <button type="submit" class="button large-button-variant">Sign In</button>
-        </div>
-    </form>
+  </p>
+  <!-- Replace the action link to /login in delivery3 and production -->
+  <form action='/mock-login' method='POST'>
+    <label for='email'>Email</label>
+    <br />
+    <input type='email' name='email' id='email' required />
+    <br />
+    <label for='password'>Password</label>
+    <br />
+    <input type='password' name='password' id='password' required />
+    <br />
+    <div class='button-wrapper' style='width: 100%;'>
+      <button type='submit' class='button large-button-variant'>Sign In</button>
+    </div>
+  </form>
 </div>
