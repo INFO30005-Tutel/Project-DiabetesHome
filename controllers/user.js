@@ -1,6 +1,5 @@
 // Controller to perform CRUD on user parameter
 const User = require('../models/user');
-const UserData = require('../models/user-data');
 const helper = require('./helper');
 
 exports.updateSelf = (req, res) => {
@@ -89,10 +88,6 @@ exports.findOne = (req, res) => {
 };
 exports.findAll = (req, res) => {
   helper.findAllData(User, req, res);
-}
-
-exports.updateHealthData = (req, res)=>{
-  helper.updateHealthData(UserData, req, res);
 }
 
 exports.update = (req, res) => {
