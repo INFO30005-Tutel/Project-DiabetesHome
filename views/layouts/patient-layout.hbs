@@ -98,24 +98,17 @@
                 for(let key of data.keys()){
                   sentData[key] = data.get(key);
                 }
-             
-
-                //remove the form and replace the form with completed task
-                
                 const popUp = $(glucoseF).parent();
                 $(glucoseF).remove();
-               
                 const completedTask =  popUp.children("div.completed-task");
                 completedTask.addClass('active');
                 let dataGiven = completedTask.find('p.data-given');
-            
                 let noteGiven = completedTask.find("p.note-given");
                 dataGiven.text(sentData["data"]);  
-              
-                noteGiven.text(sentData["note"]) ;
-                console.log(dataGiven);
-               
+                noteGiven.text(sentData["note"]);
 
+                //change the style for the glucose icon so the task of providing blood glucose is completed.
+        
             })
 
               insulinF.addEventListener("submit", (event)=>{
@@ -127,22 +120,15 @@
                 }
              
 
-                //remove the form and replace the form with completed task
-                
+          
                 const popUp = $(insulinF).parent();
                 $(insulinF).remove();
-               
                 const completedTask =  popUp.children("div.completed-task");
                 completedTask.addClass('active');
                 let dataGiven = completedTask.find('p.data-given');
-            
                 let noteGiven = completedTask.find("p.note-given");
                 dataGiven.text(sentData["data"]);  
-              
                 noteGiven.text(sentData["note"]) ;
-                console.log(dataGiven);
-               
-
             })
 
                 exerciseF.addEventListener("submit", (event)=>{
@@ -154,7 +140,7 @@
                 }
              
 
-                //remove the form and replace the form with completed task
+            
               
                 const popUp = $(exerciseF).parent();
                 $(exerciseF).remove();
@@ -172,24 +158,15 @@
                 for(let key of data.keys()){
                   sentData[key] = data.get(key);
                 }
-             
-
-                //remove the form and replace the form with completed task
-                
+          
                 const popUp = $(weightF).parent();
                 $(weightF).remove();
-               
                 const completedTask =  popUp.children("div.completed-task");
                 completedTask.addClass('active');
                 let dataGiven = completedTask.find('p.data-given');
-            
                 let noteGiven = completedTask.find("p.note-given");
                 dataGiven.text(sentData["data"]);  
-            
                 noteGiven.text(sentData["note"]) ;
-                console.log(dataGiven);
-               
-
             })
 
 
