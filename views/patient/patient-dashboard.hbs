@@ -1,38 +1,112 @@
 <div class = "patient-dashboard">
     <div class = "icon">
         <div>
-            <span class = "task glucose" id = "glucose"><img src = "../images/Blood-glucose.png" /></span>
-            <span class = "task insulin" id = "insulin"><img src = "../images/Insulin-input.png"/></span>
+            <span class = "task" id = "glucose"><img src = "../images/Blood-glucose.png" /></span>
+            <span class = "task" id = "insulin"><img src = "../images/Insulin-input.png"/></span>
         
         </div>
         <div>
-            <span class = "task exercise" id = "exercise"><img src = "../images/Exercise-input.png" /></span>
-            <span class = "task weight" id = "weight"><img src = "../images/Weight-input.png"/></span>
+            <span class = "task" id = "exercise"><img src = "../images/Exercise-input.png" /></span>
+            <span class = "task" id = "weight"><img src = "../images/Weight-input.png"/></span>
         </div>
     </div>
-     <div class = "form">
-    
+     <div class = "pop-up" id = "glucose-popup">
             <div class ="exit-button"><i class="lni lni-close"></i></div>
-            
-            <h4 id = "form-title"></h4>
-             <form>  
+            <h3 id = "form-title">Blood glucose</h4>
+             <form id = "glucose-form">  
                     <div>
-                            <input type = "text" placeholder="Input here">
-                            <label for = "enter-data" id = "unit" name = "unit">Unit</label>
+                            <input type = "text" placeholder="Input here" name = "data">
+                            <label for = "enter-data" id = "unit" name = "unit">nmod/L</label>
                     </div>
                         <p>Notes</p>
                         <div>
-                            <input class = "note" type = "text" placeholder= "Input text here" name = "note">
-                                                                                                                                                                                                                     </li>
+                            <input class = "note" type = "text" placeholder= "Input text here" name = "note">                                                                                                                                                                                               </li>
                         </div>
                         <div>
                             <input class = "submit button" type = "submit" value = "View data">
                             <input class = "submit button" type = "submit" value = "Submit" id = "submit-button">
                         </div>
-                    
-                </form>
-               
+                </form>   
+                <div class = "completed-task">
+                            <p class = "data-given"></p>
+                            <p>Notes</p>
+                            <p class = "note-given"></p>
+                            <button>View & edit</button>
+                </div>  
         </div>
+        <div class = "pop-up" id = "insulin-popup">
+            <div class ="exit-button"><i class="lni lni-close"></i></div>
+            <h3 id = "form-title">Insulin doses</h4>
+             <form id = "insulin-form">  
+                    <div>
+                            <input type = "text" placeholder="Input here" name = "data">
+                            <label for = "enter-data" id = "unit" name = "unit">doses</label>
+                    </div>
+                        <p>Notes</p>
+                        <div>
+                            <input class = "note" type = "text" placeholder= "Input text here" name = "note">                                                                                                                                                                                               </li>
+                        </div>
+                        <div>
+                            <input class = "submit button" type = "submit" value = "View data">
+                            <input class = "submit button" type = "submit" value = "Submit" id = "submit-button">
+                        </div>
+                </form>   
+                <div class = "completed-task">
+                            <p class = "data-given"></p>
+                            <p>Notes</p>
+                            <p class = "note-given"></p>
+                            <button>View & edit</button>
+                </div>  
+        </div>
+           <div class = "pop-up" id= "exercise-popup">
+            <div class ="exit-button"><i class="lni lni-close"></i></div>
+            <h3 id = "form-title">Exercise</h4>
+             <form id = "exercise-form">  
+                    <div>
+                            <input type = "text" placeholder="Input here" name = "data">
+                            <label for = "enter-data" id = "unit" name = "unit">steps</label>
+                    </div>
+                        <p>Notes</p>
+                        <div>
+                            <input class = "note" type = "text" placeholder= "Input text here" name = "note">                                                                                                                                                                                               </li>
+                        </div>
+                        <div>
+                            <input class = "submit button" type = "submit" value = "View data">
+                            <input class = "submit button" type = "submit" value = "Submit" id = "submit-button">
+                        </div>
+                </form>   
+                <div class = "completed-task">
+                            <p class = "data-given"></p>
+                            <p>Notes</p>
+                            <p class = "note-given"></p>
+                            <button>View & edit</button>
+                </div>  
+        </div>
+           <div class = "pop-up" id = "weight-popup">
+            <div class ="exit-button"><i class="lni lni-close"></i></div>
+            <h3 id = "form-title">Weight</h4>
+             <form id = "weight-form">  
+                    <div>
+                            <input type = "text" placeholder="Input here" name = "data">
+                            <label for = "enter-data" id = "unit" name = "unit">kg</label>
+                    </div>
+                        <p>Notes</p>
+                        <div>
+                            <input class = "note" type = "text" placeholder= "Input text here" name = "note">                                                                                                                                                                                               </li>
+                        </div>
+                        <div>
+                            <input class = "submit button" type = "submit" value = "View data">
+                            <input class = "submit button" type = "submit" value = "Submit" id = "submit-button">
+                        </div>
+                </form>   
+                <div class = "completed-task">
+                            <p class = "data-given"></p>
+                            <p>Notes</p>
+                            <p class = "note-given"></p>
+                            <button>View & edit</button>
+                </div>  
+        </div>
+      
    
      <div class="datepicker"></div>
 

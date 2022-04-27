@@ -7,12 +7,11 @@
     padding-top: 2rem;
     color: #3D3D3D;
 } 
-h4{
+h3{
     
-        font-size: 2rem;
+        font-size: 24px;
         color:#0A57AE;
         font-weight: bold;
-    
 }
 
 
@@ -33,7 +32,7 @@ span{
   position: relative;
   left: 20rem;
 }
-.form{
+.pop-up{
 
     position: fixed;
     top: 50%;
@@ -49,13 +48,13 @@ span{
     z-index: 10;
 
 }
-.form.active{
+.pop-up.active{
     transform: translate(-50%, -50%) scale(1);
 }
 form{
     margin-top: 1rem;
     width: 420px;
-    height: 413px;
+    height: 380px;
 }
 
 form p{
@@ -115,6 +114,15 @@ img{
     width: 5rem;
     height: 5rem;
 }
+.completed-task{
+  opacity: 0;
+}
+.completed-task.active{
+  opacity: 1;
+}
+
+
+
 
 
 /* Inspired by information presented at https://csshint.com/javascript-calendar/ */
