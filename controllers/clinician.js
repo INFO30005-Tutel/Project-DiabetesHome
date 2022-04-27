@@ -9,9 +9,10 @@ const mockClinicianId = '6267ec216e7d25b724cac71d';
 // handle dashboard data
 const getDashboardData = async (req, res) => {
   const clinicianId = req.params.clinician_id;
-  const clinicianName = 'PLACEHOLDER_CLINICIAN_NAME';
+  const clinicianName = 'Chris Smith';
   const dateAndTime = getDateAndTime();
   console.log('clinician_id is ', clinicianId);
+  console.log(await getTableData(clinicianId));
 
   res.render('clinician/dashboard.hbs', {
     layout: 'clinician-layout.hbs',
@@ -21,6 +22,9 @@ const getDashboardData = async (req, res) => {
     time: dateAndTime.time,
   });
 };
+
+// blood, weight, insulin, stepcount
+const dangerThreshold = [3, 6, 80, 100, 0, 2, 1000, 4000];
 
 const examplePatientData = [
   {
@@ -77,11 +81,11 @@ const examplePatientData = [
       status: 'unknown',
       value: null,
     },
-    insulin_doses: {
+    insulinDoses: {
       status: 'unknown',
       value: null,
     },
-    step_counts: {
+    stepCounts: {
       status: null,
       value: 500,
     },
@@ -89,27 +93,17 @@ const examplePatientData = [
 ];
 
 const getTableData = async (clinicianId) => {
-  // Placeholder data
-  // TODO: Generate from MongoDB
-  // Lower threshold
-  // Higher threshold
-  // First, get all patients
-  // patiendList = []
-  // Then, get userdata for each patient
-  // userdataList = []
-  // Comprise that infomation into new object
-  console.log('Get and compile data');
   let patientList;
+  let patientData;
+
   try {
-    patientList = await User.find({ clinicianId: mockClinicianId });
+    patientList = await User.find({ clinicianId: mockClinicianId }).lean();
   } catch (err) {
     console.log(err);
   }
-  patientList.forEach(async (patient) => {
-    let patientData = {};
-    console.log('This patient id is ', patient._id);
+  for (patient of patientList) {
     try {
-      patientData = await UserData.findOne({ userId: patient._id });
+      patientData = await UserData.findOne({ userId: patient._id }).lean();
       patientData.bloodData = await helper.retrieveTodayData(
         patientData.bloodData
       );
@@ -125,12 +119,19 @@ const getTableData = async (clinicianId) => {
     } catch (err) {
       console.log(err);
     }
+    patient.bloodGlucose = patientData.bloodData || {};
+    if (patient.requiredFields.includes(0))
+      patient.bloodGlucose.required = true;
+    patient.weight = patientData.weightData || {};
+    if (patient.requiredFields.includes(1)) patient.weight.required = true;
+    patient.insulinDoses = patientData.insulinData || {};
+    if (patient.requiredFields.includes(2))
+      patient.insulinDoses.required = true;
+    patient.stepCounts = patientData.exerciseData || {};
+    if (patient.requiredFields.includes(3)) patient.stepCounts.required = true;
+  }
 
-    console.log('This patient userdata is ');
-    console.log(patientData);
-  });
-
-  return examplePatientData;
+  return patientList;
 };
 
 const getDateAndTime = () => {
@@ -178,38 +179,82 @@ const getDateAndTime = () => {
   };
 };
 
-const getColourByStatus = (status) => {
-  switch (status) {
-    case 'ok':
-      return '#2b7a3d';
-    case 'unknown':
-      return '#9b7509';
-    case 'warning':
-      return '#b42424';
+const getColour = (value, type) => {
+  const ok = '#2b7a3d';
+  const unknown = '#9b7509';
+  const warning = '#b42424';
+
+  switch (type) {
+    case 'bloodGlucose':
+      if (!value) return unknown;
+      else if (value < dangerThreshold[0] || value > dangerThreshold[1])
+        return warning;
+      else return ok;
+    case 'weight':
+      if (!value) return unknown;
+      else if (value < dangerThreshold[2] || value > dangerThreshold[3])
+        return warning;
+      else return ok;
+    case 'insulinDoses':
+      if (!value) return unknown;
+      else if (value < dangerThreshold[4] || value > dangerThreshold[5])
+        return warning;
+      else return ok;
+    case 'stepCounts':
+      if (!value) return unknown;
+      else if (value < dangerThreshold[4] || value > dangerThreshold[5])
+        return warning;
+      else return ok;
   }
 };
 
-const getIconByStatus = (status) => {
-  switch (status) {
-    case 'ok':
-      return 'fa-check-circle';
-    case 'unknown':
-      return 'fa-question-circle';
-    case 'warning':
-      return 'fa-exclamation-circle';
+const getIcon = (patient) => {
+  const ok = 'fa-check-circle';
+  const unknown = 'fa-question-circle';
+  const warning = 'fa-exclamation-circle';
+
+  let hasUnknown = false;
+  let hasWarning = false;
+
+  if (patient.bloodGlucose.required) {
+    let value = patient.bloodGlucose.data;
+    if (!value) hasUnknown = true;
+    else if (value < dangerThreshold[0] || value > dangerThreshold[1])
+      hasWarning = true;
   }
+  if (patient.weight.required) {
+    let value = patient.weight.data;
+    if (!value) hasUnknown = true;
+    else if (value < dangerThreshold[2] || value > dangerThreshold[3])
+      hasWarning = true;
+  }
+  if (patient.insulinDoses.required) {
+    let value = patient.insulinDoses.data;
+    if (!value) hasUnknown = true;
+    else if (value < dangerThreshold[4] || value > dangerThreshold[5])
+      hasWarning = true;
+  }
+  if (patient.stepCounts.required) {
+    let value = patient.stepCounts.data;
+    if (!value) hasUnknown = true;
+    else if (value < dangerThreshold[6] || value > dangerThreshold[7])
+      hasWarning = true;
+  }
+  if (hasWarning) return warning;
+  if (hasUnknown) return unknown;
+  return ok;
 };
 
-const statusIsUnknown = (status) => {
-  if (status === 'unknown') {
-    return status;
+const isRequired = (requiredFields, type) => {
+  if (requiredFields.includes(type)) {
+    return true;
   }
-  return null;
+  return false;
 };
 
-handlebars.registerHelper('getColourByStatus', getColourByStatus);
-handlebars.registerHelper('getIconByStatus', getIconByStatus);
-handlebars.registerHelper('statusIsUnknown', statusIsUnknown);
+handlebars.registerHelper('getColour', getColour);
+handlebars.registerHelper('getIcon', getIcon);
+handlebars.registerHelper('isRequired', isRequired);
 
 module.exports = {
   getDashboardData,

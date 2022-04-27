@@ -27,26 +27,29 @@
       </tr>
       {{#each tableData}}
         <tr>
-          <td><i class='fa {{getIconByStatus this.status}}' style='font-size:xx-large; color: {{getColourByStatus this.status}}'></i></td>
-          <td><a href='patient/{{this.id}}'>{{this.name}}</a></td>
-          {{#with this.blood_glucose}}
-            <td {{#if status}}style='color: {{getColourByStatus status}}'{{/if}}>
-              {{#if (statusIsUnknown status)}}???{{else if value}}{{value}} nmol/L{{/if}}
+          <td><i class='fa {{getIcon this}}' style='font-size:xx-large;'></i></td>
+          <td><a href='patient/{{this._id}}'>{{this.firstname}} {{this.lastname}}</a></td>
+          {{#with this.bloodGlucose}}
+            <td {{#if data}}style='color: {{getColour data 'bloodGlucose'}}'{{/if}}>
+               {{#if data}}{{data}} nmol/L{{else if required}}??? nmol/L{{/if}}
             </td>
           {{/with}}
+
           {{#with this.weight}}
-            <td {{#if status}}style='color: {{getColourByStatus status}}'{{/if}}>
-              {{#if (statusIsUnknown status)}}???{{else if value}}{{value}} kg{{/if}}
+            <td {{#if data}}style='color: {{getColour data 'weight'}}'{{/if}}>
+            {{#if required}}
+               {{#if data}}{{data}} kg{{else if required}}??? kg{{/if}}
+            {{/if}}
             </td>
           {{/with}}
-          {{#with this.insulin_doses}}
-            <td {{#if status}}style='color: {{getColourByStatus status}}'{{/if}}>
-              {{#if (statusIsUnknown status)}}???{{else if value}}{{value}} doses{{/if}}
+          {{#with this.insulinDoses}}
+              <td {{#if data}}style='color: {{getColour data 'insulinDoses'}}'{{/if}}>
+               {{#if data}}{{data}} doses{{else if required}}??? doses{{/if}}
             </td>
           {{/with}}
-          {{#with this.step_counts}}
-            <td {{#if status}}style='color: {{getColourByStatus status}}'{{/if}}>
-              {{#if (statusIsUnknown status)}}???{{else if value}}{{value}}{{/if}}
+          {{#with this.stepCounts}}
+            <td {{#if data}}style='color: {{getColour data 'stepCounts'}}'{{/if}}>
+               {{#if data}}{{data}}{{else if required}}???{{/if}}
             </td>
           {{/with}}
         </tr>
