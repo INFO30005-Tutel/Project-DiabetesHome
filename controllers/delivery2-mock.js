@@ -90,8 +90,8 @@ exports.mockGetTodayData = (req, res) => {
 
 exports.mockGetPatients = async (req, res) => {
   User.find({ clinicianId: mockClinicianId })
-    .then((datas) => {
-      return res.status(200).send(datas);
+    .then((data) => {
+      return res.status(200).send(data);
     })
     .catch((err) => {
       console.log(err);
