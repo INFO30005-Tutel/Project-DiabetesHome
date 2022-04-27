@@ -13,12 +13,14 @@ app.use(cors());
 const userRoute = require('./routes/user');
 const userDataRoute = require('./routes/user-data');
 const staticPageRoute = require('./routes/static-page');
+const clinicianRoute = require('./routes/clinician');
 const delivery2Mock = require('./routes/delivery2-mock');
 
 //app.use(userRoute); // Can be uncommented temporarily to register new user when testing in delivery2
 //app.use(userDataRoute);
 app.use(delivery2Mock); // if we use mock for delivery 2, need to comment the above 2 routes
 app.use(staticPageRoute);
+app.use(clinicianRoute);
 
 // Setup Handlebars
 const exphbs = require('express-handlebars');
@@ -30,11 +32,6 @@ app.engine(
   })
 );
 app.set('View engine', 'hbs'); // set Handlebars view engine
-
-// CLINICIAN
-app.get('/cli/:id1', (req, res) => {
-  res.render('clinician/dashboard.hbs', { layout: 'clinician-layout.hbs' });
-});
 
 // Tells the app to listen on port 3000 and logs that information to the
 app.listen(3000, () => {
