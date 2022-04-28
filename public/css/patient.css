@@ -57,7 +57,6 @@ h1{
   left: 20rem;
 }
 .pop-up{
-
     position: fixed;
     top: 50%;
     left: 50%;
@@ -79,6 +78,7 @@ form{
     margin-top: 1rem;
     width: 420px;
     height: 300px;
+    margin-bottom: 1rem;
 }
 
 form p{
@@ -159,7 +159,7 @@ img{
   }
   
   .datepicker .ui-datepicker-inline {
-    padding: 30px;
+    /* padding: 30px; */
   }
   
   .datepicker .ui-datepicker-header {
@@ -167,6 +167,12 @@ img{
     padding-bottom: 1em;
     text-transform: uppercase;
     letter-spacing: .1em;
+    background: #0A57AE;
+  }
+
+  .datepicker .ui-datepicker-title {
+    margin: 0 auto;
+    color: #fff;
   }
   
   .datepicker .ui-datepicker-header .ui-datepicker-prev,
@@ -175,9 +181,10 @@ img{
     float: left;
     cursor: pointer;
     font-size: 1.4em;
-    padding: 0 10px;
-    margin-top: -10px;
+    /* padding: 0 10px; */
+    margin-top: 10px;
     color: #CCC;
+    background: #0A57AE;
   }
   
   .datepicker .ui-datepicker-header .ui-datepicker-next {

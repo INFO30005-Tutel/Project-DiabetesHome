@@ -23,6 +23,7 @@ exports.mockSignUp = (req, res) => {
 };
 
 exports.mockUpdate = async (req, res) => {
+  console.log(req.body);
   let savedData;
   await UserData.findOne({ userId: mockPatientId }).then(async (data) => {
     if (data) {
@@ -45,7 +46,7 @@ exports.mockUpdate = async (req, res) => {
   await UserData.findByIdAndUpdate(id, { $set: savedData })
     .then((updatedData) => {
       if (updatedData) {
-        res.redirect('/patient/' + id);
+        res.redirect(`patient/${savedData.userId}`);
       }
     })
     // Case of error
