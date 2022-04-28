@@ -27,28 +27,28 @@
       </tr>
       {{#each tableData}}
         <tr>
-          <td><i class='fa {{getIcon this}}' style='font-size:xx-large;'></i></td>
+          <td><i class='fa {{getIcon this}}' style='font-size:xx-large; color: {{getIconColor this}}'></i></td>
           <td><a href='patient/{{this._id}}'>{{this.firstname}} {{this.lastname}}</a></td>
           {{#with this.bloodGlucose}}
-            <td {{#if data}}style='color: {{getColour data 'bloodGlucose'}}'{{/if}}>
+            <td {{#if data}}style='color: {{getTextColor data 'bloodGlucose'}}'{{/if}}>
                {{#if data}}{{data}} nmol/L{{else if required}}??? nmol/L{{/if}}
             </td>
           {{/with}}
 
           {{#with this.weight}}
-            <td {{#if data}}style='color: {{getColour data 'weight'}}'{{/if}}>
+            <td {{#if data}}style='color: {{getTextColor data 'weight'}}'{{/if}}>
             {{#if required}}
                {{#if data}}{{data}} kg{{else if required}}??? kg{{/if}}
             {{/if}}
             </td>
           {{/with}}
           {{#with this.insulinDoses}}
-              <td {{#if data}}style='color: {{getColour data 'insulinDoses'}}'{{/if}}>
+              <td {{#if data}}style='color: {{getTextColor data 'insulinDoses'}}'{{/if}}>
                {{#if data}}{{data}} doses{{else if required}}??? doses{{/if}}
             </td>
           {{/with}}
           {{#with this.stepCounts}}
-            <td {{#if data}}style='color: {{getColour data 'stepCounts'}}'{{/if}}>
+            <td {{#if data}}style='color: {{getTextColor data 'stepCounts'}}'{{/if}}>
                {{#if data}}{{data}}{{else if required}}???{{/if}}
             </td>
           {{/with}}
