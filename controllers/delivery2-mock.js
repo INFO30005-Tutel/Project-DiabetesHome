@@ -45,7 +45,7 @@ exports.mockUpdate = async (req, res) => {
   await UserData.findByIdAndUpdate(id, { $set: savedData })
     .then((updatedData) => {
       if (updatedData) {
-        res.status(200).send({ message: 'Update data successfully!' });
+        res.redirect('/patient/' + id);
       }
     })
     // Case of error

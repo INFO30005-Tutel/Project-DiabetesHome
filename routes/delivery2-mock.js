@@ -13,6 +13,6 @@ app.post('/sign-up', controller.mockLogin);
 //   "data": "67",
 //   "note": "I eat a lot of sugar"
 // }
-app.put('/userdata', controller.mockUpdate);
+app.post('/userdata', controller.mockUpdate);
 
 module.exports = app;
