@@ -6,15 +6,8 @@
   padding-left: 2rem;
   padding-top: 2rem;
   color: #3D3D3D;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
-<<<<<<< HEAD
-.patient-dashboard div:nth-child(even) {
-  /* margin-right: 50px; */
-}
-=======
-
->>>>>>> refs/remotes/origin/patient-dashboard
 h3{
     
   font-size: 24px;
@@ -37,7 +30,7 @@ h2{
     height: 450px;
     width: 40vw;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     font-weight: bold;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -49,9 +42,11 @@ h2{
   top: 10px;
   left: 20px;
 }
+
 .grid-container {
   display: inline-grid;
   grid-auto-flow: column;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
   gap: 20px;
 }
 
