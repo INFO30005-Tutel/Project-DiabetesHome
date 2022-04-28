@@ -57,8 +57,8 @@ exports.mockUpdate = async (req, res) => {
     });
 };
 
-exports.getTodayData = async (id) => {
-  let patientData = await UserData.findOne({ userId: patient._id }).lean();
+exports.getTodayData = async (patientId) => {
+  let patientData = await UserData.findOne({ userId: patientId }).lean();
 
   patientData.bloodData = await helper.retrieveTodayData(patientData.bloodData);
   patientData.weightData = await helper.retrieveTodayData(
@@ -74,7 +74,12 @@ exports.getTodayData = async (id) => {
   return patientData;
 };
 
-exports.getPatients = async (clinicianId) => {
+exports.getPatientsOfClinician = async (clinicianId) => {
   let patientList = User.find({ clinicianId: clinicianId }).lean();
   return patientList;
+};
+
+exports.getUser = async (userId) => {
+  let user = User.findById(userId).lean();
+  return user;
 };

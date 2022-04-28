@@ -1,7 +1,4 @@
 const handlebars = require('handlebars');
-const UserData = require('../models/user-data');
-const User = require('../models/user');
-const helper = require('./helper');
 const controller = require('./delivery2-mock');
 
 const mockPatientId = '6267f02b41463408a4205299';
@@ -12,11 +9,11 @@ const getDashboardData = async (req, res) => {
   const clinicianId = req.params.clinician_id;
   const clinicianName = 'Chris Smith';
   const dateAndTime = getDateAndTime();
-  console.log('clinician_id is ', clinicianId);
+  console.log('clinician_id is ', mockClinicianId);
 
   res.render('clinician/dashboard.hbs', {
     layout: 'clinician-layout.hbs',
-    tableData: await getTableData(clinicianId),
+    tableData: await getTableData(mockClinicianId),
     clinicianName: clinicianName,
     date: dateAndTime.date,
     time: dateAndTime.time,
@@ -31,7 +28,7 @@ const getTableData = async (clinicianId) => {
   let patientData;
 
   try {
-    patientList = await controller.getPatients(mockClinicianId);
+    patientList = await controller.getPatientsOfClinician(clinicianId);
   } catch (err) {
     console.log(err);
   }
