@@ -12,7 +12,7 @@
      <div class = "pop-up" id = "glucose-popup">
             <div class ="exit-button"><i class="lni lni-close"></i></div>
             <h3 id = "form-title">Blood glucose</h4>
-             <form id = "glucose-form">  
+             <form id = "glucose-form" method = 'POST' action = '/'>  
                     <div>
                         <input type = "text" placeholder="Input here" name = "data">
                         <label for = "enter-data" id = "unit" name = "unit">nmod/L</label>
@@ -150,6 +150,22 @@
         <p>Slide to Page 1</p>
         <p>Slide to Page 2</p>
     </div>
+        
+        <form id = "glucose-form" method = 'POST' action = '/patient/'+ {{userId}}>  
+                    <div>
+                        <input type = "text" placeholder="Input here" name = "data">
+                        <label for = "enter-data" id = "unit" name = "unit">nmod/L</label>
+                </div>
+                        <p>Notes</p>
+                        <div>
+                            <input class = "note" type = "text" placeholder= "Input text here" name = "note">                                                                                                                                                                                               </li>
+                        </div>
+                        <div>
+                            <input class = "submit button" type = "submit" value = "View data">
+                            <input class = "submit button" type = "submit" value = "Submit" id = "submit-button">
+                        </div>
+                        <input type = "hidden" name = "_method" value = "PUT">
+                </form>
     <div id = "overlay"></div>
     
   
