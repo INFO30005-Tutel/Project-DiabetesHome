@@ -68,6 +68,14 @@ h2{
   cursor: pointer;
 }
 
+.icon-disabled {
+  background-color: #3d3d3d;
+}
+
+.icon-disabled:hover {
+  background-color: #606060;
+}
+
 .icon img {
   height: 50%;
   margin-top: 25%;

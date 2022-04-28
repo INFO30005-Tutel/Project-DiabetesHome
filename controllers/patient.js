@@ -6,40 +6,35 @@ const mockClinicianId = '6267ec216e7d25b724cac71d';
 
 const patientMetadata = [
   {
-    number: 0,
     name: "Blood Glucose",
     units: "nmol/L",
     shortName: "glucose",
-    iconImage: "/images/Blood-glucose.png"
+    iconImage: "/images/blood-glucose.svg"
   },
   {
-    number: 1,
-    name: "Insulin Doses",
-    units: "doses",
-    shortName: "insulin",
-    iconImage: "/images/Insulin-input.png"
-  },
-  {
-    number: 2,
-    name: "Exercise",
-    units: "steps",
-    shortName: "exercise",
-    iconImage: "/images/Exercise-input.png"
-  },
-  {
-    number: 3,
     name: "Weight",
     units: "kg",
     shortName: "weight",
-    iconImage: "/images/Weight-input.png"
+    iconImage: "/images/weight.svg"
+  },
+  {
+    name: "Insulin Doses",
+    units: "doses",
+    shortName: "insulin",
+    iconImage: "/images/insulin.svg"
+  },
+  {
+    name: "Exercise",
+    units: "steps",
+    shortName: "exercise",
+    iconImage: "/images/exercise.svg"
   }
 ]
 
 // handle dashboard data
 const getDashboardData = async (req, res) => {
   const patientId = req.params.patient_id;
-  let patientName = 'Pat Sadguy';
-  console.log(await getPatientData(mockPatientId));
+  //console.log(await getPatientData(mockPatientId));
   res.render('patient/patient-dashboard.hbs', {
     layout: 'patient-layout.hbs',
     userId: req.params.patient_id,
@@ -51,6 +46,7 @@ const getDashboardData = async (req, res) => {
 const getPatientData = async (patientId) => {
   let patient;
   let patientUserData;
+  let patientHasData
   try {
     patient = await controller.getUser(patientId);
   } catch (err) {
@@ -61,16 +57,29 @@ const getPatientData = async (patientId) => {
   } catch (err) {
     console.log(err);
   }
+  try {
+    patientHasData = await controller.getPatientHasData(patientId);
+  } catch (err) {
+    console.log(err);
+  }
 
-  // Add `required` value to fields that patient need to update
-  patient.bloodGlucose = patientUserData.bloodData || {};
-  if (patient.requiredFields.includes(0)) patient.bloodGlucose.required = true;
-  patient.weight = patientUserData.weightData || {};
-  if (patient.requiredFields.includes(1)) patient.weight.required = true;
-  patient.insulinDoses = patientUserData.insulinData || {};
-  if (patient.requiredFields.includes(2)) patient.insulinDoses.required = true;
-  patient.stepCounts = patientUserData.exerciseData || {};
-  if (patient.requiredFields.includes(3)) patient.stepCounts.required = true;
+  patientDataList = [patientUserData.bloodData, patientUserData.weightData, patientUserData.insulinData, patientUserData.exerciseData]
+
+  patient.dataEntries = []
+
+  for (let i = 0; i < 4; i++) {
+    // Clone the metadata
+    let data = { ...patientMetadata[i]};
+    // Add the data entry
+    data.entry = patientDataList[i] || {};
+    data.required = patient.requiredFields.includes(i);
+    data.exists = patientHasData[i];
+    data.isDisabled = data.exists && !data.required;
+    // Add the entry to patient
+    if (data.exists || data.required) {
+      patient.dataEntries.push(data);
+    }
+}
 
   return patient;
 };

@@ -76,6 +76,19 @@ exports.getTodayData = async (patientId) => {
   return patientData;
 };
 
+exports.getPatientHasData = async (patientID) => {
+  let patientData = await UserData.findOne({ userId: patientID }).lean();
+
+  let hasData = [];
+
+  hasData.push(patientData.bloodData.length > 0);
+  hasData.push(patientData.weightData.length > 0);
+  hasData.push(patientData.insulinData.length > 0);
+  hasData.push(patientData.exerciseData.length > 0);
+
+  return hasData;
+}
+
 exports.getPatientsOfClinician = async (clinicianId) => {
   let patientList = User.find({ clinicianId: clinicianId }).lean();
   return patientList;

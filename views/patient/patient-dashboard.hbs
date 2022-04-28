@@ -1,19 +1,15 @@
 <div class="patient-dashboard">
     <div class="dashboard-main">
         <div class="patient-data">
-            {{#each metadata}}
+            {{#each userData.dataEntries}}
                 <div class="task">
-                    <div class="icon" id="glucose">
-                        <img src="/images/blood-glucose.svg"/>
+                    <div class="icon {{#if this.isDisabled}}icon-disabled{{/if}}" id="{{this.shortName}}" >
+                        <img src="{{this.iconImage}}"/>
                     </div>
-                    
-                    <h4>Blood Glucose</h4>
+                    <h4>{{this.name}}</h4>
                 </div>
             {{/each}}
         </div>
-    </div>
-    <div class="dashboard-side">
-        <div class="datepicker"></div>
         <div class="leaderboard">
             <h1>Top Engagement rates in the past 365 days</h1>
             <span id="second-place">2</span>
@@ -58,6 +54,9 @@
             <p>Slide to Page 1</p>
             <p>Slide to Page 2</p>
         </div>
+    </div>
+    <div class="dashboard-side">
+        <div class="datepicker"></div>
     </div>
 
     <div class="pop-up" id="glucose-popup">
