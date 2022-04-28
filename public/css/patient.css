@@ -82,8 +82,10 @@ h2{
 }
 
 .exit-button{
-  position: relative;
-  left: 20rem;
+  position: absolute;
+  right: 30px;
+  cursor: pointer;
+  color: #0A57AE;
 }
 
 .exit-button .small{
@@ -96,40 +98,55 @@ h2{
     left: 50%;
     /*Add scale to be 0 for the form to disappear*/
     transform: translate(-50%, -50%) scale(0);
+    width: min(80%, 600px);
+    height: 60vh;
     border: 4px solid #0A57AE;
     border-radius: 16px;
     background-color: #D0E0F1;
-    width: max-content;
-    height: max-content;
-    padding: 1.25rem 1rem 1.25rem 2rem;
+    padding: 30px;
     z-index: 10;
+    display: flex;
+    flex-direction: column;
 
 }
 .pop-up.active{
     transform: translate(-50%, -50%) scale(1);
 }
 
+.pop-up .button-bar {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
 /*The css style below is for form and any elements inside the form*/
 form{
-    margin-top: 1rem;
-    width: 420px;
-    height: 380px;
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+form textarea {
+  resize: none;
+  flex: 1;
 }
 
 form p{
 
   font-weight: bold;
 }
-input:first-child{
-  width: 125px;
-  height: 48px;
+
+form .small-input {
+  min-width: 150px;
+  width: 30%;
+  margin-right: 10px;
 }
+
 /*The CSS style for the note input*/
 .note{ 
-  border: 1px solid #0A57AE;
-  border-radius: 4px;
-  width: 390px !important;
-  height: 140px !important;
+  flex: 1;
 }
 /*style submit buttons*/
 .submit{
@@ -167,26 +184,13 @@ img{
 }
 /*The Completed Task will be rendered and will replace the form when the form is submitted*/
 .completed-task{
-  opacity: 0;
-  height: 1;
-  width: 0;
-}
-.completed-task.active{
-  opacity: 1;
-  height: 250px !important;
-  width: 420px !important;
-  position: relative;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 .completed-task p:nth-child(2){
   font-weight: bold;
-}
-button{
-  height: 40px;
-  width: 160px;
-  position: absolute;
-  bottom: 20px;
-  left: 30%;
-  border-radius: 16px;
 }
 
 /* Inspired by information presented at https://csshint.com/javascript-calendar/. The date picker css sytles below is for the calendar */

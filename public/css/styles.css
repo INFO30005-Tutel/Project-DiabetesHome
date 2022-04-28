@@ -402,7 +402,18 @@ form input {
   padding: 10px;
   margin-top: 20px;
   margin-bottom: 20px;
-  border-radius: 10px;
+  border-radius: 4px;
+  border-style: solid;
+  border-color: #0a57ae;
+  border-width: 1px;
+}
+
+form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 4px;
   border-style: solid;
   border-color: #0a57ae;
   border-width: 1px;
@@ -427,6 +438,13 @@ button {
   width: 240px;
   border-radius: 16px;
   font-size: 1.2em;
+}
+
+.small-button-variant {
+  height: 40px;
+  width: 160px;
+  border-radius: 16px;
+  font-size: 1em;
 }
 
 button:hover {

@@ -63,6 +63,8 @@ const getPatientData = async (patientId) => {
     console.log(err);
   }
 
+  console.log(patientUserData)
+
   patientDataList = [patientUserData.bloodData, patientUserData.weightData, patientUserData.insulinData, patientUserData.exerciseData]
 
   patient.dataEntries = []
@@ -71,12 +73,14 @@ const getPatientData = async (patientId) => {
     // Clone the metadata
     let data = { ...patientMetadata[i]};
     // Add the data entry
-    data.entry = patientDataList[i] || {};
+    data.entry = patientDataList[i];
     data.required = patient.requiredFields.includes(i);
     data.exists = patientHasData[i];
     data.isDisabled = data.exists && !data.required;
+    data.index = i;
+    console.log(data.entry)
     // Add the entry to patient
-    if (data.exists || data.required) {
+    if (/*data.exists ||*/ data.required) {
       patient.dataEntries.push(data);
     }
 }

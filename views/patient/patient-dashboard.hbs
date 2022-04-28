@@ -4,7 +4,11 @@
             {{#each userData.dataEntries}}
             <div class="task">
                 <div class="icon{{#if this.isDisabled}} icon-disabled{{/if}}" id="{{this.shortName}}">
+                    {{#unless this.entry}}
                     <img src="{{this.iconImage}}" />
+                    {{else}}
+                    <img src="/images/tick.svg" />
+                    {{/unless}}
                 </div>
                 <h4>{{this.name}}</h4>
             </div>
@@ -61,125 +65,42 @@
 
 </div>
 
-<div class="pop-up" id="glucose-popup">
-    <div class="exit-button"><i class="lni lni-close"></i></div>
-    <h3 id="form-title">Blood glucose</h4>
-        {{#unless userData.bloodGlucose}}
-        <form id="glucose-form" method='POST' action='/userdata'>
+{{!Popups}}
+{{#each userData.dataEntries}}
+<div class="pop-up" id="{{this.shortName}}-popup">
+    <div class="exit-button"><span class="lni lni-close"></span></div>
+    <h3 id="form-title">{{this.name}}</h4>
+        {{#unless this.entry}}
+        <form id="{{this.shortName}}-form" method='POST' action='/userdata'>
+            <input type='hidden' name='type' value='{{this.index}}'/>
             <div>
-                <input type="text" placeholder="Input here" name="data">
-                <label for="enter-data" id="unit" name="unit">nmod/L</label>
+                <input type="text" class="small-input" placeholder="Input here" name="data">
+                <label for="enter-data" id="unit" name="unit">{{this.units}}</label>
             </div>
-            <p>Notes</p>
-            <div>
-                <input class="note" type="text" placeholder="Input text here" name="note"> </li>
-            </div>
-            <div>
-                <input class="submit button" type="submit" value="View data">
-                <input class="submit button" type="submit" value="Submit" id="submit-button">
-            </div>
-        </form>
-        {{/unless}}
-        {{#if userData.bloodGlucose}}
-        {{#with userData.bloodGlucose}}
-        <div class="completed-task.active">
-            <p class="data-given">{{data}}</p>
-            <p>Notes</p>
-            <p class="note-given">{{note}}</p>
-            <button>View & edit</button>
-        </div>
-        {{/with}}
-        {{/if}}
-</div>
-<div class="pop-up" id="insulin-popup">
-    <div class="exit-button"><i class="lni lni-close"></i></div>
-    <h3 id="form-title">Insulin doses</h4>
-        {{#unless userData.insulinDoses}}
-        <form id="insulin-form" method='POST' action='/userdata'>
-            <input type="hidden" name="type" value="2" />
-            <div>
-                <input type="text" placeholder="Input here" name="data">
-                <label for="enter-data" id="unit" name="unit">doses</label>
-            </div>
-            <p>Notes</p>
-            <div>
-                <input class="note" type="text" placeholder="Input text here" name="note"> </li>
-            </div>
-            <div>
-                <input class="submit button" type="submit" value="View data">
-                <input class="submit button" type="submit" value="Submit" id="submit-button">
+            <h4>Notes</h4>
+            <textarea class="note" type="text" placeholder="Input text here" name="note"></textarea>
+            <div class="button-bar">
+                <a href="{{this.shortName}}"><button class="small-button-variant" type="button">View data</button></a>
+                <button class="small-button-variant" type="submit" id="submit-button">Submit</button>
             </div>
         </form>
-        {{/unless}}
-        {{#if userData.insulinDoses}}
-        {{#with userData.insulinDoses}}
-        <div class="completed-task.active">
+        {{else}}
+        {{#with this.entry}}
+        <div class="completed-task">
             <p class="data-given">{{data}}</p>
             <p>Notes</p>
-            <p class="note-given">{{note}}</p>
-            <button>View & edit</button>
+            <div class="note">
+                <p class="note-given">{{note}}</p>
+            </div>
+            <div class="button-bar">
+                <a href="{{this.shortName}}"><button class="small-button-variant" type="button">View & edit</button></a>
+            </div>
+            
         </div>
         {{/with}}
-        {{/if}}
-</div>
-<div class="pop-up" id="exercise-popup">
-    <div class="exit-button"><i class="lni lni-close"></i></div>
-    <h3 id="form-title">Exercise</h4>
-        {{#unless userData.stepCounts}}
-        <form id="exercise-form" method='POST' action='/userdata'>
-            <div>
-                <input type="text" placeholder="Input here" name="data">
-                <label for="enter-data" id="unit" name="unit">steps</label>
-            </div>
-            <p>Notes</p>
-            <div>
-                <input class="note" type="text" placeholder="Input text here" name="note"> </li>
-            </div>
-            <div>
-                <input class="submit button" type="submit" value="View data">
-                <input class="submit button" type="submit" value="Submit" id="submit-button">
-            </div>
-        </form>
         {{/unless}}
-        {{#if userData.stepCounts}}
-        {{#with userData.stepCounts}}
-        <div class="completed-task.active">
-            <p class="data-given">{{data}}</p>
-            <p>Notes</p>
-            <p class="note-given">{{note}}</p>
-            <button>View & edit</button>
-        </div>
-        {{/with}}
-        {{/if}}
+
 </div>
-<div class="pop-up" id="weight-popup">
-    <div class="exit-button"><i class="lni lni-close"></i></div>
-    <h3 id="form-title">Weight</h4>
-        {{#unless userData.weight}}
-        <form id="weight-form" method='POST' action='/userdata'>
-            <div>
-                <input type="text" placeholder="Input here" name="data">
-                <label for="enter-data" id="unit" name="unit">kg</label>
-            </div>
-            <p>Notes</p>
-            <div>
-                <input class="note" type="text" placeholder="Input text here" name="note"> </li>
-            </div>
-            <div>
-                <input class="submit button" type="submit" value="View data">
-                <input class="submit button" type="submit" value="Submit" id="submit-button">
-            </div>
-        </form>
-        {{/unless}}
-        {{#if userData.weight}}
-        {{#with userData.weight}}
-        <div class="completed-task.active">
-            <p class="data-given">{{data}}</p>
-            <p>Notes</p>
-            <p class="note-given">{{note}}</p>
-            <button>View & edit</button>
-        </div>
-        {{/with}}
-        {{/if}}
-</div>
+{{/each}}
+
 <div id="overlay"></div>
