@@ -1,13 +1,20 @@
 .patient-dashboard{
-  display: flex; 
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 48px;
   font-size: 20px;
-  padding-left: 2rem;
-  padding-top: 2rem;
+  max-width: 1428px;
   color: #3D3D3D;
-  justify-content: space-between;
 }
+
+.dashboard-main {
+  grid-column: 1/8;
+}
+
+.dashboard-side {
+  grid-column: 9/13;
+}
+
 .patient-dashboard div:nth-child(even) {
   margin-right: 50px;
 }
