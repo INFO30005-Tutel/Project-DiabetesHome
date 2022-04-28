@@ -4,6 +4,8 @@
   gap: 48px;
   font-size: 20px;
   max-width: 1428px;
+  margin-left: auto;
+  margin-right: auto;
   color: #3D3D3D;
 }
 
@@ -13,10 +15,6 @@
 
 .dashboard-side {
   grid-column: 9/13;
-}
-
-.patient-dashboard div:nth-child(even) {
-  margin-right: 50px;
 }
 
 h3{
@@ -37,39 +35,21 @@ h2{
   font-size: 30px;
 }
 /*CSS Styles for clickable icons*/
-.icon{
-    height: 450px;
-    width: 40vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    font-weight: bold;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    position: relative;
-}
-.icon h2{
-  position: absolute;
-  top: 10px;
-  left: 20px;
-}
-.icon div{
+.patient-data{
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  /*box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;*/
+  position: relative;
 }
+
 .task{
-    display: inline-block;
-    margin-top: 10px;
-  
-}
-
-.task img{
-  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
-  border-radius: 50%;
-}
-
-.task > p{
+  display: flex;
+  flex-direction: column;
   text-align: center;
+  width: 20%;
+  height: auto;
 }
 
 .exit-button{

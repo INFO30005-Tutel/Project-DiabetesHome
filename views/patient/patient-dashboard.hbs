@@ -1,63 +1,60 @@
-<<<<<<< HEAD
 <div class="patient-dashboard">
     <div class="dashboard-main">
-        <div class="icon">
-            <div>
-                <span class="task" id="glucose"><img src="../images/Blood-glucose.png" /></span>
-                <span class="task" id="insulin"><img src="../images/Insulin-input.png" /></span>
-            </div>
-            <div>
-                <span class="task" id="exercise"><img src="../images/Exercise-input.png" /></span>
-                <span class="task" id="weight"><img src="../images/Weight-input.png" /></span>
-            </div>
+        <div class="patient-data">
+            {{#each metadata}}
+                <div class="task">
+                    <img src="/images/Blood-glucose.png" width="100%" height="100%" id="glucose"/>
+                    <p>Blood Glucose</p>
+                </div>
+            {{/each}}
         </div>
     </div>
     <div class="dashboard-side">
-            <div class="datepicker"></div>
-    <div class="leaderboard">
-        <h1>Top Engagement rates in the past 365 days</h1>
-        <span id="second-place">2</span>
-        <span id="first-place">1</span>
-        <span id="third-place">3</span>
-    </div>
-    <div class="test"></div>
-    <div class="ranking">
-        <p>Your rank</p>
-        <table id="ranking-table">
-            <tr>
-                <th>Rank</th>
-                <th>Username</th>
-                <th>Engagement Rate %</th>
-            </tr>
-            <tr>
-                <td>481</td>
-                <td>Username</td>
-                <td>50%</td>
-            </tr>
-            <tr>
-                <td>481</td>
-                <td>Username</td>
-                <td>50%</td>
-            </tr>
-            <tr>
-                <td>481</td>
-                <td>Username</td>
-                <td>50%</td>
-            </tr>
-            <tr>
-                <td>481</td>
-                <td>Username</td>
-                <td>50%</td>
-            </tr>
-            <tr>
-                <td>481</td>
-                <td>Username</td>
-                <td>50%</td>
-            </tr>
-        </table>
-        <p>Slide to Page 1</p>
-        <p>Slide to Page 2</p>
-    </div>
+        <div class="datepicker"></div>
+        <div class="leaderboard">
+            <h1>Top Engagement rates in the past 365 days</h1>
+            <span id="second-place">2</span>
+            <span id="first-place">1</span>
+            <span id="third-place">3</span>
+        </div>
+        <div class="test"></div>
+        <div class="ranking">
+            <p>Your rank</p>
+            <table id="ranking-table">
+                <tr>
+                    <th>Rank</th>
+                    <th>Username</th>
+                    <th>Engagement Rate %</th>
+                </tr>
+                <tr>
+                    <td>481</td>
+                    <td>Username</td>
+                    <td>50%</td>
+                </tr>
+                <tr>
+                    <td>481</td>
+                    <td>Username</td>
+                    <td>50%</td>
+                </tr>
+                <tr>
+                    <td>481</td>
+                    <td>Username</td>
+                    <td>50%</td>
+                </tr>
+                <tr>
+                    <td>481</td>
+                    <td>Username</td>
+                    <td>50%</td>
+                </tr>
+                <tr>
+                    <td>481</td>
+                    <td>Username</td>
+                    <td>50%</td>
+                </tr>
+            </table>
+            <p>Slide to Page 1</p>
+            <p>Slide to Page 2</p>
+        </div>
     </div>
 
     <div class="pop-up" id="glucose-popup">
@@ -182,192 +179,5 @@
             {{/if}}
     </div>
     <div id="overlay"></div>
-=======
-<div class='patient-dashboard'>
 
-	<div class='icon'>
-		<h2>Today's tasks</h2>
-		<div>
-			<span class='task' id='glucose'><img src='../images/Blood-glucose.png' />
-				<p>Blood Glucose</p>
-			</span>
-			<span class='task' id='insulin'><img src='../images/Insulin-input.png' />
-				<p>Insulin Doses</p>
-			</span>
-
-			<span class='task' id='exercise'><img src='../images/Exercise-input.png' />
-				<p>Exercise</p>
-			</span>
-			<span class='task' id='weight'><img src='../images/Weight-input.png' />
-				<p>Weight</p>
-			</span>
-		</div>
-	</div>
-	<div class='pop-up' id='glucose-popup'>
-		<div class='exit-button'><i class='lni lni-close'></i></div>
-		<h3 id='form-title'>Blood glucose</h3>
-		{{#unless userData.bloodGlucose}}
-		<form id='glucose-form'>
-			<input type='hidden' name='type' value='0' />
-			<div>
-				<input type='text' placeholder='Input here' name='data' required />
-				<label for='enter-data' id='unit' name='unit'>nmod/L</label>
-			</div>
-			<p>Notes</p>
-			<div>
-				<input class='note' type='text' placeholder='Input text here' name='note' required />
-			</div>
-			<div>
-				<input class='submit button' type='submit' value='View data' />
-				<input class='submit button' type='submit' value='Submit' id='submit-button' />
-			</div>
-		</form>
-		{{/unless}}
-		{{#if userData.bloodGlucose}}
-		{{#with userData.bloodGlucose}}
-		<div class='completed-task active'>
-			<p class='data-given'>{{data}}</p>
-			<p>Notes</p>
-			<p class='note-given'>{{note}}</p>
-			<button>View & edit</button>
-		</div>
-		{{/with}}
-		{{/if}}
-	</div>
-	<div class='pop-up' id='insulin-popup'>
-		<div class='exit-button'><i class='lni lni-close'></i></div>
-		<h3 id='form-title'>Insulin doses</h3>
-		{{#unless userData.insulinDoses}}
-		<form id='insulin-form' method='POST' action='/userdata'>
-			<input type='hidden' name='type' value='2' />
-			<div>
-				<input type='text' placeholder='Input here' name='data' />
-				<label for='enter-data' id='unit' name='unit'>doses</label>
-			</div>
-			<p>Notes</p>
-			<div>
-				<input class='note' type='text' placeholder='Input text here' name='note' />
-			</div>
-			<div>
-				<input class='submit button' type='submit' value='View data' />
-				<input class='submit button' type='submit' value='Submit' id='submit-button' />
-			</div>
-		</form>
-		{{/unless}}
-		{{#if userData.insulinDoses}}
-		{{#with userData.insulinDoses}}
-		<div class='completed-task active'>
-			<p class='data-given'>{{data}}</p>
-			<p>Notes</p>
-			<p class='note-given'>{{note}}</p>
-			<button>View & edit</button>
-		</div>
-		{{/with}}
-		{{/if}}
-	</div>
-	<div class='pop-up' id='exercise-popup'>
-		<div class='exit-button'><i class='lni lni-close'></i></div>
-		<h3 id='form-title'>Exercise</h3>
-		{{#unless userData.stepCounts}}
-		<form id='exercise-form' method='POST' action='/userdata'>
-			<div>
-				<input type='text' placeholder='Input here' name='data' />
-				<label for='enter-data' id='unit' name='unit'>steps</label>
-			</div>
-			<p>Notes</p>
-			<div>
-				<input class='note' type='text' placeholder='Input text here' name='note' />
-			</div>
-			<div>
-				<input class='submit button' type='submit' value='View data' />
-				<input class='submit button' type='submit' value='Submit' id='submit-button' />
-			</div>
-		</form>
-		{{/unless}}
-		{{#if userData.stepCounts}}
-		{{#with userData.stepCounts}}
-		<div class='completed-task active'>
-			<p class='data-given'>{{data}}</p>
-			<p>Notes</p>
-			<p class='note-given'>{{note}}</p>
-			<button>View & edit</button>
-		</div>
-		{{/with}}
-		{{/if}}
-	</div>
-	<div class='pop-up' id='weight-popup'>
-		<div class='exit-button'><i class='lni lni-close'></i></div>
-		<h3 id='form-title'>Weight</h3>
-		{{#unless userData.weight}}
-		<form id='weight-form' method='POST' action='/userdata'>
-			<div>
-				<input type='text' placeholder='Input here' name='data' />
-				<label for='enter-data' id='unit' name='unit'>kg</label>
-			</div>
-			<p>Notes</p>
-			<div>
-				<input class='note' type='text' placeholder='Input text here' name='note' />
-			</div>
-			<div>
-				<input class='submit button' type='submit' value='View data' />
-				<input class='submit button' type='submit' value='Submit' id='submit-button' />
-			</div>
-		</form>
-		{{/unless}}
-		{{#if userData.weight}}
-		{{#with userData.weight}}
-		<div class='completed-task active'>
-			<p class='data-given'>{{data}}</p>
-			<p>Notes</p>
-			<p class='note-given'>{{note}}</p>
-			<button>View & edit</button>
-		</div>
-		{{/with}}
-		{{/if}}
-	</div>
-	<div class='datepicker'></div>
-	<div class='leaderboard'>
-		<h1>Top Engagement rates in the past 365 days</h1>
-		<span id='second-place'>2</span>
-		<span id='first-place'>1</span>
-		<span id='third-place'>3</span>
-	</div>
-	<div class='test'></div>
-	<div class='ranking'>
-		<p>Your rank</p>
-		<table id='ranking-table'>
-			<tr>
-				<th>Rank</th>
-				<th>Username</th>
-				<th>Engagement Rate %</th>
-			</tr>
-			<tr>
-				<td>481</td>
-				<td>Username</td>
-				<td>50%</td>
-			</tr>
-			<tr>
-				<td>481</td>
-				<td>Username</td>
-				<td>50%</td>
-			</tr>
-			<tr>
-				<td>481</td>
-				<td>Username</td>
-				<td>50%</td>
-			</tr>
-			<tr>
-				<td>481</td>
-				<td>Username</td>
-				<td>50%</td>
-			</tr>
-			<tr>
-				<td>481</td>
-				<td>Username</td>
-				<td>50%</td>
-			</tr>
-		</table>
-	</div>
-	<div id='overlay'></div>
->>>>>>> dfddfc2ae2514c331c17cd67a8d81da5e6d6bf9c
 </div>
