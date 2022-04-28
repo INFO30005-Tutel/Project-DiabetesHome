@@ -9,10 +9,10 @@ const getDashboardData = async (req, res) => {
   const patientId = req.params.patient_id;
   let patientName = 'Pat Sadguy';
   console.log(await getPatientData(mockPatientId));
-  res.render('patient/patient-dashboard.hbs', { 
-    layout: 'patient-layout.hbs' , 
-    userId: req.params.patient_id, 
-    userData: await getPatientData(patientId),
+  res.render('patient/patient-dashboard.hbs', {
+    layout: 'patient-layout.hbs',
+    userId: req.params.patient_id,
+    userData: await getPatientData(mockPatientId),
   });
 };
 
