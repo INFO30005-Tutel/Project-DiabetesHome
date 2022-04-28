@@ -14,6 +14,7 @@
      <div class = "pop-up" id = "glucose-popup">
             <div class ="exit-button"><i class="lni lni-close"></i></div>
             <h3 id = "form-title">Blood glucose</h4>
+            {{#unless userData.bloodGlucose}}
              <form id = "glucose-form">  
                 <input type = 'hidden' name = 'type' value ='0'/>
                     <div>
