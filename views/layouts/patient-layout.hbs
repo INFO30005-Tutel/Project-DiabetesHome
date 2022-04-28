@@ -74,8 +74,6 @@
     {{! END OF FOOTER }}
   </body>
   <script type = "text/javascript">
-  
-    const userID = {{{userID}}}
       $(document).ready(function(){
       $((".task")).on('click', function(){
         const nameOfPopUp = '#'+ $(this).attr('id') + '-popup' ;
@@ -91,44 +89,42 @@
       const weightF = document.getElementById("weight-form");
 
     
-            /*glucoseF.addEventListener("submit", (event)=>{
+      glucoseF.addEventListener("submit", (event)=>{
                 event.preventDefault();
                 let data = new FormData(event.target);
                 let sentData = {};
                 for(let key of data.keys()){
                   sentData[key] = data.get(key);
                 }
+                sentData['type'] = 0;
+                axios.post('/userdata', sentData);
                 const popUp = $(glucoseF).parent();
                 $(glucoseF).remove();
                 const completedTask =  popUp.children("div.completed-task");
-                completedTask.addClass('active');
-                let dataGiven = completedTask.find('p.data-given');
-                let noteGiven = completedTask.find("p.note-given");
+                $(completedTask).addClass('active');
+                let dataGiven = $(completedTask).find('p.data-given');
+                let noteGiven = $(completedTask).find("p.note-given");
                 dataGiven.text(sentData["data"]);  
                 noteGiven.text(sentData["note"]);
+            })
 
-                //change the style for the glucose icon so the task of providing blood glucose is completed.
-        
-            })*/
-
-              /*insulinF.addEventListener("submit", (event)=>{
+        insulinF.addEventListener("submit", (event)=>{
                 event.preventDefault();
                 let data = new FormData(event.target);
                 let sentData = {};
                 for(let key of data.keys()){
                   sentData[key] = data.get(key);
                 }
-             
-
-          
+                sentData['type'] = 2;
+                axios.post('/userdata', sentData);
                 const popUp = $(insulinF).parent();
                 $(insulinF).remove();
                 const completedTask =  popUp.children("div.completed-task");
-                completedTask.addClass('active');
-                let dataGiven = completedTask.find('p.data-given');
-                let noteGiven = completedTask.find("p.note-given");
+                $(completedTask).addClass('active');
+                let dataGiven = $(completedTask).find('p.data-given');
+                let noteGiven = $(completedTask).find("p.note-given");
                 dataGiven.text(sentData["data"]);  
-                noteGiven.text(sentData["note"]) ;
+                noteGiven.text(sentData["note"]);
             })
 
                 exerciseF.addEventListener("submit", (event)=>{
@@ -138,16 +134,14 @@
                 for(let key of data.keys()){
                   sentData[key] = data.get(key);
                 }
-             
-
-            
-              
+                sentData['type'] = 3;
+                axios.post('/userdata', sentData);
                 const popUp = $(exerciseF).parent();
                 $(exerciseF).remove();
                 const completedTask =  popUp.children("div.completed-task");
                 completedTask.addClass('active');
-                let dataGiven = completedTask.find('p.data-given');
-                let noteGiven = completedTask.find("p.note-given");
+                let dataGiven = $(completedTask).find('p.data-given');
+                let noteGiven = $(completedTask).find("p.note-given");
                 dataGiven.text(sentData["data"]);  
                 noteGiven.text(sentData["note"]) ;
             })
@@ -158,28 +152,18 @@
                 for(let key of data.keys()){
                   sentData[key] = data.get(key);
                 }
-          
+                sentData['type'] = 1;
+                axios.post('/userdata', sentData);
                 const popUp = $(weightF).parent();
                 $(weightF).remove();
                 const completedTask =  popUp.children("div.completed-task");
-                completedTask.addClass('active');
-                let dataGiven = completedTask.find('p.data-given');
-                let noteGiven = completedTask.find("p.note-given");
+                $(completedTask).addClass('active');
+                let dataGiven = $(completedTask).find('p.data-given');
+                let noteGiven = $(completedTask).find("p.note-given");
                 dataGiven.text(sentData["data"]);  
                 noteGiven.text(sentData["note"]) ;
-            })*/
-
-
-
+            })
         })
-      
-        
-      
-      
-      
-    
-       
-
      {{!-- // Functions to interact with side bar function sidebar_open() {
       document.getElementById('sidebar').style.width = '250px';
       function sidebar_close() { 

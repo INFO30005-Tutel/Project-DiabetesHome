@@ -6,8 +6,11 @@
   padding-left: 2rem;
   padding-top: 2rem;
   color: #3D3D3D;
-  gap: 100px;
-} 
+  justify-content: space-between;
+}
+.patient-dashboard div:nth-child(even) {
+  margin-right: 50px;
+}
 h3{
     
   font-size: 24px;
@@ -19,19 +22,39 @@ h1{
   color:#0A57AE;
   font-weight: bold;
 }
-
-/*Styles for icon*/
+h2{
+  font-size: 24px;
+  color:#0A57AE;
+  font-weight: bold;
+  font-size: 30px;
+}
+/*CSS Styles for clickable icons*/
 .icon{
-    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
-    height: 300px;
+    height: 450px;
     width: 30vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-weight: bold;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    position: relative;
+}
+.icon h2{
+  position: absolute;
+  top: 10px;
+  left: 20px;
 }
 .task{
     display: inline-block;
+    margin-top: 10px;
+}
+.task div img{
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+  border-radius: 50%;
+}
+.task > p{
+  text-align: center;
 }
 #exercise{
   margin-right: 20px;
@@ -46,12 +69,6 @@ h1{
   margin-left: 20px;
 }
 
-
-
-/*this style is when input is given*/
-.task.active{
-  box-shadow: #6aa84f;
-}
 .exit-button{
   position: relative;
   left: 20rem;
@@ -74,11 +91,12 @@ h1{
 .pop-up.active{
     transform: translate(-50%, -50%) scale(1);
 }
+
+/*The css style below is for form and any elements inside the form*/
 form{
     margin-top: 1rem;
     width: 420px;
-    height: 300px;
-    margin-bottom: 1rem;
+    height: 380px;
 }
 
 form p{
@@ -89,21 +107,16 @@ input:first-child{
   width: 125px;
   height: 48px;
 }
-
+/*The CSS style for the note input*/
 .note{ 
   border: 1px solid #0A57AE;
   border-radius: 4px;
-
   width: 390px !important;
   height: 140px !important;
 }
-
-
-
 /*style submit buttons*/
 .submit{
     background-color: #0A57AE;
-
     border-radius: 16px;
     width: 160px !important;
     height: 40px !important;
@@ -112,11 +125,9 @@ input:first-child{
 
     
 }
-
 .submit:last-child{
     margin-left: 3rem;
 }
-
 #overlay{
     position: fixed;
     opacity: 0;
@@ -136,18 +147,29 @@ img{
     width: 5rem;
     height: 5rem;
 }
+/*The Completed Task will be rendered and will replace the form when the form is submitted*/
 .completed-task{
   opacity: 0;
+  height: 1;
+  width: 0;
 }
 .completed-task.active{
   opacity: 1;
-  width: 420px;
-  height: 380px;
+  height: 250px !important;
+  width: 420px !important;
+  position: relative;
 }
-
-
-
-
+.completed-task p:nth-child(2){
+  font-weight: bold;
+}
+button{
+  height: 40px;
+  width: 160px;
+  position: absolute;
+  bottom: 20px;
+  left: 30%;
+  border-radius: 16px;
+}
 
 /* Inspired by information presented at https://csshint.com/javascript-calendar/. The date picker css sytles below is for the calendar */
   .datepicker {
@@ -164,7 +186,7 @@ img{
   
   .datepicker .ui-datepicker-header {
     text-align: center;
-    padding-bottom: 1em;
+    padding-bottom: 2em;
     text-transform: uppercase;
     letter-spacing: .1em;
     background: #0A57AE;
@@ -233,6 +255,7 @@ img{
 .leaderboard{
   width: 70%;
   position: relative;
+  top: 50px;
 }
 h1{
   margin-bottom: 20px;
@@ -268,16 +291,21 @@ h1{
 }
 
 /*The css below is for the ranking table*/
+.ranking{
+  position: relative;
+  top: 100px;
+  height: 80vh;
+}
 #ranking-table{
   border-collapse: collapse;
   table-layout: auto;
-  width: 100%; 
+  width: 100%;
 }
 #ranking-table td, #ranking-table th{
   text-align: center;
 }
 #ranking-table td{
-  padding: 30px 60px 30px 60px;
+  padding: 30px 40px 30px 40px;
 }
 #ranking-table th{
   border-bottom: 1px solid #D0E0F1;
@@ -296,11 +324,13 @@ h1{
 /*for medium screen*/
 @media only screen and (max-width: 1000px) and (min-width: 850px){
   .icon{
-    width: 50vw;
+    width: 40vw;
   
   }
+
   .patient-dashboard{
     justify-content: center;
+    gap: 100px;
   }
 }
 /*for small screen*/
