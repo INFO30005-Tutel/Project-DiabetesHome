@@ -83,9 +83,9 @@ function retrieveTodayData(dataArray) {
   var todayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
   var latestData = dataArray[dataArray.length - 1];
-  console.log(latestData);
+  //console.log(latestData);
   if (latestData && latestData.inputAt > todayDate) {
-    return latestData.data;
+    return latestData;
   } else {
     return 0;
   }

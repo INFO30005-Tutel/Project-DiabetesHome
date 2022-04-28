@@ -50,13 +50,11 @@ app.post(
       weightData: [],
     });
     // Save this user-data to database
-    await userdata
-      .save()
-      .catch((err) => {
-        console.log(err);
-        res.status(500).send({
-          message: 'Error when creating user-data!',
-        });
+    await userdata.save().catch((err) => {
+      console.log(err);
+      res.status(500).send({
+        message: 'Error when creating user-data!',
+      });
     });
     // Return token
     return res.json({ token: token });
@@ -67,7 +65,9 @@ app.post(
 app.get(
   '/profile',
   passport.authenticate('jwt', { session: false }),
-  async (req, res) => { res.send(req.user); }
+  async (req, res) => {
+    res.send(req.user);
+  }
 );
 
 // {
@@ -76,13 +76,13 @@ app.get(
 // }
 app.post(
   '/user/change-password',
-  passport.authenticate('jwt', { session: false }), 
+  passport.authenticate('jwt', { session: false }),
   controller.changePassword
 );
 
 app.put(
   '/user',
-  passport.authenticate('jwt', { session: false }), 
+  passport.authenticate('jwt', { session: false }),
   controller.updateSelf
 );
 
@@ -94,10 +94,9 @@ app.delete(
 
 app.get(
   '/get-patients',
-  passport.authenticate('jwt', {session: false}),
+  passport.authenticate('jwt', { session: false }),
   controller.getPatients
-)
-
+);
 
 
 // Additional apis for dev's debugging

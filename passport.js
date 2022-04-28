@@ -26,7 +26,7 @@ passport.use(
         } else {
           return done(null, false);
         }
-      })
+      });
     }
   )
 );
@@ -56,18 +56,17 @@ passport.use(
   new LocalStrategy(
     {
       passReqToCallback: true,
+      usernameField: 'email',
     },
     async function (req, email, password, done) {
-
       User.findOne({ email: email }, function (err, user) {
         if (err) {
           return done(err);
         }
 
         if (user) {
-          return done(null, false, { message: "Account existed" });
-        }
-        else {
+          return done(null, false, { message: 'Account existed' });
+        } else {
           var newUser = new User();
           newUser.email = email.toLowerCase();
           newUser.password = newUser.hashPassword(password);
@@ -78,10 +77,10 @@ passport.use(
           newUser.clinicId = req.body.clinicId || null; // Null for now
           // TODO: Validate clinicID
           newUser.clinicianId = req.body.clinicianId || null;
-          
-          if(req.body.clinicianId){
-              // by default patient: all fields to be activated
-              newUser.requiredFields = [0, 1, 2, 3];
+
+          if (req.body.clinicianId) {
+            // by default patient: all fields to be activated (if not provided)
+            newUser.requiredFields = req.body.requiredFields || [0, 1, 2, 3];
           }
 
           newUser.save();

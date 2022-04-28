@@ -9,40 +9,40 @@ const UserDataSchema = new mongoose.Schema({
     {
       data: {
         type: Number,
+        required: true,
       },
-      inputAt: {
-        type: Date,
-      },
+      note: { type: String },
+      inputAt: { type: Date },
     },
   ],
   weightData: [
     {
       data: {
         type: Number,
+        required: true,
       },
-      inputAt: {
-        type: Date,
-      },
+      note: { type: String },
+      inputAt: { type: Date },
     },
   ],
   insulinData: [
     {
       data: {
         type: Number,
+        required: true,
       },
-      inputAt: {
-        type: Date,
-      },
+      note: { type: String },
+      inputAt: { type: Date },
     },
   ],
   exerciseData: [
     {
       data: {
         type: Number,
+        required: true,
       },
-      inputAt: {
-        type: Date,
-      },
+      note: { type: String },
+      inputAt: { type: Date },
     },
   ],
 });

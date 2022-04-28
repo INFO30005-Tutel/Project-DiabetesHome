@@ -55,7 +55,7 @@ Indexes of recorded fields noted as following:
   `{ from: Date, to: Date, type: int }`
 
 - **PUT:** "/userdata": To add new data to the database, sending `req.body` as following:
-  `{ type: int, data: number(float/double) }`
+  `{ type: int, data: number(float/double), note: string }`
 
 **Debugger's routes:**
 

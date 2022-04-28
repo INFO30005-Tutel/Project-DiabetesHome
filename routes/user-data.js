@@ -28,7 +28,7 @@ app.post(
 // }
 app.put(
   '/userdata',
-  passport.authenticate('jwt', { session: false }), 
+  passport.authenticate('jwt', { session: false }),
   controller.update
 );
 
@@ -36,6 +36,4 @@ app.put(
 app.get('/userdata', controller.findAll);
 app.get('/userdata/:id', controller.findOne);
 
-
 module.exports = app;
-
