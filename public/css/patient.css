@@ -51,6 +51,8 @@ h4 {
   justify-content: space-evenly;
   /*box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;*/
   position: relative;
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 
 .task {
@@ -212,10 +214,9 @@ img {
 
 /* Inspired by information presented at https://csshint.com/javascript-calendar/. The date picker css sytles below is for the calendar */
 .datepicker {
-  width: 400px;
+  width: 100%;
   background: #fff;
   border-radius: 10px;
-  box-shadow: 0 0 50px 0 rgba(0, 0, 0, 0.2);
   overflow: hidden;
 }
 
@@ -225,9 +226,10 @@ img {
 
 .datepicker .ui-datepicker-header {
   text-align: center;
-  padding-bottom: 2em;
-  text-transform: uppercase;
+  padding-top: 1em;
+  padding-bottom: 1em;
   letter-spacing: .1em;
+  font-weight: bold;
   background: #0A57AE;
 }
 
@@ -241,7 +243,6 @@ img {
   display: inline;
   float: left;
   cursor: pointer;
-  font-size: 1.4em;
   /* padding: 0 10px; */
   margin-top: 10px;
   color: #CCC;
@@ -293,58 +294,78 @@ td {
 }
 
 /*the css styles here are for the leaderboard*/
-.leaderboard {
-  width: 70%;
+.podium {
+  width: 100%;
   position: relative;
-  top: 50px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-rows: 40px;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 h1 {
   margin-bottom: 20px;
 }
 
-.leaderboard>span {
+.podium>span {
   background-color: #0A57AE;
   display: inline-flex;
   flex-direction: column;
-  width: 100px;
-  margin-left: 100px;
+  width: 100%;
   color: #fff;
   font-weight: bold;
   justify-content: center;
   align-items: center;
 }
 
-#second-place {
-  height: 150px;
-  position: relative;
-  top: 25px;
-
+.podium>p {
+  text-align: center;
+  font-weight: bold;
 }
 
-#first-place {
-  height: 200px;
-  margin-left: 40px;
+.podium>#second-place {
+  grid-column: 1;
+  grid-row: 3/6;
 }
 
-#third-place {
-  height: 100px;
-  margin-left: 40px;
-  position: relative;
-  top: 50px;
+.podium>#first-place {
+  grid-column: 2;
+  grid-row: 2/6;
+}
+
+.podium>#third-place {
+  grid-column: 3;
+  grid-row: 4/6;
+}
+
+.podium>#second-place-text {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.podium>#first-place-text {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.podium>#third-place-text {
+  grid-column: 3;
+  grid-row: 3;
 }
 
 /*The css below is for the ranking table*/
 .ranking {
-  position: relative;
-  top: 100px;
-  height: 80vh;
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 #ranking-table {
   border-collapse: collapse;
   table-layout: auto;
   width: 100%;
+  margin-bottom: 10px;
 }
 
 #ranking-table td,
@@ -368,7 +389,11 @@ h1 {
 
 #ranking-table tr:hover {
   background-color: #ddd;
+}
 
+#ranking-table .your-rank {
+  color: #0A57AE;
+  font-weight: bold;
 }
 
 /*This css design is for medium screen and small screen*/

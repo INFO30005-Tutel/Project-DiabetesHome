@@ -115,24 +115,6 @@
   text-decoration: none;
 }
 
-.page-change {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.page-num {
-  display: flex;
-  gap: 30px;
-  align-items: center;
-}
-.page-num button {
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
-  border: none;
-  color: black;
-}
-
 /* SMALL SCREENS */
 @media (max-width: 850px) {
   .cli-navbar {

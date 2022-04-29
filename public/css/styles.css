@@ -113,7 +113,7 @@ footer img {
 }
 
 /* LARGER SCREEN */
-@media (min-width: 964px) {
+@media (min-width: 850px) {
   .title {
     font-size: 48px;
   }
@@ -141,7 +141,7 @@ footer img {
   }
 }
 /* SMALL SCREENS */
-@media (max-width: 964px) {
+@media (max-width: 850px) {
   .title {
     font-size: 28px;
   }
@@ -450,4 +450,28 @@ button {
 button:hover {
   background-color: #186dcc;
   transition: 0.1s;
+}
+
+.page-change {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.page-num {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  justify-content: center;
+}
+.page-num button {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  border: none;
+  color: black;
+}
+
+.page-num a {
+  flex: 1;
+  text-align: center;
 }

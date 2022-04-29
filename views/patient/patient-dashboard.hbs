@@ -15,15 +15,17 @@
             </div>
             {{/each}}
         </div>
-        <div class="leaderboard">
-            <h1>Top Engagement rates in the past 365 days</h1>
-            <span id="second-place">2</span>
-            <span id="first-place">1</span>
-            <span id="third-place">3</span>
+        <h1>Top Engagement rates in the past 365 days</h1>
+        <div class="podium">
+            <span id="second-place">2nd</span>
+            <span id="first-place">1st</span>
+            <span id="third-place">3rd</span>
+            <p id="second-place-text">Bob 95%</p>
+            <p id="first-place-text">Alice 97%</p>
+            <p id="third-place-text">Charlie 93%</p>
         </div>
-        <div class="test"></div>
+        <h2>Your rank</h2>
         <div class="ranking">
-            <p>Your rank</p>
             <table id="ranking-table">
                 <tr>
                     <th>Rank</th>
@@ -33,31 +35,39 @@
                 <tr>
                     <td>481</td>
                     <td>Username</td>
-                    <td>50%</td>
+                    <td>54%</td>
+                </tr>
+                <tr class="your-rank">
+                    <td>482</td>
+                    <td>You</td>
+                    <td>53%</td>
                 </tr>
                 <tr>
-                    <td>481</td>
+                    <td>483</td>
                     <td>Username</td>
-                    <td>50%</td>
+                    <td>53%</td>
                 </tr>
                 <tr>
-                    <td>481</td>
+                    <td>484</td>
                     <td>Username</td>
-                    <td>50%</td>
+                    <td>52%</td>
                 </tr>
                 <tr>
-                    <td>481</td>
+                    <td>485</td>
                     <td>Username</td>
-                    <td>50%</td>
-                </tr>
-                <tr>
-                    <td>481</td>
-                    <td>Username</td>
-                    <td>50%</td>
+                    <td>52%</td>
                 </tr>
             </table>
-            <p>Slide to Page 1</p>
-            <p>Slide to Page 2</p>
+            <div class='page-change'>
+                <p style='text-align: center'>Show 481-485 of 2347</p>
+                <div class='page-num'>
+                    <a href="">Page 1</a>
+                    <button><i class='fa fa-arrow-left' style="color: white;"></i></button>
+                    <b>96</b>
+                    <button><i class='fa fa-arrow-right' style="color: white;"></i></button>
+                    <a href="">Your rank</a>
+                </div>
+            </div>
         </div>
     </div>
     <div class="dashboard-side">
@@ -71,35 +81,35 @@
 <div class="pop-up" id="{{this.shortName}}-popup">
     <div class="exit-button"><span class="lni lni-close"></span></div>
     <h3 id="form-title" style="color: #0A57AE;">{{this.name}}</h3>
-        {{#unless this.entry}}
-        <form id="{{this.shortName}}-form" method='POST' action='/userdata'>
-            <input type='hidden' name='type' value='{{this.index}}'/>
-            <div>
-                <input type="text" class="small-input" placeholder="Input here" name="data">
-                <label for="enter-data" id="unit" name="unit">{{this.units}}</label>
-            </div>
-            <h4>Notes</h4>
-            <textarea class="note" type="text" placeholder="Input text here" name="note"></textarea>
-            <div class="button-bar">
-                <a href="{{this.shortName}}"><button class="small-button-variant" type="button">View data</button></a>
-                <button class="small-button-variant" type="submit" id="submit-button">Submit</button>
-            </div>
-        </form>
-        {{else}}
-        {{#with this.entry}}
-        <div class="completed-task">
-            <p class="data-given">{{data}}</p>
-            <p>Notes</p>
-            <div class="note">
-                <p class="note-given">{{note}}</p>
-            </div>
-            <div class="button-bar">
-                <a href="{{this.shortName}}"><button class="small-button-variant" type="button">View & edit</button></a>
-            </div>
-            
+    {{#unless this.entry}}
+    <form id="{{this.shortName}}-form" method='POST' action='/userdata'>
+        <input type='hidden' name='type' value='{{this.index}}' />
+        <div>
+            <input type="text" class="small-input" placeholder="Input here" name="data">
+            <label for="enter-data" id="unit" name="unit">{{this.units}}</label>
         </div>
-        {{/with}}
-        {{/unless}}
+        <h4>Notes</h4>
+        <textarea class="note" type="text" placeholder="Input text here" name="note"></textarea>
+        <div class="button-bar">
+            <a href="{{this.shortName}}"><button class="small-button-variant" type="button">View data</button></a>
+            <button class="small-button-variant" type="submit" id="submit-button">Submit</button>
+        </div>
+    </form>
+    {{else}}
+    {{#with this.entry}}
+    <div class="completed-task">
+        <p class="data-given">{{data}}</p>
+        <p>Notes</p>
+        <div class="note">
+            <p class="note-given">{{note}}</p>
+        </div>
+        <div class="button-bar">
+            <a href="{{this.shortName}}"><button class="small-button-variant" type="button">View & edit</button></a>
+        </div>
+
+    </div>
+    {{/with}}
+    {{/unless}}
 
 </div>
 {{/each}}
