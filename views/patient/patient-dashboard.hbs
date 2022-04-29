@@ -121,21 +121,19 @@
         </div>
     </form>
     {{else}}
-    {{#with this.entry}}
     <form id="{{this.shortName}}-form" method='POST' action='/userdata'>
         <input type='hidden' name='type' value='{{this.index}}' />
         <div>
-            <input type="text" class="small-input" value={{data}} name="data">
+            <input type="text" class="small-input" value={{this.entry.data}} name="data">
             <label for="enter-data" id="unit" name="unit">{{this.units}}</label>
         </div>
         <h4>Notes</h4>
-        <textarea class="note" type="text" placeholder="Input text here" name="note">{{note}}</textarea>
+        <textarea class="note" type="text" placeholder="Input text here" name="note">{{this.entry.note}}</textarea>
         <div class="button-bar">
             <a href="{{this.shortName}}"><button class="small-button-variant" type="button">View data</button></a>
             <button class="small-button-variant" type="submit" id="submit-button">Resubmit</button>
         </div>
     </form>
-    {{/with}}
     {{/unless}}
 
 </div>
