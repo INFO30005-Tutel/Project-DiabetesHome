@@ -1,5 +1,6 @@
 const handlebars = require('handlebars');
 const controller = require('./delivery2-mock');
+const helper = require('./helper.js')
 
 const mockPatientId = '6267f02b41463408a4205299';
 const mockClinicianId = '6267ec216e7d25b724cac71d';
@@ -33,13 +34,16 @@ const patientMetadata = [
 
 // handle dashboard data
 const getDashboardData = async (req, res) => {
-  const patientId = req.params.patient_id;
+  const patientId = mockPatientId;
   //console.log(await getPatientData(mockPatientId));
+  const dateAndTime = helper.getDateAndTime();
   res.render('patient/patient-dashboard.hbs', {
     layout: 'patient-layout.hbs',
-    userId: req.params.patient_id,
+    userId: patientId,
     userData: await getPatientData(mockPatientId),
-    metadata: patientMetadata
+    metadata: patientMetadata,
+    date: dateAndTime.date,
+    time: dateAndTime.time
   });
 };
 
