@@ -1,0 +1,485 @@
+h1 {
+  font-size: 2.4em;
+  color: #0a57ae;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 1.8em;
+  color: #0a57ae;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+h4 {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.patient-dashboard {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: 0fr 1fr;
+  gap: 48px;
+  font-size: 20px;
+  width: min(1428px, 90%);
+  margin-left: auto;
+  margin-right: auto;
+  color: #3d3d3d;
+  margin-top: 80px;
+  margin-bottom: 80px;
+}
+
+.dashboard-main {
+  grid-column: 1/9;
+  grid-row: 1/3;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dashboard-side {
+  grid-column: 10/13;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+/*CSS Styles for clickable icons*/
+.patient-data {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  /*box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;*/
+  position: relative;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.task {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  width: 20%;
+  gap: 20px;
+}
+
+.icon {
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #0a57ae;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+
+.icon:hover {
+  background-color: #186dcc;
+  transition: 0.1s;
+  cursor: pointer;
+}
+
+.icon-disabled {
+  background-color: #3d3d3d;
+}
+
+.icon-disabled:hover {
+  background-color: #606060;
+}
+
+.icon img {
+  height: 50%;
+  margin-top: 25%;
+}
+
+.exit-button {
+  position: absolute;
+  right: 30px;
+  cursor: pointer;
+  color: #0a57ae;
+}
+
+.exit-button .small {
+  position: relative;
+  left: 5rem;
+}
+
+.pop-up {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /*Add scale to be 0 for the form to disappear*/
+  transform: translate(-50%, -50%) scale(0);
+  width: min(80%, 600px);
+  height: 60vh;
+  border: 4px solid #0a57ae;
+  border-radius: 16px;
+  background-color: #d0e0f1;
+  padding: 30px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+}
+
+.pop-up.active {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.pop-up .button-bar {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+/*The css style below is for form and any elements inside the form*/
+form {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+form textarea {
+  resize: none;
+  flex: 1;
+}
+
+form p {
+  font-weight: bold;
+}
+
+form .small-input {
+  min-width: 150px;
+  width: 30%;
+  margin-right: 10px;
+}
+
+/*The CSS style for the note input*/
+.note {
+  flex: 1;
+}
+
+/*style submit buttons*/
+.submit {
+  background-color: #0a57ae;
+  border-radius: 16px;
+  width: 160px !important;
+  height: 40px !important;
+  color: white;
+  font-weight: bold;
+}
+
+.submit:last-child {
+  margin-left: 3rem;
+}
+
+#overlay {
+  position: fixed;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+#overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+img {
+  width: 5rem;
+  height: 5rem;
+}
+
+/*The Completed Task will be rendered and will replace the form when the form is submitted*/
+.completed-task {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.completed-task p:nth-child(2) {
+  font-weight: bold;
+}
+
+/* Inspired by information presented at https://csshint.com/javascript-calendar/. The date picker css sytles below is for the calendar */
+.datepicker {
+  width: 100%;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.datepicker .ui-datepicker-inline {
+  /* padding: 30px; */
+}
+
+.datepicker .ui-datepicker-header {
+  text-align: center;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  letter-spacing: 0.1em;
+  font-weight: bold;
+  background: #0a57ae;
+}
+
+.datepicker .ui-datepicker-title {
+  margin: 0 auto;
+  color: #fff;
+}
+
+.datepicker .ui-datepicker-header .ui-datepicker-prev,
+.ui-datepicker-next {
+  display: inline;
+  float: left;
+  cursor: pointer;
+  /* padding: 0 10px; */
+  margin-top: 10px;
+  color: #ccc;
+  background: #0a57ae;
+}
+
+.datepicker .ui-datepicker-header .ui-datepicker-next {
+  float: right;
+}
+
+.datepicker .ui-datepicker-calendar {
+  width: 100%;
+  text-align: center;
+}
+
+.datepicker .ui-datepicker-calendar thead {
+  color: #ccc;
+}
+
+.datepicker .ui-datepicker-calendar tr,
+th,
+td {
+  padding-bottom: 0.5em;
+}
+
+.datepicker .ui-datepicker-calendar a {
+  color: #444;
+  text-decoration: none;
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.datepicker .ui-datepicker-calendar .highlight-blue a {
+  border-color: #3d85c6;
+  background-color: #3d85c6;
+  color: white;
+}
+
+.datepicker .ui-datepicker-calendar .ui-state-highlight {
+  border-color: #6aa84f;
+  color: #6aa84f;
+}
+
+/*the css styles here are for the leaderboard*/
+.podium {
+  width: 100%;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-rows: 40px;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+.podium > span {
+  background-color: #0a57ae;
+  display: inline-flex;
+  flex-direction: column;
+  width: 100%;
+  color: #fff;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+}
+
+.podium > p {
+  text-align: center;
+  font-weight: bold;
+}
+
+.podium > #second-place {
+  grid-column: 1;
+  grid-row: 3/6;
+}
+
+.podium > #first-place {
+  grid-column: 2;
+  grid-row: 2/6;
+}
+
+.podium > #third-place {
+  grid-column: 3;
+  grid-row: 4/6;
+}
+
+.podium > #second-place-text {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.podium > #first-place-text {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.podium > #third-place-text {
+  grid-column: 3;
+  grid-row: 3;
+}
+
+/*The css below is for the ranking table*/
+.ranking {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#ranking-table {
+  border-collapse: collapse;
+  table-layout: auto;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+#ranking-table td,
+#ranking-table th {
+  text-align: center;
+}
+
+#ranking-table td {
+  padding: 20px 30px;
+}
+
+#ranking-table th {
+  border-bottom: 1px solid #d0e0f1;
+  background-color: #fff !important;
+}
+
+#ranking-table tr:nth-child(odd) {
+  background-color: #d0e0f1;
+  height: 20px;
+}
+
+#ranking-table tr:hover {
+  background-color: #ddd;
+}
+
+#ranking-table .your-rank {
+  color: #0a57ae;
+  font-weight: bold;
+}
+
+.box {
+  background-color: #d0e0f1;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+/*This css design is for medium screen and small screen*/
+/*for large screen*/
+@media only screen and (min-width: 850px) {
+  /*make dashboard side headings look like h3*/
+  .dashboard-side h1 {
+    color: #3d3d3d;
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+}
+
+/*for medium screen*/
+@media only screen and (max-width: 1200px) and (min-width: 850px) {
+  * {
+    font-size: 18px;
+  }
+
+  .dashboard-main {
+    grid-column: 1/8;
+  }
+
+  .dashboard-side {
+    grid-column: 9/13;
+  }
+
+  .icon {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+/*for small screen*/
+@media only screen and (max-width: 850px) {
+  .dashboard-side {
+    text-align: left;
+  }
+
+  * {
+    font-size: 15px;
+  }
+
+  h1 {
+    font-size: 1.85em;
+  }
+
+  h2 {
+    font-size: 1.33em;
+  }
+
+  h3 {
+    font-size: 1.2em;
+  }
+
+  .patient-dashboard {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .patient-data {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: auto;
+    position: relative;
+    gap: 20px;
+  }
+
+  .task {
+    width: 100%;
+    height: 100%;
+  }
+
+  .icon {
+    width: 80px;
+    height: 80px;
+  }
+}

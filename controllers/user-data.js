@@ -8,6 +8,7 @@ const helper = require('./helper');
 //   data: double/float/number
 // }
 exports.update = async (req, res) => {
+  console.log(req.body);
   let savedData;
   await UserData.findOne({ userId: req.user._id }).then(async (data) => {
     if (data) {
@@ -19,6 +20,7 @@ exports.update = async (req, res) => {
     note: req.body.note,
     inputAt: new Date(),
   };
+
   if (req.body.type == 0) savedData.bloodData.push(input);
   if (req.body.type == 1) savedData.weightData.push(input);
   if (req.body.type == 2) savedData.insulinData.push(input);

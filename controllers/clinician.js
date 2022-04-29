@@ -1,7 +1,6 @@
 const handlebars = require('handlebars');
-const UserData = require('../models/user-data');
-const User = require('../models/user');
-const helper = require('./helper');
+const controller = require('./delivery2-mock');
+const helper = require('./helper')
 
 const mockPatientId = '6267f02b41463408a4205299';
 const mockClinicianId = '6267ec216e7d25b724cac71d';
@@ -10,13 +9,12 @@ const mockClinicianId = '6267ec216e7d25b724cac71d';
 const getDashboardData = async (req, res) => {
   const clinicianId = req.params.clinician_id;
   const clinicianName = 'Chris Smith';
-  const dateAndTime = getDateAndTime();
-  console.log('clinician_id is ', clinicianId);
-  console.log(await getTableData(clinicianId));
+  const dateAndTime = helper.getDateAndTime();
+  console.log('clinician_id is ', mockClinicianId);
 
   res.render('clinician/dashboard.hbs', {
     layout: 'clinician-layout.hbs',
-    tableData: await getTableData(clinicianId),
+    tableData: await getTableData(mockClinicianId),
     clinicianName: clinicianName,
     date: dateAndTime.date,
     time: dateAndTime.time,
@@ -24,101 +22,25 @@ const getDashboardData = async (req, res) => {
 };
 
 // blood, weight, insulin, stepcount
-const dangerThreshold = [3, 6, 80, 100, 0, 2, 1000, 4000];
-
-const examplePatientData = [
-  {
-    id: 'placeholder_id_1',
-    name: 'John Doe',
-    status: 'ok',
-    blood_glucose: {
-      status: null,
-      value: 135,
-    },
-    weight: {
-      status: null,
-      value: 91,
-    },
-    insulin_doses: {
-      status: null,
-      value: null,
-    },
-    step_counts: {
-      status: null,
-      value: 5000,
-    },
-  },
-  {
-    id: 'placeholder_id_2',
-    name: 'Jack Smith',
-    status: 'warning',
-    blood_glucose: {
-      status: 'warning',
-      value: 221,
-    },
-    weight: {
-      status: null,
-      value: 72,
-    },
-    insulin_doses: {
-      status: null,
-      value: null,
-    },
-    step_counts: {
-      status: null,
-      value: 10000,
-    },
-  },
-  {
-    id: 'placeholder_id_3',
-    name: 'Adam Jerry',
-    status: 'unknown',
-    blood_glucose: {
-      status: 'unknown',
-      value: null,
-    },
-    weight: {
-      status: 'unknown',
-      value: null,
-    },
-    insulinDoses: {
-      status: 'unknown',
-      value: null,
-    },
-    stepCounts: {
-      status: null,
-      value: 500,
-    },
-  },
-];
+const dangerThreshold = [6000, 8000, 80, 100, 0, 2, 1000, 4000];
 
 const getTableData = async (clinicianId) => {
   let patientList;
   let patientData;
 
   try {
-    patientList = await User.find({ clinicianId: mockClinicianId }).lean();
+    patientList = await controller.getPatientsOfClinician(clinicianId);
   } catch (err) {
     console.log(err);
   }
   for (patient of patientList) {
     try {
-      patientData = await UserData.findOne({ userId: patient._id }).lean();
-      patientData.bloodData = await helper.retrieveTodayData(
-        patientData.bloodData
-      );
-      patientData.weightData = await helper.retrieveTodayData(
-        patientData.weightData
-      );
-      patientData.insulinData = await helper.retrieveTodayData(
-        patientData.insulinData
-      );
-      patientData.exerciseData = await helper.retrieveTodayData(
-        patientData.exerciseData
-      );
+      patientData = await controller.getTodayData(patient._id);
     } catch (err) {
       console.log(err);
     }
+
+    // Add `required` value to fields that patient need to update
     patient.bloodGlucose = patientData.bloodData || {};
     if (patient.requiredFields.includes(0))
       patient.bloodGlucose.required = true;
@@ -134,52 +56,7 @@ const getTableData = async (clinicianId) => {
   return patientList;
 };
 
-const getDateAndTime = () => {
-  var days = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-  ];
-  var months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
-  var today = new Date();
-  var time =
-    today.getHours() +
-    ':' +
-    today.getMinutes() +
-    ' ' +
-    Intl.DateTimeFormat().resolvedOptions().timeZone;
-  var date =
-    days[today.getDay()] +
-    ', ' +
-    today.getDate() +
-    ' ' +
-    months[today.getMonth()] +
-    ' ' +
-    today.getFullYear();
-  return {
-    time,
-    date,
-  };
-};
-
-const getColour = (value, type) => {
+const getTextColor = (value, type) => {
   const ok = '#2b7a3d';
   const unknown = '#9b7509';
   const warning = '#b42424';
@@ -245,6 +122,43 @@ const getIcon = (patient) => {
   return ok;
 };
 
+const getIconColor = (patient) => {
+  const ok = '#2b7a3d';
+  const unknown = '#9b7509';
+  const warning = '#b42424';
+
+  let hasUnknown = false;
+  let hasWarning = false;
+
+  if (patient.bloodGlucose.required) {
+    let value = patient.bloodGlucose.data;
+    if (!value) hasUnknown = true;
+    else if (value < dangerThreshold[0] || value > dangerThreshold[1])
+      hasWarning = true;
+  }
+  if (patient.weight.required) {
+    let value = patient.weight.data;
+    if (!value) hasUnknown = true;
+    else if (value < dangerThreshold[2] || value > dangerThreshold[3])
+      hasWarning = true;
+  }
+  if (patient.insulinDoses.required) {
+    let value = patient.insulinDoses.data;
+    if (!value) hasUnknown = true;
+    else if (value < dangerThreshold[4] || value > dangerThreshold[5])
+      hasWarning = true;
+  }
+  if (patient.stepCounts.required) {
+    let value = patient.stepCounts.data;
+    if (!value) hasUnknown = true;
+    else if (value < dangerThreshold[6] || value > dangerThreshold[7])
+      hasWarning = true;
+  }
+  if (hasWarning) return warning;
+  if (hasUnknown) return unknown;
+  return ok;
+};
+
 const isRequired = (requiredFields, type) => {
   if (requiredFields.includes(type)) {
     return true;
@@ -252,8 +166,9 @@ const isRequired = (requiredFields, type) => {
   return false;
 };
 
-handlebars.registerHelper('getColour', getColour);
+handlebars.registerHelper('getTextColor', getTextColor);
 handlebars.registerHelper('getIcon', getIcon);
+handlebars.registerHelper('getIconColor', getIconColor);
 handlebars.registerHelper('isRequired', isRequired);
 
 module.exports = {

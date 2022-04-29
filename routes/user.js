@@ -98,6 +98,7 @@ app.get(
   controller.getPatients
 );
 
+
 // Additional apis for dev's debugging
 app.get('/user', controller.findAll);
 app.get('/user/:id', controller.findOne);

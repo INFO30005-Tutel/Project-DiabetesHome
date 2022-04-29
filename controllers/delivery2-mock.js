@@ -23,12 +23,14 @@ exports.mockSignUp = (req, res) => {
 };
 
 exports.mockUpdate = async (req, res) => {
+  console.log(req.body);
   let savedData;
   await UserData.findOne({ userId: mockPatientId }).then(async (data) => {
     if (data) {
       savedData = JSON.parse(JSON.stringify(data));
     }
   });
+  
   var input = {
     data: req.body.data,
     note: req.body.note,
@@ -45,7 +47,7 @@ exports.mockUpdate = async (req, res) => {
   await UserData.findByIdAndUpdate(id, { $set: savedData })
     .then((updatedData) => {
       if (updatedData) {
-        res.status(200).send({ message: 'Update data successfully!' });
+        res.redirect(`patient/${savedData.userId}`);
       }
     })
     // Case of error
@@ -57,44 +59,42 @@ exports.mockUpdate = async (req, res) => {
     });
 };
 
-exports.mockGetTodayData = (req, res) => {
-  var toReturn = {};
-  UserData.findOne({ userId: mockPatientId })
-    .then(async (dataBlock) => {
-      if (!dataBlock) {
-        res.status(404).send({ message: 'Missing user-data for this user!' });
-      }
-      console.log(dataBlock);
-      // Get access to each of data elements
-      toReturn.bloodData = await helper.retrieveTodayData(dataBlock.bloodData);
-      toReturn.weightData = await helper.retrieveTodayData(
-        dataBlock.weightData
-      );
-      toReturn.insulinData = await helper.retrieveTodayData(
-        dataBlock.insulinData
-      );
-      toReturn.exerciseData = await helper.retrieveTodayData(
-        dataBlock.exerciseData
-      );
+exports.getTodayData = async (patientId) => {
+  let patientData = await UserData.findOne({ userId: patientId }).lean();
 
-      res.status(200).send(toReturn);
-    })
-    // Case of error
-    .catch((err) => {
-      console.log(err);
-      res.status(500).send({
-        message: 'Error when getting Data!',
-      });
-    });
+  patientData.bloodData = await helper.retrieveTodayData(patientData.bloodData);
+  patientData.weightData = await helper.retrieveTodayData(
+    patientData.weightData
+  );
+  patientData.insulinData = await helper.retrieveTodayData(
+    patientData.insulinData
+  );
+  patientData.exerciseData = await helper.retrieveTodayData(
+    patientData.exerciseData
+  );
+
+  return patientData;
 };
 
-exports.mockGetPatients = async (req, res) => {
-  User.find({ clinicianId: mockClinicianId })
-    .then((data) => {
-      return res.status(200).send(data);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).send({ message: 'Error accessing the database!' });
-    });
+exports.getPatientHasData = async (patientID) => {
+  let patientData = await UserData.findOne({ userId: patientID }).lean();
+
+  let hasData = [];
+
+  hasData.push(patientData.bloodData.length > 0);
+  hasData.push(patientData.weightData.length > 0);
+  hasData.push(patientData.insulinData.length > 0);
+  hasData.push(patientData.exerciseData.length > 0);
+
+  return hasData;
+}
+
+exports.getPatientsOfClinician = async (clinicianId) => {
+  let patientList = User.find({ clinicianId: clinicianId }).lean();
+  return patientList;
+};
+
+exports.getUser = async (userId) => {
+  let user = User.findById(userId).lean();
+  return user;
 };
