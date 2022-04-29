@@ -1,5 +1,6 @@
 <div class="patient-dashboard">
     <div class="dashboard-main">
+        <h1>Today's tasks:</h1>
         <div class="patient-data">
             {{#each userData.dataEntries}}
             <div class="task">
@@ -69,7 +70,7 @@
 {{#each userData.dataEntries}}
 <div class="pop-up" id="{{this.shortName}}-popup">
     <div class="exit-button"><span class="lni lni-close"></span></div>
-    <h3 id="form-title">{{this.name}}</h4>
+    <h3 id="form-title" style="color: #0A57AE;">{{this.name}}</h3>
         {{#unless this.entry}}
         <form id="{{this.shortName}}-form" method='POST' action='/userdata'>
             <input type='hidden' name='type' value='{{this.index}}'/>
