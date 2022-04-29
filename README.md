@@ -1,7 +1,5 @@
 # Project-DiabetesHome
 
-This is branch for delivery2
-
 Group web project for INFO30005 2022, University of Melbourne.
 
 ## Installation
@@ -9,6 +7,20 @@ Group web project for INFO30005 2022, University of Melbourne.
 Run `npm install` at root folder to install all required packages.
 
 Run `node app.js` or `npm run dev` to run the app in local and visit localhost:3000 to test the app.
+
+## Heroku deploy
+
+Required installed Heroku CLI and logged in.
+
+Our app name is tutel-diabetes-home
+
+Access link: <https://tutel-diabetes-home.herokuapp.com/>
+
+`git push heroku main` to push **our main** branch to heroku remote main branch.
+
+`git push heroku delivery2:main` to push our delivery2 branch to heroku remote main branch.
+
+We need to push our stuff to heroku remote main for it to build.
 
 ## Members
 
