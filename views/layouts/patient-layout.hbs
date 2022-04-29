@@ -24,6 +24,14 @@
 
   </head>
   <body>
+
+    {{! SIDE BAR }}
+    <div class='sidebar' id='sidebar'>
+      <button onclick='sidebar_close()'>&times;</button>
+      <a href='about-diabetes'>About Diabetes</a>
+      <a href='about-this-website'>About This Website</a>
+    </div>
+    {{! END OF SIDE BAR }}
     
     {{! HEADER }}
     <header class='header'>
@@ -73,124 +81,49 @@
     {{! END OF FOOTER }}
   </body>
   <script type = "text/javascript">
-      $(document).ready(function(){
-      $((".icon")).on('click', function(){
-        const nameOfPopUp = '#'+ $(this).attr('id') + '-popup' ;
-        $(nameOfPopUp).addClass('active');
-        $("#overlay").addClass('active');
-        $(".exit-button").on('click', function(){
-          $(nameOfPopUp).removeClass('active');
-          $("#overlay").removeClass('active')});
-      })
-      /*const glucoseF = document.getElementById("glucose-form");
-      const insulinF =  document.getElementById("insulin-form");
-      const exerciseF = document.getElementById("exercise-form");
-      const weightF = document.getElementById("weight-form");*/
-
-    
-      /*glucoseF.addEventListener("submit", (event)=>{
-                event.preventDefault();
-                let data = new FormData(event.target);
-                let sentData = {};
-                for(let key of data.keys()){
-                  sentData[key] = data.get(key);
-                }
-                sentData['type'] = 0;
-                axios.post('/userdata', sentData);
-                const popUp = $(glucoseF).parent();
-                $(glucoseF).remove();
-                const completedTask =  popUp.children("div.completed-task");
-                $(completedTask).addClass('active');
-                let dataGiven = $(completedTask).find('p.data-given');
-                let noteGiven = $(completedTask).find("p.note-given");
-                dataGiven.text(sentData["data"]);  
-                noteGiven.text(sentData["note"]);
-            })
-
-        insulinF.addEventListener("submit", (event)=>{
-                event.preventDefault();
-                let data = new FormData(event.target);
-                let sentData = {};
-                for(let key of data.keys()){
-                  sentData[key] = data.get(key);
-                }
-                sentData['type'] = 2;
-                axios.post('/userdata', sentData);
-                const popUp = $(insulinF).parent();
-                $(insulinF).remove();
-                const completedTask =  popUp.children("div.completed-task");
-                $(completedTask).addClass('active');
-                let dataGiven = $(completedTask).find('p.data-given');
-                let noteGiven = $(completedTask).find("p.note-given");
-                dataGiven.text(sentData["data"]);  
-                noteGiven.text(sentData["note"]);
-            })
-
-                exerciseF.addEventListener("submit", (event)=>{
-                event.preventDefault();
-                let data = new FormData(event.target);
-                let sentData = {};
-                for(let key of data.keys()){
-                  sentData[key] = data.get(key);
-                }
-                sentData['type'] = 3;
-                axios.post('/userdata', sentData);
-                const popUp = $(exerciseF).parent();
-                $(exerciseF).remove();
-                const completedTask =  popUp.children("div.completed-task");
-                completedTask.addClass('active');
-                let dataGiven = $(completedTask).find('p.data-given');
-                let noteGiven = $(completedTask).find("p.note-given");
-                dataGiven.text(sentData["data"]);  
-                noteGiven.text(sentData["note"]) ;
-            })
-                weightF.addEventListener("submit", (event)=>{
-                event.preventDefault();
-                let data = new FormData(event.target);
-                let sentData = {};
-                for(let key of data.keys()){
-                  sentData[key] = data.get(key);
-                }
-                sentData['type'] = 1;
-                axios.post('/userdata', sentData);
-                const popUp = $(weightF).parent();
-                $(weightF).remove();
-                const completedTask =  popUp.children("div.completed-task");
-                $(completedTask).addClass('active');
-                let dataGiven = $(completedTask).find('p.data-given');
-                let noteGiven = $(completedTask).find("p.note-given");
-                dataGiven.text(sentData["data"]);  
-                noteGiven.text(sentData["note"]) ;
-            })*/
+    $(document).ready(function() {
+        $((".icon")).on('click', function() {
+            const nameOfPopUp = '#' + $(this).attr('id') + '-popup';
+            $(nameOfPopUp).addClass('active');
+            $("#overlay").addClass('active');
+            $(".exit-button").on('click', function() {
+                $(nameOfPopUp).removeClass('active');
+                $("#overlay").removeClass('active')
+            });
         })
-     {{!-- // Functions to interact with side bar function sidebar_open() {
-      document.getElementById('sidebar').style.width = '250px';
-      function sidebar_close() { 
-        document.getElementById('sidebar').style.width = '0px';
-      } --}}
-      
+    })
+    // Functions to interact with side bar function sidebar_open
+    function sidebar_open() {
+      document.getElementById('sidebar').style.width =
+        '250px';
+    }
 
-      // Functions to enable datepicker
-      var selectedDate = ['14-04-2022', '19-04-2022', '20-04-2022', '21-04-2022', '21-05-2022'];
-  
-      function highlightDays(date) {
+    function sidebar_close() {
+      document.getElementById('sidebar').style.width = '0px';
+    }
+
+
+    // Functions to enable datepicker
+    var selectedDate = ['14-04-2022', '19-04-2022', '20-04-2022', '21-04-2022', '21-05-2022'];
+
+    function highlightDays(date) {
         var fDate = $.datepicker.formatDate('dd-mm-yy', date);
         var result = [true, ""];
         $.each(selectedDate, function(k, d) {
-          if (fDate === d) {
-            result = [true, "highlight-blue"];
-          }
+            if (fDate === d) {
+                result = [true, "highlight-blue"];
+            }
         });
         return result;
-      };
-  
-      $(".datepicker").datepicker({
+    };
+
+    $(".datepicker").datepicker({
         prevText: '<i class="fa fa-fw fa-angle-left"></i>',
         nextText: '<i class="fa fa-fw fa-angle-right"></i>',
         dateFormat: "dd/MM/yy",
         beforeShowDay: highlightDays,
-      });
-    </script>
+    });
+  </script>
 </html>
 
 
