@@ -3,14 +3,15 @@
   <div class='dash-header'>
     <h1 class='title'>Clinician Dashboard</h1>
     <div class='cli-info'>
-      <p style='margin-bottom: 20px'>Hello, <b id='cli_name'>{{clinicianName}}</b></p>
+      <p style='margin-bottom: 20px'>Hello,
+        <b id='cli_name'>{{clinicianName}}</b></p>
       <p id='time'>{{time}}</p>
       <p id='date'>{{date}}</p>
     </div>
   </div>
   {{! SEARCHING BAR }}
   <div class='searching-area'>
-    <input type='text' placeholder="Search patient..">
+    <input type='text' placeholder='Search patient..' />
     <button><i class='fa fa-search'></i></button>
     <button><i class='fa fa-plus'></i></button>
   </div>
@@ -27,29 +28,33 @@
       </tr>
       {{#each tableData}}
         <tr>
-          <td><i class='fa {{getIcon this}}' style='font-size:xx-large; color: {{getIconColor this}}'></i></td>
-          <td><a href='patient/{{this._id}}'>{{this.firstname}} {{this.lastname}}</a></td>
+          <td><i
+              class='fa {{getIcon this}}'
+              style='font-size:xx-large; color: {{getIconColor this}}'
+            ></i></td>
+          <td><a href='patient/{{this._id}}'>{{this.firstname}}
+              {{this.lastname}}</a></td>
           {{#with this.bloodGlucose}}
-            <td {{#if data}}style='color: {{getTextColor data 'bloodGlucose'}}'{{/if}}>
-               {{#if data}}{{data}} nmol/L{{else if required}}??? nmol/L{{/if}}
+            <td style='color: {{getTextColor data "bloodGlucose"}}'>
+              {{#if data}}{{data}} nmol/L{{else if required}}??? nmol/L{{/if}}
             </td>
           {{/with}}
 
           {{#with this.weight}}
-            <td {{#if data}}style='color: {{getTextColor data 'weight'}}'{{/if}}>
-            {{#if required}}
-               {{#if data}}{{data}} kg{{else if required}}??? kg{{/if}}
-            {{/if}}
+            <td style='color: {{getTextColor data "weight"}}'>
+              {{#if required}}
+                {{#if data}}{{data}} kg{{else if required}}??? kg{{/if}}
+              {{/if}}
             </td>
           {{/with}}
           {{#with this.insulinDoses}}
-              <td {{#if data}}style='color: {{getTextColor data 'insulinDoses'}}'{{/if}}>
-               {{#if data}}{{data}} doses{{else if required}}??? doses{{/if}}
+            <td style='color: {{getTextColor data "insulinDoses"}}'>
+              {{#if data}}{{data}} doses{{else if required}}??? doses{{/if}}
             </td>
           {{/with}}
           {{#with this.stepCounts}}
-            <td {{#if data}}style='color: {{getTextColor data 'stepCounts'}}'{{/if}}>
-               {{#if data}}{{data}}{{else if required}}???{{/if}}
+            <td style='color: {{getTextColor data "stepCounts"}}'>
+              {{#if data}}{{data}}{{else if required}}???{{/if}}
             </td>
           {{/with}}
         </tr>
@@ -58,9 +63,9 @@
     <div class='page-change'>
       <p style='text-align: center'>Show 1-1 of 1</p>
       <div class='page-num'>
-        <button><i class='fa fa-arrow-left' style="color: white;"></i></button>
+        <button><i class='fa fa-arrow-left' style='color: white;'></i></button>
         <h1><b>1</b></h1>
-        <button><i class='fa fa-arrow-right' style="color: white;"></i></button>
+        <button><i class='fa fa-arrow-right' style='color: white;'></i></button>
       </div>
     </div>
   </div>
