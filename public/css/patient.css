@@ -1,12 +1,12 @@
 h1 {
   font-size: 2.4em;
-  color: #0A57AE;
+  color: #0a57ae;
   font-weight: bold;
 }
 
 h2 {
   font-size: 1.8em;
-  color: #0A57AE;
+  color: #0a57ae;
   font-weight: bold;
 }
 
@@ -29,7 +29,7 @@ h4 {
   width: min(1428px, 90%);
   margin-left: auto;
   margin-right: auto;
-  color: #3D3D3D;
+  color: #3d3d3d;
   margin-top: 80px;
   margin-bottom: 80px;
 }
@@ -73,7 +73,7 @@ h4 {
 .icon {
   margin-left: auto;
   margin-right: auto;
-  background-color: #0A57AE;
+  background-color: #0a57ae;
   width: 120px;
   height: 120px;
   border-radius: 50%;
@@ -102,7 +102,7 @@ h4 {
   position: absolute;
   right: 30px;
   cursor: pointer;
-  color: #0A57AE;
+  color: #0a57ae;
 }
 
 .exit-button .small {
@@ -118,14 +118,13 @@ h4 {
   transform: translate(-50%, -50%) scale(0);
   width: min(80%, 600px);
   height: 60vh;
-  border: 4px solid #0A57AE;
+  border: 4px solid #0a57ae;
   border-radius: 16px;
-  background-color: #D0E0F1;
+  background-color: #d0e0f1;
   padding: 30px;
   z-index: 10;
   display: flex;
   flex-direction: column;
-
 }
 
 .pop-up.active {
@@ -153,7 +152,6 @@ form textarea {
 }
 
 form p {
-
   font-weight: bold;
 }
 
@@ -170,14 +168,12 @@ form .small-input {
 
 /*style submit buttons*/
 .submit {
-  background-color: #0A57AE;
+  background-color: #0a57ae;
   border-radius: 16px;
   width: 160px !important;
   height: 40px !important;
   color: white;
   font-weight: bold;
-
-
 }
 
 .submit:last-child {
@@ -192,7 +188,7 @@ form .small-input {
   right: 0;
   bottom: 0;
   width: 100vw;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, 0.5);
   pointer-events: none;
 }
 
@@ -235,9 +231,9 @@ img {
   text-align: center;
   padding-top: 1em;
   padding-bottom: 1em;
-  letter-spacing: .1em;
+  letter-spacing: 0.1em;
   font-weight: bold;
-  background: #0A57AE;
+  background: #0a57ae;
 }
 
 .datepicker .ui-datepicker-title {
@@ -252,8 +248,8 @@ img {
   cursor: pointer;
   /* padding: 0 10px; */
   margin-top: 10px;
-  color: #CCC;
-  background: #0A57AE;
+  color: #ccc;
+  background: #0a57ae;
 }
 
 .datepicker .ui-datepicker-header .ui-datepicker-next {
@@ -266,13 +262,13 @@ img {
 }
 
 .datepicker .ui-datepicker-calendar thead {
-  color: #CCC;
+  color: #ccc;
 }
 
 .datepicker .ui-datepicker-calendar tr,
 th,
 td {
-  padding-bottom: .5em;
+  padding-bottom: 0.5em;
 }
 
 .datepicker .ui-datepicker-calendar a {
@@ -315,8 +311,8 @@ h1 {
   margin-bottom: 20px;
 }
 
-.podium>span {
-  background-color: #0A57AE;
+.podium > span {
+  background-color: #0a57ae;
   display: inline-flex;
   flex-direction: column;
   width: 100%;
@@ -326,37 +322,37 @@ h1 {
   align-items: center;
 }
 
-.podium>p {
+.podium > p {
   text-align: center;
   font-weight: bold;
 }
 
-.podium>#second-place {
+.podium > #second-place {
   grid-column: 1;
   grid-row: 3/6;
 }
 
-.podium>#first-place {
+.podium > #first-place {
   grid-column: 2;
   grid-row: 2/6;
 }
 
-.podium>#third-place {
+.podium > #third-place {
   grid-column: 3;
   grid-row: 4/6;
 }
 
-.podium>#second-place-text {
+.podium > #second-place-text {
   grid-column: 1;
   grid-row: 2;
 }
 
-.podium>#first-place-text {
+.podium > #first-place-text {
   grid-column: 2;
   grid-row: 1;
 }
 
-.podium>#third-place-text {
+.podium > #third-place-text {
   grid-column: 3;
   grid-row: 3;
 }
@@ -381,16 +377,16 @@ h1 {
 }
 
 #ranking-table td {
-  padding: 30px 40px 30px 40px;
+  padding: 20px 30px;
 }
 
 #ranking-table th {
-  border-bottom: 1px solid #D0E0F1;
+  border-bottom: 1px solid #d0e0f1;
   background-color: #fff !important;
 }
 
 #ranking-table tr:nth-child(odd) {
-  background-color: #D0E0F1;
+  background-color: #d0e0f1;
   height: 20px;
 }
 
@@ -399,12 +395,12 @@ h1 {
 }
 
 #ranking-table .your-rank {
-  color: #0A57AE;
+  color: #0a57ae;
   font-weight: bold;
 }
 
 .box {
-  background-color: #D0E0F1;
+  background-color: #d0e0f1;
   border-radius: 16px;
   padding: 20px;
   margin-bottom: 20px;
@@ -423,7 +419,6 @@ h1 {
 
 /*for medium screen*/
 @media only screen and (max-width: 1200px) and (min-width: 850px) {
-
   * {
     font-size: 18px;
   }
@@ -431,7 +426,7 @@ h1 {
   .dashboard-main {
     grid-column: 1/8;
   }
-  
+
   .dashboard-side {
     grid-column: 9/13;
   }
@@ -440,12 +435,10 @@ h1 {
     width: 100px;
     height: 100px;
   }
-
 }
 
 /*for small screen*/
 @media only screen and (max-width: 850px) {
-
   .dashboard-side {
     text-align: left;
   }
@@ -489,5 +482,4 @@ h1 {
     width: 80px;
     height: 80px;
   }
-
 }
