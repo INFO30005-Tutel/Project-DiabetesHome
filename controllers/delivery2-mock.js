@@ -11,15 +11,18 @@ exports.mockLogin = (req, res) => {
   console.debug('login email: ', email, ', password: ', password);
   const isPatient = true;
   if (isPatient) {
-    res.redirect('/patient-main-dashboard');
+    const endpoint = '/patient/' + mockPatientId;
+    res.redirect(endpoint);
   } else {
-    res.redirect('/cli/1');
+    const endpoint = '/clinician/' + mockClinicianId;
+    res.redirect(endpoint);
   }
 };
 
 exports.mockSignUp = (req, res) => {
   console.warn('SIGN UP NOT IMPLEMENTED');
-  res.redirect('/cli/1');
+  const endpoint = '/clinician/' + mockClinicianId;
+  res.redirect(endpoint);
 };
 
 exports.mockUpdate = async (req, res) => {
@@ -30,7 +33,7 @@ exports.mockUpdate = async (req, res) => {
       savedData = JSON.parse(JSON.stringify(data));
     }
   });
-  
+
   var input = {
     data: req.body.data,
     note: req.body.note,
@@ -87,7 +90,7 @@ exports.getPatientHasData = async (patientID) => {
   hasData.push(patientData.exerciseData.length > 0);
 
   return hasData;
-}
+};
 
 exports.getPatientsOfClinician = async (clinicianId) => {
   let patientList = User.find({ clinicianId: clinicianId }).lean();
