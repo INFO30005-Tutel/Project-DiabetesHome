@@ -17,6 +17,9 @@ const clinicianRoute = require('./routes/clinician');
 const delivery2Mock = require('./routes/delivery2-mock');
 const patientRoute = require('./routes/patient');
 
+const port = process.env.PORT || 3000;
+const host = process.env.HOST || 'localhost';
+
 //app.use(userRoute); // Can be uncommented temporarily to register new user when testing in delivery2
 //app.use(userDataRoute);
 app.use(delivery2Mock); // if we use mock for delivery 2, need to comment the above 2 routes
@@ -36,7 +39,7 @@ app.engine(
 app.set('View engine', 'hbs'); // set Handlebars view engine
 
 // Tells the app to listen on port 3000 and logs that information to the
-app.listen(3000, () => {
+app.listen(port, () => {
   console.log('Diabetes Home is listening on port 3000!');
   initMongooseConnection();
 });
