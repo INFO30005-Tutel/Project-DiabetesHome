@@ -40,7 +40,7 @@ app.set('View engine', 'hbs'); // set Handlebars view engine
 
 // Tells the app to listen on port 3000 and logs that information to the
 app.listen(port, () => {
-  console.log('Diabetes Home is listening on port 3000!');
+  console.log(`⚡Server is running on ${host}:${port}`);
   initMongooseConnection();
 });
 
