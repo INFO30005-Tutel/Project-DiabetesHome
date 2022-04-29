@@ -21,7 +21,7 @@ const getDashboardData = async (req, res) => {
 };
 
 // blood, weight, insulin, stepcount
-const dangerThreshold = [3, 6, 80, 100, 0, 2, 1000, 4000];
+const dangerThreshold = [6000, 8000, 80, 100, 0, 2, 1000, 4000];
 
 const getTableData = async (clinicianId) => {
   let patientList;
