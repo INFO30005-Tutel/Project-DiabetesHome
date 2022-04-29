@@ -91,10 +91,56 @@ function retrieveTodayData(dataArray) {
   }
 }
 
+const getDateAndTime = () => {
+  var days = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
+  var months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  var today = new Date();
+  var time =
+    today.getHours() +
+    ':' +
+    today.getMinutes() +
+    ' ' +
+    Intl.DateTimeFormat().resolvedOptions().timeZone;
+  var date =
+    days[today.getDay()] +
+    ', ' +
+    today.getDate() +
+    ' ' +
+    months[today.getMonth()] +
+    ' ' +
+    today.getFullYear();
+  return {
+    time,
+    date,
+  };
+};
+
 module.exports = {
   updateData,
   deleteData,
   findAllData,
   findData,
   retrieveTodayData,
+  getDateAndTime
 };

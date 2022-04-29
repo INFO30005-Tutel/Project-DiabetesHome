@@ -1,5 +1,6 @@
 const handlebars = require('handlebars');
 const controller = require('./delivery2-mock');
+const helper = require('./helper')
 
 const mockPatientId = '6267f02b41463408a4205299';
 const mockClinicianId = '6267ec216e7d25b724cac71d';
@@ -8,7 +9,7 @@ const mockClinicianId = '6267ec216e7d25b724cac71d';
 const getDashboardData = async (req, res) => {
   const clinicianId = req.params.clinician_id;
   const clinicianName = 'Chris Smith';
-  const dateAndTime = getDateAndTime();
+  const dateAndTime = helper.getDateAndTime();
   console.log('clinician_id is ', mockClinicianId);
 
   res.render('clinician/dashboard.hbs', {
@@ -53,51 +54,6 @@ const getTableData = async (clinicianId) => {
   }
 
   return patientList;
-};
-
-const getDateAndTime = () => {
-  var days = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-  ];
-  var months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
-  var today = new Date();
-  var time =
-    today.getHours() +
-    ':' +
-    today.getMinutes() +
-    ' ' +
-    Intl.DateTimeFormat().resolvedOptions().timeZone;
-  var date =
-    days[today.getDay()] +
-    ', ' +
-    today.getDate() +
-    ' ' +
-    months[today.getMonth()] +
-    ' ' +
-    today.getFullYear();
-  return {
-    time,
-    date,
-  };
 };
 
 const getTextColor = (value, type) => {

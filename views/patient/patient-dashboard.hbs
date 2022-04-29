@@ -1,4 +1,19 @@
 <div class="patient-dashboard">
+    <div class="dashboard-side">
+        <p>
+            Welcome, <b>{{userData.firstname}}</b>
+            <br>
+            {{time}}
+            <br>
+            {{date}}
+        </p>
+        <h1>Messages from your clinician</h1>
+        <div class="box">
+            <p>Good work with the high engagement rate, keep it up 😊</p>
+            <a href="">Dismiss</a>
+        </div>
+        <a href="messages"><button class="small-button-variant">View all</button></a>
+    </div>
     <div class="dashboard-main">
         <h1>Today's tasks:</h1>
         <div class="patient-data">
@@ -71,7 +86,17 @@
         </div>
     </div>
     <div class="dashboard-side">
+        <h1>Your engagement</h1>
         <div class="datepicker"></div>
+        <div class="box">
+            <img src="/images/fire.svg">
+            <h3 style="color: #0A57AE;">0 day streak</h3>
+            <p style="margin-bottom: 0;">
+                Highest streak: 3 days
+                <br>
+                Complete today's tasks to <b>start a new streak</b>!
+            </p>
+        </div>
     </div>
 
 </div>
