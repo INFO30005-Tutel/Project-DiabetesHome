@@ -1,6 +1,6 @@
 const handlebars = require('handlebars');
 const controller = require('./delivery2-mock');
-const helper = require('./helper')
+const helper = require('./helper');
 
 const mockPatientId = '6267f02b41463408a4205299';
 const mockClinicianId = '6267ec216e7d25b724cac71d';
@@ -10,7 +10,7 @@ const getDashboardData = async (req, res) => {
   const clinicianId = req.params.clinician_id;
   const clinicianName = 'Chris Smith';
   const dateAndTime = helper.getDateAndTime();
-  console.log('clinician_id is ', mockClinicianId);
+  console.log(await getTableData(mockClinicianId));
 
   res.render('clinician/dashboard.hbs', {
     layout: 'clinician-layout.hbs',
@@ -60,6 +60,8 @@ const getTextColor = (value, type) => {
   const ok = '#2b7a3d';
   const unknown = '#9b7509';
   const warning = '#b42424';
+  console.log(type);
+  console.log(value);
 
   switch (type) {
     case 'bloodGlucose':
@@ -159,17 +161,9 @@ const getIconColor = (patient) => {
   return ok;
 };
 
-const isRequired = (requiredFields, type) => {
-  if (requiredFields.includes(type)) {
-    return true;
-  }
-  return false;
-};
-
 handlebars.registerHelper('getTextColor', getTextColor);
 handlebars.registerHelper('getIcon', getIcon);
 handlebars.registerHelper('getIconColor', getIconColor);
-handlebars.registerHelper('isRequired', isRequired);
 
 module.exports = {
   getDashboardData,
