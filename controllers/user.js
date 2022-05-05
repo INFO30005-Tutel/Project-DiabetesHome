@@ -3,7 +3,7 @@ const User = require('../models/user');
 const helper = require('./helper');
 
 exports.updateSelf = (req, res) => {
-  console.log('updateSelf');
+  //console.log('updateSelf');
   // Get the id
   const id = req.user._id;
 
@@ -88,7 +88,7 @@ exports.findOne = (req, res) => {
 };
 exports.findAll = (req, res) => {
   helper.findAllData(User, req, res);
-}
+};
 
 exports.update = (req, res) => {
   helper.updateData(User, req, res);

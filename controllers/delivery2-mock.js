@@ -26,15 +26,12 @@ exports.mockSignUp = (req, res) => {
 };
 
 exports.mockUpdate = async (req, res) => {
-  console.log(req.body);
   let savedData;
   await UserData.findOne({ userId: mockPatientId }).then(async (data) => {
     if (data) {
       savedData = JSON.parse(JSON.stringify(data));
     }
   });
-  console.log("savedData");
-  console.log(savedData);
 
   let input = {
     data: req.body.data,
@@ -45,37 +42,37 @@ exports.mockUpdate = async (req, res) => {
   let todayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   let last;
   if (req.body.type == 0) {
-    last = savedData.bloodData[savedData.bloodData.length-1]
-    if (last && new Date(last.inputAt).getTime()>todayDate.getTime()) {
+    last = savedData.bloodData[savedData.bloodData.length - 1];
+    if (last && new Date(last.inputAt).getTime() > todayDate.getTime()) {
       // Override last entry
-      savedData.bloodData[savedData.bloodData.length-1] = input;
+      savedData.bloodData[savedData.bloodData.length - 1] = input;
     } else {
       savedData.bloodData.push(input);
     }
   }
   if (req.body.type == 1) {
-    last = savedData.bloodData[savedData.weightData.length-1]
-    if (last && new Date(last.inputAt).getTime()>todayDate.getTime()) {
+    last = savedData.bloodData[savedData.weightData.length - 1];
+    if (last && new Date(last.inputAt).getTime() > todayDate.getTime()) {
       // Override last entry
-      savedData.weightData[savedData.weightData.length-1] = input;
+      savedData.weightData[savedData.weightData.length - 1] = input;
     } else {
       savedData.weightData.push(input);
     }
   }
   if (req.body.type == 2) {
-    last = savedData.bloodData[savedData.insulinData.length-1]
-    if (last && new Date(last.inputAt).getTime()>todayDate.getTime()) {
+    last = savedData.bloodData[savedData.insulinData.length - 1];
+    if (last && new Date(last.inputAt).getTime() > todayDate.getTime()) {
       // Override last entry
-      savedData.insulinData[savedData.insulinData.length-1] = input;
+      savedData.insulinData[savedData.insulinData.length - 1] = input;
     } else {
       savedData.insulinData.push(input);
     }
   }
   if (req.body.type == 3) {
-    last = savedData.bloodData[savedData.exerciseData.length-1]
-    if (last && new Date(last.inputAt).getTime()>todayDate.getTime()) {
+    last = savedData.bloodData[savedData.exerciseData.length - 1];
+    if (last && new Date(last.inputAt).getTime() > todayDate.getTime()) {
       // Override last entry
-      savedData.exerciseData[savedData.exerciseData.length-1] = input;
+      savedData.exerciseData[savedData.exerciseData.length - 1] = input;
     } else {
       savedData.exerciseData.push(input);
     }
