@@ -7,7 +7,7 @@ const mockClinicianId = '6267ec216e7d25b724cac71d';
 
 // handle dashboard data
 const getDashboardData = async (req, res) => {
-  const clinicianId = req.params.clinician_id;
+  //const clinicianId = req.params.clinician_id;
   const clinicianName = 'Chris Smith';
   const dateAndTime = helper.getDateAndTime();
   console.log(await getTableData(mockClinicianId));
@@ -18,6 +18,28 @@ const getDashboardData = async (req, res) => {
     clinicianName: clinicianName,
     date: dateAndTime.date,
     time: dateAndTime.time,
+  });
+};
+
+const getPatientData = async (req, res) => {
+  //const patientId = req.params.pat_id;
+  const patientName = 'John Doe';
+  const patinetEmail = 'jdoee@gmail.com';
+  const patientPhoneNo = '0123456789';
+  const recordingTime = {
+    from: '14:00',
+    to: '16:00',
+  }
+
+  // handlebars.registerPartial('patient-default-info', '{{defaultInfo}}');
+
+  res.render('clinician/patient-profile.hbs', {
+    layout: 'clinician-layout.hbs',
+    tableData: await getTableData(mockClinicianId),
+    patientName: patientName,
+    patinetEmail: patinetEmail,
+    patientPhoneNo: patientPhoneNo,
+    recordingTime: recordingTime,
   });
 };
 
@@ -167,4 +189,5 @@ handlebars.registerHelper('getIconColor', getIconColor);
 
 module.exports = {
   getDashboardData,
+  getPatientData,
 };

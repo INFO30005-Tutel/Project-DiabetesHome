@@ -1,0 +1,26 @@
+<div class='dashboard'>
+  <div>
+  <div class='dash-header'>
+    <div style="display: flex; gap: 20px;">
+      <img src='.././images/sampleAvatar.jpg' class="avatar">
+      <div class='pat-info'>
+        <p><b id='pat_name' style='font-size: 25px'>{{patientName}}</b></p>
+        <p id='email'>{{patinetEmail}}</p>
+        <p id='phoneNo'>{{patientPhoneNo}}</p>
+        <div class="searching-area">
+          <p id='record_time' style="margin-bottom: 0%;">
+            <b>Recording time: </b>
+            <b style="color: #0a57ae;">{{recordingTime.from}} - {{recordingTime.to}}</b>
+          </p>
+          <button id="edit_record_time"><i class='fa fa-pencil'></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="side-btns">
+      <button class="cli-btn cli-btn-white">View notes<i class="fa fa-sticky-note cli-btn-icon"></i></button>
+      <button class="cli-btn cli-btn-default">View messages<i class="fa fa-commenting-o cli-btn-icon"></i></button>
+    </div>
+  </div>
+  <hr style="border: 2px solid #292929;">
+  </div>
+</div>
