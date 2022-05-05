@@ -10,7 +10,7 @@ const getDashboardData = async (req, res) => {
   const clinicianId = req.params.clinician_id;
   const clinicianName = 'Chris Smith';
   const dateAndTime = helper.getDateAndTime();
-  console.log(await getTableData(mockClinicianId));
+  //console.log(await getTableData(mockClinicianId));
 
   res.render('clinician/dashboard.hbs', {
     layout: 'clinician-layout.hbs',
@@ -60,8 +60,6 @@ const getTextColor = (value, type) => {
   const ok = '#2b7a3d';
   const unknown = '#9b7509';
   const warning = '#b42424';
-  console.log(type);
-  console.log(value);
 
   switch (type) {
     case 'bloodGlucose':

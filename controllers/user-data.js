@@ -7,7 +7,6 @@ const helper = require('./helper');
 //   data: double/float/number
 // }
 exports.update = async (req, res) => {
-  console.log(req.body);
   let savedData;
   await UserData.findOne({ userId: req.user._id }).then(async (data) => {
     if (data) {
@@ -85,7 +84,6 @@ exports.getTodayData = (req, res) => {
       if (!dataBlock) {
         res.status(404).send({ message: 'Missing user-data for this user!' });
       }
-      console.log(dataBlock);
       // Get access to each of data elements
       toReturn.bloodData = await helper.retrieveTodayData(dataBlock.bloodData);
       toReturn.weightData = await helper.retrieveTodayData(
