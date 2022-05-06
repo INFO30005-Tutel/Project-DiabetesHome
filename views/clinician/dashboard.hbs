@@ -1,8 +1,8 @@
-<div class='dashboard'>
+<div class='flex-column dashboard'>
   {{! HEADINGS }}
   <div class='dash-header'>
     <h1 class='title'>Clinician Dashboard</h1>
-    <div class='cli-info'>
+    <div class='flex-column cli-info'>
       <p style='margin-bottom: 20px'>Hello,
         <b id='cli_name'>{{clinicianName}}</b></p>
       <p id='time'>{{time}}</p>
@@ -16,7 +16,7 @@
     <button><i class='fa fa-plus'></i></button>
   </div>
   {{! TABLE BODY}}
-  <div class='table-section'>
+  <div class='flex-column table-section'>
     <table class='dash-table'>
       <tr>
         <th>STATUS</th>
