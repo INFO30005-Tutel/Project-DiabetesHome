@@ -1,0 +1,48 @@
+<div id='safety-threshold'>
+  <p><b style='font-size: 24px; color:#0a57ae;'>Safety threshold</b></p>
+  <div class='flex-row thres-box'>
+    <div class='flex-column threshold-area'>
+      <div class='threshold-row'>
+        <p><b>Blood glucose level:</b></p>
+        <p id='blood-thres'>110 - 130</p>
+      </div>
+      <div class='threshold-row'>
+        <p><b>Weight entry:</b></p>
+        <p id='weight-thres'>70 - 90</p>
+      </div>
+      <div class='threshold-row'>
+        <p><b>Dose of insulin taken per day:</b></p>
+        <p id='dose-thres'>2 - 3</p>
+      </div>
+      <div class='threshold-row'>
+        <p><b>Step count recommended:</b></p>
+        <p id='step-thres'>4000 - 6000</p>
+      </div>
+    </div>
+    <div class='flex-column narrow-margin-bot'>
+      <p>nmol/L</p>
+      <p>kg</p>
+      <p>doses</p>
+      <p>steps</p>
+    </div>
+    <button class='border-icon-btn' onclick='OpenPopup()'><i
+        class='fa fa-pencil'
+      ></i></button>
+  </div>
+</div>
+
+<div class='popup'>
+  <span id='edit-thres-popup' class='threshold-popup'>
+    <div class='threshold-card'>
+      <p>Some content</p>
+    </div>
+  </span>
+</div>
+
+<script>
+  function OpenPopup() { var popup =
+  document.getElementById("edit-thres-popup"); popup.classList.toggle("show"); }
+  function ClosePopup() { var popup =
+  document.getElementById("edit-thres-popup"); popup.classList.remove("show"); }
+  function Submit() {}
+</script>
