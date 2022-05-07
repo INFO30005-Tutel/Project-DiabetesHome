@@ -1,31 +1,16 @@
 // Load envioronment variables
 require('dotenv').config();
 const express = require('express');
+const flash = require('express-flash'); // for showing login error messages
+const session = require('express-session'); // for managing user sessions
 const mongoose = require('mongoose');
 const config = require('./config');
-const cors = require('cors');
+const passport = require('./passport.js');
 const app = express();
 app.use(express.urlencoded({ extended: true })); // replaces body-parser
 app.use(express.static('public')); // define where static assets live
 app.use(express.json()); // parse application/json
-app.use(cors());
-
-const userRoute = require('./routes/user');
-const userDataRoute = require('./routes/user-data');
-const staticPageRoute = require('./routes/static-page');
-const clinicianRoute = require('./routes/clinician');
-const delivery2Mock = require('./routes/delivery2-mock');
-const patientRoute = require('./routes/patient');
-
-const port = process.env.PORT || 3000;
-const host = process.env.HOST || 'localhost';
-
-//app.use(userRoute); // Can be uncommented temporarily to register new user when testing in delivery2
-//app.use(userDataRoute);
-app.use(delivery2Mock); // if we use mock for delivery 2, need to comment the above 2 routes
-app.use(staticPageRoute);
-app.use(clinicianRoute);
-app.use(patientRoute);
+app.use(flash());
 
 // Setup Handlebars
 const exphbs = require('express-handlebars');
@@ -37,6 +22,39 @@ app.engine(
   })
 );
 app.set('View engine', 'hbs'); // set Handlebars view engine
+
+app.use(
+  session({
+    // The secret used to sign session cookies (ADD ENV VAR)
+    secret: process.env.SESSION_SECRET || 'TutelDiabetesHome',
+    saveUninitialized: true,
+    resave: true,
+    proxy: process.env.NODE_ENV === 'production', //  to work on Heroku
+    cookie: {
+      sameSite: 'strict',
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 300000, // sessions expire after 5 minutes
+    },
+  })
+);
+
+//app.use(passport.authenticate('session'));
+app.use(passport.initialize());
+app.use(passport.session());
+
+const userRoute = require('./routes/user');
+const staticPageRoute = require('./routes/static-page');
+const clinicianRoute = require('./routes/clinician');
+const patientRoute = require('./routes/patient');
+
+const port = process.env.PORT || 3000;
+const host = process.env.HOST || 'localhost';
+
+app.use(userRoute);
+app.use(staticPageRoute);
+app.use(clinicianRoute);
+app.use(patientRoute);
 
 // Tells the app to listen on port 3000 and logs that information to the
 app.listen(port, () => {

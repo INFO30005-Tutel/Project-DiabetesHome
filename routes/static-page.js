@@ -17,8 +17,8 @@ app.get('/login', (req, res) => {
   res.render('login.hbs');
 });
 
-app.get('/sign-up', (req, res) => {
-  res.render('sign-up.hbs');
+app.get('/register', (req, res) => {
+  res.render('register.hbs');
 });
 
 module.exports = app;

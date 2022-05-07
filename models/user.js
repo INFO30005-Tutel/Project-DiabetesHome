@@ -10,19 +10,19 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  firstname: {
+  firstName: {
     type: String,
     required: true,
   },
-  lastname: {
+  lastName: {
     type: String,
     required: true,
   },
-  dob: {
+  dateOfBirth: {
     type: Date,
     required: true,
   },
-  phoneNo: {
+  phoneNumber: {
     type: String,
     required: true,
   },

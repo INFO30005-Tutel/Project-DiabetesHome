@@ -1,24 +1,27 @@
 const handlebars = require('handlebars');
-const controller = require('./delivery2-mock');
+const controller = require('./user-data');
 const helper = require('./helper');
+const User = require('../models/user');
 
-const mockPatientId = '6267f02b41463408a4205299';
-const mockClinicianId = '6267ec216e7d25b724cac71d';
-
-// handle dashboard data
-const getDashboardData = async (req, res) => {
-  const clinicianId = req.params.clinician_id;
-  const clinicianName = 'Chris Smith';
+const renderClinicianDashboard = async (req, res) => {
+  console.log('READ DATAAAAAAAAA');
+  console.log(req.user);
+  const clinicianId = req.user._id;
+  const clinicianName = req.user.firstName + ' ' + req.user.lastName;
   const dateAndTime = helper.getDateAndTime();
-  //console.log(await getTableData(mockClinicianId));
 
   res.render('clinician/dashboard.hbs', {
     layout: 'clinician-layout.hbs',
-    tableData: await getTableData(mockClinicianId),
+    tableData: await getTableData(clinicianId),
     clinicianName: clinicianName,
     date: dateAndTime.date,
     time: dateAndTime.time,
   });
+};
+
+const getPatientsOfClinician = async (clinicianId) => {
+  let patientList = User.find({ clinicianId: clinicianId }).lean();
+  return patientList;
 };
 
 // blood, weight, insulin, stepcount
@@ -29,7 +32,7 @@ const getTableData = async (clinicianId) => {
   let patientData;
 
   try {
-    patientList = await controller.getPatientsOfClinician(clinicianId);
+    patientList = await getPatientsOfClinician(clinicianId);
   } catch (err) {
     console.log(err);
   }
@@ -164,5 +167,5 @@ handlebars.registerHelper('getIcon', getIcon);
 handlebars.registerHelper('getIconColor', getIconColor);
 
 module.exports = {
-  getDashboardData,
+  renderClinicianDashboard,
 };
