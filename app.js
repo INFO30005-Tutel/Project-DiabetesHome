@@ -4,7 +4,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 const express = require('express');
 const mongoose = require('mongoose');
-const config = require('./config');
+const config = require('./config.js');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
 const app = express();

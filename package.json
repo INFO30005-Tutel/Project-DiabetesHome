@@ -25,7 +25,7 @@
     "express-handlebars": "^6.0.3",
     "mongoose": "^6.3.0",
     "multiparty": "^4.2.3",
-    "nodemailer": "^6.7.3"
+    "nodemailer": "^6.7.5"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
