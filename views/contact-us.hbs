@@ -4,16 +4,16 @@
          <p class = 'contact-sub-title'>Have a feature request? Want to know more about us? Contact us here:</p>
     </div>
     <div class = 'contact-form'>
-        <form id = "contact-form">
+        <form id = "contact-form" action = "/contact-us" method = "post">
             <div id = "info-for-contact">
                 <p>Name</p>
-                <input type = "text" id = "name" name = "name" value = "name" required>
+                <input type = "text" id = "name" name = "name" required>
                 <p>Email</p>
-                <input type = "text" id = "email" name = "email" value = "email" required>
+                <input type = "email" id = "email" name = "email" required>
             </div>
             <div id = "message-for-contact">
                 <p>Message</p>
-                <input type = "text" id = "message" name = "message" value = "message" required>
+                <input type = "text" id = "message" name = "message" required>
             </div>
             <input type = "submit" id = "contact-submit-button" value = "Submit">
         </form>

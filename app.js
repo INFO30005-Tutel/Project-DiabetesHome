@@ -74,7 +74,7 @@ app.post('/contact-us', (req, res) =>{
         res.status(500).send("Something went wrong");
       }
       else{
-        res.status(200).send("Email is successfully sent to DiabetesHome");
+        res.render('contact-us.hbs');
       }
     })
 })
