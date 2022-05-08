@@ -1,17 +1,21 @@
 const UserData = require('../models/user-data');
+const helper = require('../controllers/helper');
 
 const getTodayData = async (patientId) => {
   let patientData = await UserData.findOne({ userId: patientId }).lean();
+  console.log(patientData);
 
-  patientData.bloodData = await helper.retrieveTodayData(patientData.bloodData);
+  patientData.bloodGlucoseData = await helper.retrieveTodayData(
+    patientData.bloodGlucoseData
+  );
   patientData.weightData = await helper.retrieveTodayData(
     patientData.weightData
   );
-  patientData.insulinData = await helper.retrieveTodayData(
-    patientData.insulinData
+  patientData.insulinDoseData = await helper.retrieveTodayData(
+    patientData.insulinDoseData
   );
-  patientData.exerciseData = await helper.retrieveTodayData(
-    patientData.exerciseData
+  patientData.stepCountData = await helper.retrieveTodayData(
+    patientData.stepCountData
   );
 
   return patientData;

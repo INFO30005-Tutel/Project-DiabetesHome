@@ -27,7 +27,7 @@ const dangerThreshold = [6000, 8000, 80, 100, 0, 2, 1000, 4000];
 
 const getTableData = async (clinicianId) => {
   let patientList;
-  let patientData;
+  let data;
 
   try {
     patientList = await getPatientsOfClinician(clinicianId);
@@ -35,23 +35,26 @@ const getTableData = async (clinicianId) => {
     console.log(err);
   }
   for (patient of patientList) {
+    // Patient is a combined object of User and UserData
     try {
-      patientData = await controller.getTodayData(patient._id);
+      console.log(patient);
+      data = await controller.getTodayData(patient._id);
     } catch (err) {
       console.log(err);
     }
 
     // Add `required` value to fields that patient need to update
-    patient.bloodGlucose = patientData.bloodData || {};
-    if (patient.requiredFields.includes(0))
-      patient.bloodGlucose.required = true;
-    patient.weight = patientData.weightData || {};
-    if (patient.requiredFields.includes(1)) patient.weight.required = true;
-    patient.insulinDoses = patientData.insulinData || {};
-    if (patient.requiredFields.includes(2))
-      patient.insulinDoses.required = true;
-    patient.stepCounts = patientData.exerciseData || {};
-    if (patient.requiredFields.includes(3)) patient.stepCounts.required = true;
+    patient.bloodGlucose = data.bloodGlucoseData || {};
+    if (data.requiredFields.includes(0)) patient.bloodGlucose.required = true;
+
+    patient.weight = data.weightData || {};
+    if (data.requiredFields.includes(1)) patient.weight.required = true;
+
+    patient.insulinDose = data.insulinDoseData || {};
+    if (data.requiredFields.includes(2)) patient.insulinDose.required = true;
+
+    patient.stepCounts = data.exerciseData || {};
+    if (data.requiredFields.includes(3)) patient.stepCounts.required = true;
   }
 
   return patientList;
@@ -73,7 +76,7 @@ const getTextColor = (value, type) => {
       else if (value < dangerThreshold[2] || value > dangerThreshold[3])
         return warning;
       else return ok;
-    case 'insulinDoses':
+    case 'insulinDose':
       if (!value) return unknown;
       else if (value < dangerThreshold[4] || value > dangerThreshold[5])
         return warning;
@@ -106,8 +109,8 @@ const getIcon = (patient) => {
     else if (value < dangerThreshold[2] || value > dangerThreshold[3])
       hasWarning = true;
   }
-  if (patient.insulinDoses.required) {
-    let value = patient.insulinDoses.data;
+  if (patient.insulinDose.required) {
+    let value = patient.insulinDose.data;
     if (!value) hasUnknown = true;
     else if (value < dangerThreshold[4] || value > dangerThreshold[5])
       hasWarning = true;
@@ -143,8 +146,8 @@ const getIconColor = (patient) => {
     else if (value < dangerThreshold[2] || value > dangerThreshold[3])
       hasWarning = true;
   }
-  if (patient.insulinDoses.required) {
-    let value = patient.insulinDoses.data;
+  if (patient.insulinDose.required) {
+    let value = patient.insulinDose.data;
     if (!value) hasUnknown = true;
     else if (value < dangerThreshold[4] || value > dangerThreshold[5])
       hasWarning = true;

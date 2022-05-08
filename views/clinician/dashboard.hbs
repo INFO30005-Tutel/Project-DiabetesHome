@@ -32,8 +32,8 @@
               class='fa {{getIcon this}}'
               style='font-size:xx-large; color: {{getIconColor this}}'
             ></i></td>
-          <td><a href='patient/{{this._id}}'>{{this.firstname}}
-              {{this.lastname}}</a></td>
+          <td><a href='patient/{{this._id}}'>{{this.firstName}}
+              {{this.lastName}}</a></td>
           {{#with this.bloodGlucose}}
             <td style='color: {{getTextColor data "bloodGlucose"}}'>
               {{#if data}}{{data}} nmol/L{{else if required}}??? nmol/L{{/if}}
@@ -47,8 +47,8 @@
               {{/if}}
             </td>
           {{/with}}
-          {{#with this.insulinDoses}}
-            <td style='color: {{getTextColor data "insulinDoses"}}'>
+          {{#with this.insulinDose}}
+            <td style='color: {{getTextColor data "insulinDose"}}'>
               {{#if data}}{{data}} doses{{else if required}}??? doses{{/if}}
             </td>
           {{/with}}

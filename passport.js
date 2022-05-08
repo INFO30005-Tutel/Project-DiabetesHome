@@ -74,25 +74,35 @@ passport.use(
             newUser.firstName = req.body.firstName;
             newUser.lastName = req.body.lastName;
             newUser.dateOfBirth = new Date(req.body.dateOfBirth);
-            newUser.phoneNumber = req.body.phoneNumber || '';
+            newUser.phoneNumber = req.body.phoneNumber;
             newUser.clinicianId = req.body.clinicianId || null;
 
-            if (req.body.clinicianId) {
-              // by default patient: all fields to be activated (if not provided)
-              newUser.requiredFields = req.body.requiredFields || [0, 1, 2, 3];
-            }
             newUser.save().then((savedUser) => {
-              // When register successfully --> Auto-create empty user-data
-              const newUserdata = new UserData({
-                userId: savedUser._id,
-                bloodData: [],
-                exerciseData: [],
-                insulinData: [],
-                weightData: [],
-              });
-              newUserdata.save().then((savedUserData) => {
+              // If this user is a patient
+              if (req.body.clinicianId) {
+                const newUserdata = new UserData({
+                  userId: savedUser._id,
+                  bloodGlucoseData: [],
+                  stepCountData: [],
+                  insulinDoseData: [],
+                  weightData: [],
+                  requiredFields: req.body.requiredFields || [0, 1, 2, 3],
+                  bloodGlucoseLowThresh: req.body.bloodGlucoseLowThresh,
+                  bloodGlucoseHighThresh: req.body.bloodGlucoseHighThresh,
+                  weightLowThresh: req.body.weightLowThresh,
+                  weightHighThresh: req.body.weightHighThresh,
+                  insulinDoseLowThresh: req.body.insulinDoseLowThresh,
+                  insulinDoseHighThresh: req.body.insulinDoseHighThresh,
+                  stepCountLowThresh: req.body.stepCountLowThresh,
+                  stepCountHighThresh: req.body.stepCountHighThresh,
+                });
+                newUserdata.save().then((savedUserData) => {
+                  return done(null, newUser);
+                });
+              } else {
+                // This user is a clinician. Not need to add userdata
                 return done(null, newUser);
-              });
+              }
             });
           }
         })

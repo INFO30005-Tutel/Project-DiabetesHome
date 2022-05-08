@@ -36,14 +36,14 @@ const UserDataSchema = new mongoose.Schema({
       inputAt: { type: Date, required: true },
     },
   ],
-  insulinData: [
+  insulinDoseData: [
     {
       value: { type: Number, required: true },
       note: { type: String },
       inputAt: { type: Date, required: true },
     },
   ],
-  exerciseData: [
+  stepCountData: [
     {
       value: { type: Number, required: true },
       note: { type: String },
