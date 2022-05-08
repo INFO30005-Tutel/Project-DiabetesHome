@@ -4,6 +4,7 @@ const UserData = require('../models/user-data');
 const isAuthenticated = (req, res, next) => {
   // If user is not authenticated via Passport, redirect to login page
   if (!req.isAuthenticated()) {
+    req.flash('error', 'Requires logged in to access');
     return res.redirect('/login');
   }
   // Otherwise, proceed to next middleware function
