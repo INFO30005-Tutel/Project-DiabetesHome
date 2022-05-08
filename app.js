@@ -22,8 +22,7 @@ app.engine(
   })
 );
 app.set('View engine', 'hbs'); // set Handlebars view engine
-//Setup external javascript files for Handlebars
-var contactUsJs = [{script: './script/contactUs.js'}];
+
 // Routes
 const demoRouter = require('./routes/demo-router');
 app.use('/demo-management', demoRouter);
