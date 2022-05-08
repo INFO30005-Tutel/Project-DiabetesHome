@@ -26,6 +26,7 @@ const getPatientData = async (req, res) => {
   const patientName = 'John Doe';
   const patinetEmail = 'jdoee@gmail.com';
   const patientPhoneNo = '0123456789';
+  const patientDob = '27/2/1980';
   const recordingTime = {
     from: '14:00',
     to: '16:00',
@@ -40,6 +41,13 @@ const getPatientData = async (req, res) => {
     patinetEmail: patinetEmail,
     patientPhoneNo: patientPhoneNo,
     recordingTime: recordingTime,
+    patientDob: patientDob,
+    thresholds: [
+      { thresName: 'Blood glucose level', thresFrom: 110, thresTo: 130, thresUnit: 'nmol/L', thresTime: 'Morning' },
+      { thresName: 'Weight entry', thresFrom: 70, thresTo: 90, thresUnit: 'kg', thresTime: 'Morning' },
+      { thresName: 'Dose of insulin taken per day', thresFrom: 2, thresTo: 3, thresUnit: 'doses', thresTime: 'Afternoon' },
+      { thresName: 'Step count recommended', thresFrom: 4000, thresTo: 6000, thresUnit: 'steps', thresTime: 'Evening' },
+    ]
   });
 };
 

@@ -4,7 +4,7 @@
 
 .popup .show {
   visibility: visible;
-  -webkit-animation: fadeIn 1s;
+  -webkit-animation: fadeIn 0.5s;
   animation: fadeIn 0.5s;
 }
 
@@ -23,7 +23,7 @@
 }
 
 .threshold-card {
-  height: 285px;
+  height: 310px;
   background-color: white;
   border-radius: 30px;
   border: 4px solid #0a57ae;
@@ -40,6 +40,43 @@
   width: 200px;
   height: 50px;
   border-radius: 25px;
+}
+
+.thres-box {
+  gap: 20px;
+  align-items: center;
+}
+
+.threshold-table {
+  border-collapse: collapse;
+  width: 90%;
+}
+
+.threshold-table tr {
+  height: 35px;
+}
+
+.threshold-table tr:hover {
+  background-color: aliceblue;
+}
+
+.thres-name {
+  text-align: start;
+}
+
+.thres-data {
+  text-align: end;
+  padding-right: 20px;
+}
+
+.thres-unit {
+  text-align: start;
+  width: 65px;
+}
+
+.thres-time {
+  text-align: center;
+  width: 125px;
 }
 
 @-webkit-keyframes fadeIn {

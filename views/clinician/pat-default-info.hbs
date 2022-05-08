@@ -4,19 +4,9 @@
       <img src='.././images/sampleAvatar.jpg' class='avatar' />
       <div class='flex-column pat-info'>
         <p><b id='pat_name' style='font-size: 25px'>{{patientName}}</b></p>
-        <p id='email'>{{patinetEmail}}</p>
-        <p id='phoneNo'>{{patientPhoneNo}}</p>
-        <div class='flex-row thres-box'>
-          <p id='record_time' style='margin-bottom: 0%;'>
-            <b>Recording time: </b>
-            <b style='color: #0a57ae;'>{{recordingTime.from}}
-              -
-              {{recordingTime.to}}</b>
-          </p>
-          <button class='border-icon-btn' id='edit_record_time'><i
-              class='fa fa-pencil'
-            ></i></button>
-        </div>
+        <p id='email'><b>Email: </b>{{patinetEmail}}</p>
+        <p id='phoneNo'><b>Phone number: </b>{{patientPhoneNo}}</p>
+        <p id='dob'><b>Date of birth: </b>{{patientDob}}</p>
       </div>
     </div>
     <div class='flex-column' style='gap: 10px;'>
