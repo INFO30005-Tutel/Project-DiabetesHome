@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 :root {
   --primary-color: #0a57ae;
 }
@@ -75,6 +76,7 @@ footer img {
   /* position: absolute; */
   margin-left: 15vw;
 }
+
 .navbar .nav-items {
   position: absolute;
   right: 12.8125vw;
@@ -87,6 +89,7 @@ footer img {
 .navbar .nav-items {
   padding-top: 4px;
 }
+
 .navbar button {
   height: 40px;
   width: 160px;
@@ -104,6 +107,7 @@ footer img {
 .xlarge {
   font-size: 24px !important;
 }
+
 .xxlarge {
   font-size: 36px !important;
 }
@@ -113,9 +117,11 @@ footer img {
   .title {
     font-size: 48px;
   }
+
   .nav-items a {
     display: block;
   }
+
   .footer-items {
     padding-top: 12px;
     display: flex;
@@ -123,30 +129,42 @@ footer img {
     align-items: flex-end;
     gap: 12px;
   }
+
   .sidebar-icon {
     display: none;
   }
+
   .mission p {
     width: 50%;
   }
+
   .homepage-section {
     flex-direction: row;
   }
+
+  .contact-form-textboxes {
+    flex-direction: row;
+  }
 }
+
 /* SMALL SCREENS */
 @media (max-width: 964px) {
   .title {
     font-size: 28px;
   }
+
   p {
     font-size: 15px;
   }
+
   .nav-items a {
     display: none;
   }
+
   .footer-items {
     display: none;
   }
+
   .sidebar-icon {
     padding-left: 15px;
     color: #fff !important;
@@ -154,22 +172,27 @@ footer img {
     position: absolute;
     align-items: center;
   }
+
   .navbar button {
     width: 100px;
   }
+
   .footer-upper {
     justify-content: center;
   }
+
   /* .home-component {
     text-align: center;
   } */
   .mission p {
     width: 100%;
   }
+
   .home-component img {
     width: 100%;
     height: auto;
   }
+
   .video-container {
     position: relative;
     padding-bottom: 56.25%;
@@ -177,6 +200,7 @@ footer img {
     height: 0;
     overflow: hidden;
   }
+
   .video-container iframe {
     position: absolute;
     top: 0;
@@ -184,64 +208,40 @@ footer img {
     width: 100%;
     height: 100%;
   }
+
   .mission {
     flex-direction: column;
     gap: 100px;
   }
+
   .verticle-line {
     display: none;
   }
+
   .users {
     flex-direction: column;
     gap: 48px;
   }
+
   .homepage-section {
     flex-direction: column;
   }
+
   #reverse-when-phone {
     flex-direction: column-reverse;
   }
-   /*responsive design for the contact us form*/
-   .contact-us-page{
-     height: 90vh !important;
-   }
-   .contact-us-page div:first-child{
-     width: 60%;
-   }
-   .contact-sub-title{
+
+  /*responsive design for the contact us form*/
+  .contact-us-page {
+    height: 90vh !important;
+  }
+
+  .contact-sub-title {
     text-align: center;
   }
-   .contact-form{
-    width: 100vw;
-    display: flex;
-    position: relative;
-    bottom: 30px;
-   }
 
-   #contact-form{
-     position: absolute;
-     left: 20%;
-   }
-
-   #info-for-contact{
-    display: block !important;
-  }
-  #message-for-contact{
-    display: block !important;
-    position:relative !important;
-    margin-left: 0 !important;
-  }
-  #info-for-contact input{
-    width: 60vw !important;
-  
-  }
-  #message-for-contact input{
-    width: 60vw !important
-  }
-  #contact-submit-button{
-    left: 30% !important;
-    width: 180px !important;
-    height:  50px !important;
+  .contact-form-textboxes {
+    flex-direction: column;
   }
 }
 
@@ -256,6 +256,7 @@ footer img {
   z-index: 1;
   overflow: auto;
 }
+
 .sidebar button {
   height: 33%;
   width: 100%;
@@ -265,9 +266,11 @@ footer img {
   display: block;
   border: none;
 }
+
 .sidenav button:hover {
   background-color: #d0e0f1;
 }
+
 .sidebar a {
   height: 33%;
   width: 100%;
@@ -278,6 +281,7 @@ footer img {
   justify-content: center;
   align-items: center;
 }
+
 .sidebar a:hover {
   background-color: #d0e0f1;
 }
@@ -289,15 +293,18 @@ footer img {
   padding: 10vh 12.8125vw 10vh 12.8125vw;
   gap: 36px;
 }
+
 .title {
   text-align: center;
   color: #0a57ae;
 }
+
 .sub-title {
   font-size: 36px;
   margin-bottom: 20px;
   color: #0a57ae;
 }
+
 .mission {
   display: flex;
   justify-content: space-between;
@@ -308,12 +315,14 @@ footer img {
   position: relative;
   bottom: 100px;
 }
+
 .users {
   display: flex;
   justify-content: space-between;
   width: 100%;
   margin-top: 11px;
 }
+
 #clinicians {
   height: 100%;
   display: flex;
@@ -321,6 +330,7 @@ footer img {
   padding: 0;
   gap: 51px;
 }
+
 .verticle-line {
   border-left: 2px solid #707070;
   height: 560px;
@@ -385,6 +395,7 @@ h3 {
   display: flex;
   margin-bottom: 5vh;
 }
+
 .homepage-section .left-side {
   flex: 1 1 0;
 }
@@ -437,62 +448,61 @@ h3 {
 }
 
 /*Contact Us Form Styles*/
-.contact-us-page{
+.contact-us-page {
   display: flex;
   flex-direction: column;
   gap: 1.85vh;
   align-items: center;
   margin-bottom: 2.5rem;
-  height:70vh;
-  margin-top:2.5rem;
+  height: 70vh;
+  margin-top: 2.5rem;
 }
-.contact-us-page div:first-child p{
+
+.contact-us-page div:first-child p {
   margin-top: 1rem;
 }
-#contact-form{
-  position: relative;
-  right: 10rem;
-  
+
+#contact-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
-#contact-form div p{
-  color:#3d3d3d;
+
+.contact-form-textboxes {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+#contact-form div p {
+  color: #3d3d3d;
   font-weight: bold;
 }
-#info-for-contact{
-  display: inline-block;
-  width: max-content;
-}
 
-#info-for-contact input{
-  width: 25vw;
-  height: 8vh;
+.contact-us-input {
+  width: 450px;
+  border-radius: 20px;
+  border: 2px solid #0a57ae;
   color: #707070;
-}
-#message-for-contact input{
-  width: 26vw;
-  height: 23vh;
-  color: #707070;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
-#message-for-contact{
-  display: inline-block;
-  width: max-content;
-  margin-left: 2.35rem;
-  position: absolute;
-  top: 1rem;
+#info-for-contact input {
+  height: 70px;
 }
 
-#contact-submit-button{
-  display: block;
-  position: absolute;
-  left: 70%;
-  margin-top: 11vh;
-  height:5.55vh;
-  width:12.5vw;
+#message-for-contact input {
+  height: 205px;
+}
+
+#contact-submit-button {
+  height: 60px;
+  width: 200px;
   background-color: #0a57ae;
   color: #fff;
-  border-radius: 16px;
-  border-style: none;
+  border-radius: 20px;
+  align-self: center;
 }
-
-
