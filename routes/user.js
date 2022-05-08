@@ -6,7 +6,7 @@ app.post(
   passport.authenticate('login', {
     failureRedirect: '/login',
     failureFlash: true,
-  }), // if bad login, send user back to login page
+  }),
   (req, res) => {
     console.log('LOG IN!');
     console.log(req.user);
@@ -28,9 +28,5 @@ app.post(
     else res.redirect('/clinician');
   }
 );
-
-app.get('/lam', (req, res) => {
-  console.log(req.user);
-});
 
 module.exports = app;

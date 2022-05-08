@@ -1,5 +1,15 @@
 const UserData = require('../models/user-data');
 
+// Passport Authentication middleware
+const isAuthenticated = (req, res, next) => {
+  // If user is not authenticated via Passport, redirect to login page
+  if (!req.isAuthenticated()) {
+    return res.redirect('/login');
+  }
+  // Otherwise, proceed to next middleware function
+  return next();
+};
+
 // Update a data identified by the data's Id =====================================
 function updateData(controller, req, res) {
   // Get the id
@@ -142,5 +152,6 @@ module.exports = {
   findAllData,
   findData,
   retrieveTodayData,
-  getDateAndTime
+  getDateAndTime,
+  isAuthenticated,
 };

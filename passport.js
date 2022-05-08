@@ -5,21 +5,11 @@ const UserData = require('./models/user-data');
 
 // Updated serialize/deserialize functions
 passport.serializeUser((user, done) => {
-  console.log('2222222222222222');
-
   done(undefined, user._id);
 });
 
 passport.deserializeUser((userId, done) => {
-  console.log('3333333333333');
-
-  console.log('USER ID');
-  console.log(userId);
   User.findById(userId, (err, user) => {
-    console.log(
-      'USER----------------------------------------------------------'
-    );
-    console.log(user);
     if (err) {
       return done(err, undefined);
     }
@@ -30,25 +20,32 @@ passport.deserializeUser((userId, done) => {
 // Does the login and returns a token if login successfully
 passport.use(
   'login',
-  new LocalStrategy((username, password, done) => {
-    User.findOne({ email: username.toLowerCase() }, function (err, user) {
-      if (err) {
-        return cb(null, false, { message: 'Unknown error.' });
-      }
-      if (!user) {
-        return cb(null, false, { message: 'Incorrect username.' });
-      }
-      user.verifyPassword(password, (err, valid) => {
+  new LocalStrategy(
+    {
+      usernameField: 'email',
+    },
+    (username, password, done) => {
+      User.findOne({ email: username.toLowerCase() }, function (err, user) {
+        console.log('ASASASAS');
+        console.log(user);
         if (err) {
-          return cb(null, false, { message: 'Unknown error.' });
+          return done(null, false, { message: 'Unknown error.' });
         }
-        if (!valid) {
-          return cb(null, false, { message: 'Incorrect password.' });
+        if (!user) {
+          return done(null, false, { message: 'Incorrect username.' });
         }
-        return cb(null, user);
+        user.verifyPassword(password, (err, valid) => {
+          if (err) {
+            return done(null, false, { message: 'Unknown error.' });
+          }
+          if (!valid) {
+            return done(null, false, { message: 'Incorrect password.' });
+          }
+          return done(null, user);
+        });
       });
-    });
-  })
+    }
+  )
 );
 
 // Register for an account
@@ -60,7 +57,7 @@ passport.use(
       passReqToCallback: true,
       usernameField: 'email',
     },
-    async function (req, email, password, done) {
+    async (req, email, password, done) => {
       await User.findOne({ email: email }, async (err, user) => {
         if (err) {
           return done(err);
