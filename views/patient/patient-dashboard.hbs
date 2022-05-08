@@ -1,0 +1,142 @@
+<div class="patient-dashboard">
+    <div class="dashboard-side">
+        <p>
+            Welcome, <b>{{userData.firstname}}</b>
+            <br>
+            {{time}}
+            <br>
+            {{date}}
+        </p>
+        <h1>Messages from your clinician</h1>
+        <div class="box">
+            <p>Good work with the high engagement rate, keep it up 😊</p>
+            <a href="">Dismiss</a>
+        </div>
+        <a href="messages"><button class="small-button-variant">View all</button></a>
+    </div>
+    <div class="dashboard-main">
+        <h1>Today's tasks:</h1>
+        <div class="patient-data">
+            {{#each userData.dataEntries}}
+            <div class="task">
+                <div class="icon{{#if this.isDisabled}} icon-disabled{{/if}}" id="{{this.shortName}}">
+                    {{#unless this.entry}}
+                    <img src="{{this.iconImage}}" />
+                    {{else}}
+                    <img src="/images/tick.svg" />
+                    {{/unless}}
+                </div>
+                <h4>{{this.name}}</h4>
+            </div>
+            {{/each}}
+        </div>
+        <h1>Top Engagement rates in the past 365 days</h1>
+        <div class="podium">
+            <span id="second-place">2nd</span>
+            <span id="first-place">1st</span>
+            <span id="third-place">3rd</span>
+            <p id="second-place-text">Bob 95%</p>
+            <p id="first-place-text">Alice 97%</p>
+            <p id="third-place-text">Charlie 93%</p>
+        </div>
+        <h2>Your rank</h2>
+        <div class="ranking">
+            <table id="ranking-table">
+                <tr>
+                    <th>Rank</th>
+                    <th>Username</th>
+                    <th>Engagement Rate %</th>
+                </tr>
+                <tr>
+                    <td>481</td>
+                    <td>Steven Armstrong</td>
+                    <td>54.1%</td>
+                </tr>
+                <tr class="your-rank">
+                    <td>482</td>
+                    <td>Pat Sadguy (You)</td>
+                    <td>53.4%</td>
+                </tr>
+                <tr>
+                    <td>483</td>
+                    <td>Lee Min Hoo</td>
+                    <td>53.2%</td>
+                </tr>
+                <tr>
+                    <td>484</td>
+                    <td>Dante Sparda</td>
+                    <td>52.8%</td>
+                </tr>
+                <tr>
+                    <td>485</td>
+                    <td>Ben Rottenborn</td>
+                    <td>52.4%</td>
+                </tr>
+            </table>
+            <div class='page-change'>
+                <p style='text-align: center'>Show 481-485 of 2347</p>
+                <div class='page-num'>
+                    <a href="">Page 1</a>
+                    <button><i class='fa fa-arrow-left' style="color: white;"></i></button>
+                    <b>96</b>
+                    <button><i class='fa fa-arrow-right' style="color: white;"></i></button>
+                    <a href="">Your rank</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dashboard-side">
+        <h1>Your engagement</h1>
+        <div class="datepicker"></div>
+        <div class="box">
+            <img src="/images/fire.svg">
+            <h3 style="color: #0A57AE;">0 day streak</h3>
+            <p style="margin-bottom: 0;">
+                Highest streak: 3 days
+                <br>
+                Complete today's tasks to <b>start a new streak</b>!
+            </p>
+        </div>
+    </div>
+
+</div>
+
+{{!Popups}}
+{{#each userData.dataEntries}}
+<div class="pop-up" id="{{this.shortName}}-popup">
+    <div class="exit-button"><span class="lni lni-close"></span></div>
+    <h3 id="form-title" style="color: #0A57AE;">{{this.name}}</h3>
+    {{#unless this.entry}}
+    <form id="{{this.shortName}}-form" method='POST' action='/userdata'>
+        <input type='hidden' name='type' value='{{this.index}}' />
+        <div>
+            <input type="text" class="small-input" placeholder="Input here" name="data">
+            <label for="enter-data" id="unit" name="unit">{{this.units}}</label>
+        </div>
+        <h4>Notes</h4>
+        <textarea class="note" type="text" placeholder="Input text here" name="note"></textarea>
+        <div class="button-bar">
+            <a href="{{this.shortName}}"><button class="small-button-variant" type="button">View data</button></a>
+            <button class="small-button-variant" type="submit" id="submit-button">Submit</button>
+        </div>
+    </form>
+    {{else}}
+    <form id="{{this.shortName}}-form" method='POST' action='/userdata'>
+        <input type='hidden' name='type' value='{{this.index}}' />
+        <div>
+            <input type="text" class="small-input" value={{this.entry.data}} name="data">
+            <label for="enter-data" id="unit" name="unit">{{this.units}}</label>
+        </div>
+        <h4>Notes</h4>
+        <textarea class="note" type="text" placeholder="Input text here" name="note">{{this.entry.note}}</textarea>
+        <div class="button-bar">
+            <a href="{{this.shortName}}"><button class="small-button-variant" type="button">View data</button></a>
+            <button class="small-button-variant" type="submit" id="submit-button">Resubmit</button>
+        </div>
+    </form>
+    {{/unless}}
+
+</div>
+{{/each}}
+
+<div id="overlay"></div>

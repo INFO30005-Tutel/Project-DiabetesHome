@@ -5,18 +5,33 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0' />
     <title>Diabetes Home</title>
     <link rel='stylesheet' href='/css/styles.css' />
-    <link rel='stylesheet' href='/patient.css' />
+    <link rel='stylesheet' href='/css/patient.css' />
     <link rel='preconnect' href='https://fonts.gstatic.com' />
     <link
       href='https://fonts.googleapis.com/css2?family=Lexend+Mega&family=Rammetto+One&display=swap'
       rel='stylesheet'
     />
-    <link 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+      
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    <link href="https://cdn.lineicons.com/3.0/lineicons.css" rel="stylesheet">
+     <link 
       rel="stylesheet" 
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+
   </head>
   <body>
+
+    {{! SIDE BAR }}
+    <div class='sidebar' id='sidebar'>
+      <button onclick='sidebar_close()'>&times;</button>
+      <a href='/about-diabetes'>About Diabetes</a>
+      <a href='/about-this-website'>About This Website</a>
+    </div>
+    {{! END OF SIDE BAR }}
     
     {{! HEADER }}
     <header class='header'>
@@ -27,12 +42,12 @@
           onclick='sidebar_open()'
         >&#9776;</button>
         <a href='/'>
-          <img src='./images/logo.png' />
+           <img src='/images/logo.png' />
         </a>
         <div class='nav-items'>
-          <a href='about-diabetes'>About Diabetes</a>
-          <a href='about-this-website'>About This Website</a>
-          Wezheng Du
+          <a href='/about-diabetes'>About Diabetes</a>
+          <a href='/about-this-website'>About This Website</a>
+          <a>{{userData.firstname}} {{userData.lastname}}</a>
         </div>
       </nav>
 
@@ -51,12 +66,12 @@
     <footer class='footer'>
       <div class='footer-upper'>
         <div class='footer-logo'>
-          <img src='./images/logo.png' />
+            <img src='/images/logo.png' />
           <p>Diabetes@Home</p>
         </div>
         <div class='footer-items'>
-          <a href='./about-this-website'>About Diabetes@Home</a>
-          <a href='./about-diabetes'>About Diabetes</a>
+          <a href='/about-this-website'>About Diabetes@Home</a>
+          <a href='/about-diabetes'>About Diabetes</a>
           <a href='contact.html'>Contact us</a>
           <a href='press-kit.html'>Press kit</a>
         </div>
@@ -64,13 +79,50 @@
       <p class='footer-copyright'>©Diabetes@Home 2021</p>
     </footer>
     {{! END OF FOOTER }}
-
-    <script>
-      // Functions to interact with side bar function sidebar_open() {
-      document.getElementById('sidebar').style.width = '250px'; } function
-      sidebar_close() { document.getElementById('sidebar').style.width = '0px';
-      }
-    </script>
-
   </body>
+  <script type = "text/javascript">
+    $(document).ready(function() {
+        $((".icon")).on('click', function() {
+            const nameOfPopUp = '#' + $(this).attr('id') + '-popup';
+            $(nameOfPopUp).addClass('active');
+            $("#overlay").addClass('active');
+            $(".exit-button").on('click', function() {
+                $(nameOfPopUp).removeClass('active');
+                $("#overlay").removeClass('active')
+            });
+        })
+    })
+    // Functions to interact with side bar function sidebar_open
+    function sidebar_open() {
+      document.getElementById('sidebar').style.width =
+        '250px';
+    }
+
+    function sidebar_close() {
+      document.getElementById('sidebar').style.width = '0px';
+    }
+
+
+    // Functions to enable datepicker
+    var selectedDate = ['14-04-2022', '19-04-2022', '20-04-2022', '21-04-2022', '21-05-2022'];
+
+    function highlightDays(date) {
+        var fDate = $.datepicker.formatDate('dd-mm-yy', date);
+        var result = [true, ""];
+        $.each(selectedDate, function(k, d) {
+            if (fDate === d) {
+                result = [true, "highlight-blue"];
+            }
+        });
+        return result;
+    };
+
+    $(".datepicker").datepicker({
+        prevText: '<i class="fa fa-fw fa-angle-left"></i>',
+        nextText: '<i class="fa fa-fw fa-angle-right"></i>',
+        dateFormat: "dd/MM/yy",
+        beforeShowDay: highlightDays,
+    });
+  </script>
 </html>
+
