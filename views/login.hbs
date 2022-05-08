@@ -6,6 +6,9 @@
     <br />
     (Patient registration require contact with your clinician)
   </p>
+  {{#each flash}}
+  <p class="alert">{{this}}</p>
+  {{/each}}
   <form action='/login' method='POST'>
     <label for='email'>Email</label>
     <br />
@@ -20,3 +23,4 @@
     </div>
   </form>
 </div>
+

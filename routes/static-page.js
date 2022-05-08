@@ -14,11 +14,11 @@ app.get('/about-this-website', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-  res.render('login.hbs');
+  res.render('login.hbs', { flash: req.flash('error') });
 });
 
 app.get('/register', (req, res) => {
-  res.render('register.hbs');
+  res.render('register.hbs', { flash: req.flash('error') });
 });
 
 module.exports = app;

@@ -475,3 +475,8 @@ button:hover {
   flex: 1;
   text-align: center;
 }
+
+.alert {
+  color: red;
+  margin: 0;
+}

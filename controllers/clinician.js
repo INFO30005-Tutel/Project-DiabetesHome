@@ -4,8 +4,6 @@ const helper = require('./helper');
 const User = require('../models/user');
 
 const renderClinicianDashboard = async (req, res) => {
-  console.log('READ DATAAAAAAAAA');
-  console.log(req.user);
   const clinicianId = req.user._id;
   const clinicianName = req.user.firstName + ' ' + req.user.lastName;
   const dateAndTime = helper.getDateAndTime();

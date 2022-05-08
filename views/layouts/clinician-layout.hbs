@@ -26,7 +26,9 @@
         <div class='navitems'>
           <button onclick='open_dashboard()'><b>Dashboard</b></button>
           <button onclick='open_settings()'><b>Settings</b></button>
-          <button onclick='log_out()'><b>Log out</b></button>
+          <form class="logout" action="/logout" method="post">
+            <button type="submit">Log Out</button>
+          </form>
         </div>
       </nav>
     </header>
@@ -57,8 +59,11 @@
     {{! END OF FOOTER }}
 
     <script>
-      function log_out() {} function open_settings() {} function
-      open_dashboard() {}
+      function log_out() {
+
+      } 
+      function open_settings() {} 
+      function open_dashboard() {}
     </script>
 
   </body>

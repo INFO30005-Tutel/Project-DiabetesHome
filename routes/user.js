@@ -29,4 +29,9 @@ app.post(
   }
 );
 
+app.post('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/');
+});
+
 module.exports = app;
