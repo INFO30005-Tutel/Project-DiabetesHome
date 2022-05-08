@@ -1,12 +1,12 @@
 const handlebars = require('handlebars');
-const controller = require('./user-data');
-const helper = require('./helper');
+const userDataController = require('./user-data');
+const helperController = require('./helper');
 const User = require('../models/user');
 
 const renderClinicianDashboard = async (req, res) => {
   const clinicianId = req.user._id;
   const clinicianName = req.user.firstName + ' ' + req.user.lastName;
-  const dateAndTime = helper.getDateAndTime();
+  const dateAndTime = helperController.getDateAndTime();
 
   res.render('clinician/dashboard.hbs', {
     layout: 'clinician-layout.hbs',
@@ -38,7 +38,7 @@ const getTableData = async (clinicianId) => {
     // Patient is a combined object of User and UserData
     try {
       console.log(patient);
-      data = await controller.getTodayData(patient._id);
+      data = await userDataController.getTodayData(patient._id);
     } catch (err) {
       console.log(err);
     }
@@ -53,8 +53,8 @@ const getTableData = async (clinicianId) => {
     patient.insulinDose = data.insulinDoseData || {};
     if (data.requiredFields.includes(2)) patient.insulinDose.required = true;
 
-    patient.stepCounts = data.exerciseData || {};
-    if (data.requiredFields.includes(3)) patient.stepCounts.required = true;
+    patient.stepCount = data.stepCountData || {};
+    if (data.requiredFields.includes(3)) patient.stepCount.required = true;
   }
 
   return patientList;
@@ -81,9 +81,9 @@ const getTextColor = (value, type) => {
       else if (value < dangerThreshold[4] || value > dangerThreshold[5])
         return warning;
       else return ok;
-    case 'stepCounts':
+    case 'stepCount':
       if (!value) return unknown;
-      else if (value < dangerThreshold[4] || value > dangerThreshold[5])
+      else if (value < dangerThreshold[6] || value > dangerThreshold[7])
         return warning;
       else return ok;
   }
@@ -98,25 +98,25 @@ const getIcon = (patient) => {
   let hasWarning = false;
 
   if (patient.bloodGlucose.required) {
-    let value = patient.bloodGlucose.data;
+    let value = patient.bloodGlucose.value;
     if (!value) hasUnknown = true;
     else if (value < dangerThreshold[0] || value > dangerThreshold[1])
       hasWarning = true;
   }
   if (patient.weight.required) {
-    let value = patient.weight.data;
+    let value = patient.weight.value;
     if (!value) hasUnknown = true;
     else if (value < dangerThreshold[2] || value > dangerThreshold[3])
       hasWarning = true;
   }
   if (patient.insulinDose.required) {
-    let value = patient.insulinDose.data;
+    let value = patient.insulinDose.value;
     if (!value) hasUnknown = true;
     else if (value < dangerThreshold[4] || value > dangerThreshold[5])
       hasWarning = true;
   }
-  if (patient.stepCounts.required) {
-    let value = patient.stepCounts.data;
+  if (patient.stepCount.required) {
+    let value = patient.stepCount.value;
     if (!value) hasUnknown = true;
     else if (value < dangerThreshold[6] || value > dangerThreshold[7])
       hasWarning = true;
@@ -135,29 +135,33 @@ const getIconColor = (patient) => {
   let hasWarning = false;
 
   if (patient.bloodGlucose.required) {
-    let value = patient.bloodGlucose.data;
+    let value = patient.bloodGlucose.value;
     if (!value) hasUnknown = true;
     else if (value < dangerThreshold[0] || value > dangerThreshold[1])
       hasWarning = true;
   }
   if (patient.weight.required) {
-    let value = patient.weight.data;
+    let value = patient.weight.value;
     if (!value) hasUnknown = true;
     else if (value < dangerThreshold[2] || value > dangerThreshold[3])
       hasWarning = true;
   }
   if (patient.insulinDose.required) {
-    let value = patient.insulinDose.data;
+    let value = patient.insulinDose.value;
     if (!value) hasUnknown = true;
     else if (value < dangerThreshold[4] || value > dangerThreshold[5])
       hasWarning = true;
   }
-  if (patient.stepCounts.required) {
-    let value = patient.stepCounts.data;
+  if (patient.stepCount.required) {
+    let value = patient.stepCount.value;
     if (!value) hasUnknown = true;
     else if (value < dangerThreshold[6] || value > dangerThreshold[7])
       hasWarning = true;
   }
+  console.log('GetIcon');
+  console.log(hasWarning);
+  console.log(hasUnknown);
+
   if (hasWarning) return warning;
   if (hasUnknown) return unknown;
   return ok;

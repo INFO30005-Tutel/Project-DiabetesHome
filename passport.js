@@ -26,8 +26,6 @@ passport.use(
     },
     (username, password, done) => {
       User.findOne({ email: username.toLowerCase() }, function (err, user) {
-        console.log('ASASASAS');
-        console.log(user);
         if (err) {
           return done(null, false, { message: 'Unknown error.' });
         }

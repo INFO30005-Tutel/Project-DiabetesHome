@@ -1,9 +1,7 @@
 const handlebars = require('handlebars');
-const controller = require('./delivery2-mock');
-const helper = require('./helper.js');
-
-const mockPatientId = '6267f02b41463408a4205299';
-const mockClinicianId = '6267ec216e7d25b724cac71d';
+const userDataController = require('./user-data');
+const helperController = require('./helper');
+const UserData = require('../models/user-data');
 
 const patientMetadata = [
   {
@@ -33,47 +31,44 @@ const patientMetadata = [
 ];
 
 // handle dashboard data
-const getDashboardData = async (req, res) => {
-  const patientId = mockPatientId;
-  //console.log(await getPatientData(mockPatientId));
-  const dateAndTime = helper.getDateAndTime();
+const renderPatientDashboard = async (req, res) => {
+  const patient = req.user;
+  const dateAndTime = helperController.getDateAndTime();
   res.render('patient/patient-dashboard.hbs', {
     layout: 'patient-layout.hbs',
-    userId: patientId,
-    userData: await getPatientData(mockPatientId),
+    userId: patient._id,
+    // Not normal UserData, but a combined User and UserData
+    userData: await getPatientData(patient),
     metadata: patientMetadata,
     date: dateAndTime.date,
     time: dateAndTime.time,
   });
 };
 
-const getPatientData = async (patientId) => {
-  let patient;
+const getPatientData = async (patientUser) => {
+  // Clone the patient's User object
+  let patient = JSON.parse(JSON.stringify(patientUser));
   let patientUserData;
   let patientHasData;
-  try {
-    patient = await controller.getUser(patientId);
-  } catch (err) {
-    console.log(err);
-  }
-  try {
-    patientUserData = await controller.getTodayData(patientId);
-  } catch (err) {
-    console.log(err);
-  }
-  try {
-    patientHasData = await controller.getPatientHasData(patientId);
-  } catch (err) {
-    console.log(err);
-  }
 
-  //console.log(patientUserData)
+  try {
+    patientUserData = await userDataController.getTodayData(patient._id);
+  } catch (err) {
+    console.log(err);
+  }
+  try {
+    patientHasData = await getPatientHasData(patient._id);
+  } catch (err) {
+    console.log(err);
+  }
+  // console.log(patientUserData);
+  // console.log(patientHasData);
 
   patientDataList = [
-    patientUserData.bloodData,
+    patientUserData.bloodGlucoseData,
     patientUserData.weightData,
-    patientUserData.insulinData,
-    patientUserData.exerciseData,
+    patientUserData.insulinDoseData,
+    patientUserData.stepCountData,
   ];
 
   patient.dataEntries = [];
@@ -83,7 +78,7 @@ const getPatientData = async (patientId) => {
     let data = { ...patientMetadata[i] };
     // Add the data entry
     data.entry = patientDataList[i];
-    data.required = patient.requiredFields.includes(i);
+    data.required = patientUserData.requiredFields.includes(i);
     data.exists = patientHasData[i];
     data.isDisabled = data.exists && !data.required;
     data.index = i;
@@ -93,10 +88,24 @@ const getPatientData = async (patientId) => {
       patient.dataEntries.push(data);
     }
   }
-
+  console.log(patient);
   return patient;
 };
 
+const getPatientHasData = async (patientID) => {
+  let patientData = await UserData.findOne({ userId: patientID }).lean();
+
+  let hasData = [];
+
+  hasData.push(patientData.bloodGlucoseData.length > 0);
+  hasData.push(patientData.weightData.length > 0);
+  hasData.push(patientData.insulinDoseData.length > 0);
+  hasData.push(patientData.stepCountData.length > 0);
+
+  return hasData;
+};
+
 module.exports = {
-  getDashboardData,
+  renderPatientDashboard,
+  getPatientHasData,
 };

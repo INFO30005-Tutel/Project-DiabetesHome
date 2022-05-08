@@ -44,6 +44,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 const userRoute = require('./routes/user');
+const userDataRoute = require('./routes/user-data');
 const staticPageRoute = require('./routes/static-page');
 const clinicianRoute = require('./routes/clinician');
 const patientRoute = require('./routes/patient');
@@ -52,6 +53,7 @@ const port = process.env.PORT || 3000;
 const host = process.env.HOST || 'localhost';
 
 app.use(userRoute);
+app.use(userDataRoute);
 app.use(staticPageRoute);
 app.use(clinicianRoute);
 app.use(patientRoute);
