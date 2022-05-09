@@ -1,27 +1,25 @@
 <div class='flex-column dashboard'>
   {{!-- DEFAULT-INFO --}}
   {{> pat-default-info }}
-    
+
   {{!-- SAFETY THRESHOLDS --}}
   {{> safety-threshold }}
 
   {{!-- RECORDED DATA --}}
   <p style="margin-top: 20px;"><b style="font-size: 22px;">Recorded data:</b></p>
   <div class="tabs">
-  <div class="tabbie">
-    <label for="overview">One</label>
-    <input id="overview" name="tabs-two" type="radio" checked="checked">
-    <div>
-      <h4>Tab One</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas consequat id velit quis vestibulum. Nam id orci eu urna mollis porttitor. Nunc nisi ante, gravida at velit eu, aliquet sodales dui. Sed laoreet condimentum nisi a egestas. <a class="documentation" href="https://flkt.mx/pitaya/componentes.html#pestanias">Documentación en español</a>.</p><p>Donec interdum ante ut enim consequat, quis varius nulla dapibus. Vivamus mollis fermentum augue a varius. Vestibulum in sapien at lectus gravida lobortis vulputate sed metus. Duis scelerisque justo et maximus efficitur. Donec eu eleifend quam. Curabitur aliquet commodo sapien eget vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vestibulum vel aliquet nunc, finibus posuere lorem. Suspendisse consectetur volutpat est ut ornare.</p>
+    <div class="tab chosen" id="overview" onclick="OnTabChosen('detailed', 'overview')">
+      <label for="overview">Overview</label>
     </div>
-  </div>
-  <div class="tabbie">
-    <label for="details">Two</label>
-    <input id="details" name="tabs-two" type="radio">
-    <div>
-      <h4>Tab Two</h4>
-      <p>Quisque sit amet turpis leo. Maecenas sed dolor mi. Pellentesque varius elit in neque ornare commodo ac non tellus. Mauris id iaculis quam. Donec eu felis quam. Morbi tristique lorem eget iaculis consectetur. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean at tellus eget risus tempus ultrices. Nam condimentum nisi enim, scelerisque faucibus lectus sodales at.</p>
+    <div class="tab" id="detailed" onclick="OnTabChosen('overview', 'detailed')">
+      <label for="details">Details</label>
     </div>
   </div>
 </div>
+
+<script>
+  function OnTabChosen(chosenTab, targetTab) {
+    var currTab = document.getElementById(chosenTab); currTab.classList.remove("chosen");
+    var nextTab = document.getElementById(targetTab); nextTab.classList.toggle("chosen");
+  }
+</script>
