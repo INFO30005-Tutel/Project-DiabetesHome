@@ -1,0 +1,77 @@
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+}
+
+.tabs [class^="tab"] label,
+.tabs [class*=" tab"] label {
+    cursor: pointer;
+    display: block;
+    font-size: 26px;
+    font-weight: bold;
+    line-height: 1em;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+.tabs [class^="tab"] [type="radio"],
+.tabs [class*=" tab"] [type="radio"] {
+    cursor: pointer;
+    appearance: none;
+    display: block;
+    width: 100%;
+    transition: all 0.3s ease-in-out;
+}
+
+.tabs [class^="tab"] [type="radio"]:hover,
+.tabs [class^="tab"] [type="radio"]:focus,
+.tabs [class*=" tab"] [type="radio"]:hover,
+.tabs [class*=" tab"] [type="radio"]:focus {
+    border-bottom: 1px solid #0a57ae;
+}
+
+.tabs [class^="tab"] [type="radio"]:checked,
+.tabs [class*=" tab"] [type="radio"]:checked {
+    border-bottom: 2px solid #0a57ae;
+}
+
+/* .tabs .tab-label [class^="tab"] [type="radio"]:checked,
+.tabs .tab-label [class*=" tab"] [type="radio"]:checked {
+    background-color: #0a57ae;
+} */
+
+.tabs [class^="tab"] [type="radio"]:checked+div,
+.tabs [class*=" tab"] [type="radio"]:checked+div {
+    opacity: 1;
+}
+
+.tabs [class^="tab"] [type="radio"]+div,
+.tabs [class*=" tab"] [type="radio"]+div {
+    display: block;
+    opacity: 0;
+    padding: 2rem 0;
+    width: 90%;
+    transition: all 0.3s ease-in-out;
+}
+
+.tabs .tabbie {
+    width: 50%;
+}
+
+.tabs .tabbie [type="radio"]+div {
+    width: 200%;
+    margin-left: 200%;
+}
+
+.tabs .tabbie [type="radio"]:checked+div {
+    margin-left: 0;
+}
+
+.tabs .tabbie:last-child [type="radio"]+div {
+    margin-left: 100%;
+}
+
+.tabs .tabbie:last-child [type="radio"]:checked+div {
+    margin-left: -100%;
+}
