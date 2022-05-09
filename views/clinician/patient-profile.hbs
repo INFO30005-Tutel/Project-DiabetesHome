@@ -8,24 +8,38 @@
   {{!-- RECORDED DATA --}}
   <p style="margin-top: 20px;"><b style="font-size: 22px;">Recorded data:</b></p>
   <div class="tabs">
-    <div class="tab chosen" id="overview" onclick="OnTabChosen('detailed', 'overview')">
+    <div class="tab chosen" id="overview" onclick="OnTabChosen('detailed', 'overview', 'detailed-tab','overview-tab')">
       <label for="overview">Overview</label>
     </div>
-    <div class="tab" id="detailed" onclick="OnTabChosen('overview', 'detailed')">
+    <div class="tab" id="detailed" onclick="OnTabChosen('overview', 'detailed','overview-tab', 'detailed-tab')">
       <label for="details">Details</label>
     </div>
+  </div>
+
+  {{!-- Overview tab content --}}
+  <div id="overview-tab" class="tab-content tab-show">
+    <p>ISPNCSKDNCSMDCSDJNCLKDCLKDSC</p>
+  </div>
+
+  {{!-- Detailed tab content --}}
+  <div id="detailed-tab" class="tab-content">
+    <p>sdjcbkajdnclkmcsldcmlksdcmdc</p>
   </div>
 </div>
 
 <script>
-  function OnTabChosen(chosenTab, targetTab) {
+  function OnTabChosen(chosenTab, targetTab, chosenTabContent, targetTabContent) {
     var currTab = document.getElementById(chosenTab);
-    if(currTab.classList.contains('chosen')){
-      currTab.classList.remove('chosen');
+    if (currTab.classList.contains('chosen')) {
+      currTab.classList.toggle('chosen');
+      var currTabContent = document.getElementById(chosenTabContent);
+      currTabContent.classList.toggle('tab-show');
     }
     var nextTab = document.getElementById(targetTab);
-    if(!nextTab.classList.contains('chosen')){
+    if (!nextTab.classList.contains('chosen')) {
       nextTab.classList.toggle('chosen');
+      var nextTabContent = document.getElementById(targetTabContent);
+      nextTabContent.classList.toggle('tab-show');
     }
   }
 </script>

@@ -14,7 +14,7 @@
         {{/each}}
       </table>
     </div>
-    <button class='border-icon-btn' onclick='OpenPopup()'><i
+    <button class='border-icon-btn' onclick='TogglePopup()'><i
         class='fa fa-pencil'
       ></i></button>
   </div>
@@ -37,16 +37,14 @@
         </table>
       </div>
       <div class='flex-row popup-button-group'>
-        <button class='cli-btn-white' onclick='ClosePopup()'>Cancel</button>
-        <button class='cli-btn-default' onclick='ClosePopup()'>Save</button>
+        <button class='cli-btn-white' onclick='TogglePopup()'>Cancel</button>
+        <button class='cli-btn-default' onclick='TogglePopup()'>Save</button>
       </div>
     </div>
   </span>
 </div>
 
 <script>
-  function OpenPopup() { var popup =
+  function TogglePopup() { var popup =
   document.getElementById("edit-thres-popup"); popup.classList.toggle("show");}
-  function ClosePopup() { var popup =
-  document.getElementById("edit-thres-popup"); popup.classList.remove("show");}
 </script>

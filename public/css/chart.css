@@ -2,10 +2,12 @@
     display: flex;
     flex-wrap: wrap;
     overflow: hidden;
+    margin-right: 0px;
+    margin-left: auto;
 }
 
 .tabs .tab {
-    width: 50%;
+    width: 250px;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
 }
@@ -30,4 +32,17 @@
 
 .chosen label {
     color: white;
+}
+
+.tab-content {
+    display: none;
+    padding: 1rem 0px;
+}
+
+.tab-show {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    transition: all 0.3s ease-in-out;
+    align-items: center;
 }
