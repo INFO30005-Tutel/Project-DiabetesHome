@@ -19,7 +19,13 @@
 
 <script>
   function OnTabChosen(chosenTab, targetTab) {
-    var currTab = document.getElementById(chosenTab); currTab.classList.remove("chosen");
-    var nextTab = document.getElementById(targetTab); nextTab.classList.toggle("chosen");
+    var currTab = document.getElementById(chosenTab);
+    if(currTab.classList.contains('chosen')){
+      currTab.classList.remove('chosen');
+    }
+    var nextTab = document.getElementById(targetTab);
+    if(!nextTab.classList.contains('chosen')){
+      nextTab.classList.toggle('chosen');
+    }
   }
 </script>

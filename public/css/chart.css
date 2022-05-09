@@ -10,6 +10,10 @@
     border-top-right-radius: 20px;
 }
 
+.tabs .tab:hover {
+    background-color: #0a56ae7c;
+}
+
 .chosen {
     background-color: #0a57ae;
 }
