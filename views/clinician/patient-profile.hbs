@@ -18,7 +18,13 @@
 
   {{!-- Overview tab content --}}
   <div id="overview-tab" class="tab-content tab-show">
-    <p>ISPNCSKDNCSMDCSDJNCLKDCLKDSC</p>
+    <button disabled="disabled" class="date-box noHover">From Mar 1-7</button>
+    <div class="overview-chart">
+      <h2>BLOOD GLUCOSE LEVEL</h2>
+      <div class="chart-card">
+        <div id="chart1" class="chart-container"></div>
+      </div>
+    </div>
   </div>
 
   {{!-- Detailed tab content --}}
@@ -42,4 +48,33 @@
       nextTabContent.classList.toggle('tab-show');
     }
   }
+</script>
+
+<script>
+  anychart.onDocumentReady(function () {
+    var colStyle = {
+      fill: "#FF5F6D",
+      stroke: null,
+      label: { enabled: true }
+    }
+    var data = [
+      { x: "1/3", value: 145, normal: colStyle },
+      { x: "2/3", value: 148, normal: colStyle },
+      { x: "3/3", value: 149, normal: colStyle },
+      { x: "4/3", value: 142, normal: colStyle },
+      { x: "5/3", value: 147, normal: colStyle },
+      { x: "6/3", value: 140, normal: colStyle },
+      { x: "7/3 - today", value: 135, normal: colStyle }
+    ];
+
+    var chart = anychart.column();
+
+    chart.column(data);
+
+    chart.title("BLOOD GLUCOSE LEVEL PER DAY");
+    chart.xAxis().title("Date");
+
+    chart.container("chart1");
+    chart.draw();
+  });
 </script>
