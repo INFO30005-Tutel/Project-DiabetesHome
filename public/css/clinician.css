@@ -32,7 +32,8 @@
 }
 
 .cli-navbar button:hover {
-  background-color: aliceblue;
+  background-color: rgb(212, 235, 255);
+  ;
 }
 
 .cli-navbar img {
@@ -144,7 +145,8 @@
 }
 
 .cli-btn-white:hover {
-  background-color: aliceblue;
+  background-color: rgb(212, 235, 255);
+  ;
 }
 
 .cli-btn-default {
@@ -176,7 +178,8 @@
 }
 
 .border-icon-btn:hover {
-  background-color: aliceblue;
+  background-color: rgb(212, 235, 255);
+  ;
 }
 
 /* SMALL SCREENS */
