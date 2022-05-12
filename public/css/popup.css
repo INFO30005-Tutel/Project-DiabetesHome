@@ -1,3 +1,5 @@
+/* ======== CSS FOR POP-UP AND TABS ======== */
+
 .popup {
   visibility: hidden;
 }
@@ -42,41 +44,65 @@
   border-radius: 25px;
 }
 
-.thres-box {
-  gap: 20px;
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  margin-right: 0px;
+  margin-left: auto;
+}
+
+.tabs .tab {
+  width: 250px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.tabs .tab:hover {
+  background-color: #0a56ae7c;
+}
+
+.chosen {
+  background-color: #0a57ae;
+}
+
+.tabs .tab label {
+  cursor: pointer;
+  display: block;
+  font-size: 26px;
+  font-weight: bold;
+  line-height: 1em;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+.chosen label {
+  color: white;
+}
+
+.tab-content {
+  display: none;
+  padding: 1rem 0px;
+}
+
+.tab-show {
+  display: flex;
+  transition: all 0.3s ease-in-out;
   align-items: center;
 }
 
-.threshold-table {
-  border-collapse: collapse;
-  width: 90%;
+.noHover {
+  pointer-events: none;
 }
 
-.threshold-table tr {
-  height: 35px;
+#overview-tab {
+  flex-direction: column;
+  gap: 2rem;
 }
 
-.threshold-table tr:hover {
-  background-color: aliceblue;
-}
-
-.thres-name {
-  text-align: start;
-}
-
-.thres-data {
-  text-align: end;
-  padding-right: 20px;
-}
-
-.thres-unit {
-  text-align: start;
-  width: 65px;
-}
-
-.thres-time {
-  text-align: center;
-  width: 125px;
+#detailed-tab {
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 @-webkit-keyframes fadeIn {

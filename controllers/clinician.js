@@ -47,7 +47,9 @@ const getPatientData = async (req, res) => {
       { thresName: 'Weight entry', thresFrom: 70, thresTo: 90, thresUnit: 'kg', thresTime: 'Morning' },
       { thresName: 'Dose of insulin taken per day', thresFrom: 2, thresTo: 3, thresUnit: 'doses', thresTime: 'Afternoon' },
       { thresName: 'Step count recommended', thresFrom: 4000, thresTo: 6000, thresUnit: 'steps', thresTime: 'Evening' },
-    ]
+    ],
+    detailedData: [
+      { id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }],
   });
 };
 

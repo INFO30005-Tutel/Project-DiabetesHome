@@ -1,51 +1,4 @@
-.tabs {
-  display: flex;
-  flex-wrap: wrap;
-  overflow: hidden;
-  margin-right: 0px;
-  margin-left: auto;
-}
-
-.tabs .tab {
-  width: 250px;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-}
-
-.tabs .tab:hover {
-  background-color: #0a56ae7c;
-}
-
-.chosen {
-  background-color: #0a57ae;
-}
-
-.tabs .tab label {
-  cursor: pointer;
-  display: block;
-  font-size: 26px;
-  font-weight: bold;
-  line-height: 1em;
-  padding: 1rem 0;
-  text-align: center;
-}
-
-.chosen label {
-  color: white;
-}
-
-.tab-content {
-  display: none;
-  padding: 1rem 0px;
-}
-
-.tab-show {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  transition: all 0.3s ease-in-out;
-  align-items: center;
-}
+/* ======== CSS FOR CHARTS, DIAGRAMS AND TABLES ======== */
 
 .date-box {
   border: 3px solid black;
@@ -57,10 +10,6 @@
   align-self: end;
   font-size: 22px;
   margin-right: 2rem;
-}
-
-.noHover {
-  pointer-events: none;
 }
 
 .overview-chart {
@@ -92,4 +41,91 @@
 .chart-container {
   width: 95%;
   height: 95%
+}
+
+.table-section {
+  align-items: center;
+  margin-top: 15px;
+}
+
+.dash-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.dash-table th {
+  color: black;
+  background-color: #dcdcdc;
+}
+
+.dash-table tr {
+  height: 65px;
+}
+
+.dash-table td {
+  text-align: center;
+}
+
+.dash-table tr:hover {
+  background-color: aliceblue;
+}
+
+.dash-table td a {
+  color: #0a57ae;
+  text-decoration: none;
+}
+
+.thres-box {
+  gap: 20px;
+  align-items: center;
+}
+
+.threshold-table {
+  border-collapse: collapse;
+  width: 90%;
+}
+
+.threshold-table tr {
+  height: 35px;
+}
+
+.threshold-table tr:hover {
+  background-color: aliceblue;
+}
+
+.thres-name {
+  text-align: start;
+}
+
+.thres-data {
+  text-align: end;
+  padding-right: 20px;
+}
+
+.thres-unit {
+  text-align: start;
+  width: 65px;
+}
+
+.thres-time {
+  text-align: center;
+  width: 125px;
+}
+
+.detailed-table {
+  width: 49%;
+  margin-bottom: 2rem;
+}
+
+.detailed-table h2 {
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 550;
+}
+
+.detailed-table tr {
+  text-align: center;
+  height: 30px;
 }

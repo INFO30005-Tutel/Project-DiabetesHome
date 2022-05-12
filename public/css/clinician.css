@@ -102,39 +102,6 @@
   background-color: #1b66bc;
 }
 
-.table-section {
-  align-items: center;
-  margin-top: 15px;
-}
-
-.dash-table {
-  border-collapse: collapse;
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-.dash-table th {
-  color: black;
-  background-color: #dcdcdc;
-}
-
-.dash-table tr {
-  height: 65px;
-}
-
-.dash-table td {
-  text-align: center;
-}
-
-.dash-table tr:hover {
-  background-color: aliceblue;
-}
-
-.dash-table td a {
-  color: #0a57ae;
-  text-decoration: none;
-}
-
 .avatar {
   width: 120px;
   height: 120px;
