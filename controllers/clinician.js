@@ -21,8 +21,8 @@ const renderClinicianDashboard = async (req, res) => {
 const renderPatientProfile = async (req, res) => {
   const patId = req.params.patId;
   const patDefaultInfo = UserController.getPatientDefaultInfo(patId);
-  const thresholds = await UserDataController.getThresholds(patId);
-  // const todayData = ;
+  const thresholds = UserDataController.getThresholds(patId);
+  const todayData = await UserDataController.getTodayData(patId);
   // const overViewData = ;
   // const detailedData = ;
 
@@ -30,7 +30,7 @@ const renderPatientProfile = async (req, res) => {
     layout: 'clinician-layout.hbs',
     patDefaultInfo: patDefaultInfo, //[email, firstName, lastName, dateOfBirth, phoneNumber]
     thresholds: thresholds,
-    // todayData: todayData,
+    todayData: todayData,
     // overviewData: overviewData,
     // detailedData: detailedData,
   });

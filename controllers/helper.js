@@ -102,6 +102,15 @@ function retrieveTodayData(dataArray) {
   }
 }
 
+const formatThreshold = (name, low, high, unit) => {
+  return {
+    thresName: name,
+    low: low,
+    high: high,
+    unit: unit,
+  }
+};
+
 const getDateAndTime = () => {
   var days = [
     'Sunday',
@@ -155,4 +164,5 @@ module.exports = {
   retrieveTodayData,
   getDateAndTime,
   isAuthenticated,
+  formatThreshold,
 };

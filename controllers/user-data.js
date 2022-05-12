@@ -117,28 +117,28 @@ const changePatientRecordParameter = async (req, res) => {
 };
 
 // Rechieve and format threshold for rendering
-const getThresholds = async (patId) => {
+const getThresholds = (patId) => {
 
-  UserData.findById(patId).then(async (data) => {
-    const bloodThres = await formatThreshold(
+  UserData.findById(patId).then((data) => {
+    const bloodThres = helper.formatThreshold(
       'Blood glucose level',
       data.bloodGlucoseLowThresh,
       data.bloodGlucoseHighThresh,
       'nmol/L');
 
-    const weightThres = await formatThreshold(
+    const weightThres = helper.formatThreshold(
       'Weight entry',
       data.weightLowThresh,
       data.weightHighThresh,
       'kg');
 
-    const insulinThres = await formatThreshold(
+    const insulinThres = helper.formatThreshold(
       'Dose of insulin taken per day',
       data.insulinDoseLowThresh,
       data.insulinDoseHighThresh,
       'doses');
 
-    const stepCountThres = await formatThreshold(
+    const stepCountThres = helper.formatThreshold(
       'Step count recommended',
       data.stepCountLowThresh,
       data.stepCountHighThresh,
@@ -150,15 +150,6 @@ const getThresholds = async (patId) => {
     return thresholds;
   });
 };
-
-async function formatThreshold(name, low, high, unit) {
-  return {
-    thresName: name,
-    low: low,
-    high: high,
-    unit: unit,
-  }
-}
 
 module.exports = {
   getTodayData,
