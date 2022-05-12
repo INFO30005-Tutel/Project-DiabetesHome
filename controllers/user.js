@@ -82,14 +82,18 @@ exports.getPatients = (req, res) => {
     });
 };
 
-// Debugging methods
-exports.findOne = (req, res) => {
-  helper.findData(User, req, res);
-};
-exports.findAll = (req, res) => {
-  helper.findAllData(User, req, res);
-};
+const getPatientDefaultInfo = (patId) => {
+  User.findById(patId).then((data) => {
+    if (!data) {
+      return null;
+    }
+    return data;
+  }).catch((err) => {
+    console.log(err);
+    return null;
+  });
+}
 
-exports.update = (req, res) => {
-  helper.updateData(User, req, res);
-};
+module.exports = {
+  getPatientDefaultInfo,
+}

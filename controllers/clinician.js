@@ -1,12 +1,13 @@
 const handlebars = require('handlebars');
-const userDataController = require('./user-data');
-const helperController = require('./helper');
+const UserDataController = require('./user-data');
+const HelperController = require('./helper');
 const User = require('../models/user');
+const UserController = require('./user');
 
 const renderClinicianDashboard = async (req, res) => {
   const clinicianId = req.user._id;
   const clinicianName = req.user.firstName + ' ' + req.user.lastName;
-  const dateAndTime = helperController.getDateAndTime();
+  const dateAndTime = HelperController.getDateAndTime();
 
   res.render('clinician/dashboard.hbs', {
     layout: 'clinician-layout.hbs',
@@ -14,6 +15,24 @@ const renderClinicianDashboard = async (req, res) => {
     clinicianName: clinicianName,
     date: dateAndTime.date,
     time: dateAndTime.time,
+  });
+};
+
+const renderPatientProfile = async (req, res) => {
+  const patId = req.params.patId;
+  const patDefaultInfo = UserController.getPatientDefaultInfo(patId);
+  const thresholds = await UserDataController.getThresholds(patId);
+  // const todayData = ;
+  // const overViewData = ;
+  // const detailedData = ;
+
+  res.render('clinician/patient-profile.hbs', {
+    layout: 'clinician-layout.hbs',
+    patDefaultInfo: patDefaultInfo, //[email, firstName, lastName, dateOfBirth, phoneNumber]
+    thresholds: thresholds,
+    // todayData: todayData,
+    // overviewData: overviewData,
+    // detailedData: detailedData,
   });
 };
 
@@ -38,7 +57,7 @@ const getTableData = async (clinicianId) => {
     // Patient is a combined object of User and UserData
     try {
       console.log(patient);
-      data = await userDataController.getTodayData(patient._id);
+      data = await UserDataController.getTodayData(patient._id);
     } catch (err) {
       console.log(err);
     }
@@ -169,4 +188,5 @@ handlebars.registerHelper('getIconColor', getIconColor);
 
 module.exports = {
   renderClinicianDashboard,
+  renderPatientProfile,
 };

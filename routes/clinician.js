@@ -10,4 +10,10 @@ app.get(
   controller.renderClinicianDashboard
 );
 
+app.get(
+  '/clinician/:patId',
+  helper.isAuthenticated,
+  controller.renderPatientProfile
+);
+
 module.exports = app;
