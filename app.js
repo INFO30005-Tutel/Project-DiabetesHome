@@ -48,6 +48,7 @@ const userDataRoute = require('./routes/user-data');
 const staticPageRoute = require('./routes/static-page');
 const clinicianRoute = require('./routes/clinician');
 const patientRoute = require('./routes/patient');
+const apiRoute = require('./routes/api');
 
 const port = process.env.PORT || 3000;
 const host = process.env.HOST || 'localhost';
@@ -57,6 +58,7 @@ app.use(userDataRoute);
 app.use(staticPageRoute);
 app.use(clinicianRoute);
 app.use(patientRoute);
+app.use('/api', apiRoute);
 
 // Tells the app to listen on port 3000 and logs that information to the
 app.listen(port, () => {

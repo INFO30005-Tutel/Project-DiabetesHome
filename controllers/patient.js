@@ -88,7 +88,7 @@ const getPatientData = async (patientUser) => {
       patient.dataEntries.push(data);
     }
   }
-  console.log(patient);
+  //console.log(patient);
   return patient;
 };
 

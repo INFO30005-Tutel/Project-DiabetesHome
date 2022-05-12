@@ -5,18 +5,10 @@ const getTodayData = async (patientId) => {
   let patientData = await UserData.findOne({ userId: patientId }).lean();
   //console.log(patientData);
 
-  patientData.bloodGlucoseData = await helper.retrieveTodayData(
-    patientData.bloodGlucoseData
-  );
-  patientData.weightData = await helper.retrieveTodayData(
-    patientData.weightData
-  );
-  patientData.insulinDoseData = await helper.retrieveTodayData(
-    patientData.insulinDoseData
-  );
-  patientData.stepCountData = await helper.retrieveTodayData(
-    patientData.stepCountData
-  );
+  patientData.bloodGlucoseData = await helper.retrieveTodayData(patientData.bloodGlucoseData);
+  patientData.weightData = await helper.retrieveTodayData(patientData.weightData);
+  patientData.insulinDoseData = await helper.retrieveTodayData(patientData.insulinDoseData);
+  patientData.stepCountData = await helper.retrieveTodayData(patientData.stepCountData);
 
   return patientData;
 };
@@ -97,7 +89,35 @@ const updateUserDataMeasurement = async (req, res) => {
     });
 };
 
+// Change what measurement patient need to record, along with their threshold
+const changePatientRecordParameter = async (req, res) => {
+  let patientData;
+  try {
+    patientData = await UserData.findOne({ userId: req.params.id }).lean();
+  } catch (err) {
+    console.log(err);
+  }
+  try {
+    patientData = await UserData.findByIdAndUpdate(
+      patientData._id,
+      { $set: req.body },
+      { new: true }
+    ).lean();
+  } catch (err) {
+    console.log(err);
+  }
+
+  // Remove unneccessary fields
+  delete patientData.bloodGlucoseData;
+  delete patientData.weightData;
+  delete patientData.insulinDoseData;
+  delete patientData.stepCountData;
+
+  return patientData;
+};
+
 module.exports = {
   getTodayData,
   updateUserDataMeasurement,
+  changePatientRecordParameter,
 };

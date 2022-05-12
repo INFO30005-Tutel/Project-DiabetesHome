@@ -23,7 +23,7 @@ const getPatientsOfClinician = async (clinicianId) => {
 };
 
 // blood, weight, insulin, stepcount
-const dangerThreshold = [6000, 8000, 80, 100, 0, 2, 1000, 4000];
+const defaultDangerThreshold = [6000, 8000, 80, 100, 0, 2, 1000, 4000];
 
 const getTableData = async (clinicianId) => {
   let patientList;
@@ -45,22 +45,30 @@ const getTableData = async (clinicianId) => {
 
     // Add `required` value to fields that patient need to update
     patient.bloodGlucose = data.bloodGlucoseData || {};
+    patient.bloodGlucose.lowThresh = data.bloodGlucoseLowThresh || defaultDangerThreshold[0];
+    patient.bloodGlucose.highThresh = data.bloodGlucoseHighThresh || defaultDangerThreshold[1];
     if (data.requiredFields.includes(0)) patient.bloodGlucose.required = true;
 
     patient.weight = data.weightData || {};
+    patient.weight.lowThresh = data.weightLowThresh || defaultDangerThreshold[2];
+    patient.weight.highThresh = data.weightHighThresh || defaultDangerThreshold[3];
     if (data.requiredFields.includes(1)) patient.weight.required = true;
 
     patient.insulinDose = data.insulinDoseData || {};
+    patient.insulinDose.lowThresh = data.insulinDoseLowThresh || defaultDangerThreshold[4];
+    patient.insulinDose.highThresh = data.insulinDoseHighThresh || defaultDangerThreshold[5];
     if (data.requiredFields.includes(2)) patient.insulinDose.required = true;
 
     patient.stepCount = data.stepCountData || {};
+    patient.stepCount.lowThresh = data.stepCountLowThresh || defaultDangerThreshold[6];
+    patient.stepCount.highThresh = data.stepCountHighThresh || defaultDangerThreshold[7];
     if (data.requiredFields.includes(3)) patient.stepCount.required = true;
   }
 
   return patientList;
 };
 
-const getTextColor = (value, type) => {
+const getTextColor = (value, lowThresh, highThresh, type) => {
   const ok = '#2b7a3d';
   const unknown = '#9b7509';
   const warning = '#b42424';
@@ -68,23 +76,19 @@ const getTextColor = (value, type) => {
   switch (type) {
     case 'bloodGlucose':
       if (!value) return unknown;
-      else if (value < dangerThreshold[0] || value > dangerThreshold[1])
-        return warning;
+      else if (value < lowThresh || value > highThresh) return warning;
       else return ok;
     case 'weight':
       if (!value) return unknown;
-      else if (value < dangerThreshold[2] || value > dangerThreshold[3])
-        return warning;
+      else if (value < lowThresh || value > highThresh) return warning;
       else return ok;
     case 'insulinDose':
       if (!value) return unknown;
-      else if (value < dangerThreshold[4] || value > dangerThreshold[5])
-        return warning;
+      else if (value < lowThresh || value > highThresh) return warning;
       else return ok;
     case 'stepCount':
       if (!value) return unknown;
-      else if (value < dangerThreshold[6] || value > dangerThreshold[7])
-        return warning;
+      else if (value < lowThresh || value > highThresh) return warning;
       else return ok;
   }
 };
@@ -98,28 +102,24 @@ const getIcon = (patient) => {
   let hasWarning = false;
 
   if (patient.bloodGlucose.required) {
-    let value = patient.bloodGlucose.value;
-    if (!value) hasUnknown = true;
-    else if (value < dangerThreshold[0] || value > dangerThreshold[1])
-      hasWarning = true;
+    let bg = patient.bloodGlucose;
+    if (!bg.value) hasUnknown = true;
+    else if (bg.value < bg.lowThresh || bg.value > bg.highThresh) hasWarning = true;
   }
   if (patient.weight.required) {
-    let value = patient.weight.value;
-    if (!value) hasUnknown = true;
-    else if (value < dangerThreshold[2] || value > dangerThreshold[3])
-      hasWarning = true;
+    let w = patient.weight;
+    if (!w.value) hasUnknown = true;
+    else if (w.value < w.lowThresh || w.value > w.highThresh) hasWarning = true;
   }
   if (patient.insulinDose.required) {
-    let value = patient.insulinDose.value;
-    if (!value) hasUnknown = true;
-    else if (value < dangerThreshold[4] || value > dangerThreshold[5])
-      hasWarning = true;
+    let dose = patient.insulinDose; // use `id` shorthand may lead to confusion
+    if (!dose.value) hasUnknown = true;
+    else if (dose.value < dose.lowThresh || dose.value > dose.highThresh) hasWarning = true;
   }
   if (patient.stepCount.required) {
-    let value = patient.stepCount.value;
-    if (!value) hasUnknown = true;
-    else if (value < dangerThreshold[6] || value > dangerThreshold[7])
-      hasWarning = true;
+    let sc = patient.stepCount;
+    if (!sc.value) hasUnknown = true;
+    else if (sc.value < sc.lowThresh || sc.value > sc.highThresh) hasWarning = true;
   }
   if (hasWarning) return warning;
   if (hasUnknown) return unknown;
@@ -135,28 +135,24 @@ const getIconColor = (patient) => {
   let hasWarning = false;
 
   if (patient.bloodGlucose.required) {
-    let value = patient.bloodGlucose.value;
-    if (!value) hasUnknown = true;
-    else if (value < dangerThreshold[0] || value > dangerThreshold[1])
-      hasWarning = true;
+    let bg = patient.bloodGlucose;
+    if (!bg.value) hasUnknown = true;
+    else if (bg.value < bg.lowThresh || bg.value > bg.highThresh) hasWarning = true;
   }
   if (patient.weight.required) {
-    let value = patient.weight.value;
-    if (!value) hasUnknown = true;
-    else if (value < dangerThreshold[2] || value > dangerThreshold[3])
-      hasWarning = true;
+    let w = patient.weight;
+    if (!w.value) hasUnknown = true;
+    else if (w.value < w.lowThresh || w.value > w.highThresh) hasWarning = true;
   }
   if (patient.insulinDose.required) {
-    let value = patient.insulinDose.value;
-    if (!value) hasUnknown = true;
-    else if (value < dangerThreshold[4] || value > dangerThreshold[5])
-      hasWarning = true;
+    let dose = patient.insulinDose; // use `id` shorthand may lead to confusion
+    if (!dose.value) hasUnknown = true;
+    else if (dose.value < dose.lowThresh || dose.value > dose.highThresh) hasWarning = true;
   }
   if (patient.stepCount.required) {
-    let value = patient.stepCount.value;
-    if (!value) hasUnknown = true;
-    else if (value < dangerThreshold[6] || value > dangerThreshold[7])
-      hasWarning = true;
+    let sc = patient.stepCount;
+    if (!sc.value) hasUnknown = true;
+    else if (sc.value < sc.lowThresh || sc.value > sc.highThresh) hasWarning = true;
   }
   console.log('GetIcon');
   console.log(hasWarning);

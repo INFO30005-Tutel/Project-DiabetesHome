@@ -35,25 +35,25 @@
           <td><a href='patient/{{this._id}}'>{{this.firstName}}
               {{this.lastName}}</a></td>
           {{#with this.bloodGlucose}}
-            <td style='color: {{getTextColor value "bloodGlucose"}}'>
+            <td style='color: {{getTextColor value lowThresh highThresh "bloodGlucose"}}'>
               {{#if value}}{{value}} nmol/L{{else if required}}??? nmol/L{{/if}}
             </td>
           {{/with}}
 
           {{#with this.weight}}
-            <td style='color: {{getTextColor value "weight"}}'>
+            <td style='color: {{getTextColor value lowThresh highThresh "weight"}}'>
               {{#if required}}
                 {{#if value}}{{value}} kg{{else if required}}??? kg{{/if}}
               {{/if}}
             </td>
           {{/with}}
           {{#with this.insulinDose}}
-            <td style='color: {{getTextColor value "insulinDose"}}'>
+            <td style='color: {{getTextColor value lowThresh highThresh "insulinDose"}}'>
               {{#if value}}{{value}} doses{{else if required}}??? doses{{/if}}
             </td>
           {{/with}}
           {{#with this.stepCount}}
-            <td style='color: {{getTextColor value "stepCount"}}'>
+            <td style='color: {{getTextColor value lowThresh highThresh "stepCount"}}'>
               {{#if value}}{{value}}{{else if required}}???{{/if}}
             </td>
           {{/with}}
