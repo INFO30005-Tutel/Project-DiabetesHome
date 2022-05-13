@@ -6,27 +6,39 @@ const UserData = require('../models/user-data');
 const patientMetadata = [
   {
     name: 'Blood Glucose',
-    units: 'nmol/L',
+    units: 'mmol/L',
     shortName: 'glucose',
     iconImage: '/images/blood-glucose.svg',
+    minValid: 1,
+    maxValid: 150, // Michael Patrick Buonocore, USA survived a 147.6 mmol/L
+    incStep: 0.01,
   },
   {
     name: 'Weight',
     units: 'kg',
     shortName: 'weight',
     iconImage: '/images/weight.svg',
+    minValid: 0,
+    maxValid: 700, // Jon Brower Minnoch weights 635 kg
+    incStep: 0.1,
   },
   {
     name: 'Insulin Doses',
     units: 'doses',
     shortName: 'insulin',
     iconImage: '/images/insulin.svg',
+    minValid: 0,
+    maxValid: 99, // arbitrary
+    incStep: 1,
   },
   {
     name: 'Exercise',
     units: 'steps',
     shortName: 'exercise',
     iconImage: '/images/exercise.svg',
+    minValid: 0,
+    maxValid: 999999, // arbitrary
+    incStep: 1,
   },
 ];
 

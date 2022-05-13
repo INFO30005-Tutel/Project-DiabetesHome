@@ -118,37 +118,42 @@ const changePatientRecordParameter = async (req, res) => {
 
 // Rechieve and format threshold for rendering
 const getThresholds = (patId) => {
+  UserData.findById(patId)
+    .then((data) => {
+      const bloodThres = helper.formatThreshold(
+        'Blood glucose level',
+        data.bloodGlucoseLowThresh,
+        data.bloodGlucoseHighThresh,
+        'mmol/L'
+      );
 
-  UserData.findById(patId).then((data) => {
-    const bloodThres = helper.formatThreshold(
-      'Blood glucose level',
-      data.bloodGlucoseLowThresh,
-      data.bloodGlucoseHighThresh,
-      'nmol/L');
+      const weightThres = helper.formatThreshold(
+        'Weight entry',
+        data.weightLowThresh,
+        data.weightHighThresh,
+        'kg'
+      );
 
-    const weightThres = helper.formatThreshold(
-      'Weight entry',
-      data.weightLowThresh,
-      data.weightHighThresh,
-      'kg');
+      const insulinThres = helper.formatThreshold(
+        'Dose of insulin taken per day',
+        data.insulinDoseLowThresh,
+        data.insulinDoseHighThresh,
+        'doses'
+      );
 
-    const insulinThres = helper.formatThreshold(
-      'Dose of insulin taken per day',
-      data.insulinDoseLowThresh,
-      data.insulinDoseHighThresh,
-      'doses');
+      const stepCountThres = helper.formatThreshold(
+        'Step count recommended',
+        data.stepCountLowThresh,
+        data.stepCountHighThresh,
+        'steps'
+      );
 
-    const stepCountThres = helper.formatThreshold(
-      'Step count recommended',
-      data.stepCountLowThresh,
-      data.stepCountHighThresh,
-      'steps');
-
-    return [bloodThres, weightThres, insulinThres, stepCountThres];
-  }).catch((err) => {
-    console.log(err);
-    return thresholds;
-  });
+      return [bloodThres, weightThres, insulinThres, stepCountThres];
+    })
+    .catch((err) => {
+      console.log(err);
+      return thresholds;
+    });
 };
 
 module.exports = {

@@ -110,7 +110,7 @@
     <form id="{{this.shortName}}-form" method='POST' action='/update-measurement'>
         <input type='hidden' name='type' value='{{this.index}}' />
         <div>
-            <input type="text" class="small-input" placeholder="Input here" name="value">
+            <input type="number" class="small-input" placeholder="Input here" name="value" min="{{this.minValid}}" max="{{this.maxValid}}" step="{{this.incStep}}">
             <label for="enter-data" id="unit" name="unit">{{this.units}}</label>
         </div>
         <h4>Notes</h4>
@@ -124,7 +124,7 @@
     <form id="{{this.shortName}}-form" method='POST' action='/update-measurement'>
         <input type='hidden' name='type' value='{{this.index}}' />
         <div>
-            <input type="text" class="small-input" value={{this.entry.value}} name="value">
+            <input type="number" class="small-input" value={{this.entry.value}} name="value" min="{{this.minValid}}" max="{{this.maxValid}}" step="{{this.incStep}}">
             <label for="enter-data" id="unit" name="unit">{{this.units}}</label>
         </div>
         <h4>Notes</h4>

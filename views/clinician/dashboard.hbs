@@ -36,7 +36,7 @@
               {{this.lastName}}</a></td>
           {{#with this.bloodGlucose}}
             <td style='color: {{getTextColor value lowThresh highThresh "bloodGlucose"}}'>
-              {{#if value}}{{value}} nmol/L{{else if required}}??? nmol/L{{/if}}
+              {{#if value}}{{value}} mmol/L{{else if required}}??? mmol/L{{/if}}
             </td>
           {{/with}}
 

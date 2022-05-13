@@ -42,7 +42,7 @@ const getPatientsOfClinician = async (clinicianId) => {
 };
 
 // blood, weight, insulin, stepcount
-const defaultDangerThreshold = [6000, 8000, 80, 100, 0, 2, 1000, 4000];
+const defaultDangerThreshold = [3.9, 5.6, 80, 100, 0, 2, 1000, 4000];
 
 const getTableData = async (clinicianId) => {
   let patientList;
