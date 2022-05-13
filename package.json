@@ -32,10 +32,10 @@
     "passport": "^0.5.2",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
-    "requirejs": "^2.3.6"
+    "requirejs": "^2.3.6",
+    "nodemailer": "^6.7.5"
   },
   "devDependencies": {
-    "nodemailer": "^6.7.5",
     "nodemon": "^2.0.15"
   }
 }
