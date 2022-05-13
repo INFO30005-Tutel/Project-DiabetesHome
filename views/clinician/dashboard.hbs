@@ -13,7 +13,9 @@
   <div class='searching-area'>
     <input type='text' placeholder='Search patient..' />
     <button><i class='fa fa-search'></i></button>
-    <button><i class='fa fa-plus'></i></button>
+    <a href="clinician/register-patient">
+      <button><i class='fa fa-plus'></i></button>
+    </a>
   </div>
   {{! TABLE BODY}}
   <div class='table-section'>
@@ -32,7 +34,7 @@
               class='fa {{getIcon this}}'
               style='font-size:xx-large; color: {{getIconColor this}}'
             ></i></td>
-          <td><a href='patient/{{this._id}}'>{{this.firstName}}
+          <td><a href='/clinician/view-patient/{{this._id}}'>{{this.firstName}}
               {{this.lastName}}</a></td>
           {{#with this.bloodGlucose}}
             <td style='color: {{getTextColor value lowThresh highThresh "bloodGlucose"}}'>

@@ -1,0 +1,60 @@
+<div class="home" style="text-align: center;">
+  <h1 class="title">Register your patient</h1>
+  <p>Clinician: <b>{{clinicianName}}</b></p>
+  {{#each flash}}
+    <p class="alert">{{this}}</p>
+  {{/each}}
+  <form action="/register" method="POST">
+    <h1 class="sub-title">Personal information</h1>
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email" required>
+    <label for"phoneNumber">Phone Number</label>
+    <input type="tel" name="phoneNumber" id="phoneNumber" required>
+    <label for="firstName">First Name</label>
+    <input type="text" name="firstName" id="firstName" required>
+    <label for="lastName">First Name</label>
+    <input type="text" name="lastName" id="lastName" required>
+    <label for="dateOfBirth">Date of Birth</label>
+    <input type="date" name="dateOfBirth" id="dateOfBirth" required>
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+    title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+    <label for="confirm-password">Confirm Password</label>
+    <input type="password" name="confirm-password" id="confirm-password" oninput="check_confirm_password(this)" required>
+    <br>
+    
+
+    <h1 class="sub-title">Measurement required</h1>
+    <div class="measurement">
+      <div>
+        <label for="bloodGlucose">Blood glucose</label>
+        <input type="checkbox" id="bloodGlucose" name="bloodGlucose" checked>
+      </div>
+      <div>
+        <label for="weight">Weight</label>
+        <input type="checkbox" id="weight" name="weight" checked>
+      </div>
+      <div>
+        <label for="insulinDose">Insulin dose</label>
+        <input type="checkbox" id="insulinDose" name="insulinDose" checked>
+      </div>
+      <div>
+        <label for="stepCount">Step count</label>
+        <input type="checkbox" id="stepCount" name="stepCount" checked>
+      </div>
+    </div>
+    <div class="measurement">
+      <div>
+        <label for="bloodGlucoseLowThresh">Blood glucose lower threshold (mmol/L)</label>
+        <input type="number" name="bloodGlucoseLowThresh" id="bloodGlucoseLowThresh" step="0.01" min="0">
+      </div>
+      <div>
+        <label for="bloodGlucoseLowThresh">Blood glucose upper threshold (mmol/L)</label>
+        <input type="number" name="bloodGlucoseHighThresh" id="bloodGlucoseHighThresh" step="0.01" min="0">
+      </div>
+    </div>
+    <div class="button-wrapper" style="width: 100%;">
+      <button type="submit" class="button large-button-variant">Register</button>
+    </div>
+  </form>
+</div>

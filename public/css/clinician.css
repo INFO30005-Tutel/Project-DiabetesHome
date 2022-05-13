@@ -62,7 +62,7 @@
   align-items: flex-start;
   gap: 15px;
 }
-.searching-area input[type=text] {
+.searching-area input[type='text'] {
   float: left;
   padding-left: 20px;
   padding-right: 20px;
@@ -111,8 +111,14 @@
   background-color: aliceblue;
 }
 .dash-table td a {
-  color:#0a57ae;
+  color: #0a57ae;
   text-decoration: none;
+}
+
+form .measurement {
+  display: flex;
+  justify-content: space-between;
+  gap: 1vw;
 }
 
 /* SMALL SCREENS */
@@ -139,7 +145,7 @@
   .searching-area {
     justify-content: center;
   }
-  .searching-area input[type=text] {
+  .searching-area input[type='text'] {
     width: 50vw;
   }
 }

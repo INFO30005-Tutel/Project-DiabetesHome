@@ -36,6 +36,15 @@ const renderPatientProfile = async (req, res) => {
   });
 };
 
+const renderRegisterPatient = async (req, res) => {
+  const clinicianName = req.user.firstName + ' ' + req.user.lastName;
+
+  res.render('clinician/register-patient.hbs', {
+    layout: 'clinician-layout.hbs',
+    clinicianName: clinicianName,
+  });
+};
+
 const getPatientsOfClinician = async (clinicianId) => {
   let patientList = User.find({ clinicianId: clinicianId }).lean();
   return patientList;
@@ -56,7 +65,7 @@ const getTableData = async (clinicianId) => {
   for (patient of patientList) {
     // Patient is a combined object of User and UserData
     try {
-      console.log(patient);
+      //console.log(patient);
       data = await UserDataController.getTodayData(patient._id);
     } catch (err) {
       console.log(err);
@@ -189,4 +198,5 @@ handlebars.registerHelper('getIconColor', getIconColor);
 module.exports = {
   renderClinicianDashboard,
   renderPatientProfile,
+  renderRegisterPatient,
 };
