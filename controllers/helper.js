@@ -25,7 +25,14 @@ function retrieveTodayData(dataArray) {
   }
 }
 
-const formatThreshold = (name, low, high, unit) => {
+const formatThreshold = (name, low, high, unit, defaultLow, defaultHigh) => {
+  if (!low) {
+    low = defaultLow;
+  }
+  if (!high) {
+    high = defaultHigh;
+  }
+
   return {
     thresName: name,
     low: low,
@@ -34,7 +41,7 @@ const formatThreshold = (name, low, high, unit) => {
   };
 };
 
-const getDateAndTime = () => {
+const getDateAndTime = (dateString) => {
   var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   var months = [
     'January',
@@ -50,21 +57,21 @@ const getDateAndTime = () => {
     'November',
     'December',
   ];
-  var today = new Date();
+  //var today = new Date();
   var time =
-    today.getHours() +
+    dateString.getHours() +
     ':' +
-    today.getMinutes() +
+    dateString.getMinutes() +
     ' ' +
     Intl.DateTimeFormat().resolvedOptions().timeZone;
   var date =
-    days[today.getDay()] +
+    days[dateString.getDay()] +
     ', ' +
-    today.getDate() +
+    dateString.getDate() +
     ' ' +
-    months[today.getMonth()] +
+    months[dateString.getMonth()] +
     ' ' +
-    today.getFullYear();
+    dateString.getFullYear();
   return {
     time,
     date,

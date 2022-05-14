@@ -45,7 +45,7 @@ const patientMetadata = [
 // handle dashboard data
 const renderPatientDashboard = async (req, res) => {
   const patient = req.user;
-  const dateAndTime = helperController.getDateAndTime();
+  const dateAndTime = helperController.getDateAndTime(new Date());
   res.render('patient/patient-dashboard.hbs', {
     layout: 'patient-layout.hbs',
     userId: patient._id,

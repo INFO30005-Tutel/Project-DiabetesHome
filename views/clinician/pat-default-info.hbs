@@ -1,29 +1,22 @@
 <div id='pat-default-info'>
   <div class='dash-header'>
     <div style='display: flex; gap: 20px;'>
-      <img src='.././images/sampleAvatar.jpg' class='avatar' />
+      <img src='/images/sampleAvatar.jpg' class='avatar' />
       <div class='flex-column pat-info'>
-        <p><b id='pat_name' style='font-size: 25px'>{{patientName}}</b></p>
-        <p id='email'><b>Email: </b>{{patinetEmail}}</p>
-        <p id='phoneNo'><b>Phone number: </b>{{patientPhoneNo}}</p>
-        <p id='dob'><b>Date of birth: </b>{{patientDob}}</p>
+        <p><b id='pat_name' style='font-size: 25px'>{{patDefaultInfo.firstName}} {{patDefaultInfo.lastName}}</b></p>
+        <p id='email'><b>Email: </b>{{patDefaultInfo.email}}</p>
+        <p id='phoneNo'><b>Phone number: </b>{{patDefaultInfo.phoneNumber}}</p>
+        <p id='dob'><b>Date of birth: </b>{{formatDob.date}}</p>
       </div>
     </div>
     <div class='flex-column' style='gap: 10px;'>
-      <button class='cli-btn cli-btn-white'>View notes<i
-          class='fa fa-sticky-note cli-btn-icon'
-        ></i></button>
-      <button class='cli-btn cli-btn-default'>View messages<i
-          class='fa fa-commenting-o cli-btn-icon'
-        ></i></button>
+      <button class='cli-btn cli-btn-white'>View notes<i class='fa fa-sticky-note cli-btn-icon'></i></button>
+      <button class='cli-btn cli-btn-default'>View messages<i class='fa fa-commenting-o cli-btn-icon'></i></button>
     </div>
   </div>
   <hr style='border: 2px solid #292929;' />
   <div class='searching-area'>
-    <i
-      class='fa fa-check-circle'
-      style='font-size:xx-large; color: #2b7a3d'
-    ></i>
+    <i class='fa fa-check-circle' style='font-size:xx-large; color: #2b7a3d'></i>
     <p style='margin-bottom: 0px;'><b>This patient has entered today's data:</b></p>
   </div>
   {{! TODAY'S DATA TABLE }}
@@ -37,14 +30,11 @@
         <th>STEP COUNTS</th>
       </tr>
       <tr style='border-bottom: 2px solid #292929;'>
-        <td><i
-            class='fa fa-check-circle'
-            style='font-size:xx-large; color: #2b7a3d'
-          ></i></td>
-        <td>135 nmol/L</td>
-        <td>91 kg</td>
-        <td>2 doses</td>
-        <td>5000</td>
+        <td><i class='fa fa-check-circle' style='font-size:xx-large; color: #2b7a3d'></i></td>
+        <td>{{todayData.bloodGlucoseData.value}}</td>
+        <td>{{todayData.weightData.value}}</td>
+        <td>{{todayData.insulinDoseData.value}}</td>
+        <td>{{todayData.stepCountData.value}}</td>
       </tr>
     </table>
   </div>

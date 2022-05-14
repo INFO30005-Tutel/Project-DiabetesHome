@@ -7,7 +7,7 @@ const UserController = require('./user');
 const renderClinicianDashboard = async (req, res) => {
   const clinicianId = req.user._id;
   const clinicianName = req.user.firstName + ' ' + req.user.lastName;
-  const dateAndTime = HelperController.getDateAndTime();
+  const dateAndTime = HelperController.getDateAndTime(new Date());
   const tableData = await getTableData(clinicianId);
   res.render('clinician/dashboard.hbs', {
     layout: 'clinician-layout.hbs',
@@ -21,18 +21,32 @@ const renderClinicianDashboard = async (req, res) => {
 
 const renderPatientProfile = async (req, res) => {
   const patId = req.params.patId;
-  const patDefaultInfo = UserController.getPatientDefaultInfo(patId);
-  const thresholds = UserDataController.getThresholds(patId);
+  const patDefaultInfo = await UserController.getPatientDefaultInfo(patId);
+  const formatDob = HelperController.getDateAndTime(patDefaultInfo.dateOfBirth);
+  const thresholds = await UserDataController.getThresholds(patId);
   const todayData = await UserDataController.getTodayData(patId);
-  // const overViewData = ;
-  // const detailedData = ;
+  console.log(patDefaultInfo);
+  console.log(todayData);
+  // const overViewData = await UserDataController.getOverviewData(patId);
+  // const detailedData = await UserDataController.getDetailedData(patId);
+
+  // var data = [
+  //   { x: '1/3', value: 145, normal: colStyle },
+  //   { x: '2/3', value: 148, normal: colStyle },
+  // ]
+  // var colStyle = {
+  //   fill: '#FF5F6D',
+  //   stroke: null,
+  //   label: { enabled: true }
+  // }
 
   res.render('clinician/patient-profile.hbs', {
     layout: 'clinician-layout.hbs',
-    patDefaultInfo: patDefaultInfo, //[email, firstName, lastName, dateOfBirth, phoneNumber]
+    patDefaultInfo: patDefaultInfo, //[email, firstName, lastName, phoneNumber]
+    formatDob: formatDob,
     thresholds: thresholds,
     todayData: todayData,
-    // overviewData: overviewData,
+    // overviewData: overViewData,
     // detailedData: detailedData,
   });
 };

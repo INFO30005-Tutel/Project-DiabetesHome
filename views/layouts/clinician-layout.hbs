@@ -65,7 +65,9 @@
 
   <script>
     function open_settings() { }
-    function open_dashboard() { }
+    function open_dashboard() {
+      window.location.href = '/clinician';
+    }
 
     function check_confirm_password(input) {
       if (input.value != document.getElementById('password').value) {

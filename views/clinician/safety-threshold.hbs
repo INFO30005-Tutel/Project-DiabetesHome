@@ -7,8 +7,8 @@
         {{#each thresholds}}
         <tr id='{{thresName}}'>
           <td class='thres-name'><b>{{thresName}}:</b></td>
-          <td class='thres-data'>{{thresFrom}} - {{thresTo}}</td>
-          <td class='thres-unit'>{{thresUnit}}</td>
+          <td class='thres-data'>{{low}} - {{high}}</td>
+          <td class='thres-unit'>{{unit}}</td>
         </tr>
         {{/each}}
       </table>
@@ -26,8 +26,8 @@
           {{#each thresholds}}
           <tr id='{{thresName}}'>
             <td class='thres-name'><b>{{thresName}}:</b></td>
-            <td class='thres-data'>{{thresFrom}} - {{thresTo}}</td>
-            <td class='thres-unit'>{{thresUnit}}</td>
+            <td class='thres-data'>{{low}} - {{high}}</td>
+            <td class='thres-unit'>{{unit}}</td>
           </tr>
           {{/each}}
         </table>
