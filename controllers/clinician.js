@@ -8,13 +8,14 @@ const renderClinicianDashboard = async (req, res) => {
   const clinicianId = req.user._id;
   const clinicianName = req.user.firstName + ' ' + req.user.lastName;
   const dateAndTime = HelperController.getDateAndTime();
-
+  const tableData = await getTableData(clinicianId);
   res.render('clinician/dashboard.hbs', {
     layout: 'clinician-layout.hbs',
-    tableData: await getTableData(clinicianId),
+    tableData: tableData,
     clinicianName: clinicianName,
     date: dateAndTime.date,
     time: dateAndTime.time,
+    numPatient: tableData.length,
   });
 };
 
@@ -48,6 +49,18 @@ const renderRegisterPatient = async (req, res) => {
 const getPatientsOfClinician = async (clinicianId) => {
   let patientList = User.find({ clinicianId: clinicianId }).lean();
   return patientList;
+};
+
+const formatPatientRegister = async (req, res, next) => {
+  let requiredFields = [];
+  req.body.clinicianId = req.user._id;
+  if (req.body.bloodGlucoseCheckbox) requiredFields.push(0);
+  if (req.body.weightCheckbox) requiredFields.push(1);
+  if (req.body.insulinDoseCheckbox) requiredFields.push(2);
+  if (req.body.stepCountCheckbox) requiredFields.push(3);
+  req.body.requiredFields = requiredFields;
+  console.log(req.body);
+  next();
 };
 
 // blood, weight, insulin, stepcount
@@ -182,9 +195,6 @@ const getIconColor = (patient) => {
     if (!sc.value) hasUnknown = true;
     else if (sc.value < sc.lowThresh || sc.value > sc.highThresh) hasWarning = true;
   }
-  console.log('GetIcon');
-  console.log(hasWarning);
-  console.log(hasUnknown);
 
   if (hasWarning) return warning;
   if (hasUnknown) return unknown;
@@ -199,4 +209,5 @@ module.exports = {
   renderClinicianDashboard,
   renderPatientProfile,
   renderRegisterPatient,
+  formatPatientRegister,
 };

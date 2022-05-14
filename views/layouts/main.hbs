@@ -74,14 +74,12 @@
       function sidebar_close() {
         document.getElementById('sidebar').style.width = '0px';
       }
-      
+
       function check_confirm_password(input) {
         if (input.value != document.getElementById('password').value) {
-          console.log("Not match");
           input.setCustomValidity('Password must be matching.');
         } else {
           // input is valid -- reset the error message
-          console.log("Match");
           input.setCustomValidity('');
         }
       }

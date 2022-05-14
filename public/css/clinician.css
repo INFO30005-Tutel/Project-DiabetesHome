@@ -115,10 +115,23 @@
   text-decoration: none;
 }
 
+.register-patient-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 5vw;
+}
+
 form .measurement {
   display: flex;
   justify-content: space-between;
   gap: 1vw;
+}
+
+input[type='checkbox'] {
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
 }
 
 /* SMALL SCREENS */

@@ -8,8 +8,6 @@ app.post(
     failureFlash: true,
   }),
   (req, res) => {
-    // console.log('LOG IN!');
-    // console.log(req.user);
     if (req.user.clinicianId) res.redirect('/patient');
     else res.redirect('/clinician');
   }
@@ -22,8 +20,6 @@ app.post(
     failureFlash: true,
   }),
   (req, res) => {
-    // console.log('REGISTERED!');
-    // console.log(req.user);
     if (req.user.clinicianId) res.redirect('/patient');
     else res.redirect('/clinician');
   }

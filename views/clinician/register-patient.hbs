@@ -4,7 +4,7 @@
   {{#each flash}}
     <p class="alert">{{this}}</p>
   {{/each}}
-  <form action="/register" method="POST">
+  <form action="/clinician/register-patient" method="POST">
     <h1 class="sub-title">Personal information</h1>
     <label for="email">Email</label>
     <input type="email" name="email" id="email" required>
@@ -23,36 +23,70 @@
     <input type="password" name="confirm-password" id="confirm-password" oninput="check_confirm_password(this)" required>
     <br>
     
-
+    {{! Checkboxes }}
     <h1 class="sub-title">Measurement required</h1>
     <div class="measurement">
       <div>
         <label for="bloodGlucose">Blood glucose</label>
-        <input type="checkbox" id="bloodGlucose" name="bloodGlucose" checked>
+        <input type="checkbox" id="bloodGlucoseCheckbox" name="bloodGlucoseCheckbox" onclick="at_least_one_checkbox(this)" checked>
       </div>
       <div>
         <label for="weight">Weight</label>
-        <input type="checkbox" id="weight" name="weight" checked>
+        <input type="checkbox" id="weightCheckbox" name="weightCheckbox" onclick="at_least_one_checkbox(this)" checked>
       </div>
       <div>
         <label for="insulinDose">Insulin dose</label>
-        <input type="checkbox" id="insulinDose" name="insulinDose" checked>
+        <input type="checkbox" id="insulinDoseCheckbox" name="insulinDoseCheckbox" onclick="at_least_one_checkbox(this)" checked>
       </div>
       <div>
         <label for="stepCount">Step count</label>
-        <input type="checkbox" id="stepCount" name="stepCount" checked>
+        <input type="checkbox" id="stepCountCheckbox" name="stepCountCheckbox" onclick="at_least_one_checkbox(this)" checked>
       </div>
     </div>
-    <div class="measurement">
+
+    {{! Threshold }}
+    <div class="measurement" id="bloodGlucloseThreshField">
       <div>
         <label for="bloodGlucoseLowThresh">Blood glucose lower threshold (mmol/L)</label>
-        <input type="number" name="bloodGlucoseLowThresh" id="bloodGlucoseLowThresh" step="0.01" min="0">
+        <input type="number" name="bloodGlucoseLowThresh" id="bloodGlucoseLowThresh" step="0.01" min="0" max="150">
       </div>
       <div>
         <label for="bloodGlucoseLowThresh">Blood glucose upper threshold (mmol/L)</label>
-        <input type="number" name="bloodGlucoseHighThresh" id="bloodGlucoseHighThresh" step="0.01" min="0">
+        <input type="number" name="bloodGlucoseHighThresh" id="bloodGlucoseHighThresh" step="0.01" min="0" max="150">
       </div>
     </div>
+    <div class="measurement" id="weightThreshField">
+      <div>
+        <label for="weightLowThresh">Weight lower threshold (kg)</label>
+        <input type="number" name="weightLowThresh" id="weightLowThresh" step="0.1" min="0" max="700">
+      </div>
+      <div>
+        <label for="weightHighThresh">Weight upper threshold (kg)</label>
+        <input type="number" name="weightHighThresh" id="weightHighThresh" step="0.1" min="0" max="700">
+      </div>
+    </div>
+    <div class="measurement" id="insulinDoseThreshField">
+      <div>
+        <label for="insulinDoseLowThresh">Insulin dose lower threshold (dose)</label>
+        <input type="number" name="insulinDoseLowThresh" id="insulinDoseLowThresh" step="1" min="0" max="99">
+      </div>
+      <div>
+        <label for="insulinDoseHighThresh">Insulin dose upper threshold (dose)</label>
+        <input type="number" name="insulinDoseHighThresh" id="insulinDoseHighThresh" step="1" min="0" max="99">
+      </div>
+    </div>
+    <div class="measurement" id="stepCountThreshField">
+      <div>
+        <label for="stepCountLowThresh">Step count lower threshold (step)</label>
+        <input type="number" name="stepCountLowThresh" id="stepCountLowThresh" step="1" min="0" max="999999">
+      </div>
+      <div>
+        <label for="stepCountHighThresh">Step count upper threshold (step)</label>
+        <input type="number" name="stepCountHighThresh" id="stepCountHighThresh" step="1" min="0" max="999999">
+      </div>
+    </div>
+
+    {{! Button }}
     <div class="button-wrapper" style="width: 100%;">
       <button type="submit" class="button large-button-variant">Register</button>
     </div>
