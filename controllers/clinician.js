@@ -3,6 +3,7 @@ const UserDataController = require('./user-data');
 const HelperController = require('./helper');
 const User = require('../models/user');
 const UserController = require('./user');
+const { header } = require('express-validator');
 
 const renderClinicianDashboard = async (req, res) => {
   const clinicianId = req.user._id;
@@ -14,6 +15,7 @@ const renderClinicianDashboard = async (req, res) => {
     tableData: tableData,
     clinicianName: clinicianName,
     date: dateAndTime.date,
+    weekDay: dateAndTime.weekDay,
     time: dateAndTime.time,
     numPatient: tableData.length,
   });
@@ -25,7 +27,6 @@ const renderPatientProfile = async (req, res) => {
   const formatDob = HelperController.getDateAndTime(patDefaultInfo.dateOfBirth);
   const thresholds = await UserDataController.getThresholds(patId);
   const todayData = await UserDataController.getTodayData(patId);
-  console.log(patDefaultInfo);
   console.log(todayData);
   // const overViewData = await UserDataController.getOverviewData(patId);
   // const detailedData = await UserDataController.getDetailedData(patId);
@@ -90,6 +91,7 @@ const getTableData = async (clinicianId) => {
     console.log(err);
   }
   for (patient of patientList) {
+    // patient = await dataRow(patient);
     // Patient is a combined object of User and UserData
     try {
       //console.log(patient);

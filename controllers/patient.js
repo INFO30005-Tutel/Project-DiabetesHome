@@ -53,6 +53,7 @@ const renderPatientDashboard = async (req, res) => {
     userData: await getPatientData(patient),
     metadata: patientMetadata,
     date: dateAndTime.date,
+    weekDay: dateAndTime.weekDay,
     time: dateAndTime.time,
   });
 };
