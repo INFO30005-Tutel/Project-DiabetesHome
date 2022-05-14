@@ -2,8 +2,9 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-const config = require('./config');
+const config = require('./config.js');
 const cors = require('cors');
+const nodemailer = require('nodemailer');
 const app = express();
 app.use(express.urlencoded({ extended: true })); // replaces body-parser
 app.use(express.static('public')); // define where static assets live
@@ -57,7 +58,7 @@ function stop(callback) {
  * Callback is usually used in test for done()
  * @param {function} callback
  */
-function initMongooseConnection(callback = () => {}) {
+function initMongooseConnection(callback = () => { }) {
   const dbURI = config.dbURI;
 
   var options = {
@@ -97,3 +98,9 @@ function initMongooseConnection(callback = () => {}) {
     callback();
   });
 }
+
+
+
+
+
+
