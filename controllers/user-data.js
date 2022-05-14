@@ -1,14 +1,14 @@
 const UserData = require('../models/user-data');
-const helper = require('../controllers/helper');
+const Helper = require('../controllers/Helper');
 
 const getTodayData = async (patientId) => {
   let patientData = await UserData.findOne({ userId: patientId }).lean();
   //console.log(patientData);
 
-  patientData.bloodGlucoseData = await helper.retrieveTodayData(patientData.bloodGlucoseData);
-  patientData.weightData = await helper.retrieveTodayData(patientData.weightData);
-  patientData.insulinDoseData = await helper.retrieveTodayData(patientData.insulinDoseData);
-  patientData.stepCountData = await helper.retrieveTodayData(patientData.stepCountData);
+  patientData.bloodGlucoseData = await Helper.retrieveTodayData(patientData.bloodGlucoseData);
+  patientData.weightData = await Helper.retrieveTodayData(patientData.weightData);
+  patientData.insulinDoseData = await Helper.retrieveTodayData(patientData.insulinDoseData);
+  patientData.stepCountData = await Helper.retrieveTodayData(patientData.stepCountData);
 
   return patientData;
 };
@@ -129,7 +129,7 @@ const defaultHighStep = 4000;
 const getThresholds = async (patId) => {
   let patientData = await UserData.findOne({ userId: patId }).lean();
 
-  const bloodThres = helper.formatThreshold(
+  const bloodThres = Helper.formatThreshold(
     'Blood glucose level',
     patientData.bloodGlucoseLowThresh,
     patientData.bloodGlucoseHighThresh,
@@ -138,7 +138,7 @@ const getThresholds = async (patId) => {
     defaultHighBlood,
   );
 
-  const weightThres = helper.formatThreshold(
+  const weightThres = Helper.formatThreshold(
     'Weight entry',
     patientData.weightLowThresh,
     patientData.weightHighThresh,
@@ -147,7 +147,7 @@ const getThresholds = async (patId) => {
     defaultHighWeight,
   );
 
-  const insulinThres = helper.formatThreshold(
+  const insulinThres = Helper.formatThreshold(
     'Dose of insulin taken per day',
     patientData.insulinDoseLowThresh,
     patientData.insulinDoseHighThresh,
@@ -156,7 +156,7 @@ const getThresholds = async (patId) => {
     defaultHighInsulin,
   );
 
-  const stepCountThres = helper.formatThreshold(
+  const stepCountThres = Helper.formatThreshold(
     'Step count recommended',
     patientData.stepCountLowThresh,
     patientData.stepCountHighThresh,
@@ -169,11 +169,76 @@ const getThresholds = async (patId) => {
 };
 
 const getOverviewData = async (patId) => {
+  const dataBlock = await UserData.findOne({ userId: patId }).lean();
 
+  const range = 7; // overview of the nearest 7 days
+  const bloodData = await extractDataInRange(dataBlock.bloodGlucoseData, range, 0);
+  const weightData = await extractDataInRange(dataBlock.weightData, range, 1);
+  const insulinData = await extractDataInRange(dataBlock.insulinDoseData, range, 2);
+  const stepData = await extractDataInRange(dataBlock.stepCountData, range, 3);
+
+  return [
+    { id: 'overview-blood', dataName: 'BLOOD GLUCOSE LEVEL', data: bloodData },
+    { id: 'overview-weight', dataName: 'WEIGHT ENTRY PER DAY', data: weightData },
+    { id: 'overview-insulin', dataName: 'INSULIN TAKEN PER DAY', data: insulinData },
+    { id: 'overview-step', dataName: 'WALKING STEP COUNT PER DAY', data: stepData },
+  ];
 };
 
 const getDetailedData = async (patId) => {
 
+};
+
+// Extract data in a given range 
+const extractDataInRange = async (dataList, range, dataIndex) => {
+  let extractedData = [];
+  const colStyle = await getDataColStyle(dataIndex);
+
+  if (!dataList) dataList = [];
+
+  for (let i = 0; i < range; i++) {
+    let index = dataList.length - i - 1;
+    if (index < 0) {
+      extractedData.unshift({
+        x: 'no record',
+        value: 0,
+        normal: colStyle,
+      });
+    }
+    else {
+      const dateTime = Helper.getDateAndTime(dataList[index].inputAt);
+      extractedData.unshift({
+        x: dateTime.date,
+        value: dataList[index].value,
+        colStyle: colStyle,
+      });
+    }
+  }
+
+  console.log(extractedData);
+
+  return extractedData;
+};
+
+// Get color and styling for rendering diagram
+const getDataColStyle = async (dataIndex) => {
+  let stroke = null;
+  let label = { enabled: true };
+  let fill;
+  // blood
+  if (dataIndex == 0) fill = '#FF5F6D';
+  // weight
+  if (dataIndex == 1) fill = '#5FA4FF';
+  // insulin
+  if (dataIndex == 2) fill = '#CAA119';
+  // step
+  if (dataIndex == 3) fill = '#55B24F';
+
+  return {
+    fill: fill,
+    stroke: stroke,
+    lebel: label,
+  }
 };
 
 module.exports = {

@@ -29,8 +29,8 @@ const renderPatientProfile = async (req, res) => {
   const patientRawData = await getThisPatientOfClinician(req.user._id, patId);
   let todayData = await dataRow(patientRawData);
   // console.log(todayData);
-  // const todayData = await UserDataController.getTodayData(patId);
-  // const overViewData = await UserDataController.getOverviewData(patId);
+  const overViewData = await UserDataController.getOverviewData(patId);
+  console.log(overViewData);
   // const detailedData = await UserDataController.getDetailedData(patId);
 
   // var data = [
@@ -42,15 +42,13 @@ const renderPatientProfile = async (req, res) => {
   //   stroke: null,
   //   label: { enabled: true }
   // }
-
-  console.log(todayData);
   res.render('clinician/patient-profile.hbs', {
     layout: 'clinician-layout.hbs',
     patDefaultInfo: patDefaultInfo, //[email, firstName, lastName, phoneNumber]
     formatDob: formatDob,
     thresholds: thresholds,
     todayData: todayData,
-    // overviewData: overViewData,
+    overviewData: overViewData,
     // detailedData: detailedData,
   });
 };
