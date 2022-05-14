@@ -16,6 +16,7 @@ let delivery2 = {
   dbURI: `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_URL}/${process.env.DB_DELIVERY2_NAME}?retryWrites=true&w=majority`,
 };
 
+
 let config = {
   dev,
   test,

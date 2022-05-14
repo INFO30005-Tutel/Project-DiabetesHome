@@ -117,6 +117,9 @@ footer img {
   .title {
     font-size: 48px;
   }
+  .sub-title {
+    font-size: 36px;
+  }
   .nav-items a {
     display: block;
   }
@@ -139,11 +142,17 @@ footer img {
   form {
     width: 40%;
   }
+  .contact-us-input {
+    width: 30vw;
+  }
 }
 /* SMALL SCREENS */
 @media (max-width: 850px) {
   .title {
     font-size: 28px;
+  }
+  .sub-title {
+    font-size: 16px;
   }
   p {
     font-size: 15px;
@@ -207,8 +216,25 @@ footer img {
   #reverse-when-phone {
     flex-direction: column-reverse;
   }
+  /*responsive design for the contact us form*/
+  .contact-us-page {
+    height: 90vh !important;
+  }
+
+  .contact-sub-title {
+    text-align: center;
+  }
+
+  .contact-form-textboxes {
+    flex-direction: column;
+  }
+
   form {
     width: 80%;
+  }
+
+  .contact-us-input {
+    width: 500px;
   }
 }
 
@@ -259,7 +285,6 @@ footer img {
   color: #0a57ae;
 }
 .sub-title {
-  font-size: 36px;
   margin-bottom: 20px;
   color: #0a57ae;
 }
@@ -388,6 +413,67 @@ h3 {
   color: white;
 }
 
+/*Contact Us Form Styles*/
+.contact-us-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.85vh;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  height: 70vh;
+  margin-top: 2.5rem;
+}
+
+.contact-us-page div:first-child p {
+  margin-top: 1rem;
+}
+
+#contact-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact-form-textboxes {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+#contact-form div p {
+  color: #3d3d3d;
+  font-weight: bold;
+}
+
+.contact-us-input {
+  border-radius: 20px;
+  border: 2px solid #0a57ae;
+  color: #707070;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+#info-for-contact input {
+  height: 70px;
+}
+
+#message-for-contact input {
+  height: 205px;
+}
+
+#contact-submit-button {
+  height: 60px;
+  width: 200px;
+  background-color: #0a57ae;
+  color: #fff;
+  border-radius: 20px;
+  align-self: center;
+}
+
 form {
   text-align: left;
   margin: auto;
@@ -474,4 +560,9 @@ button:hover {
 .page-num a {
   flex: 1;
   text-align: center;
+}
+
+.alert {
+  color: red;
+  margin: 0;
 }

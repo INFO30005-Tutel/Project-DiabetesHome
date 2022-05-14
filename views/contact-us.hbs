@@ -1,0 +1,40 @@
+<div class='contact-us-page'>
+  <div>
+    <h1 class='title'>Contact Us</h1>
+    <p class='contact-sub-title'>Have a feature request? Want to know more about
+      us? Contact us here:</p>
+  </div>
+  <form id='contact-form' action='/contact-us' method='post'>
+    <div class='contact-form-textboxes'>
+      <div id='info-for-contact'>
+        <p>Name</p>
+        <input
+          class='contact-us-input'
+          type='text'
+          id='name'
+          name='name'
+          required
+        />
+        <p>Email</p>
+        <input
+          class='contact-us-input'
+          type='email'
+          id='email'
+          name='email'
+          required
+        />
+      </div>
+      <div id='message-for-contact'>
+        <p>Message</p>
+        <input
+          class='contact-us-input'
+          type='text'
+          id='message'
+          name='message'
+          required
+        />
+      </div>
+    </div>
+    <input type='submit' id='contact-submit-button' value='Submit' />
+  </form>
+</div>
