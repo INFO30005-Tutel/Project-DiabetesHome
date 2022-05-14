@@ -15,10 +15,7 @@
     </div>
   </div>
   <hr style='border: 2px solid #292929;' />
-  <div class='searching-area'>
-    <i class='fa fa-check-circle' style='font-size:xx-large; color: #2b7a3d'></i>
-    <p style='margin-bottom: 0px;'><b>This patient has entered today's data:</b></p>
-  </div>
+  <p style='margin-bottom: 0px; margin-top:10px;'><b>Today's data:</b></p>
   {{! TODAY'S DATA TABLE }}
   <div class='flex-column table-section'>
     <table class='dash-table'>
@@ -30,11 +27,30 @@
         <th>STEP COUNTS</th>
       </tr>
       <tr style='border-bottom: 2px solid #292929;'>
-        <td><i class='fa fa-check-circle' style='font-size:xx-large; color: #2b7a3d'></i></td>
-        <td>{{todayData.bloodGlucoseData.value}}</td>
-        <td>{{todayData.weightData.value}}</td>
-        <td>{{todayData.insulinDoseData.value}}</td>
-        <td>{{todayData.stepCountData.value}}</td>
+        <td><i class='fa {{getIcon todayData}}' style='font-size:xx-large; color: {{getIconColor todayData}}'></i></td>
+        {{#with todayData.bloodGlucose}}
+        <td style='color: {{getTextColor value lowThresh highThresh "bloodGlucose"}}'>
+          {{#if value}}{{value}} mmol/L{{else if required}}??? mmol/L{{/if}}
+        </td>
+        {{/with}}
+
+        {{#with todayData.weight}}
+        <td style='color: {{getTextColor value lowThresh highThresh "weight"}}'>
+          {{#if required}}
+          {{#if value}}{{value}} kg{{else if required}}??? kg{{/if}}
+          {{/if}}
+        </td>
+        {{/with}}
+        {{#with todayData.insulinDose}}
+        <td style='color: {{getTextColor value lowThresh highThresh "insulinDose"}}'>
+          {{#if value}}{{value}} doses{{else if required}}??? doses{{/if}}
+        </td>
+        {{/with}}
+        {{#with todayData.stepCount}}
+        <td style='color: {{getTextColor value lowThresh highThresh "stepCount"}}'>
+          {{#if value}}{{value}}{{else if required}}???{{/if}}
+        </td>
+        {{/with}}
       </tr>
     </table>
   </div>

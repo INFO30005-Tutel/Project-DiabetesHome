@@ -26,8 +26,10 @@ const renderPatientProfile = async (req, res) => {
   const patDefaultInfo = await UserController.getPatientDefaultInfo(patId);
   const formatDob = HelperController.getDateAndTime(patDefaultInfo.dateOfBirth);
   const thresholds = await UserDataController.getThresholds(patId);
-  const todayData = await UserDataController.getTodayData(patId);
-  console.log(todayData);
+  const patientRawData = await getThisPatientOfClinician(req.user._id, patId);
+  let todayData = await dataRow(patientRawData);
+  // console.log(todayData);
+  // const todayData = await UserDataController.getTodayData(patId);
   // const overViewData = await UserDataController.getOverviewData(patId);
   // const detailedData = await UserDataController.getDetailedData(patId);
 
@@ -41,6 +43,7 @@ const renderPatientProfile = async (req, res) => {
   //   label: { enabled: true }
   // }
 
+  console.log(todayData);
   res.render('clinician/patient-profile.hbs', {
     layout: 'clinician-layout.hbs',
     patDefaultInfo: patDefaultInfo, //[email, firstName, lastName, phoneNumber]
@@ -64,6 +67,11 @@ const renderRegisterPatient = async (req, res) => {
 const getPatientsOfClinician = async (clinicianId) => {
   let patientList = User.find({ clinicianId: clinicianId }).lean();
   return patientList;
+};
+
+const getThisPatientOfClinician = async (clinicianId, patId) => {
+  let patient = User.findOne({ clinicianId: clinicianId, _id: patId }).lean();
+  return patient;
 };
 
 const formatPatientRegister = async (req, res, next) => {
@@ -91,39 +99,76 @@ const getTableData = async (clinicianId) => {
     console.log(err);
   }
   for (patient of patientList) {
-    // patient = await dataRow(patient);
-    // Patient is a combined object of User and UserData
-    try {
-      //console.log(patient);
-      data = await UserDataController.getTodayData(patient._id);
-    } catch (err) {
-      console.log(err);
-    }
+    patient = await dataRow(patient);
+    // console.log(patient);
+    //   // Patient is a combined object of User and UserData
+    //   try {
+    //     //console.log(patient);
+    //     data = await UserDataController.getTodayData(patient._id);
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
 
-    // Add `required` value to fields that patient need to update
-    patient.bloodGlucose = data.bloodGlucoseData || {};
-    patient.bloodGlucose.lowThresh = data.bloodGlucoseLowThresh || defaultDangerThreshold[0];
-    patient.bloodGlucose.highThresh = data.bloodGlucoseHighThresh || defaultDangerThreshold[1];
-    if (data.requiredFields.includes(0)) patient.bloodGlucose.required = true;
+    //   // Add `required` value to fields that patient need to update
+    //   patient.bloodGlucose = data.bloodGlucoseData || {};
+    //   patient.bloodGlucose.lowThresh = data.bloodGlucoseLowThresh || defaultDangerThreshold[0];
+    //   patient.bloodGlucose.highThresh = data.bloodGlucoseHighThresh || defaultDangerThreshold[1];
+    //   if (data.requiredFields.includes(0)) patient.bloodGlucose.required = true;
 
-    patient.weight = data.weightData || {};
-    patient.weight.lowThresh = data.weightLowThresh || defaultDangerThreshold[2];
-    patient.weight.highThresh = data.weightHighThresh || defaultDangerThreshold[3];
-    if (data.requiredFields.includes(1)) patient.weight.required = true;
+    //   patient.weight = data.weightData || {};
+    //   patient.weight.lowThresh = data.weightLowThresh || defaultDangerThreshold[2];
+    //   patient.weight.highThresh = data.weightHighThresh || defaultDangerThreshold[3];
+    //   if (data.requiredFields.includes(1)) patient.weight.required = true;
 
-    patient.insulinDose = data.insulinDoseData || {};
-    patient.insulinDose.lowThresh = data.insulinDoseLowThresh || defaultDangerThreshold[4];
-    patient.insulinDose.highThresh = data.insulinDoseHighThresh || defaultDangerThreshold[5];
-    if (data.requiredFields.includes(2)) patient.insulinDose.required = true;
+    //   patient.insulinDose = data.insulinDoseData || {};
+    //   patient.insulinDose.lowThresh = data.insulinDoseLowThresh || defaultDangerThreshold[4];
+    //   patient.insulinDose.highThresh = data.insulinDoseHighThresh || defaultDangerThreshold[5];
+    //   if (data.requiredFields.includes(2)) patient.insulinDose.required = true;
 
-    patient.stepCount = data.stepCountData || {};
-    patient.stepCount.lowThresh = data.stepCountLowThresh || defaultDangerThreshold[6];
-    patient.stepCount.highThresh = data.stepCountHighThresh || defaultDangerThreshold[7];
-    if (data.requiredFields.includes(3)) patient.stepCount.required = true;
+    //   patient.stepCount = data.stepCountData || {};
+    //   patient.stepCount.lowThresh = data.stepCountLowThresh || defaultDangerThreshold[6];
+    //   patient.stepCount.highThresh = data.stepCountHighThresh || defaultDangerThreshold[7];
+    //   if (data.requiredFields.includes(3)) patient.stepCount.required = true;
   }
 
   return patientList;
 };
+
+const dataRow = async (patient) => {
+  let data;
+  // Patient is a combined object of User and UserData
+  try {
+    //console.log(patient);
+    data = await UserDataController.getTodayData(patient._id);
+  } catch (err) {
+    console.log(err);
+  }
+
+  // Add `required` value to fields that patient need to update
+  patient.bloodGlucose = data.bloodGlucoseData || {};
+  patient.bloodGlucose.lowThresh = data.bloodGlucoseLowThresh || defaultDangerThreshold[0];
+  patient.bloodGlucose.highThresh = data.bloodGlucoseHighThresh || defaultDangerThreshold[1];
+  if (data.requiredFields.includes(0)) patient.bloodGlucose.required = true;
+
+  patient.weight = data.weightData || {};
+  patient.weight.lowThresh = data.weightLowThresh || defaultDangerThreshold[2];
+  patient.weight.highThresh = data.weightHighThresh || defaultDangerThreshold[3];
+  if (data.requiredFields.includes(1)) patient.weight.required = true;
+
+  patient.insulinDose = data.insulinDoseData || {};
+  patient.insulinDose.lowThresh = data.insulinDoseLowThresh || defaultDangerThreshold[4];
+  patient.insulinDose.highThresh = data.insulinDoseHighThresh || defaultDangerThreshold[5];
+  if (data.requiredFields.includes(2)) patient.insulinDose.required = true;
+
+  patient.stepCount = data.stepCountData || {};
+  patient.stepCount.lowThresh = data.stepCountLowThresh || defaultDangerThreshold[6];
+  patient.stepCount.highThresh = data.stepCountHighThresh || defaultDangerThreshold[7];
+  if (data.requiredFields.includes(3)) patient.stepCount.required = true;
+
+  return patient;
+};
+
+
 
 const getTextColor = (value, lowThresh, highThresh, type) => {
   const ok = '#2b7a3d';
