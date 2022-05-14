@@ -13,7 +13,9 @@
   <div class='searching-area'>
     <input type='text' placeholder='Search patient..' />
     <button><i class='fa fa-search'></i></button>
-    <button><i class='fa fa-plus'></i></button>
+    <a href="clinician/register-patient">
+      <button><i class='fa fa-plus'></i></button>
+    </a>
   </div>
   {{! TABLE BODY}}
   <div class='table-section'>
@@ -32,36 +34,36 @@
               class='fa {{getIcon this}}'
               style='font-size:xx-large; color: {{getIconColor this}}'
             ></i></td>
-          <td><a href='patient/{{this._id}}'>{{this.firstname}}
-              {{this.lastname}}</a></td>
+          <td><a href='/clinician/view-patient/{{this._id}}'>{{this.firstName}}
+              {{this.lastName}}</a></td>
           {{#with this.bloodGlucose}}
-            <td style='color: {{getTextColor data "bloodGlucose"}}'>
-              {{#if data}}{{data}} nmol/L{{else if required}}??? nmol/L{{/if}}
+            <td style='color: {{getTextColor value lowThresh highThresh "bloodGlucose"}}'>
+              {{#if value}}{{value}} mmol/L{{else if required}}??? mmol/L{{/if}}
             </td>
           {{/with}}
 
           {{#with this.weight}}
-            <td style='color: {{getTextColor data "weight"}}'>
+            <td style='color: {{getTextColor value lowThresh highThresh "weight"}}'>
               {{#if required}}
-                {{#if data}}{{data}} kg{{else if required}}??? kg{{/if}}
+                {{#if value}}{{value}} kg{{else if required}}??? kg{{/if}}
               {{/if}}
             </td>
           {{/with}}
-          {{#with this.insulinDoses}}
-            <td style='color: {{getTextColor data "insulinDoses"}}'>
-              {{#if data}}{{data}} doses{{else if required}}??? doses{{/if}}
+          {{#with this.insulinDose}}
+            <td style='color: {{getTextColor value lowThresh highThresh "insulinDose"}}'>
+              {{#if value}}{{value}} doses{{else if required}}??? doses{{/if}}
             </td>
           {{/with}}
-          {{#with this.stepCounts}}
-            <td style='color: {{getTextColor data "stepCounts"}}'>
-              {{#if data}}{{data}}{{else if required}}???{{/if}}
+          {{#with this.stepCount}}
+            <td style='color: {{getTextColor value lowThresh highThresh "stepCount"}}'>
+              {{#if value}}{{value}}{{else if required}}???{{/if}}
             </td>
           {{/with}}
         </tr>
       {{/each}}
     </table>
     <div class='page-change'>
-      <p style='text-align: center'>Show 1-1 of 1</p>
+      <p style='text-align: center'>Show 1-{{numPatient}} of {{numPatient}}</p>
       <div class='page-num'>
         <button><i class='fa fa-arrow-left' style='color: white;'></i></button>
         <h1><b>1</b></h1>

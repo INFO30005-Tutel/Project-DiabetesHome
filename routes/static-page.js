@@ -15,11 +15,11 @@ app.get('/about-this-website', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-  res.render('login.hbs');
+  res.render('login.hbs', { flash: req.flash('error') });
 });
 
-app.get('/sign-up', (req, res) => {
-  res.render('sign-up.hbs');
+app.get('/register', (req, res) => {
+  res.render('register.hbs', { flash: req.flash('error') });
 });
 
 app.get('/staying-motivated', (req, res) => {

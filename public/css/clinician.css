@@ -62,7 +62,7 @@
   align-items: flex-start;
   gap: 15px;
 }
-.searching-area input[type=text] {
+.searching-area input[type='text'] {
   float: left;
   padding-left: 20px;
   padding-right: 20px;
@@ -111,8 +111,27 @@
   background-color: aliceblue;
 }
 .dash-table td a {
-  color:#0a57ae;
+  color: #0a57ae;
   text-decoration: none;
+}
+
+.register-patient-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 5vw;
+}
+
+form .measurement {
+  display: flex;
+  justify-content: space-between;
+  gap: 1vw;
+}
+
+input[type='checkbox'] {
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
 }
 
 /* SMALL SCREENS */
@@ -139,7 +158,7 @@
   .searching-area {
     justify-content: center;
   }
-  .searching-area input[type=text] {
+  .searching-area input[type='text'] {
     width: 50vw;
   }
 }

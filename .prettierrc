@@ -1,5 +1,6 @@
 {
   "singleQuote": true,
   "tabWidth": 2,
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "printWidth": 100
 }

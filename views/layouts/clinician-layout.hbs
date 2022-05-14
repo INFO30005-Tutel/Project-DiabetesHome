@@ -26,7 +26,9 @@
         <div class='navitems'>
           <button onclick='open_dashboard()'><b>Dashboard</b></button>
           <button onclick='open_settings()'><b>Settings</b></button>
-          <button onclick='log_out()'><b>Log out</b></button>
+          <form class="logout" action="/logout" method="post">
+            <button type="submit">Log Out</button>
+          </form>
         </div>
       </nav>
     </header>
@@ -57,8 +59,58 @@
     {{! END OF FOOTER }}
 
     <script>
-      function log_out() {} function open_settings() {} function
-      open_dashboard() {}
+      function open_settings() {} 
+      function open_dashboard() {}
+
+      function check_confirm_password(input) {
+        if (input.value != document.getElementById('password').value) {
+          input.setCustomValidity('Password must be matching.');
+        } else {
+          // input is valid -- reset the error message
+          input.setCustomValidity('');
+        }
+      }
+
+      function at_least_one_checkbox(input) {
+        let checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+        if (checkboxes.length == 0) {
+          input.setCustomValidity('At least one measurement must be selected.');
+        } else {
+          // input is valid -- reset the error message
+          input.setCustomValidity('');
+        }
+        
+        // Hide unneccessary field
+        if (input.id == 'bloodGlucoseCheckbox') {
+          if (input.checked) {
+            document.getElementById('bloodGlucloseThreshField').style.display = 'flex';
+          } else {
+            document.getElementById('bloodGlucloseThreshField').style.display = 'none';
+          }
+        }
+        if (input.id == 'weightCheckbox') {
+          if (input.checked) {
+            document.getElementById('weightThreshField').style.display = 'flex';
+          } else {
+            document.getElementById('weightThreshField').style.display = 'none';
+          }
+        }
+        if (input.id == 'insulinDoseCheckbox') {
+          if (input.checked) {
+            document.getElementById('insulinDoseThreshField').style.display = 'flex';
+          } else {
+            document.getElementById('insulinDoseThreshField').style.display = 'none';
+          }
+        }
+        if (input.id == 'stepCountCheckbox') {
+          if (input.checked) {
+            document.getElementById('stepCountThreshField').style.display = 'flex';
+          } else {
+            document.getElementById('stepCountThreshField').style.display = 'none';
+          }
+        }
+      }
+
     </script>
 
   </body>

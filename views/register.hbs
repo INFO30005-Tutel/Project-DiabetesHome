@@ -1,0 +1,45 @@
+<div class="home" style="text-align: center;">
+  <h1 class="title">Register</h1>
+  <p>
+    Sign up as patient? Contact your clinician.
+    <br>
+    Already got an account? <a href="/login">Login</a>
+  </p>
+  {{#each flash}}
+    <p class="alert">{{this}}</p>
+  {{/each}}
+  <form action="/register" method="POST">
+    <label for="email">Email</label>
+    <br>
+    <input type="email" name="email" id="email" required>
+    <br>
+    <label for"phoneNumber">Phone Number</label>
+    <br>
+    <input type="tel" name="phoneNumber" id="phoneNumber" required>
+    <br>
+    <label for="firstName">First Name</label>
+    <br>
+    <input type="text" name="firstName" id="firstName" required>
+    <br>
+    <label for="lastName">First Name</label>
+    <br>
+    <input type="text" name="lastName" id="lastName" required>
+    <br>
+    <label for="dateOfBirth">Date of Birth</label>
+    <br>
+    <input type="date" name="dateOfBirth" id="dateOfBirth" required>
+    <br>
+    <label for="password">Password</label>
+    <br>
+    <input type="password" name="password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+    title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+    <br>
+    <label for="confirm-password">Confirm Password</label>
+    <br>
+    <input type="password" name="confirm-password" id="confirm-password" oninput="check_confirm_password(this)" required>
+    <br>
+    <div class="button-wrapper" style="width: 100%;">
+      <button type="submit" class="button large-button-variant">Register</button>
+    </div>
+  </form>
+</div>

@@ -45,9 +45,11 @@
            <img src='/images/logo.png' />
         </a>
         <div class='nav-items'>
-          <a href='/about-diabetes'>About Diabetes</a>
-          <a href='/about-this-website'>About This Website</a>
-          <a>{{userData.firstname}} {{userData.lastname}}</a>
+          <button onclick='open_dashboard()'><b>Dashboard</b></button>
+          <button onclick='open_settings()'><b>Settings</b></button>
+          <form class="logout" action="/logout" method="post">
+            <button type="submit">Log Out</button>
+          </form>
         </div>
       </nav>
 
@@ -81,6 +83,9 @@
     {{! END OF FOOTER }}
   </body>
   <script type = "text/javascript">
+    function open_settings() {} 
+    function open_dashboard() {}
+
     $(document).ready(function() {
         $((".icon")).on('click', function() {
             const nameOfPopUp = '#' + $(this).attr('id') + '-popup';

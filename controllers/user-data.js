@@ -1,62 +1,73 @@
-// Controller to perform CRUD on UserData parameter
-const { type } = require('express/lib/response');
 const UserData = require('../models/user-data');
-const helper = require('./helper');
+const helper = require('../controllers/helper');
 
-// {
-//   type: int (type index),
-//   data: double/float/number
-// }
-exports.update = async (req, res) => {
+const getTodayData = async (patientId) => {
+  let patientData = await UserData.findOne({ userId: patientId }).lean();
+  //console.log(patientData);
+
+  patientData.bloodGlucoseData = await helper.retrieveTodayData(patientData.bloodGlucoseData);
+  patientData.weightData = await helper.retrieveTodayData(patientData.weightData);
+  patientData.insulinDoseData = await helper.retrieveTodayData(patientData.insulinDoseData);
+  patientData.stepCountData = await helper.retrieveTodayData(patientData.stepCountData);
+
+  return patientData;
+};
+
+const updateUserDataMeasurement = async (req, res) => {
   let savedData;
   await UserData.findOne({ userId: req.user._id }).then(async (data) => {
     if (data) {
       savedData = JSON.parse(JSON.stringify(data));
     }
   });
-  var input = {
-    data: req.body.data,
+
+  let input = {
+    value: req.body.value,
     note: req.body.note,
     inputAt: new Date(),
   };
-
   let now = new Date();
   let todayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   let last;
+  let n;
   if (req.body.type == 0) {
-    last = savedData.bloodData[savedData.bloodData.length - 1];
+    n = savedData.bloodGlucoseData.length;
+    last = savedData.bloodGlucoseData[n - 1];
     if (last && new Date(last.inputAt).getTime() > todayDate.getTime()) {
       // Override last entry
-      savedData.bloodData[savedData.bloodData.length - 1] = input;
+      savedData.bloodGlucoseData[n - 1] = input;
     } else {
-      savedData.bloodData.push(input);
+      savedData.bloodGlucoseData.push(input);
     }
   }
   if (req.body.type == 1) {
-    last = savedData.bloodData[savedData.weightData.length - 1];
+    n = savedData.weightData.length;
+    last = savedData.weightData[n - 1];
     if (last && new Date(last.inputAt).getTime() > todayDate.getTime()) {
       // Override last entry
-      savedData.weightData[savedData.weightData.length - 1] = input;
+      savedData.weightData[n - 1] = input;
     } else {
       savedData.weightData.push(input);
     }
   }
   if (req.body.type == 2) {
-    last = savedData.bloodData[savedData.insulinData.length - 1];
+    n = savedData.insulinDoseData.length;
+    last = savedData.insulinDoseData[n - 1];
     if (last && new Date(last.inputAt).getTime() > todayDate.getTime()) {
       // Override last entry
-      savedData.insulinData[savedData.insulinData.length - 1] = input;
+      savedData.insulinDoseData[n - 1] = input;
     } else {
-      savedData.insulinData.push(input);
+      savedData.insulinDoseData.push(input);
     }
   }
   if (req.body.type == 3) {
-    last = savedData.bloodData[savedData.exerciseData.length - 1];
+    n = savedData.stepCountData.length;
+    last = savedData.stepCountData[n - 1];
     if (last && new Date(last.inputAt).getTime() > todayDate.getTime()) {
       // Override last entry
-      savedData.exerciseData[savedData.exerciseData.length - 1] = input;
+      savedData.stepCountData[n - 1] = input;
     } else {
-      savedData.exerciseData.push(input);
+      savedData.stepCountData.push(input);
     }
   }
 
@@ -66,7 +77,7 @@ exports.update = async (req, res) => {
   await UserData.findByIdAndUpdate(id, { $set: savedData })
     .then((updatedData) => {
       if (updatedData) {
-        res.status(200).send({ message: 'Update data successfully!' });
+        res.redirect(`/patient`);
       }
     })
     // Case of error
@@ -78,86 +89,76 @@ exports.update = async (req, res) => {
     });
 };
 
-exports.getTodayData = (req, res) => {
-  var toReturn = {};
-  UserData.findOne({ userId: req.user._id })
-    .then(async (dataBlock) => {
-      if (!dataBlock) {
-        res.status(404).send({ message: 'Missing user-data for this user!' });
-      }
-      // Get access to each of data elements
-      toReturn.bloodData = await helper.retrieveTodayData(dataBlock.bloodData);
-      toReturn.weightData = await helper.retrieveTodayData(
-        dataBlock.weightData
-      );
-      toReturn.insulinData = await helper.retrieveTodayData(
-        dataBlock.insulinData
-      );
-      toReturn.exerciseData = await helper.retrieveTodayData(
-        dataBlock.exerciseData
+// Change what measurement patient need to record, along with their threshold
+const changePatientRecordParameter = async (req, res) => {
+  let patientData;
+  try {
+    patientData = await UserData.findOne({ userId: req.params.id }).lean();
+  } catch (err) {
+    console.log(err);
+  }
+  try {
+    patientData = await UserData.findByIdAndUpdate(
+      patientData._id,
+      { $set: req.body },
+      { new: true }
+    ).lean();
+  } catch (err) {
+    console.log(err);
+  }
+
+  // Remove unneccessary fields
+  delete patientData.bloodGlucoseData;
+  delete patientData.weightData;
+  delete patientData.insulinDoseData;
+  delete patientData.stepCountData;
+
+  return patientData;
+};
+
+// Rechieve and format threshold for rendering
+const getThresholds = (patId) => {
+  UserData.findById(patId)
+    .then((data) => {
+      const bloodThres = helper.formatThreshold(
+        'Blood glucose level',
+        data.bloodGlucoseLowThresh,
+        data.bloodGlucoseHighThresh,
+        'mmol/L'
       );
 
-      res.status(200).send(toReturn);
+      const weightThres = helper.formatThreshold(
+        'Weight entry',
+        data.weightLowThresh,
+        data.weightHighThresh,
+        'kg'
+      );
+
+      const insulinThres = helper.formatThreshold(
+        'Dose of insulin taken per day',
+        data.insulinDoseLowThresh,
+        data.insulinDoseHighThresh,
+        'doses'
+      );
+
+      const stepCountThres = helper.formatThreshold(
+        'Step count recommended',
+        data.stepCountLowThresh,
+        data.stepCountHighThresh,
+        'steps'
+      );
+
+      return [bloodThres, weightThres, insulinThres, stepCountThres];
     })
-    // Case of error
     .catch((err) => {
       console.log(err);
-      res.status(500).send({
-        message: 'Error when getting Data!',
-      });
+      return thresholds;
     });
 };
 
-exports.getDataDuring = async (req, res) => {
-  const from = new Date(req.body.from);
-  const to = new Date(req.body.to);
-  to.setHours(23, 59, 59, 999);
-
-  var toReturn = [];
-
-  await UserData.findOne({ userId: req.user._id })
-    .then(async (dataBlock) => {
-      if (!dataBlock) {
-        res.status(404).send({ message: 'Missing user-data for this user!' });
-      }
-
-      var dataArray = [];
-      switch (req.body.type) {
-        case 0:
-          dataArray = dataBlock.bloodData;
-          break;
-        case 1:
-          dataArray = dataBlock.weightData;
-          break;
-        case 2:
-          dataArray = dataBlock.insulinData;
-          break;
-        default:
-          dataArray = dataBlock.exerciseData;
-          break;
-      }
-
-      dataArray.forEach((element) => {
-        if (element.inputAt > from && element.inputAt < to) {
-          toReturn.push(element);
-        }
-      });
-
-      res.status(200).send(toReturn);
-    })
-    // Case of error
-    .catch((err) => {
-      console.log(err);
-      res.status(500).send({
-        message: 'Error when getting Data!',
-      });
-    });
-};
-
-// Debugging methods
-exports.findOne = (req, res) => {
-  helper.findData(UserData, req, res);
-};
-exports.findAll = (req, res) => {
-  helper.findAllData(UserData, req, res);
+module.exports = {
+  getTodayData,
+  updateUserDataMeasurement,
+  changePatientRecordParameter,
+  getThresholds,
 };

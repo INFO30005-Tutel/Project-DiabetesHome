@@ -1,7 +1,7 @@
 <div class="patient-dashboard">
     <div class="dashboard-side">
         <p>
-            Welcome, <b>{{userData.firstname}}</b>
+            Welcome, <b>{{userData.firstName}}</b>
             <br>
             {{time}}
             <br>
@@ -107,10 +107,10 @@
     <div class="exit-button"><span class="lni lni-close"></span></div>
     <h3 id="form-title" style="color: #0A57AE;">{{this.name}}</h3>
     {{#unless this.entry}}
-    <form id="{{this.shortName}}-form" method='POST' action='/userdata'>
+    <form id="{{this.shortName}}-form" method='POST' action='/update-measurement'>
         <input type='hidden' name='type' value='{{this.index}}' />
         <div>
-            <input type="text" class="small-input" placeholder="Input here" name="data">
+            <input type="number" class="small-input" placeholder="Input here" name="value" min="{{this.minValid}}" max="{{this.maxValid}}" step="{{this.incStep}}">
             <label for="enter-data" id="unit" name="unit">{{this.units}}</label>
         </div>
         <h4>Notes</h4>
@@ -121,10 +121,10 @@
         </div>
     </form>
     {{else}}
-    <form id="{{this.shortName}}-form" method='POST' action='/userdata'>
+    <form id="{{this.shortName}}-form" method='POST' action='/update-measurement'>
         <input type='hidden' name='type' value='{{this.index}}' />
         <div>
-            <input type="text" class="small-input" value={{this.entry.data}} name="data">
+            <input type="number" class="small-input" value={{this.entry.value}} name="value" min="{{this.minValid}}" max="{{this.maxValid}}" step="{{this.incStep}}">
             <label for="enter-data" id="unit" name="unit">{{this.units}}</label>
         </div>
         <h4>Notes</h4>

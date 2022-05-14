@@ -2,6 +2,7 @@ h1 {
   font-size: 2.4em;
   color: #0a57ae;
   font-weight: bold;
+  margin-bottom: 20px;
 }
 
 h2 {
@@ -223,10 +224,6 @@ img {
   margin-bottom: 20px;
 }
 
-.datepicker .ui-datepicker-inline {
-  /* padding: 30px; */
-}
-
 .datepicker .ui-datepicker-header {
   text-align: center;
   padding-top: 1em;
@@ -304,10 +301,6 @@ td {
   grid-template-columns: 1fr 1fr 1fr;
   grid-auto-rows: 40px;
   gap: 10px;
-  margin-bottom: 20px;
-}
-
-h1 {
   margin-bottom: 20px;
 }
 

@@ -1,92 +1,112 @@
-var JwtStrategy = require('passport-jwt').Strategy,
-  ExtractJwt = require('passport-jwt').ExtractJwt;
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User = require('./models/user');
+const UserData = require('./models/user-data');
 
-var passport = require('passport'),
-  LocalStrategy = require('passport-local');
+// Updated serialize/deserialize functions
+passport.serializeUser((user, done) => {
+  done(undefined, user._id);
+});
 
-const User = require('mongoose').model('User');
+passport.deserializeUser((userId, done) => {
+  User.findById(userId, (err, user) => {
+    if (err) {
+      return done(err, undefined);
+    }
+    return done(undefined, user);
+  });
+});
 
-// Checks for valid token when performing any route (except login and registration)
+// Does the login and returns a token if login successfully
 passport.use(
-  'jwt',
-  new JwtStrategy(
+  'login',
+  new LocalStrategy(
     {
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: process.env.PASSPORT_SECRET,
-      passReqToCallback: true,
+      usernameField: 'email',
     },
-    function (req, jwt_payload, done) {
-      User.findOne({ _id: jwt_payload._id }, function (err, user) {
+    (username, password, done) => {
+      User.findOne({ email: username.toLowerCase() }, function (err, user) {
         if (err) {
-          return done(err, false);
+          return done(null, false, { message: 'Unknown error.' });
         }
-
-        if (user) {
+        if (!user) {
+          return done(null, false, {
+            message: 'Incorrect username or password.',
+          });
+        }
+        user.verifyPassword(password, (err, valid) => {
+          if (err) {
+            return done(null, false, { message: 'Unknown error.' });
+          }
+          if (!valid) {
+            return done(null, false, {
+              message: 'Incorrect username or password.',
+            });
+          }
           return done(null, user);
-        } else {
-          return done(null, false);
-        }
+        });
       });
     }
   )
 );
 
-// Does the login and returns a token if login successfully
-passport.use(
-  'login',
-  new LocalStrategy((username, password, done) => {
-    User.findOne({ email: username.toLowerCase() }, function (err, user) {
-      if (err) {
-        return done(err);
-      }
-
-      if (user && user.verifyPassword(password)) {
-        return done(null, user);
-      }
-
-      return done(null, false);
-    });
-  })
-);
-
 // Register for an account
 // Will change later to match the patient's register process
 passport.use(
-  'registration',
+  'register',
   new LocalStrategy(
     {
       passReqToCallback: true,
       usernameField: 'email',
     },
-    async function (req, email, password, done) {
-      User.findOne({ email: email }, function (err, user) {
-        if (err) {
-          return done(err);
-        }
+    (req, email, password, done) => {
+      User.findOne({ email: email })
+        .then((foundUser) => {
+          if (foundUser) {
+            console.log('Account existed');
+            return done(null, false, { message: 'Account already existed!' });
+          } else {
+            const newUser = new User();
+            newUser.email = email.toLowerCase();
+            newUser.password = newUser.hashPassword(password);
+            newUser.firstName = req.body.firstName;
+            newUser.lastName = req.body.lastName;
+            newUser.dateOfBirth = new Date(req.body.dateOfBirth);
+            newUser.phoneNumber = req.body.phoneNumber;
+            newUser.clinicianId = req.body.clinicianId || null;
 
-        if (user) {
-          return done(null, false, { message: 'Account existed' });
-        } else {
-          var newUser = new User();
-          newUser.email = email.toLowerCase();
-          newUser.password = newUser.hashPassword(password);
-          newUser.firstname = req.body.firstname;
-          newUser.lastname = req.body.lastname;
-          newUser.dob = new Date(req.body.dob);
-          newUser.phoneNo = req.body.phoneNo || '';
-          newUser.clinicId = req.body.clinicId || null; // Null for now
-          // TODO: Validate clinicID
-          newUser.clinicianId = req.body.clinicianId || null;
-
-          if (req.body.clinicianId) {
-            // by default patient: all fields to be activated (if not provided)
-            newUser.requiredFields = req.body.requiredFields || [0, 1, 2, 3];
+            newUser.save().then((savedUser) => {
+              // If this user is a patient
+              if (req.body.clinicianId) {
+                const newUserdata = new UserData({
+                  userId: savedUser._id,
+                  bloodGlucoseData: [],
+                  stepCountData: [],
+                  insulinDoseData: [],
+                  weightData: [],
+                  requiredFields: req.body.requiredFields || [0, 1, 2, 3],
+                  bloodGlucoseLowThresh: req.body.bloodGlucoseLowThresh,
+                  bloodGlucoseHighThresh: req.body.bloodGlucoseHighThresh,
+                  weightLowThresh: req.body.weightLowThresh,
+                  weightHighThresh: req.body.weightHighThresh,
+                  insulinDoseLowThresh: req.body.insulinDoseLowThresh,
+                  insulinDoseHighThresh: req.body.insulinDoseHighThresh,
+                  stepCountLowThresh: req.body.stepCountLowThresh,
+                  stepCountHighThresh: req.body.stepCountHighThresh,
+                });
+                newUserdata.save().then((savedUserData) => {
+                  return done(null, newUser);
+                });
+              } else {
+                // This user is a clinician. Not need to add userdata
+                return done(null, newUser);
+              }
+            });
           }
-
-          newUser.save();
-          return done(null, newUser);
-        }
-      });
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
     }
   )
 );
