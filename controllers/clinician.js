@@ -30,18 +30,8 @@ const renderPatientProfile = async (req, res) => {
   let todayData = await dataRow(patientRawData);
   // console.log(todayData);
   const overViewData = await UserDataController.getOverviewData(patId);
-  console.log(overViewData);
   // const detailedData = await UserDataController.getDetailedData(patId);
 
-  // var data = [
-  //   { x: '1/3', value: 145, normal: colStyle },
-  //   { x: '2/3', value: 148, normal: colStyle },
-  // ]
-  // var colStyle = {
-  //   fill: '#FF5F6D',
-  //   stroke: null,
-  //   label: { enabled: true }
-  // }
   res.render('clinician/patient-profile.hbs', {
     layout: 'clinician-layout.hbs',
     patDefaultInfo: patDefaultInfo, //[email, firstName, lastName, phoneNumber]

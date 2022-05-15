@@ -24,11 +24,14 @@
       <h2>{{dataName}}</h2>
       <div class='chart-card'>
         <div id='{{id}}' class='chart-container'></div>
-        <script type="text/javascript" containerId="{{id}}" data="{{data}}" title="{{dataName}}">
-          var chart = anychart.column();
+        <script type="text/javascript" containerId="{{id}}" dataBlock="{{data}}" title="{{dataName}}">
+          // Decode data block
+          var data = JSON.parse(document.currentScript.getAttribute('dataBlock'));
+          var dataSet = anychart.data.set(data);
 
-          var data = document.currentScript.getAttribute('data');
-          chart.column(data);
+          // Create diagram
+          var chart = anychart.column();
+          var series1 = chart.column(data);
 
           var title = document.currentScript.getAttribute('title');
           chart.title(title);

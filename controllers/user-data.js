@@ -178,10 +178,10 @@ const getOverviewData = async (patId) => {
   const stepData = await extractDataInRange(dataBlock.stepCountData, range, 3);
 
   return [
-    { id: 'overview-blood', dataName: 'BLOOD GLUCOSE LEVEL', data: bloodData },
-    { id: 'overview-weight', dataName: 'WEIGHT ENTRY PER DAY', data: weightData },
-    { id: 'overview-insulin', dataName: 'INSULIN TAKEN PER DAY', data: insulinData },
-    { id: 'overview-step', dataName: 'WALKING STEP COUNT PER DAY', data: stepData },
+    { id: 'overview-blood', dataName: 'BLOOD GLUCOSE LEVEL', data: JSON.stringify(bloodData) },
+    { id: 'overview-weight', dataName: 'WEIGHT ENTRY PER DAY', data: JSON.stringify(weightData) },
+    { id: 'overview-insulin', dataName: 'INSULIN TAKEN PER DAY', data: JSON.stringify(insulinData) },
+    { id: 'overview-step', dataName: 'WALKING STEP COUNT PER DAY', data: JSON.stringify(stepData) },
   ];
 };
 
@@ -204,18 +204,19 @@ const extractDataInRange = async (dataList, range, dataIndex) => {
         value: 0,
         normal: colStyle,
       });
+      break;
     }
     else {
       const dateTime = Helper.getDateAndTime(dataList[index].inputAt);
       extractedData.unshift({
         x: dateTime.date,
         value: dataList[index].value,
-        colStyle: colStyle,
+        normal: colStyle,
       });
     }
   }
 
-  console.log(extractedData);
+  //console.log(extractedData);
 
   return extractedData;
 };
@@ -237,7 +238,7 @@ const getDataColStyle = async (dataIndex) => {
   return {
     fill: fill,
     stroke: stroke,
-    lebel: label,
+    label: label,
   }
 };
 
