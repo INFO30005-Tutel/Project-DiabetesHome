@@ -28,9 +28,8 @@ const renderPatientProfile = async (req, res) => {
   const thresholds = await UserDataController.getThresholds(patId);
   const patientRawData = await getThisPatientOfClinician(req.user._id, patId);
   let todayData = await dataRow(patientRawData);
-  // console.log(todayData);
   const overViewData = await UserDataController.getOverviewData(patId);
-  // const detailedData = await UserDataController.getDetailedData(patId);
+  const detailedData = await UserDataController.getDetailedData(patId);
 
   res.render('clinician/patient-profile.hbs', {
     layout: 'clinician-layout.hbs',
@@ -39,7 +38,7 @@ const renderPatientProfile = async (req, res) => {
     thresholds: thresholds,
     todayData: todayData,
     overviewData: overViewData,
-    // detailedData: detailedData,
+    detailedData: detailedData,
   });
 };
 

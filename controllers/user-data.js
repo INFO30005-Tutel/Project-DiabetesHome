@@ -171,11 +171,10 @@ const getThresholds = async (patId) => {
 const getOverviewData = async (patId) => {
   const dataBlock = await UserData.findOne({ userId: patId }).lean();
 
-  const range = 7; // overview of the nearest 7 days
-  const bloodData = await extractDataInRange(dataBlock.bloodGlucoseData, range, 0);
-  const weightData = await extractDataInRange(dataBlock.weightData, range, 1);
-  const insulinData = await extractDataInRange(dataBlock.insulinDoseData, range, 2);
-  const stepData = await extractDataInRange(dataBlock.stepCountData, range, 3);
+  const bloodData = await extractOverviewData(dataBlock.bloodGlucoseData, 0);
+  const weightData = await extractOverviewData(dataBlock.weightData, 1);
+  const insulinData = await extractOverviewData(dataBlock.insulinDoseData, 2);
+  const stepData = await extractOverviewData(dataBlock.stepCountData, 3);
 
   return [
     { id: 'overview-blood', dataName: 'BLOOD GLUCOSE LEVEL', data: JSON.stringify(bloodData) },
@@ -186,11 +185,24 @@ const getOverviewData = async (patId) => {
 };
 
 const getDetailedData = async (patId) => {
+  const dataBlock = await UserData.findOne({ userId: patId }).lean();
 
+  const bloodData = await extractDetailedData(dataBlock.bloodGlucoseData);
+  const weightData = await extractDetailedData(dataBlock.weightData);
+  const insulinData = await extractDetailedData(dataBlock.insulinDoseData);
+  const stepData = await extractDetailedData(dataBlock.stepCountData);
+
+  return [
+    { id: 'detailed-blood', dataName: 'BLOOD GLUCOSE LEVEL', data: bloodData, unit: '(mmol/L)' },
+    { id: 'detailed-weight', dataName: 'WEIGHT ENTRY', data: weightData, unit: '(kg)' },
+    { id: 'detailed-insulin', dataName: 'INSULIN TAKEN', data: insulinData, unit: '(doses)' },
+    { id: 'detailed-step', dataName: 'WALKING STEP COUNT', data: stepData, unit: '(steps)' },
+  ];
 };
 
-// Extract data in a given range 
-const extractDataInRange = async (dataList, range, dataIndex) => {
+// Extract data for overview render
+const extractOverviewData = async (dataList, dataIndex) => {
+  const range = 7; // overview of the nearest 7 days
   let extractedData = [];
   const colStyle = await getDataColStyle(dataIndex);
 
@@ -216,7 +228,34 @@ const extractDataInRange = async (dataList, range, dataIndex) => {
     }
   }
 
-  //console.log(extractedData);
+  return extractedData;
+};
+
+// Extract data for overview render
+const extractDetailedData = async (dataList) => {
+  const range = 30; // Asume to show 20 days
+  let extractedData = [];
+
+  if (!dataList) dataList = [];
+
+  for (let i = 0; i < range; i++) {
+    let index = dataList.length - i - 1;
+    if (index < 0) {
+      extractedData.push({
+        timestamp: 'No record',
+        value: 0,
+        note: ''
+      });
+    }
+    else {
+      const dateTime = Helper.getDateAndTime(dataList[index].inputAt);
+      extractedData.push({
+        timestamp: dateTime.date + ' - ' + dateTime.time,
+        value: dataList[index].value,
+        note: dataList[index].note
+      });
+    }
+  }
 
   return extractedData;
 };

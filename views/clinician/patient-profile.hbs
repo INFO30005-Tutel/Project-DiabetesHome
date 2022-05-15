@@ -53,19 +53,16 @@
       <table id='{{id}}' style="border-collapse: collapse; margin-bottom:1rem">
         <tr style='border-bottom: 2px solid #0a57ae;'>
           <th>Timestamp</th>
-          <th>nmol/L</th>
+          <th>{{unit}}</th>
           <th>Notes</th>
         </tr>
+        {{#each data}}
         <tr style='border-bottom: 1px solid #292929;'>
-          <td>16/02/2022 18:35:24</td>
-          <td>6700</td>
-          <td></td>
+          <td>{{timestamp}}</td>
+          <td>{{value}}</td>
+          <td>{{note}}</td>
         </tr>
-        <tr style='border-bottom: 1px solid #292929;'>
-          <td>17/02/2022 18:35:24</td>
-          <td>6800</td>
-          <td>I had some fruit juice st dinner</td>
-        </tr>
+        {{/each}}
       </table>
       <a href="">Download all data (.csv) <i class='fa fa-download'></i></a>
     </div>
