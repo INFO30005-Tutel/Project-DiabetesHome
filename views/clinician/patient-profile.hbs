@@ -48,9 +48,9 @@
   {{!-- Detailed tab content --}}
   <div id='detailed-tab' class='tab-content'>
     {{#each detailedData}}
-    <div class='flex-column detailed-table'>
+    <div id='{{id}}' class='flex-column detailed-table'>
       <h2>{{dataName}}</h2>
-      <table id='{{id}}' style="border-collapse: collapse; margin-bottom:1rem">
+      <table style="border-collapse: collapse; margin-bottom:1rem">
         <tr style='border-bottom: 2px solid #0a57ae;'>
           <th>Timestamp</th>
           <th>{{unit}}</th>
@@ -64,7 +64,8 @@
         </tr>
         {{/each}}
       </table>
-      <a href="">Download all data (.csv) <i class='fa fa-download'></i></a>
+      <a onclick="ExportToCSV('{{id}}.csv', '{{id}}')" style="cursor: pointer;">Download all data (.csv)
+        <i class='fa fa-download'></i></a>
     </div>
     {{/each}}
   </div>
@@ -87,5 +88,34 @@
       var nextTabContent = document.getElementById(targetTabContent);
       nextTabContent.classList.toggle('tab-show');
     }
+  }
+</script>
+
+<script>
+  function ExportToCSV(filename, containerId) {
+    var table = document.getElementById(containerId);
+    console.log(table);
+    var rows = table.querySelectorAll("table tr");
+    var data = [];
+
+    for (var i = 0; i < rows.length; i++) {
+      var row = [], cols = rows[i].querySelectorAll("td, th");
+
+      for (var j = 0; j < cols.length; j++) {
+        row.push(cols[j].innerText);
+      }
+
+      data.push(row.join(","));
+    }
+
+    var csvFile, downloadLink;
+    csvFile = new Blob([data.join('\n')], { type: 'text/csv' });
+    downloadLink = document.createElement('a');
+    downloadLink.download = filename;
+    downloadLink.href = window.URL.createObjectURL(csvFile);
+    downloadLink.style.display = 'none';
+
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
   }
 </script>
