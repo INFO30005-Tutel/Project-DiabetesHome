@@ -79,9 +79,21 @@ const getDateAndTime = (dateString) => {
   };
 };
 
+const getUserDataId = async (userId) => {
+  let userDataId = '';
+  let userData = await UserData.findOne({ userId: userId }).lean();
+
+  if (userData) {
+    userDataId = userData._id;
+  }
+
+  return userDataId;
+}
+
 module.exports = {
   retrieveTodayData,
   getDateAndTime,
   isAuthenticated,
   formatThreshold,
+  getUserDataId,
 };

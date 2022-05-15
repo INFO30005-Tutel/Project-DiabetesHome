@@ -7,7 +7,13 @@ const userDataController = require('../controllers/user-data');
 
 app.post('/change-parameter/:id', async (req, res) => {
   let updatedUserData = await userDataController.changePatientRecordParameter(req, res);
-  res.status(200).send(updatedUserData);
+
+  if (updatedUserData) {
+    res.redirect('back');
+  }
+  else {
+    console.log("Error - updated thresholds failed!");
+  }
 });
 
 app.get('/today-userdata/:id', async (req, res) => {

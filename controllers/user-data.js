@@ -91,35 +91,47 @@ const updateUserDataMeasurement = async (req, res) => {
 
 // Change what measurement patient need to record, along with their threshold
 // req.body = {
-//   blood: { low: 0, high: 0 },
-//   weight: { low: 0, high: 0 },
-//   insulin: { low: 0, high: 0 },
-//   step: { low: 0, high: 0 },
+//   bloodLow: '3.8',
+//   bloodHigh: '5.6',
+//   weightLow: '80',
+//   weightHigh: '100',
+//   insulinLow: '0',
+//   insulinHigh: '2',
+//   stepLow: '1000',
+//   stepHigh: '4000'
 // }
 const changePatientRecordParameter = async (req, res) => {
+  let newParams = {
+    bloodGlucoseLowThresh: req.body.bloodLow,
+    bloodGlucoseHighThresh: req.body.bloodHigh,
+    weightLowThresh: req.body.weightLow,
+    weightHighThresh: req.body.weightHigh,
+    insulinDoseLowThresh: req.body.insulinLow,
+    insulinDoseHighThresh: req.body.insulinHigh,
+    stepCountLowThresh: req.body.stepLow,
+    stepCountHighThresh: req.body.stepHigh,
+  }
   let patientData;
+  //console.log(req.body);
+
   try {
-    patientData = await UserData.findOne({ userId: req.params.id }).lean();
+    patientData = await UserData.findOne({ _id: req.params.id }).lean();
   } catch (err) {
     console.log(err);
   }
   try {
     patientData = await UserData.findByIdAndUpdate(
       patientData._id,
-      { $set: req.body },
+      { $set: newParams },
       { new: true }
     ).lean();
   } catch (err) {
     console.log(err);
   }
 
-  // Remove unneccessary fields
-  delete patientData.bloodGlucoseData;
-  delete patientData.weightData;
-  delete patientData.insulinDoseData;
-  delete patientData.stepCountData;
+  if (patientData) return true;
 
-  return patientData;
+  return false;
 };
 
 // blood, weight, insulin, stepcount
@@ -166,7 +178,7 @@ const getThresholds = async (patId) => {
   );
 
   const stepCountThres = Helper.formatThreshold(
-    'weight',
+    'step',
     'Step count recommended',
     patientData.stepCountLowThresh,
     patientData.stepCountHighThresh,

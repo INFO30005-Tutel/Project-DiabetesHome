@@ -30,6 +30,7 @@ const renderPatientProfile = async (req, res) => {
   let todayData = await dataRow(patientRawData);
   const overViewData = await UserDataController.getOverviewData(patId);
   const detailedData = await UserDataController.getDetailedData(patId);
+  const userDataId = await HelperController.getUserDataId(patientRawData._id);
 
   res.render('clinician/patient-profile.hbs', {
     layout: 'clinician-layout.hbs',
@@ -39,6 +40,7 @@ const renderPatientProfile = async (req, res) => {
     todayData: todayData,
     overviewData: overViewData,
     detailedData: detailedData,
+    userdataId: userDataId,
   });
 };
 

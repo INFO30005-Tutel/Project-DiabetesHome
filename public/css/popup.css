@@ -20,7 +20,6 @@
   right: 0;
   bottom: 0;
   z-index: 2;
-  cursor: pointer;
   padding: 20% 10%;
 }
 
@@ -41,6 +40,16 @@
   width: 200px;
   height: 50px;
   border-radius: 25px;
+}
+
+.popup-cancel-button {
+  width: 200px;
+  height: 50px;
+  border-radius: 25px;
+  border: 4px solid #0a57ae;
+  padding: 8px 0;
+  text-align: center;
+  cursor: pointer;
 }
 
 .tabs {
