@@ -25,7 +25,6 @@
 }
 
 .threshold-card {
-  height: 310px;
   background-color: white;
   border-radius: 30px;
   border: 4px solid #0a57ae;
@@ -104,6 +103,28 @@
 #detailed-tab {
   flex-wrap: wrap;
   justify-content: space-between;
+}
+
+.form-row {
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+}
+
+.right-input-field {
+  border-collapse: collapse;
+  width: 30%;
+}
+
+.right-input-field td {
+  text-align: center;
+}
+
+.right-input-field td input {
+  border: none;
+  border-bottom: 1px solid #0a57ae;
+  width: 100px;
+  text-align: center;
 }
 
 @-webkit-keyframes fadeIn {

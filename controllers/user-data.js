@@ -90,6 +90,12 @@ const updateUserDataMeasurement = async (req, res) => {
 };
 
 // Change what measurement patient need to record, along with their threshold
+// req.body = {
+//   blood: { low: 0, high: 0 },
+//   weight: { low: 0, high: 0 },
+//   insulin: { low: 0, high: 0 },
+//   step: { low: 0, high: 0 },
+// }
 const changePatientRecordParameter = async (req, res) => {
   let patientData;
   try {
@@ -130,6 +136,7 @@ const getThresholds = async (patId) => {
   let patientData = await UserData.findOne({ userId: patId }).lean();
 
   const bloodThres = Helper.formatThreshold(
+    'blood',
     'Blood glucose level',
     patientData.bloodGlucoseLowThresh,
     patientData.bloodGlucoseHighThresh,
@@ -139,6 +146,7 @@ const getThresholds = async (patId) => {
   );
 
   const weightThres = Helper.formatThreshold(
+    'weight',
     'Weight entry',
     patientData.weightLowThresh,
     patientData.weightHighThresh,
@@ -148,6 +156,7 @@ const getThresholds = async (patId) => {
   );
 
   const insulinThres = Helper.formatThreshold(
+    'insulin',
     'Dose of insulin taken per day',
     patientData.insulinDoseLowThresh,
     patientData.insulinDoseHighThresh,
@@ -157,6 +166,7 @@ const getThresholds = async (patId) => {
   );
 
   const stepCountThres = Helper.formatThreshold(
+    'weight',
     'Step count recommended',
     patientData.stepCountLowThresh,
     patientData.stepCountHighThresh,

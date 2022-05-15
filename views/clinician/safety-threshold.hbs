@@ -22,19 +22,26 @@
     <div class='threshold-card'>
       <p><b style='font-size: 24px; color:#0a57ae;'>Safety threshold</b></p>
       <div class='flex-column table-section' style='width: 100%;'>
-        <table class='threshold-table'>
+        <form action='/change-parameter/:id' method='POST' style="width: 80%;">
           {{#each thresholds}}
-          <tr id='{{thresName}}'>
-            <td class='thres-name'><b>{{thresName}}:</b></td>
-            <td class='thres-data'>{{low}} - {{high}}</td>
-            <td class='thres-unit'>{{unit}}</td>
-          </tr>
+          <div class="flex-row form-row">
+            <label class="field-title">{{thresName}}</label>
+            <table class="right-input-field">
+              <tr id='{{id}}'>
+                <td><input type='{{id}}.{{low}}' name='{{id}}.{{low}}' id='{{id}}.{{low}}' value="{{low}}" /></td>
+                <td style="width: 15px;"> - </td>
+                <td><input type='{{id}}.{{high}}' name='{{id}}.{{high}}' id='{{id}}.{{high}}' value="{{high}}" /></td>
+                <td class='thres-unit'>{{unit}}</td>
+              </tr>
+            </table>
+          </div>
           {{/each}}
-        </table>
-      </div>
-      <div class='flex-row popup-button-group'>
-        <button class='cli-btn-white' onclick='TogglePopup()'>Cancel</button>
-        <button class='cli-btn-default' onclick='TogglePopup()'>Save</button>
+
+          <div class='flex-row popup-button-group'>
+            <button class='cli-btn-white' onclick='TogglePopup()'>Cancel</button>
+            <button class='cli-btn-default' onclick='TogglePopup()'>Save</button>
+          </div>
+        </form>
       </div>
     </div>
   </span>

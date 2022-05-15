@@ -25,7 +25,7 @@ function retrieveTodayData(dataArray) {
   }
 }
 
-const formatThreshold = (name, low, high, unit, defaultLow, defaultHigh) => {
+const formatThreshold = (id, name, low, high, unit, defaultLow, defaultHigh) => {
   if (!low) {
     low = defaultLow;
   }
@@ -34,6 +34,7 @@ const formatThreshold = (name, low, high, unit, defaultLow, defaultHigh) => {
   }
 
   return {
+    id: id,
     thresName: name,
     low: low,
     high: high,
