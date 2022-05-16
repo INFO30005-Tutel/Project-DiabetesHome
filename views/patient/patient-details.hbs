@@ -1,29 +1,59 @@
-<div class="main-content">
+<div class="main-content patient-details">
 
-    <h1>{{metadata.name}}</h1>
+    <div>
+        <h1>{{metadata.name}}</h1>
+        <h2>Today's {{metadata.name}} Level: </h2>
 
-    <h2>Today's {{metadata.name}} Level: </h2>
+        {{#unless todayData.entry}}
+        <p>
+            <span class="fa fa-exclamation-circle" style="font-size: 1.5em;"></span>
+            You have not filled in this data today
+        </p>
+        {{/unless}}
 
-    {{#unless userData.entry}}
-    <p>    
-        <span class="fa fa-exclamation-circle" style="font-size: 1.5em;"></span>
-        You have not filled in this data today
-    </p>
-    {{/unless}}
+        {{#with todayData}}
+        <form id="{{shortName}}-form" method='POST' action='/update-measurement'>
+            <input type='hidden' name='type' value='{{index}}' />
+            <div>
+                <input type="number" class="small-input" {{#if entry}}value="{{entry.value}}" {{/if}}
+                    placeholder="Input here" name="value" min="{{minValid}}" max="{{maxValid}}" step="{{incStep}}">
+                <label for="enter-data" id="unit" name="unit">{{units}}</label>
+            </div>
+            <h4>Notes</h4>
+            <textarea class="note" type="text" placeholder="Input text here"
+                name="note">{{#if entry}}{{entry.note}}{{/if}}</textarea>
+            <div class="button-bar">
+                <button class="small-button-variant" type="submit" id="submit-button">{{#unless
+                    entry}}Submit{{else}}Resubmit{{/unless}}</button>
+            </div>
+        </form>
+        {{/with}}
+    </div>
 
-    {{#with userData}}
-    <form id="{{shortName}}-form" method='POST' action='/update-measurement'>
-        <input type='hidden' name='type' value='{{index}}' />
-        <div>
-            <input type="number" class="small-input" {{#if entry}}value="{{entry.value}}"{{/if}} placeholder="Input here" name="value" min="{{minValid}}" max="{{maxValid}}" step="{{incStep}}">
-            <label for="enter-data" id="unit" name="unit">{{units}}</label>
+    <div>
+        <h2>
+            History
+        </h2>
+
+        <div class="table-parent">
+            <table class="data-table">
+                <tr>
+                    <th>Timestamp</th>
+                    <th>{{metadata.name}} ({{metadata.units}})</th>
+                    <th>Notes</th>
+                </tr>
+                {{#each historicalData}}
+                <tr>
+                    <td>{{this.timestamp}}</td>
+                    <td>{{this.value}}</td>
+                    <td>{{this.note}}</td>
+                </tr>
+                {{/each}}
+                </tr>
+            </table>
         </div>
-        <h4>Notes</h4>
-        <textarea class="note" type="text" placeholder="Input text here" name="note">{{#if entry}}{{entry.note}}{{/if}}</textarea>
-        <div class="button-bar">
-            <button class="small-button-variant" type="submit" id="submit-button">{{#unless entry}}Submit{{else}}Resubmit{{/unless}}</button>
-        </div>
-    </form>
-    {{/with}}
+    </div>
+
+
 
 </div>

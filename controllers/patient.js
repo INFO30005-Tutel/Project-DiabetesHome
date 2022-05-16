@@ -60,15 +60,35 @@ const renderPatientDashboard = async (req, res) => {
 
 // handle patient data
 const renderPatientDetails = async(req, res) => {
-  const metadata = findDataByShortName(patientMetadata, req.params.dataSeries);
+  const metadata = findDataById(patientMetadata, req.params.dataSeries);
   const patient = req.user;
-  const userData = await getPatientData(patient);
-  const specificUserData = findDataByShortName(userData.dataEntries, req.params.dataSeries);
-  console.log(specificUserData);
+  const todayAllData = await getPatientData(patient);
+  const todayData = findDataById(todayAllData.dataEntries, req.params.dataSeries);
+
+  const allDataHistory = await userDataController.getDetailedData(patient._id);
+  let dataId;
+  switch (req.params.dataSeries) {
+    case 'glucose':
+      dataId = 'detailed-blood';
+      break;
+    case 'weight':
+      dataId = 'detailed-weight';
+      break;
+    case 'insulin':
+      dataId = 'detailed-insulin';
+      break;
+    case 'exercise':
+      dataId = 'detailed-step';
+      break;
+  }
+  const dataHistory = findDataById(allDataHistory, dataId, 'id');
+
+  console.log(dataHistory);
   res.render('patient/patient-details.hbs', {
     layout: 'patient-layout.hbs',
     metadata: metadata,
-    userData: specificUserData
+    todayData: todayData,
+    historicalData: dataHistory.data
   })
 }
 
@@ -132,10 +152,10 @@ const getPatientHasData = async (patientID) => {
   return hasData;
 };
 
-const findDataByShortName = (data, shortName) => {
+const findDataById = (data, id, id_label='shortName') => {
   let dataElement;
   data.forEach(element => {
-    if (element.shortName === shortName) {
+    if (element[id_label] === id) {
       dataElement = element;
     }
   });
