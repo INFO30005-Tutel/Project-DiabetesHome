@@ -133,17 +133,8 @@ const changePatientRecordParameter = async (req, res) => {
   return false;
 };
 
-// blood, weight, insulin, stepcount
-const defaultLowBlood = 3.9;
-const defaultHighBlood = 5.6;
-const defaultLowWeight = 80;
-const defaultHighWeight = 100;
-const defaultLowInsulin = 0;
-const defaultHighInsulin = 2;
-const defaultLowStep = 1000;
-const defaultHighStep = 4000;
 // Rechieve and format threshold for rendering
-const getThresholds = async (patId) => {
+const getThresholds = async (patId, defaultDangerThreshold) => {
   let patientData = await UserData.findOne({ userId: patId }).lean();
 
   const bloodThres = Helper.formatThreshold(
@@ -152,9 +143,10 @@ const getThresholds = async (patId) => {
     patientData.bloodGlucoseLowThresh,
     patientData.bloodGlucoseHighThresh,
     'mmol/L',
-    defaultLowBlood,
-    defaultHighBlood
+    defaultDangerThreshold[0],
+    defaultDangerThreshold[1]
   );
+  bloodThres.required = patientData.requiredFields.includes(0);
 
   const weightThres = Helper.formatThreshold(
     'weight',
@@ -162,9 +154,10 @@ const getThresholds = async (patId) => {
     patientData.weightLowThresh,
     patientData.weightHighThresh,
     'kg',
-    defaultLowWeight,
-    defaultHighWeight
+    defaultDangerThreshold[2],
+    defaultDangerThreshold[3]
   );
+  weightThres.required = patientData.requiredFields.includes(1);
 
   const insulinThres = Helper.formatThreshold(
     'insulin',
@@ -172,9 +165,10 @@ const getThresholds = async (patId) => {
     patientData.insulinDoseLowThresh,
     patientData.insulinDoseHighThresh,
     'doses',
-    defaultLowInsulin,
-    defaultHighInsulin
+    defaultDangerThreshold[4],
+    defaultDangerThreshold[5]
   );
+  insulinThres.required = patientData.requiredFields.includes(2);
 
   const stepCountThres = Helper.formatThreshold(
     'step',
@@ -182,10 +176,10 @@ const getThresholds = async (patId) => {
     patientData.stepCountLowThresh,
     patientData.stepCountHighThresh,
     'steps',
-    defaultLowStep,
-    defaultHighStep
+    defaultDangerThreshold[6],
+    defaultDangerThreshold[7]
   );
-
+  stepCountThres.required = patientData.requiredFields.includes(3);
   return [bloodThres, weightThres, insulinThres, stepCountThres];
 };
 

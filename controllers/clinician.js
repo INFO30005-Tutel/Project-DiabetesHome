@@ -4,6 +4,9 @@ const HelperController = require('./helper');
 const User = require('../models/user');
 const UserController = require('./user');
 
+// blood, weight, insulin, stepcount
+const defaultDangerThreshold = [3.9, 5.6, 60, 120, 0, 5, 1000, 20000];
+
 const renderClinicianDashboard = async (req, res) => {
   const clinicianId = req.user._id;
   const clinicianName = req.user.firstName + ' ' + req.user.lastName;
@@ -24,7 +27,7 @@ const renderPatientProfile = async (req, res) => {
   const patId = req.params.patId;
   const patPersonalInfo = await UserController.getPatientPersonalInfo(patId);
   const formatDob = HelperController.getDateAndTime(patPersonalInfo.dateOfBirth);
-  const thresholds = await UserDataController.getThresholds(patId);
+  const thresholds = await UserDataController.getThresholds(patId, defaultDangerThreshold);
   const patientRawData = await getThisPatientOfClinician(req.user._id, patId);
   let todayData = await dataRow(patientRawData);
   const overViewData = await UserDataController.getOverviewData(patId);
@@ -48,6 +51,7 @@ const renderRegisterPatient = async (req, res) => {
 
   res.render('clinician/register-patient.hbs', {
     layout: 'clinician-layout.hbs',
+    defaultThresh: defaultDangerThreshold,
     clinicianName: clinicianName,
   });
 };
@@ -70,12 +74,9 @@ const formatPatientRegister = async (req, res, next) => {
   if (req.body.insulinDoseCheckbox) requiredFields.push(2);
   if (req.body.stepCountCheckbox) requiredFields.push(3);
   req.body.requiredFields = requiredFields;
-  console.log(req.body);
+  //console.log(req.body);
   next();
 };
-
-// blood, weight, insulin, stepcount
-const defaultDangerThreshold = [3.9, 5.6, 80, 100, 0, 2, 1000, 4000];
 
 const getTableData = async (clinicianId) => {
   let patientList;
