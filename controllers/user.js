@@ -2,8 +2,13 @@
 const User = require('../models/user');
 const helper = require('./helper');
 
-const getPatientDefaultInfo = async (patId) => {
-  let patientInfo = await User.findOne({ _id: patId }).lean();
+const getPatientPersonalInfo = async (patId) => {
+  let patientInfo;
+  try {
+    patientInfo = await User.findOne({ _id: patId }).lean();
+  } catch (err) {
+    console.log(err);
+  }
   return patientInfo;
 };
 
@@ -88,5 +93,5 @@ const getPatientDefaultInfo = async (patId) => {
 // };
 
 module.exports = {
-  getPatientDefaultInfo,
+  getPatientPersonalInfo,
 };

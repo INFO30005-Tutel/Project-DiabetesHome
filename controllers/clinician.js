@@ -3,7 +3,6 @@ const UserDataController = require('./user-data');
 const HelperController = require('./helper');
 const User = require('../models/user');
 const UserController = require('./user');
-const { header } = require('express-validator');
 
 const renderClinicianDashboard = async (req, res) => {
   const clinicianId = req.user._id;
@@ -23,8 +22,8 @@ const renderClinicianDashboard = async (req, res) => {
 
 const renderPatientProfile = async (req, res) => {
   const patId = req.params.patId;
-  const patDefaultInfo = await UserController.getPatientDefaultInfo(patId);
-  const formatDob = HelperController.getDateAndTime(patDefaultInfo.dateOfBirth);
+  const patPersonalInfo = await UserController.getPatientPersonalInfo(patId);
+  const formatDob = HelperController.getDateAndTime(patPersonalInfo.dateOfBirth);
   const thresholds = await UserDataController.getThresholds(patId);
   const patientRawData = await getThisPatientOfClinician(req.user._id, patId);
   let todayData = await dataRow(patientRawData);
@@ -34,7 +33,7 @@ const renderPatientProfile = async (req, res) => {
 
   res.render('clinician/patient-profile.hbs', {
     layout: 'clinician-layout.hbs',
-    patDefaultInfo: patDefaultInfo, //[email, firstName, lastName, phoneNumber]
+    patPersonalInfo: patPersonalInfo, //[email, firstName, lastName, phoneNumber]
     formatDob: formatDob,
     thresholds: thresholds,
     todayData: todayData,
@@ -80,7 +79,6 @@ const defaultDangerThreshold = [3.9, 5.6, 80, 100, 0, 2, 1000, 4000];
 
 const getTableData = async (clinicianId) => {
   let patientList;
-  let data;
 
   try {
     patientList = await getPatientsOfClinician(clinicianId);
@@ -89,35 +87,6 @@ const getTableData = async (clinicianId) => {
   }
   for (patient of patientList) {
     patient = await dataRow(patient);
-    // console.log(patient);
-    //   // Patient is a combined object of User and UserData
-    //   try {
-    //     //console.log(patient);
-    //     data = await UserDataController.getTodayData(patient._id);
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-
-    //   // Add `required` value to fields that patient need to update
-    //   patient.bloodGlucose = data.bloodGlucoseData || {};
-    //   patient.bloodGlucose.lowThresh = data.bloodGlucoseLowThresh || defaultDangerThreshold[0];
-    //   patient.bloodGlucose.highThresh = data.bloodGlucoseHighThresh || defaultDangerThreshold[1];
-    //   if (data.requiredFields.includes(0)) patient.bloodGlucose.required = true;
-
-    //   patient.weight = data.weightData || {};
-    //   patient.weight.lowThresh = data.weightLowThresh || defaultDangerThreshold[2];
-    //   patient.weight.highThresh = data.weightHighThresh || defaultDangerThreshold[3];
-    //   if (data.requiredFields.includes(1)) patient.weight.required = true;
-
-    //   patient.insulinDose = data.insulinDoseData || {};
-    //   patient.insulinDose.lowThresh = data.insulinDoseLowThresh || defaultDangerThreshold[4];
-    //   patient.insulinDose.highThresh = data.insulinDoseHighThresh || defaultDangerThreshold[5];
-    //   if (data.requiredFields.includes(2)) patient.insulinDose.required = true;
-
-    //   patient.stepCount = data.stepCountData || {};
-    //   patient.stepCount.lowThresh = data.stepCountLowThresh || defaultDangerThreshold[6];
-    //   patient.stepCount.highThresh = data.stepCountHighThresh || defaultDangerThreshold[7];
-    //   if (data.requiredFields.includes(3)) patient.stepCount.required = true;
   }
 
   return patientList;
@@ -156,8 +125,6 @@ const dataRow = async (patient) => {
 
   return patient;
 };
-
-
 
 const getTextColor = (value, lowThresh, highThresh, type) => {
   const ok = '#2b7a3d';
