@@ -59,11 +59,15 @@ const renderPatientDashboard = async (req, res) => {
 
 // handle patient data
 const renderPatientDetails = async(req, res) => {
-  const metadata = findMetadataByShortName(req.params.data);
-  console.log(metadata);
+  const metadata = findDataByShortName(patientMetadata, req.params.dataSeries);
+  const patient = req.user;
+  const userData = await getPatientData(patient);
+  const specificUserData = findDataByShortName(userData.dataEntries, req.params.dataSeries);
+  console.log(specificUserData);
   res.render('patient/patient-details.hbs', {
     layout: 'patient-layout.hbs',
-    metadata: metadata
+    metadata: metadata,
+    userData: specificUserData
   })
 }
 
@@ -127,14 +131,14 @@ const getPatientHasData = async (patientID) => {
   return hasData;
 };
 
-const findMetadataByShortName = (shortName) => {
-  let metadataElement;
-  patientMetadata.forEach(element => {
+const findDataByShortName = (data, shortName) => {
+  let dataElement;
+  data.forEach(element => {
     if (element.shortName === shortName) {
-      metadataElement = element;
+      dataElement = element;
     }
   });
-  return metadataElement;
+  return dataElement;
 }
 
 module.exports = {
