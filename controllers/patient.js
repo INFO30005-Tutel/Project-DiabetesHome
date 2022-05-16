@@ -2,6 +2,7 @@ const handlebars = require('handlebars');
 const userDataController = require('./user-data');
 const helperController = require('./helper');
 const UserData = require('../models/user-data');
+const MessageController = require('./messages');
 
 const patientMetadata = [
   {
@@ -46,6 +47,7 @@ const patientMetadata = [
 const renderPatientDashboard = async (req, res) => {
   const patient = req.user;
   const dateAndTime = helperController.getDateAndTime();
+  const messages = await MessageController.getMessages(req.user._id);
   res.render('patient/patient-dashboard.hbs', {
     layout: 'patient-layout.hbs',
     userId: patient._id,
@@ -54,6 +56,7 @@ const renderPatientDashboard = async (req, res) => {
     metadata: patientMetadata,
     date: dateAndTime.date,
     time: dateAndTime.time,
+    message: messages.slice(-1).content
   });
 };
 
@@ -119,5 +122,5 @@ const getPatientHasData = async (patientID) => {
 
 module.exports = {
   renderPatientDashboard,
-  getPatientHasData,
+  getPatientHasData
 };

@@ -3,6 +3,8 @@ const app = express();
 const passport = require('passport');
 
 const controller = require('../controllers/clinician');
+const MessageController = require('../controllers/messages');
+const NoteController = require('../controllers/notes');
 const helper = require('../controllers/helper');
 
 app.get('/clinician', helper.isAuthenticated, controller.renderClinicianDashboard);
@@ -10,6 +12,14 @@ app.get('/clinician', helper.isAuthenticated, controller.renderClinicianDashboar
 app.get('/clinician/register-patient', helper.isAuthenticated, controller.renderRegisterPatient);
 
 app.get('/clinician/view-patient/:patId', helper.isAuthenticated, controller.renderPatientProfile);
+
+//app.get('/clinician/messages/:patId', helper.isAuthenticated, controller.renderNotesForPatient);
+
+app.get('/clinician/messages/:patId', controller.renderMessages);
+
+//app.get('/clinician/notes/:patId', helper.isAuthenticated, controller.renderMessagesForPatient);
+
+app.get('/clinician/notes/:patId', controller.renderNotes);
 
 app.post(
   '/clinician/register-patient',
@@ -22,5 +32,16 @@ app.post(
     failureFlash: true,
   })
 );
+
+app.post(
+  '/clinician/messages/:patId',
+  //helper.isAuthenticated,
+  MessageController.sendMessage
+)
+
+app.post('/clinician/notes/:patId',
+  //helper.isAuthenticated,
+  NoteController.addNote
+)
 
 module.exports = app;

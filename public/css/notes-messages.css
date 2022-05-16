@@ -1,0 +1,9 @@
+.search-bar{
+    width: 100px;
+    height: 200px;
+}
+.search-bar button{
+    background-color: blue;
+    width: 100px;
+    height: 100px;
+}
