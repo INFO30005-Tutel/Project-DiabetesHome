@@ -76,7 +76,7 @@ const updateUserDataMeasurement = async (req, res) => {
   await UserData.findByIdAndUpdate(id, { $set: savedData })
     .then((updatedData) => {
       if (updatedData) {
-        res.redirect(`/patient`);
+        res.redirect(req.get('Referer'));
       }
     })
     // Case of error
