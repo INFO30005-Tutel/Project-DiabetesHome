@@ -4,7 +4,6 @@ const Helper = require('../controllers/Helper');
 const getTodayData = async (patientId) => {
   let patientData = await UserData.findOne({ userId: patientId }).lean();
   //console.log(patientData);
-
   patientData.bloodGlucoseData = await Helper.retrieveTodayData(patientData.bloodGlucoseData);
   patientData.weightData = await Helper.retrieveTodayData(patientData.weightData);
   patientData.insulinDoseData = await Helper.retrieveTodayData(patientData.insulinDoseData);
@@ -110,7 +109,7 @@ const changePatientRecordParameter = async (req, res) => {
     insulinDoseHighThresh: req.body.insulinHigh,
     stepCountLowThresh: req.body.stepLow,
     stepCountHighThresh: req.body.stepHigh,
-  }
+  };
   let patientData;
   //console.log(req.body);
 
@@ -154,7 +153,7 @@ const getThresholds = async (patId) => {
     patientData.bloodGlucoseHighThresh,
     'mmol/L',
     defaultLowBlood,
-    defaultHighBlood,
+    defaultHighBlood
   );
 
   const weightThres = Helper.formatThreshold(
@@ -164,7 +163,7 @@ const getThresholds = async (patId) => {
     patientData.weightHighThresh,
     'kg',
     defaultLowWeight,
-    defaultHighWeight,
+    defaultHighWeight
   );
 
   const insulinThres = Helper.formatThreshold(
@@ -174,7 +173,7 @@ const getThresholds = async (patId) => {
     patientData.insulinDoseHighThresh,
     'doses',
     defaultLowInsulin,
-    defaultHighInsulin,
+    defaultHighInsulin
   );
 
   const stepCountThres = Helper.formatThreshold(
@@ -184,7 +183,7 @@ const getThresholds = async (patId) => {
     patientData.stepCountHighThresh,
     'steps',
     defaultLowStep,
-    defaultHighStep,
+    defaultHighStep
   );
 
   return [bloodThres, weightThres, insulinThres, stepCountThres];
@@ -201,7 +200,11 @@ const getOverviewData = async (patId) => {
   return [
     { id: 'overview-blood', dataName: 'BLOOD GLUCOSE LEVEL', data: JSON.stringify(bloodData) },
     { id: 'overview-weight', dataName: 'WEIGHT ENTRY PER DAY', data: JSON.stringify(weightData) },
-    { id: 'overview-insulin', dataName: 'INSULIN TAKEN PER DAY', data: JSON.stringify(insulinData) },
+    {
+      id: 'overview-insulin',
+      dataName: 'INSULIN TAKEN PER DAY',
+      data: JSON.stringify(insulinData),
+    },
     { id: 'overview-step', dataName: 'WALKING STEP COUNT PER DAY', data: JSON.stringify(stepData) },
   ];
 };
@@ -239,8 +242,7 @@ const extractOverviewData = async (dataList, dataIndex) => {
         normal: colStyle,
       });
       break;
-    }
-    else {
+    } else {
       const dateTime = Helper.getDateAndTime(dataList[index].inputAt);
       extractedData.unshift({
         x: dateTime.date,
@@ -266,15 +268,14 @@ const extractDetailedData = async (dataList) => {
       extractedData.push({
         timestamp: 'No record',
         value: 0,
-        note: ''
+        note: '',
       });
-    }
-    else {
+    } else {
       const dateTime = Helper.getDateAndTime(dataList[index].inputAt);
       extractedData.push({
         timestamp: dateTime.date + ' - ' + dateTime.time,
         value: dataList[index].value,
-        note: dataList[index].note
+        note: dataList[index].note,
       });
     }
   }
@@ -300,7 +301,7 @@ const getDataColStyle = async (dataIndex) => {
     fill: fill,
     stroke: stroke,
     label: label,
-  }
+  };
 };
 
 module.exports = {
