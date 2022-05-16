@@ -57,6 +57,16 @@ const renderPatientDashboard = async (req, res) => {
   });
 };
 
+// handle patient data
+const renderPatientDetails = async(req, res) => {
+  const metadata = findMetadataByShortName(req.params.data);
+  console.log(metadata);
+  res.render('patient/patient-details.hbs', {
+    layout: 'patient-layout.hbs',
+    metadata: metadata
+  })
+}
+
 const getPatientData = async (patientUser) => {
   // Clone the patient's User object
   let patient = JSON.parse(JSON.stringify(patientUser));
@@ -117,7 +127,18 @@ const getPatientHasData = async (patientID) => {
   return hasData;
 };
 
+const findMetadataByShortName = (shortName) => {
+  let metadataElement;
+  patientMetadata.forEach(element => {
+    if (element.shortName === shortName) {
+      metadataElement = element;
+    }
+  });
+  return metadataElement;
+}
+
 module.exports = {
   renderPatientDashboard,
   getPatientHasData,
+  renderPatientDetails
 };
