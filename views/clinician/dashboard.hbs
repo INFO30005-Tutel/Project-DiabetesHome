@@ -1,12 +1,13 @@
-<div class='main-content dashboard'>
+<div class='flex-column dashboard'>
   {{! HEADINGS }}
   <div class='dash-header'>
     <h1 class='title'>Clinician Dashboard</h1>
-    <div class='cli-info'>
+    <div class='flex-column cli-info'>
       <p style='margin-bottom: 20px'>Hello,
-        <b id='cli_name'>{{clinicianName}}</b></p>
+        <b id='cli_name'>{{clinicianName}}</b>
+      </p>
       <p id='time'>{{time}}</p>
-      <p id='date'>{{date}}</p>
+      <p id='date'>{{weekDay}}{{date}}</p>
     </div>
   </div>
   {{! SEARCHING BAR }}
@@ -18,7 +19,7 @@
     </a>
   </div>
   {{! TABLE BODY}}
-  <div class='table-section'>
+  <div class='flex-column table-section'>
     <table class='dash-table'>
       <tr>
         <th>STATUS</th>
@@ -29,37 +30,34 @@
         <th>STEP COUNTS</th>
       </tr>
       {{#each tableData}}
-        <tr>
-          <td><i
-              class='fa {{getIcon this}}'
-              style='font-size:xx-large; color: {{getIconColor this}}'
-            ></i></td>
-          <td><a href='/clinician/view-patient/{{this._id}}'>{{this.firstName}}
-              {{this.lastName}}</a></td>
-          {{#with this.bloodGlucose}}
-            <td style='color: {{getTextColor value lowThresh highThresh "bloodGlucose"}}'>
-              {{#if value}}{{value}} mmol/L{{else if required}}??? mmol/L{{/if}}
-            </td>
-          {{/with}}
+      <tr>
+        <td><i class='fa {{getIcon this}}' style='font-size:xx-large; color: {{getIconColor this}}'></i></td>
+        <td><a href='/clinician/view-patient/{{this._id}}'>{{this.firstName}}
+            {{this.lastName}}</a></td>
+        {{#with this.bloodGlucose}}
+        <td style='color: {{getTextColor value lowThresh highThresh "bloodGlucose"}}'>
+          {{#if value}}{{value}} mmol/L{{else if required}}??? mmol/L{{/if}}
+        </td>
+        {{/with}}
 
-          {{#with this.weight}}
-            <td style='color: {{getTextColor value lowThresh highThresh "weight"}}'>
-              {{#if required}}
-                {{#if value}}{{value}} kg{{else if required}}??? kg{{/if}}
-              {{/if}}
-            </td>
-          {{/with}}
-          {{#with this.insulinDose}}
-            <td style='color: {{getTextColor value lowThresh highThresh "insulinDose"}}'>
-              {{#if value}}{{value}} doses{{else if required}}??? doses{{/if}}
-            </td>
-          {{/with}}
-          {{#with this.stepCount}}
-            <td style='color: {{getTextColor value lowThresh highThresh "stepCount"}}'>
-              {{#if value}}{{value}}{{else if required}}???{{/if}}
-            </td>
-          {{/with}}
-        </tr>
+        {{#with this.weight}}
+        <td style='color: {{getTextColor value lowThresh highThresh "weight"}}'>
+          {{#if required}}
+          {{#if value}}{{value}} kg{{else if required}}??? kg{{/if}}
+          {{/if}}
+        </td>
+        {{/with}}
+        {{#with this.insulinDose}}
+        <td style='color: {{getTextColor value lowThresh highThresh "insulinDose"}}'>
+          {{#if value}}{{value}} doses{{else if required}}??? doses{{/if}}
+        </td>
+        {{/with}}
+        {{#with this.stepCount}}
+        <td style='color: {{getTextColor value lowThresh highThresh "stepCount"}}'>
+          {{#if value}}{{value}}{{else if required}}???{{/if}}
+        </td>
+        {{/with}}
+      </tr>
       {{/each}}
     </table>
     <div class='page-change'>

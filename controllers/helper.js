@@ -25,8 +25,16 @@ function retrieveTodayData(dataArray) {
   }
 }
 
-const formatThreshold = (name, low, high, unit) => {
+const formatThreshold = (id, name, low, high, unit, defaultLow, defaultHigh) => {
+  if (!low) {
+    low = defaultLow;
+  }
+  if (!high) {
+    high = defaultHigh;
+  }
+
   return {
+    id: id,
     thresName: name,
     low: low,
     high: high,
@@ -34,7 +42,7 @@ const formatThreshold = (name, low, high, unit) => {
   };
 };
 
-const getDateAndTime = () => {
+const getDateAndTime = (dateString) => {
   var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   var months = [
     'January',
@@ -50,107 +58,42 @@ const getDateAndTime = () => {
     'November',
     'December',
   ];
-  var today = new Date();
+  //var today = new Date();
   var time =
-    today.getHours() +
+    dateString.getHours() +
     ':' +
-    today.getMinutes() +
+    dateString.getMinutes() +
     ' ' +
     Intl.DateTimeFormat().resolvedOptions().timeZone;
+  var weekDay = days[dateString.getDay()] + ', ';
   var date =
-    days[today.getDay()] +
-    ', ' +
-    today.getDate() +
+    dateString.getDate() +
     ' ' +
-    months[today.getMonth()] +
+    months[dateString.getMonth()] +
     ' ' +
-    today.getFullYear();
+    dateString.getFullYear();
   return {
     time,
+    weekDay,
     date,
   };
 };
 
-// // Update a data identified by the data's Id =====================================
-// function updateData(controller, req, res) {
-//   // Get the id
-//   const id = req.params.id;
+const getUserDataId = async (userId) => {
+  let userDataId = '';
+  let userData = await UserData.findOne({ userId: userId }).lean();
 
-//   // Case of updated sucessfully
-//   controller
-//     .findByIdAndUpdate(
-//       id,
-//       { $set: req.body },
-//       { new: true, runValidators: true }
-//     )
-//     .then((updatedData) => {
-//       res.status(200).send(updatedData);
-//     })
-//     // Case of error
-//     .catch((err) => {
-//       console.log(err);
-//       res.status(500).send({
-//         message: 'Error when updating Data!',
-//       });
-//     });
-// }
+  if (userData) {
+    userDataId = userData._id;
+  }
 
-// // Delete a data with the specified data's Id ====================================
-// function deleteData(controller, req, res) {
-//   const id = req.params.id;
-//   controller
-//     .findByIdAndDelete(id)
-//     .then((data) => {
-//       if (!data) {
-//         // If no id found -> return error message
-//         return res
-//           .status(404)
-//           .send({ message: 'No data found to be deleted!' });
-//       }
-//       // Else, the data should be deleted successfully
-//       res.status(200).send({ message: 'Data is deleted successfully!' });
-//     })
-//     // Catching error when accessing the database
-//     .catch((err) => {
-//       console.log(err);
-//       res.status(500).send({ message: 'Error accessing the database!' });
-//     });
-// }
-
-// // Retrieve and return all data from the database =================================
-// function findAllData(controller, req, res) {
-//   // Return all data using find()
-//   controller
-//     .find()
-//     .then((data) => {
-//       res.send(data);
-//     })
-//     // Catching error when accessing the database
-//     .catch((err) => {
-//       console.log(err);
-//       res.status(500).send({ message: 'Error when accessing the database!' });
-//     });
-// }
-
-// // Retrieve and return data given the id =========================================
-// function findData(controller, req, res) {
-//   const id = req.params.id;
-//   // Return all data using findOne()
-//   controller
-//     .findOne({ id: id })
-//     .then((data) => {
-//       res.send(data);
-//     })
-//     // Catching error when accessing the database
-//     .catch((err) => {
-//       console.log(err);
-//       res.status(500).send({ message: 'Error when accessing the database!' });
-//     });
-// }
+  return userDataId;
+}
 
 module.exports = {
   retrieveTodayData,
   getDateAndTime,
   isAuthenticated,
   formatThreshold,
+  getUserDataId,
 };

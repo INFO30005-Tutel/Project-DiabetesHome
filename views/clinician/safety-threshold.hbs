@@ -1,0 +1,61 @@
+<div id='safety-threshold'>
+  <p class='no-bottom-margin'><b style='font-size: 24px; color:#0a57ae;'>Safety
+      threshold</b></p>
+  <div class='flex-row thres-box'>
+    <div class='flex-column table-section' style='width: 100%;'>
+      <table class='threshold-table'>
+        {{#each thresholds}}
+        <tr id='{{thresName}}'>
+          <td class='thres-name'><b>{{thresName}}:</b></td>
+          <td class='thres-data'>{{low}} - {{high}}</td>
+          <td class='thres-unit'>{{unit}}</td>
+        </tr>
+        {{/each}}
+      </table>
+    </div>
+    <button class='border-icon-btn' onclick='TogglePopup()'><i class='fa fa-pencil'></i></button>
+  </div>
+</div>
+
+<div class='popup'>
+  <span id='edit-thres-popup' class='threshold-popup'>
+    <div class='threshold-card'>
+      <p><b style='font-size: 24px; color:#0a57ae;'>Safety threshold</b></p>
+      <div class='flex-column table-section' style='width: 100%;'>
+        <form action="/change-parameter/{{userdataId}}" method='POST' style="width: 80%;">
+          {{#each thresholds}}
+          <div class="flex-row form-row">
+            <div>
+              <label class="field-title">{{thresName}}</label>
+              <input type='checkbox' name='{{id}}Checkbox' id='{{id}}Checkbox' {{#if required}}checked{{/if}}/>
+            </div>
+            <table class="right-input-field">
+              <tr id='{{id}}'>
+                
+                <td><input type='number' name='{{id}}Low' id='{{id}}Low' value="{{low}}" /></td>
+                <td style="width: 15px;"> - </td>
+                <td><input type='number' name='{{id}}High' id='{{id}}High' value="{{high}}" /></td>
+                <td class='thres-unit'>{{unit}}</td>
+              </tr>
+            </table>
+          </div>
+          {{/each}}
+
+          <div class='flex-row popup-button-group'>
+            <div class="popup-cancel-button" onclick="TogglePopup()">
+              <a>Cancel</a>
+            </div>
+            <button type='submit' class='cli-btn-default' onclick='TogglePopup()'>Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </span>
+</div>
+
+<script>
+  function TogglePopup() {
+    var popup =
+      document.getElementById("edit-thres-popup"); popup.classList.toggle("show");
+  }
+</script>
