@@ -82,8 +82,6 @@ const renderPatientDetails = async(req, res) => {
       break;
   }
   const dataHistory = findDataById(allDataHistory, dataId, 'id');
-
-  console.log(dataHistory);
   res.render('patient/patient-details.hbs', {
     layout: 'patient-layout.hbs',
     metadata: metadata,
