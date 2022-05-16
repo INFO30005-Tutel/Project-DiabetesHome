@@ -112,132 +112,6 @@ footer img {
   font-size: 36px !important;
 }
 
-/* LARGER SCREEN */
-@media (min-width: 850px) {
-  .title {
-    font-size: 48px;
-  }
-  .sub-title {
-    font-size: 36px;
-  }
-  .nav-items a {
-    display: block;
-  }
-  .footer-items {
-    padding-top: 12px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 12px;
-  }
-  .sidebar-icon {
-    display: none;
-  }
-  .mission p {
-    width: 50%;
-  }
-  .homepage-section {
-    flex-direction: row;
-  }
-  form {
-    width: 40%;
-  }
-  .contact-us-input {
-    width: 30vw;
-  }
-}
-/* SMALL SCREENS */
-@media (max-width: 850px) {
-  .title {
-    font-size: 28px;
-  }
-  .sub-title {
-    font-size: 16px;
-  }
-  p {
-    font-size: 15px;
-  }
-  .nav-items a {
-    display: none;
-  }
-  .footer-items {
-    display: none;
-  }
-  .sidebar-icon {
-    padding-left: 15px;
-    color: #fff !important;
-    background-color: #0a57ae !important;
-    align-items: center;
-  }
-  .navbar button {
-    width: 100px;
-  }
-  .footer-upper {
-    justify-content: center;
-  }
-  .home-component {
-    text-align: center;
-  }
-  .mission p {
-    width: 100%;
-  }
-  .home-component img {
-    width: 100%;
-    height: auto;
-  }
-  .video-container {
-    position: relative;
-    padding-bottom: 56.25%;
-    padding-top: 35px;
-    height: 0;
-    overflow: hidden;
-  }
-  .video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-  .mission {
-    flex-direction: column;
-    gap: 100px;
-  }
-  .verticle-line {
-    display: none;
-  }
-  .users {
-    flex-direction: column;
-    gap: 48px;
-  }
-  .homepage-section {
-    flex-direction: column;
-  }
-  #reverse-when-phone {
-    flex-direction: column-reverse;
-  }
-  /*responsive design for the contact us form*/
-  .contact-us-page {
-    height: 90vh !important;
-  }
-
-  .contact-sub-title {
-    text-align: center;
-  }
-
-  .contact-form-textboxes {
-    flex-direction: column;
-  }
-
-  form {
-    width: 80%;
-  }
-
-  .contact-us-input {
-    width: 500px;
-  }
-}
-
 /* sidebar items */
 .sidebar {
   height: 195px;
@@ -565,4 +439,137 @@ button:hover {
 .alert {
   color: red;
   margin: 0;
+}
+
+/* LARGER SCREEN */
+@media (min-width: 850px) {
+  .title {
+    font-size: 48px;
+  }
+  .sub-title {
+    font-size: 36px;
+  }
+  .nav-items a {
+    display: block;
+  }
+  .footer-items {
+    padding-top: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+  }
+  .sidebar-icon {
+    display: none;
+  }
+  .mission p {
+    width: 50%;
+  }
+  .homepage-section {
+    flex-direction: row;
+  }
+  form {
+    width: 40%;
+  }
+  .contact-us-input {
+    width: 30vw;
+  }
+}
+/* SMALL SCREENS */
+@media (max-width: 850px) {
+  .title {
+    font-size: 28px;
+  }
+  .sub-title {
+    font-size: 16px;
+  }
+  p {
+    font-size: 15px;
+  }
+  .nav-items a {
+    display: none;
+  }
+  .footer-items {
+    display: none;
+  }
+  .sidebar-icon {
+    padding-left: 15px;
+    color: #fff !important;
+    background-color: #0a57ae !important;
+    align-items: center;
+  }
+  .navbar button {
+    width: 100px;
+  }
+  .footer-upper {
+    justify-content: center;
+  }
+  .home-component {
+    text-align: center;
+  }
+  .mission p {
+    width: 100%;
+  }
+  .home-component img {
+    width: 100%;
+    height: auto;
+  }
+  .video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 35px;
+    height: 0;
+    overflow: hidden;
+  }
+  .video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .mission {
+    flex-direction: column;
+    gap: 100px;
+  }
+  .verticle-line {
+    display: none;
+  }
+  .users {
+    flex-direction: column;
+    gap: 48px;
+  }
+  .homepage-section {
+    flex-direction: column;
+  }
+  #reverse-when-phone {
+    flex-direction: column-reverse;
+  }
+  /*responsive design for the contact us form*/
+  .contact-us-page {
+    height: 90vh !important;
+  }
+
+  .contact-sub-title {
+    text-align: center;
+  }
+
+  .contact-form-textboxes {
+    flex-direction: column;
+  }
+
+  form {
+    width: 80%;
+  }
+
+  .contact-us-input {
+    width: 500px;
+  }
+
+  .small-button-variant {
+    height: 30px;
+    width: 120px;
+    border-radius: 12px;
+    font-size: 1em;
+  }
 }

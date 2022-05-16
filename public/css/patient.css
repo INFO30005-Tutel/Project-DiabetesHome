@@ -174,6 +174,7 @@ form .small-input {
 /*The CSS style for the note input*/
 .note {
   flex: 1;
+  width: 100%;
 }
 
 /*style submit buttons*/
