@@ -100,6 +100,11 @@ const updateUserDataMeasurement = async (req, res) => {
 //   stepHigh: '4000'
 // }
 const changePatientRecordParameter = async (req, res) => {
+  let requiredFields = [];
+  if (req.body.bloodCheckbox) requiredFields.push(0);
+  if (req.body.weightCheckbox) requiredFields.push(1);
+  if (req.body.insulinCheckbox) requiredFields.push(2);
+  if (req.body.stepCheckbox) requiredFields.push(3);
   let newParams = {
     bloodGlucoseLowThresh: req.body.bloodLow,
     bloodGlucoseHighThresh: req.body.bloodHigh,
@@ -109,6 +114,7 @@ const changePatientRecordParameter = async (req, res) => {
     insulinDoseHighThresh: req.body.insulinHigh,
     stepCountLowThresh: req.body.stepLow,
     stepCountHighThresh: req.body.stepHigh,
+    requiredFields: requiredFields,
   };
   let patientData;
   //console.log(req.body);

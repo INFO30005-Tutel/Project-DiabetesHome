@@ -25,12 +25,16 @@
         <form action="/change-parameter/{{userdataId}}" method='POST' style="width: 80%;">
           {{#each thresholds}}
           <div class="flex-row form-row">
-            <label class="field-title">{{thresName}}</label>
+            <div>
+              <label class="field-title">{{thresName}}</label>
+              <input type='checkbox' name='{{id}}Checkbox' id='{{id}}Checkbox' {{#if required}}checked{{/if}}/>
+            </div>
             <table class="right-input-field">
               <tr id='{{id}}'>
-                <td><input type='{{id}}Low' name='{{id}}Low' id='{{id}}Low' value="{{low}}" /></td>
+                
+                <td><input type='number' name='{{id}}Low' id='{{id}}Low' value="{{low}}" /></td>
                 <td style="width: 15px;"> - </td>
-                <td><input type='{{id}}High' name='{{id}}High' id='{{id}}High' value="{{high}}" /></td>
+                <td><input type='number' name='{{id}}High' id='{{id}}High' value="{{high}}" /></td>
                 <td class='thres-unit'>{{unit}}</td>
               </tr>
             </table>

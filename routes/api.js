@@ -7,10 +7,10 @@ const userDataController = require('../controllers/user-data');
 
 // THIS FILE IS ROUTE TESTING ONLY DONT USE IT FOR ACTUAL PRODUCTION
 
-app.post('/change-parameter/:id', async (req, res) => {
-  let updatedUserData = await userDataController.changePatientRecordParameter(req, res);
-  res.status(200).send(updatedUserData);
-});
+// app.post('/change-parameter/:id', async (req, res) => {
+//   let updatedUserData = await userDataController.changePatientRecordParameter(req, res);
+//   res.status(200).send(updatedUserData);
+// });
 
 app.get('/today-userdata/:id', async (req, res) => {
   let todayUserData = await userDataController.getTodayData(req.params.id);
