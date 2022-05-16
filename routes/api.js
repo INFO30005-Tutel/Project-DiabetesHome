@@ -5,15 +5,11 @@ const express = require('express');
 const app = express();
 const userDataController = require('../controllers/user-data');
 
+// THIS FILE IS ROUTE TESTING ONLY DONT USE IT FOR ACTUAL PRODUCTION
+
 app.post('/change-parameter/:id', async (req, res) => {
   let updatedUserData = await userDataController.changePatientRecordParameter(req, res);
-
-  if (updatedUserData) {
-    res.redirect('back');
-  }
-  else {
-    console.log("Error - updated thresholds failed!");
-  }
+  res.status(200).send(updatedUserData);
 });
 
 app.get('/today-userdata/:id', async (req, res) => {
