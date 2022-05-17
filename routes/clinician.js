@@ -45,14 +45,7 @@ app.post(
 app.get(
   '/clinician/setting',
   helper.isAuthenticated,
-  async (req, res) => {
-    const personalInfo = await userController.getPersonalInfo(req.user._id);
-
-    res.render('shared/setting.hbs', {
-      layout: 'clinician-layout.hbs',
-      personalInfo: personalInfo,
-    });
-  }
+  clinicianController.renderSetting
 );
 
 module.exports = app;

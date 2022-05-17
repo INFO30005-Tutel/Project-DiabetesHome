@@ -165,11 +165,16 @@ const findDataById = (data, id, id_label = 'shortName') => {
 const renderSetting = async (req, res) => {
   const personalInfo = await userController.getPersonalInfo(req.user._id);
   const clinicianInfo = await userController.getPersonalInfo(personalInfo.clinicianId);
+  const formattedDob = helperController.getDateAndTime(personalInfo.dateOfBirth);
+  const formattedRegDate = helperController.getDateAndTime(personalInfo.dateOfRegistration);
 
   res.render('shared/setting.hbs', {
     layout: 'patient-layout.hbs',
+    isPatient: true,
     personalInfo: personalInfo,
     clinicianInfo: clinicianInfo,
+    formattedDob: formattedDob,
+    formattedRegDate: formattedRegDate,
   });
 }
 

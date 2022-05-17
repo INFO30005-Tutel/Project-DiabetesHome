@@ -56,6 +56,20 @@ const renderRegisterPatient = async (req, res) => {
   });
 };
 
+const renderSetting = async (req, res) => {
+  const personalInfo = await UserController.getPersonalInfo(req.user._id);
+  const formattedDob = HelperController.getDateAndTime(personalInfo.dateOfBirth);
+  const formattedRegDate = HelperController.getDateAndTime(personalInfo.dateOfRegistration);
+
+  res.render('shared/setting.hbs', {
+    layout: 'clinician-layout.hbs',
+    isPatient: false,
+    personalInfo: personalInfo,
+    formattedDob: formattedDob,
+    formattedRegDate: formattedRegDate,
+  });
+};
+
 const getPatientsOfClinician = async (clinicianId) => {
   let patientList = User.find({ clinicianId: clinicianId }).lean();
   return patientList;
@@ -227,5 +241,6 @@ module.exports = {
   renderClinicianDashboard,
   renderPatientProfile,
   renderRegisterPatient,
+  renderSetting,
   formatPatientRegister,
 };
