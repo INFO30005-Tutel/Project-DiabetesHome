@@ -95,6 +95,7 @@ const getPatientData = async (patientUser) => {
   let patient = JSON.parse(JSON.stringify(patientUser));
   let patientUserData;
   let patientHasData;
+  let patientEngagement;
 
   try {
     patientUserData = await userDataController.getTodayData(patient._id);
@@ -106,6 +107,13 @@ const getPatientData = async (patientUser) => {
   } catch (err) {
     console.log(err);
   }
+  console.log(patient.dateOfRegistration);
+  try {
+    patientEngagement = await userDataController.getPatientEngagement(new Date(patient.dateOfRegistration), patient._id);
+  } catch (err) {
+    console.log(err);
+  }
+  console.log(patientEngagement);
   // console.log(patientUserData);
   // console.log(patientHasData);
 

@@ -25,7 +25,8 @@ function retrieveTodayData(dataArray) {
   }
 }
 
-function getEngagementData(patientData) {
+// Get patient's engagement
+function getEngagementData(dateOfRegistration, patientData) {
   let patientDataList = [
     patientData.bloodGlucoseData,
     patientData.weightData,
@@ -37,7 +38,7 @@ function getEngagementData(patientData) {
     patientDataIndices.push(0);
   })
   let engagementSinceStart = [];
-  let date = patientData.dateOfRegistration;
+  let date = dateOfRegistration;
   let now = new Date();
   let tomorrowDate = new Date(now.getFullYear(), now.getMonth(), now.getDate()+1);
   // Loop over all days since the user registered
@@ -52,7 +53,8 @@ function getEngagementData(patientData) {
           patientDataIndices[i]++;
       }
       // If there is an entry on this day
-      if (patientDataList[i][patientDataIndices[i]].inputAt >= todayDate) {
+      if (patientDataIndices[i] < patientDataList[i].length &&
+        patientDataList[i][patientDataIndices[i]].inputAt >= date) {
         hasEntry = true;
       }
     }
@@ -61,7 +63,7 @@ function getEngagementData(patientData) {
   }
   return {
     engagementSinceStart: engagementSinceStart,
-    startDate: patientData.dateOfRegistration,
+    startDate: dateOfRegistration,
     endDate: tomorrowDate,
     engagementRate: getEngagementRate(engagementSinceStart),
     streak: getStreak(engagementSinceStart),
@@ -175,4 +177,5 @@ module.exports = {
   isAuthenticated,
   formatThreshold,
   getUserDataId,
+  getEngagementData
 };
