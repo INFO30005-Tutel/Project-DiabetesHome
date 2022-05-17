@@ -38,6 +38,7 @@ function getEngagementData(dateOfRegistration, patientData) {
   patientDataList.forEach(() => {
     patientDataIndices.push(0);
   })
+  dateOfRegistration = new Date(dateOfRegistration.getFullYear(), dateOfRegistration.getMonth(), dateOfRegistration.getDate());
   let engagementSinceStart = [];
   let date = dateOfRegistration;
   let now = new Date();
@@ -84,6 +85,10 @@ function getStreak(engagementSinceStart) {
   let streak = 0;
   for (let i = engagementSinceStart.length-1; i >= 0; --i) {
     if (!engagementSinceStart[i]) {
+      if (i == engagementSinceStart.length-1) {
+        // It is today so we don't break the streak
+        continue;
+      }
       break;
     }
     ++streak;
@@ -97,8 +102,9 @@ function getLongestStreak(engagementSinceStart) {
   for (let i = engagementSinceStart.length-1; i >= 0; --i) {
     if (!engagementSinceStart[i]) {
       streak = 0;
+    } else {
+      ++streak;
     }
-    ++streak;
     if (streak > longestStreak) {
       longestStreak = streak;
     }
