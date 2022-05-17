@@ -1,3 +1,4 @@
+const { data } = require('jquery');
 const UserData = require('../models/user-data');
 
 // Passport Authentication middleware
@@ -105,6 +106,34 @@ function getLongestStreak(engagementSinceStart) {
   return longestStreak;
 }
 
+function retrieveDataDates(dataArray) {
+  var prevOneYearDate = new Date(new Date().setFullYear(new Date().getFullYear() - 1));
+  var todayDate = new Date();
+  var dates = new Set();
+
+  for (let i = 0; i < dataArray.length; i++) {
+    if (dataArray[i].inputAt < prevOneYearDate) {
+      break;
+    } else {
+      let formatedDate = formatDate(dataArray[i].inputAt);
+      if (!dates.has(formatedDate) && formatedDate !== formatDate(todayDate)) {
+        dates.add(formatedDate);
+      }
+    }
+  }
+  return dates;
+}
+
+const formatDate = (dateObject) => {
+  let date = JSON.stringify(dateObject.getDate());
+  date = date.length < 2 ? '0' + date : date;
+  // added 1 to the month since getMonth() return 0 for January
+  let month = JSON.stringify(dateObject.getMonth() + 1);
+  month = month.length < 2 ? '0' + month : month;
+  let year = JSON.stringify(dateObject.getFullYear());
+
+  return `${date}-${month}-${year}`;
+};
 
 const formatThreshold = (id, name, low, high, unit, defaultLow, defaultHigh) => {
   if (!low) {
@@ -148,11 +177,7 @@ const getDateAndTime = (dateString) => {
     Intl.DateTimeFormat().resolvedOptions().timeZone;
   var weekDay = days[dateString.getDay()] + ', ';
   var date =
-    dateString.getDate() +
-    ' ' +
-    months[dateString.getMonth()] +
-    ' ' +
-    dateString.getFullYear();
+    dateString.getDate() + ' ' + months[dateString.getMonth()] + ' ' + dateString.getFullYear();
   return {
     time,
     weekDay,
@@ -169,10 +194,11 @@ const getUserDataId = async (userId) => {
   }
 
   return userDataId;
-}
+};
 
 module.exports = {
   retrieveTodayData,
+  retrieveDataDates,
   getDateAndTime,
   isAuthenticated,
   formatThreshold,

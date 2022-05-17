@@ -87,7 +87,8 @@ const renderPatientDashboard = async (req, res) => {
     engagement: patientEngagement,
     date: dateAndTime.date,
     weekDay: dateAndTime.weekDay,
-    time: dateAndTime.time
+    time: dateAndTime.time,
+    inputDates: await userDataController.getAllDataDates(patient._id),
   });
 };
 
