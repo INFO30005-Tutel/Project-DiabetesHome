@@ -207,7 +207,7 @@ const findDataById = (data, id, id_label='shortName') => {
 
 const getBadges = (engagement) => {
   let index = -1;
-  while(index < badges.length && badges[i].engagement < engagement) {
+  while((index+1) < badges.length && engagement >= badges[index+1].engagement) {
     ++index;
   }
   return {
