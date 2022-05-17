@@ -215,6 +215,25 @@ img {
   font-weight: bold;
 }
 
+div#engagement-info {
+  display: none;
+  padding: 20px;
+  /* background-color: #d0e0f1;
+  border-radius: 10px; */
+}
+
+div#engagement-info > p {
+  font-size: 17px;
+}
+
+i#engagement-info {
+  /* float: right; */
+  margin-left: 10px;
+}
+
+i#engagement-info:hover + div#engagement-info {
+  display: block;
+}
 /* Inspired by information presented at https://csshint.com/javascript-calendar/. The date picker css sytles below is for the calendar */
 .datepicker {
   width: 100%;

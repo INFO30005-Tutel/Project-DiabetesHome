@@ -86,7 +86,14 @@
         </div>
     </div>
     <div class="dashboard-side">
-        <h1>Your engagement</h1>
+        <span>
+            <h1 style="display: inline-block">Your engagement</h1><i id="engagement-info" class="fa fa-info-circle" aria-hidden="true"></i>
+            <div id="engagement-info" class="box">
+                <p>Days that you have previously submitted required data (partial/full) are highlighted in <span style="color:#0A57AE; font-size:inherit">blue.</span></p>
+                <p style="margin-bottom: 0;">Today date is highlighted in <span style="color:#6aa84f; font-size:inherit">green.</span></p>
+            </div>
+        </span>
+        <input type="hidden" id="inputDates" value={{inputDates}} />
         <div class="datepicker"></div>
         <div class="box">
             <img src="/images/fire.svg">
