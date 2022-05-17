@@ -123,7 +123,7 @@
         <h4>Notes</h4>
         <textarea class="note" type="text" placeholder="Input text here" name="note">{{#if this.entry}}{{this.entry.note}}{{/if}}</textarea>
         <div class="button-bar">
-            <a href="/patient/{{this.shortName}}"><button class="small-button-variant" type="button">View data</button></a>
+            <a href="/patient/view-data/{{this.shortName}}"><button class="small-button-variant" type="button">View data</button></a>
             <button class="small-button-variant" type="submit" id="submit-button">{{#unless this.entry}}Submit{{else}}Resubmit{{/unless}}</button>
         </div>
     </form>
