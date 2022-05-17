@@ -1,5 +1,5 @@
 const UserData = require('../models/user-data');
-const Helper = require('../controllers/Helper');
+const Helper = require('../controllers/helper');
 
 const getTodayData = async (patientId) => {
   let patientData = await UserData.findOne({ userId: patientId }).lean();
@@ -76,7 +76,7 @@ const updateUserDataMeasurement = async (req, res) => {
   await UserData.findByIdAndUpdate(id, { $set: savedData })
     .then((updatedData) => {
       if (updatedData) {
-        res.redirect(`/patient`);
+        res.redirect(req.get('Referer'));
       }
     })
     // Case of error
