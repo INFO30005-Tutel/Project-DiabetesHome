@@ -27,22 +27,82 @@ function retrieveTodayData(dataArray) {
 
 function getEngagementData(patientData) {
   let patientDataList = [
-    patientUserData.bloodGlucoseData,
-    patientUserData.weightData,
-    patientUserData.insulinDoseData,
-    patientUserData.stepCountData,
+    patientData.bloodGlucoseData,
+    patientData.weightData,
+    patientData.insulinDoseData,
+    patientData.stepCountData,
   ];
   let patientDataIndices = [];
-  patientDataList.forEach((element) => {
+  patientDataList.forEach(() => {
     patientDataIndices.push(0);
   })
   let engagementSinceStart = [];
-  
+  let date = patientData.dateOfRegistration;
+  let now = new Date();
+  let tomorrowDate = new Date(now.getFullYear(), now.getMonth(), now.getDate()+1);
+  // Loop over all days since the user registered
+  while(date < tomorrowDate) {
+    let nextDate = new Date();
+    nextDate.setDate(date.getDate()+1);
+    let hasEntry = false;
+    for(let i = 0; i < patientDataIndices.length; ++i) {
+      // Increment the index until we get to the most recent entry on this date
+      while (patientDataIndices[i] < patientDataList[i].length && 
+        patientDataList[i][patientDataIndices[i]].inputAt < nextDate) {
+          patientDataIndices[i]++;
+      }
+      // If there is an entry on this day
+      if (patientDataList[i][patientDataIndices[i]].inputAt >= todayDate) {
+        hasEntry = true;
+      }
+    }
+    engagementSinceStart.push(hasEntry);
+    date = nextDate;
+  }
+  return {
+    engagementSinceStart: engagementSinceStart,
+    startDate: patientData.dateOfRegistration,
+    endDate: tomorrowDate,
+    engagementRate: getEngagementRate(engagementSinceStart),
+    streak: getStreak(engagementSinceStart),
+    longestStreak: getLongestStreak(engagementSinceStart)
+  }
 }
 
-function getStreak(engagementData) {
-
+function getEngagementRate(engagementSinceStart) {
+  let days_engaged = 0;
+  engagementSinceStart.forEach((isEngaged) => {
+    days_engaged += isEngaged ? 1 : 0;
+  });
+  return days_engaged/engagementSinceStart.length;
 }
+
+function getStreak(engagementSinceStart) {
+  let streak = 0;
+  for (let i = engagementSinceStart.length-1; i >= 0; --i) {
+    if (!engagementSinceStart[i]) {
+      break;
+    }
+    ++streak;
+  }
+  return streak;
+}
+
+function getLongestStreak(engagementSinceStart) {
+  let longestStreak = 0;
+  let streak = 0;
+  for (let i = engagementSinceStart.length-1; i >= 0; --i) {
+    if (!engagementSinceStart[i]) {
+      streak = 0;
+    }
+    ++streak;
+    if (streak > longestStreak) {
+      longestStreak = streak;
+    }
+  }
+  return longestStreak;
+}
+
 
 const formatThreshold = (id, name, low, high, unit, defaultLow, defaultHigh) => {
   if (!low) {
