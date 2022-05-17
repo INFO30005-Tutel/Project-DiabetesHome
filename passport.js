@@ -66,11 +66,13 @@ passport.use(
             console.log('Account existed');
             return done(null, false, { message: 'Account already existed!' });
           } else {
+            now = new Date();
             const newUser = new User();
             newUser.email = email.toLowerCase();
             newUser.password = newUser.hashPassword(password);
             newUser.firstName = req.body.firstName;
             newUser.lastName = req.body.lastName;
+            newUser.dateOfRegistration =  new Date(now.getFullYear(), now.getMonth(), now.getDate());
             newUser.dateOfBirth = new Date(req.body.dateOfBirth);
             newUser.phoneNumber = req.body.phoneNumber;
             newUser.clinicianId = req.body.clinicianId || null;

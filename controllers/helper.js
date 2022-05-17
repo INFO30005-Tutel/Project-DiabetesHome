@@ -25,6 +25,25 @@ function retrieveTodayData(dataArray) {
   }
 }
 
+function getEngagementData(patientData) {
+  let patientDataList = [
+    patientUserData.bloodGlucoseData,
+    patientUserData.weightData,
+    patientUserData.insulinDoseData,
+    patientUserData.stepCountData,
+  ];
+  let patientDataIndices = [];
+  patientDataList.forEach((element) => {
+    patientDataIndices.push(0);
+  })
+  let engagementSinceStart = [];
+  
+}
+
+function getStreak(engagementData) {
+
+}
+
 const formatThreshold = (id, name, low, high, unit, defaultLow, defaultHigh) => {
   if (!low) {
     low = defaultLow;
