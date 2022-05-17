@@ -44,17 +44,20 @@ const patientMetadata = [
 
 // handle dashboard data
 const renderPatientDashboard = async (req, res) => {
-  const patient = req.user;
+  const patient = await getPatientData(req.user);
   const dateAndTime = helperController.getDateAndTime(new Date());
+  const patientEngagement = await getPatientEngagement(req.user);
+  console.log(patientEngagement);
   res.render('patient/patient-dashboard.hbs', {
     layout: 'patient-layout.hbs',
     userId: patient._id,
     // Not normal UserData, but a combined User and UserData
     userData: await getPatientData(patient),
     metadata: patientMetadata,
+    engagement: patientEngagement,
     date: dateAndTime.date,
     weekDay: dateAndTime.weekDay,
-    time: dateAndTime.time,
+    time: dateAndTime.time
   });
 };
 
@@ -107,13 +110,7 @@ const getPatientData = async (patientUser) => {
   } catch (err) {
     console.log(err);
   }
-  console.log(patient.dateOfRegistration);
-  try {
-    patientEngagement = await userDataController.getPatientEngagement(new Date(patient.dateOfRegistration), patient._id);
-  } catch (err) {
-    console.log(err);
-  }
-  console.log(patientEngagement);
+
   // console.log(patientUserData);
   // console.log(patientHasData);
 
@@ -157,6 +154,16 @@ const getPatientHasData = async (patientID) => {
 
   return hasData;
 };
+
+const getPatientEngagement = async (patient) => {
+  let patientEngagement;
+  try {
+    patientEngagement = await userDataController.getPatientEngagement(patient.dateOfRegistration, patient._id);
+  } catch (err) {
+    console.log(err);
+  }
+  return patientEngagement;
+}
 
 const findDataById = (data, id, id_label='shortName') => {
   let dataElement;

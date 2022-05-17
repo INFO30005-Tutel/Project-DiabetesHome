@@ -43,19 +43,19 @@ function getEngagementData(dateOfRegistration, patientData) {
   let tomorrowDate = new Date(now.getFullYear(), now.getMonth(), now.getDate()+1);
   // Loop over all days since the user registered
   while(date < tomorrowDate) {
-    let nextDate = new Date();
+    let nextDate = new Date(date);
     nextDate.setDate(date.getDate()+1);
     let hasEntry = false;
     for(let i = 0; i < patientDataIndices.length; ++i) {
       // Increment the index until we get to the most recent entry on this date
       while (patientDataIndices[i] < patientDataList[i].length && 
-        patientDataList[i][patientDataIndices[i]].inputAt < nextDate) {
+        patientDataList[i][patientDataIndices[i]].inputAt < date) {
           patientDataIndices[i]++;
       }
       // If there is an entry on this day
       if (patientDataIndices[i] < patientDataList[i].length &&
-        patientDataList[i][patientDataIndices[i]].inputAt >= date) {
-        hasEntry = true;
+        patientDataList[i][patientDataIndices[i]].inputAt <= nextDate) {
+          hasEntry = true;
       }
     }
     engagementSinceStart.push(hasEntry);

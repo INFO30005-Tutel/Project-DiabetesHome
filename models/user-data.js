@@ -5,9 +5,6 @@ const UserDataSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId, // Id of patient only
     required: true,
   },
-  dateOfRegistration: {
-    type: Date, required: true
-  },
   requiredFields: [
     {
       type: Number,
