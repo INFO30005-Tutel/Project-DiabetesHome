@@ -42,11 +42,41 @@ const patientMetadata = [
   },
 ];
 
+const badges = [
+  {
+    name: 'Thorough',
+    engagement: 80,
+    icon: '/images/badges/icon-thorough.svg'
+  },
+  {
+    name: 'Diligent',
+    engagement: 85,
+    icon: '/images/badges/icon-diligent.svg'
+  },
+  {
+    name: 'Devoted',
+    engagement: 90,
+    icon: '/images/badges/icon-devoted.svg'
+  },
+  {
+    name: 'Meticulous',
+    engagement: 95,
+    icon: '/images/badges/icon-meticulous.svg'
+  },
+  {
+    name: 'Perfectionist',
+    engagement: 98,
+    icon: '/images/badges/icon-perfectionist.svg'
+  }
+];
+
 // handle dashboard data
 const renderPatientDashboard = async (req, res) => {
   const patient = await getPatientData(req.user);
   const dateAndTime = helperController.getDateAndTime(new Date());
   const patientEngagement = await getPatientEngagement(req.user);
+  patientEngagement.engagementRate = Math.round(patientEngagement.engagementRate*100);
+  patientEngagement.badges = getBadges(patientEngagement.engagementRate);
   console.log(patientEngagement);
   res.render('patient/patient-dashboard.hbs', {
     layout: 'patient-layout.hbs',
@@ -173,6 +203,17 @@ const findDataById = (data, id, id_label='shortName') => {
     }
   });
   return dataElement;
+}
+
+const getBadges = (engagement) => {
+  let index = -1;
+  while(index < badges.length && badges[i].engagement < engagement) {
+    ++index;
+  }
+  return {
+    badge: badges[index],
+    nextBadge: badges[index+1]
+  }
 }
 
 module.exports = {
