@@ -1,6 +1,7 @@
 const handlebars = require('handlebars');
 const userDataController = require('./user-data');
 const helperController = require('./helper');
+const userController = require('./helper');
 const UserData = require('../models/user-data');
 
 const patientMetadata = [
@@ -60,7 +61,7 @@ const renderPatientDashboard = async (req, res) => {
 };
 
 // handle patient data
-const renderPatientDetails = async(req, res) => {
+const renderPatientDetails = async (req, res) => {
   const metadata = findDataById(patientMetadata, req.params.dataSeries);
   const patient = req.user;
   const todayAllData = await getPatientData(patient);
@@ -151,7 +152,7 @@ const getPatientHasData = async (patientID) => {
   return hasData;
 };
 
-const findDataById = (data, id, id_label='shortName') => {
+const findDataById = (data, id, id_label = 'shortName') => {
   let dataElement;
   data.forEach(element => {
     if (element[id_label] === id) {
@@ -161,8 +162,20 @@ const findDataById = (data, id, id_label='shortName') => {
   return dataElement;
 }
 
+const renderSetting = async (req, res) => {
+  const personalInfo = await userController.getPersonalInfo(req.user._id);
+  const clinicianInfo = await userController.getPersonalInfo(personalInfo.clinicianId);
+
+  res.render('shared/setting.hbs', {
+    layout: 'patient-layout.hbs',
+    personalInfo: personalInfo,
+    clinicianInfo: clinicianInfo,
+  });
+}
+
 module.exports = {
   renderPatientDashboard,
   getPatientHasData,
-  renderPatientDetails
+  renderPatientDetails,
+  renderSetting,
 };

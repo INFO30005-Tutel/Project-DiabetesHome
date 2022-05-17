@@ -75,8 +75,12 @@
   {{! END OF FOOTER }}
 </body>
 <script type="text/javascript">
-  function open_settings() { }
-  function open_dashboard() { }
+  function open_settings() {
+    window.location.href = '/patient/setting';
+  }
+  function open_dashboard() {
+    window.location.href = '/patient';
+  }
 
   $(document).ready(function () {
     $((".icon")).on('click', function () {
@@ -101,7 +105,7 @@
 
 
   // Functions to enable datepicker
-  var selectedDate = document.getElementById("inputDates").value.split(",");    
+  var selectedDate = document.getElementById("inputDates").value.split(",");
 
   function highlightDays(date) {
     var fDate = $.datepicker.formatDate('dd-mm-yy', date);

@@ -4,6 +4,7 @@ const passport = require('passport');
 
 const clinicianController = require('../controllers/clinician');
 const userDataController = require('../controllers/user-data');
+const userController = require('../controllers/user');
 const helper = require('../controllers/helper');
 
 app.get('/clinician', helper.isAuthenticated, clinicianController.renderClinicianDashboard);
@@ -39,6 +40,19 @@ app.post(
     successRedirect: '/clinician',
     failureFlash: true,
   })
+);
+
+app.get(
+  '/clinician/setting',
+  helper.isAuthenticated,
+  async (req, res) => {
+    const personalInfo = await userController.getPersonalInfo(req.user._id);
+
+    res.render('shared/setting.hbs', {
+      layout: 'clinician-layout.hbs',
+      personalInfo: personalInfo,
+    });
+  }
 );
 
 module.exports = app;

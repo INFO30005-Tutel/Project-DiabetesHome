@@ -25,7 +25,7 @@ const renderClinicianDashboard = async (req, res) => {
 
 const renderPatientProfile = async (req, res) => {
   const patId = req.params.patId;
-  const patPersonalInfo = await UserController.getPatientPersonalInfo(patId);
+  const patPersonalInfo = await UserController.getPersonalInfo(patId);
   const formatDob = HelperController.getDateAndTime(patPersonalInfo.dateOfBirth);
   const thresholds = await UserDataController.getThresholds(patId, defaultDangerThreshold);
   const patientRawData = await getThisPatientOfClinician(req.user._id, patId);

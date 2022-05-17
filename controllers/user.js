@@ -2,14 +2,16 @@
 const User = require('../models/user');
 const helper = require('./helper');
 
-const getPatientPersonalInfo = async (patId) => {
-  let patientInfo;
+const getPersonalInfo = async (id) => {
+  let personalInfo;
   try {
-    patientInfo = await User.findOne({ _id: patId }).lean();
+    personalInfo = await User.findOne({ _id: id }).lean();
   } catch (err) {
     console.log(err);
   }
-  return patientInfo;
+
+  console.log(personalInfo);
+  return personalInfo;
 };
 
 // exports.updateSelf = (req, res) => {
@@ -77,21 +79,6 @@ const getPatientPersonalInfo = async (patId) => {
 //   }
 // };
 
-// exports.getPatients = (req, res) => {
-//   if (req.user.clinicianId) {
-//     return;
-//   }
-
-//   User.find({ clinicianId: req.user._id })
-//     .then((datas) => {
-//       return res.status(200).send(datas);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       res.status(500).send({ message: 'Error accessing the database!' });
-//     });
-// };
-
 module.exports = {
-  getPatientPersonalInfo,
+  getPersonalInfo,
 };
