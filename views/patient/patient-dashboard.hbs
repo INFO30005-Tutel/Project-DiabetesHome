@@ -101,7 +101,11 @@
             <p style="margin-bottom: 0;">
                 Highest streak: {{engagement.longestStreak}} days
                 <br>
+                {{#unless engagement.hasDataToday}}
                 Complete today's tasks to <b>extend your streak</b>!
+                {{else}}
+                Come back tomorrow to <b>extend your streak</b>!
+                {{/unless}}
             </p>
         </div>
 

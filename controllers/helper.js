@@ -65,6 +65,7 @@ function getEngagementData(dateOfRegistration, patientData) {
   }
   return {
     engagementSinceStart: engagementSinceStart,
+    hasDataToday: engagementSinceStart[engagementSinceStart.length-1],
     startDate: dateOfRegistration,
     endDate: tomorrowDate,
     engagementRate: getEngagementRate(engagementSinceStart),
