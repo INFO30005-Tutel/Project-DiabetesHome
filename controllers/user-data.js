@@ -15,15 +15,20 @@ const getTodayData = async (patientId) => {
 const getAllDataDates = async (patientId) => {
   let patientData = await UserData.findOne({ userId: patientId }).lean();
 
-  let bloodGlucoseDates = helper.retrieveDataDates(patientData.bloodGlucoseData);
-  let weightDataDates = helper.retrieveDataDates(patientData.weightData);
-  let insulinDoseDates = helper.retrieveDataDates(patientData.insulinDoseData);
-  let stepCountDates = helper.retrieveDataDates(patientData.stepCountData);
+  let bloodGlucoseDates = Helper.retrieveDataDates(patientData.bloodGlucoseData);
+  let weightDataDates = Helper.retrieveDataDates(patientData.weightData);
+  let insulinDoseDates = Helper.retrieveDataDates(patientData.insulinDoseData);
+  let stepCountDates = Helper.retrieveDataDates(patientData.stepCountData);
 
-  let dates = new Set([...bloodGlucoseDates, ...weightDataDates, ...insulinDoseDates, ...stepCountDates]);
-  
+  let dates = new Set([
+    ...bloodGlucoseDates,
+    ...weightDataDates,
+    ...insulinDoseDates,
+    ...stepCountDates,
+  ]);
+
   return Array.from(dates);
-}
+};
 
 const updateUserDataMeasurement = async (req, res) => {
   let savedData;
