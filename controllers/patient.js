@@ -1,7 +1,7 @@
 const handlebars = require('handlebars');
 const userDataController = require('./user-data');
 const helperController = require('./helper');
-const userController = require('./helper');
+const userController = require('./user');
 const UserData = require('../models/user-data');
 
 const patientMetadata = [
@@ -88,9 +88,9 @@ const renderPatientDetails = async (req, res) => {
     layout: 'patient-layout.hbs',
     metadata: metadata,
     todayData: todayData,
-    historicalData: dataHistory.data
-  })
-}
+    historicalData: dataHistory.data,
+  });
+};
 
 const getPatientData = async (patientUser) => {
   // Clone the patient's User object
@@ -154,13 +154,13 @@ const getPatientHasData = async (patientID) => {
 
 const findDataById = (data, id, id_label = 'shortName') => {
   let dataElement;
-  data.forEach(element => {
+  data.forEach((element) => {
     if (element[id_label] === id) {
       dataElement = element;
     }
   });
   return dataElement;
-}
+};
 
 const renderSetting = async (req, res) => {
   const personalInfo = await userController.getPersonalInfo(req.user._id);
@@ -171,7 +171,7 @@ const renderSetting = async (req, res) => {
     personalInfo: personalInfo,
     clinicianInfo: clinicianInfo,
   });
-}
+};
 
 module.exports = {
   renderPatientDashboard,
