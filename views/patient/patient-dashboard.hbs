@@ -1,11 +1,11 @@
-<div class="patient-dashboard">
+<div class="patient-dashboard main-content">
     <div class="dashboard-side">
         <p>
             Welcome, <b>{{userData.firstName}}</b>
             <br>
             {{time}}
             <br>
-            {{date}}
+            {{weekDay}}{{date}}
         </p>
         <h1>Messages from your clinician</h1>
         <div class="box">
@@ -40,8 +40,8 @@
             <p id="third-place-text">Charlie 93%</p>
         </div>
         <h2>Your rank</h2>
-        <div class="ranking">
-            <table id="ranking-table">
+        <div class="table-parent">
+            <table class="data-table">
                 <tr>
                     <th>Rank</th>
                     <th>Username</th>
@@ -52,7 +52,7 @@
                     <td>Steven Armstrong</td>
                     <td>54.1%</td>
                 </tr>
-                <tr class="your-rank">
+                <tr class="highlight">
                     <td>482</td>
                     <td>Pat Sadguy (You)</td>
                     <td>53.4%</td>
@@ -113,36 +113,20 @@
 <div class="pop-up" id="{{this.shortName}}-popup">
     <div class="exit-button"><span class="lni lni-close"></span></div>
     <h3 id="form-title" style="color: #0A57AE;">{{this.name}}</h3>
-    {{#unless this.entry}}
     <form id="{{this.shortName}}-form" method='POST' action='/update-measurement'>
         <input type='hidden' name='type' value='{{this.index}}' />
         <div>
-            <input type="number" class="small-input" placeholder="Input here" name="value" min="{{this.minValid}}" max="{{this.maxValid}}" step="{{this.incStep}}">
+            <input type="number" class="small-input" {{#if this.entry}}value="{{this.entry.value}}"{{/if}} 
+                placeholder="Input here" name="value" min="{{this.minValid}}" max="{{this.maxValid}}" step="{{this.incStep}}">
             <label for="enter-data" id="unit" name="unit">{{this.units}}</label>
         </div>
         <h4>Notes</h4>
-        <textarea class="note" type="text" placeholder="Input text here" name="note"></textarea>
+        <textarea class="note" type="text" placeholder="Input text here" name="note">{{#if this.entry}}{{this.entry.note}}{{/if}}</textarea>
         <div class="button-bar">
-            <a href="{{this.shortName}}"><button class="small-button-variant" type="button">View data</button></a>
-            <button class="small-button-variant" type="submit" id="submit-button">Submit</button>
+            <a href="/patient/{{this.shortName}}"><button class="small-button-variant" type="button">View data</button></a>
+            <button class="small-button-variant" type="submit" id="submit-button">{{#unless this.entry}}Submit{{else}}Resubmit{{/unless}}</button>
         </div>
     </form>
-    {{else}}
-    <form id="{{this.shortName}}-form" method='POST' action='/update-measurement'>
-        <input type='hidden' name='type' value='{{this.index}}' />
-        <div>
-            <input type="number" class="small-input" value={{this.entry.value}} name="value" min="{{this.minValid}}" max="{{this.maxValid}}" step="{{this.incStep}}">
-            <label for="enter-data" id="unit" name="unit">{{this.units}}</label>
-        </div>
-        <h4>Notes</h4>
-        <textarea class="note" type="text" placeholder="Input text here" name="note">{{this.entry.note}}</textarea>
-        <div class="button-bar">
-            <a href="{{this.shortName}}"><button class="small-button-variant" type="button">View data</button></a>
-            <button class="small-button-variant" type="submit" id="submit-button">Resubmit</button>
-        </div>
-    </form>
-    {{/unless}}
-
 </div>
 {{/each}}
 

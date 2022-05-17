@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const config = require('./config');
 const passport = require('./passport.js');
 const app = express();
+var path = require('path');
 app.use(express.urlencoded({ extended: true })); // replaces body-parser
 app.use(express.static('public')); // define where static assets live
 app.use(express.json()); // parse application/json
@@ -19,6 +20,9 @@ app.engine(
   exphbs.engine({
     defaultLayout: 'main',
     extname: 'hbs',
+    partialsDir: [
+      path.join(__dirname, 'views/clinician'),
+    ]
   })
 );
 app.set('View engine', 'hbs'); // set Handlebars view engine

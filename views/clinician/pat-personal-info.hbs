@@ -1,0 +1,57 @@
+<div id='pat-default-info'>
+  <div class='dash-header'>
+    <div style='display: flex; gap: 20px;'>
+      <img src='/images/sampleAvatar.png' class='avatar' />
+      <div class='flex-column pat-info'>
+        <p><b id='pat_name' style='font-size: 25px'>{{patPersonalInfo.firstName}} {{patPersonalInfo.lastName}}</b></p>
+        <p id='email'><b>Email: </b>{{patPersonalInfo.email}}</p>
+        <p id='phoneNo'><b>Phone number: </b>{{patPersonalInfo.phoneNumber}}</p>
+        <p id='dob'><b>Date of birth: </b>{{formatDob.date}}</p>
+      </div>
+    </div>
+    <div class='flex-column' style='gap: 10px;'>
+      <button class='cli-btn cli-btn-white'>View notes<i class='fa fa-sticky-note cli-btn-icon'></i></button>
+      <button class='cli-btn cli-btn-default'>View messages<i class='fa fa-commenting-o cli-btn-icon'></i></button>
+    </div>
+  </div>
+  <hr style='border: 2px solid #292929;' />
+  <p style='margin-bottom: 0px; margin-top:10px;'><b>Today's data:</b></p>
+  {{! TODAY'S DATA TABLE }}
+  <div class='flex-column table-section'>
+    <table class='dash-table'>
+      <tr>
+        <th>STATUS</th>
+        <th>BLOOD GLUCOSE LEVEL</th>
+        <th>WEIGHT</th>
+        <th>DOSES OF INSULIN TAKEN</th>
+        <th>STEP COUNTS</th>
+      </tr>
+      <tr style='border-bottom: 2px solid #292929;'>
+        <td><i class='fa {{getIcon todayData}}' style='font-size:xx-large; color: {{getIconColor todayData}}'></i></td>
+        {{#with todayData.bloodGlucose}}
+        <td style='color: {{getTextColor value lowThresh highThresh "bloodGlucose"}}'>
+          {{#if value}}{{value}} mmol/L{{else if required}}??? mmol/L{{/if}}
+        </td>
+        {{/with}}
+
+        {{#with todayData.weight}}
+        <td style='color: {{getTextColor value lowThresh highThresh "weight"}}'>
+          {{#if required}}
+          {{#if value}}{{value}} kg{{else if required}}??? kg{{/if}}
+          {{/if}}
+        </td>
+        {{/with}}
+        {{#with todayData.insulinDose}}
+        <td style='color: {{getTextColor value lowThresh highThresh "insulinDose"}}'>
+          {{#if value}}{{value}} doses{{else if required}}??? doses{{/if}}
+        </td>
+        {{/with}}
+        {{#with todayData.stepCount}}
+        <td style='color: {{getTextColor value lowThresh highThresh "stepCount"}}'>
+          {{#if value}}{{value}}{{else if required}}???{{/if}}
+        </td>
+        {{/with}}
+      </tr>
+    </table>
+  </div>
+</div>
