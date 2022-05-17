@@ -54,6 +54,7 @@ const renderPatientDashboard = async (req, res) => {
     metadata: patientMetadata,
     date: dateAndTime.date,
     time: dateAndTime.time,
+    inputDates: await userDataController.getAllDataDates(patient._id),
   });
 };
 

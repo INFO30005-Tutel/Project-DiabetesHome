@@ -13,6 +13,19 @@ const getTodayData = async (patientId) => {
   return patientData;
 };
 
+const getAllDataDates = async (patientId) => {
+  let patientData = await UserData.findOne({ userId: patientId }).lean();
+
+  let bloodGlucoseDates = helper.retrieveDataDates(patientData.bloodGlucoseData);
+  let weightDataDates = helper.retrieveDataDates(patientData.weightData);
+  let insulinDoseDates = helper.retrieveDataDates(patientData.insulinDoseData);
+  let stepCountDates = helper.retrieveDataDates(patientData.stepCountData);
+
+  let dates = new Set([...bloodGlucoseDates, ...weightDataDates, ...insulinDoseDates, ...stepCountDates]);
+  
+  return Array.from(dates);
+}
+
 const updateUserDataMeasurement = async (req, res) => {
   let savedData;
   await UserData.findOne({ userId: req.user._id }).then(async (data) => {
@@ -158,6 +171,7 @@ const getThresholds = (patId) => {
 
 module.exports = {
   getTodayData,
+  getAllDataDates,
   updateUserDataMeasurement,
   changePatientRecordParameter,
   getThresholds,
