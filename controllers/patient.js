@@ -46,28 +46,28 @@ const badges = [
   {
     name: 'Thorough',
     engagement: 80,
-    icon: '/images/badges/icon-thorough.svg'
+    icon: '/images/badges/icon-thorough.svg',
   },
   {
     name: 'Diligent',
     engagement: 85,
-    icon: '/images/badges/icon-diligent.svg'
+    icon: '/images/badges/icon-diligent.svg',
   },
   {
     name: 'Devoted',
     engagement: 90,
-    icon: '/images/badges/icon-devoted.svg'
+    icon: '/images/badges/icon-devoted.svg',
   },
   {
     name: 'Meticulous',
     engagement: 95,
-    icon: '/images/badges/icon-meticulous.svg'
+    icon: '/images/badges/icon-meticulous.svg',
   },
   {
     name: 'Perfectionist',
     engagement: 98,
-    icon: '/images/badges/icon-perfectionist.svg'
-  }
+    icon: '/images/badges/icon-perfectionist.svg',
+  },
 ];
 
 // handle dashboard data
@@ -75,7 +75,7 @@ const renderPatientDashboard = async (req, res) => {
   const patient = await getPatientData(req.user);
   const dateAndTime = helperController.getDateAndTime(new Date());
   const patientEngagement = await getPatientEngagement(req.user);
-  patientEngagement.engagementRate = Math.round(patientEngagement.engagementRate*100);
+  patientEngagement.engagementRate = Math.round(patientEngagement.engagementRate * 100);
   patientEngagement.badges = getBadges(patientEngagement.engagementRate);
   res.render('patient/patient-dashboard.hbs', {
     layout: 'patient-layout.hbs',
@@ -92,7 +92,7 @@ const renderPatientDashboard = async (req, res) => {
 };
 
 // handle patient data
-const renderPatientDetails = async(req, res) => {
+const renderPatientDetails = async (req, res) => {
   const metadata = findDataById(patientMetadata, req.params.dataSeries);
   const patient = req.user;
   const todayAllData = await getPatientData(patient);
@@ -119,9 +119,9 @@ const renderPatientDetails = async(req, res) => {
     layout: 'patient-layout.hbs',
     metadata: metadata,
     todayData: todayData,
-    historicalData: dataHistory.data
-  })
-}
+    historicalData: dataHistory.data,
+  });
+};
 
 const getPatientData = async (patientUser) => {
   // Clone the patient's User object
@@ -188,36 +188,39 @@ const getPatientHasData = async (patientID) => {
 const getPatientEngagement = async (patient) => {
   let patientEngagement;
   try {
-    patientEngagement = await userDataController.getPatientEngagement(patient.dateOfRegistration, patient._id);
+    patientEngagement = await userDataController.getPatientEngagement(
+      patient.dateOfRegistration,
+      patient._id
+    );
   } catch (err) {
     console.log(err);
   }
   return patientEngagement;
-}
+};
 
-const findDataById = (data, id, id_label='shortName') => {
+const findDataById = (data, id, id_label = 'shortName') => {
   let dataElement;
-  data.forEach(element => {
+  data.forEach((element) => {
     if (element[id_label] === id) {
       dataElement = element;
     }
   });
   return dataElement;
-}
+};
 
 const getBadges = (engagement) => {
   let index = -1;
-  while((index+1) < badges.length && engagement >= badges[index+1].engagement) {
+  while (index + 1 < badges.length && engagement >= badges[index + 1].engagement) {
     ++index;
   }
   return {
     badge: badges[index],
-    nextBadge: badges[index+1]
-  }
-}
+    nextBadge: badges[index + 1],
+  };
+};
 
 module.exports = {
   renderPatientDashboard,
   getPatientHasData,
-  renderPatientDetails
+  renderPatientDetails,
 };
