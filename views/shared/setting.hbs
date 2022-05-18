@@ -1,27 +1,66 @@
 <div class='home'>
   <h1 class='title'>Settings</h1>
+  {{#if isPatient}}
   <div class='home-component'>
     <h2 class='sub-title'>Your clinician</h2>
-    <h3>Clinician name</h3>
-    <p>Lam Nguyen</p>
-    <h3>DOB</h3>
-    <p>Lam Nguyen</p>
-    <h3>Phone number</h3>
-    <p>Lam Nguyen</p>
-    <h3>Email</h3>
-    <p>Lam Nguyen</p>
+    <div class="table-section" style="display: flex; justify-content:center;">
+      <table class="clinician-info">
+        <tr>
+          <td>
+            <h3>Clinician name:</h3>
+          </td>
+          <td>{{clinicianInfo.firstName}} {{clinicianInfo.lastName}}</td>
+        </tr>
+        <tr>
+          <td>
+            <h3>DOB:</h3>
+          </td>
+          <td>{{formattedDobClinician.date}}</td>
+        </tr>
+        <tr>
+          <td>
+            <h3>Phone number:</h3>
+          </td>
+          <td>{{clinicianInfo.phoneNumber}}</td>
+        </tr>
+        <tr>
+          <td>
+            <h3>Email:</h3>
+          </td>
+          <td>{{clinicianInfo.email}}</td>
+        </tr>
+      </table>
+    </div>
   </div>
+  {{/if}}
 
   <div class='home-component'>
     <h2 class='sub-title'>Profile <i class="fa fa-edit" onclick="toggle_edit_setting()"></i></h2>
-    <h3>Clinician name</h3>
-    <p>Lam Nguyen</p>
-    <h3>DOB</h3>
-    <p>Lam Nguyen</p>
-    <h3>Phone number</h3>
-    <p>Lam Nguyen</p>
-    <h3>Email</h3>
-    <p>Lam Nguyen</p>
+    <form action="/api/update-personal-info" method="POST" style="width: 60%;">
+      <label for="firstName">First Name</label>
+      <br>
+      <input type="text" name="firstName" id="firstName" value="{{personalInfo.firstName}}">
+      <br>
+      <label for="lastName">First Name</label>
+      <br>
+      <input type="text" name="lastName" id="lastName" value="{{personalInfo.lastName}}">
+      <br>
+      <label for="dateOfBirth">Date of Birth</label>
+      <br>
+      <input type="date" name="dateOfBirth" id="dateOfBirth" value="{{personalInfo.dateOfBirth}}">
+      <br>
+      <label for"phoneNumber">Phone Number</label>
+      <br>
+      <input type="tel" name="phoneNumber" id="phoneNumber" value="{{personalInfo.phoneNumber}}">
+      <br>
+      <label for="email">Email</label>
+      <br>
+      <input type="email" name="email" id="email" value="{{personalInfo.email}}">
+      <br>
+      <div class="button-wrapper" style="width: 100%;">
+        <button type="submit" class="button large-button-variant">Save</button>
+      </div>
+    </form>
   </div>
 
   <div class='home-component'>

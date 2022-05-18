@@ -14,24 +14,23 @@ const getPersonalInfo = async (id) => {
   return personalInfo;
 };
 
-// exports.updateSelf = (req, res) => {
-//   //console.log('updateSelf');
-//   // Get the id
-//   const id = req.user._id;
-
-//   // Case of updated sucessfully
-//   User.findByIdAndUpdate(id, { $set: req.body }, { new: true })
-//     .then((updatedData) => {
-//       res.status(200).send(updatedData);
-//     })
-//     // Case of error
-//     .catch((err) => {
-//       console.log(err);
-//       res.status(500).send({
-//         message: 'Error when updating Data!',
-//       });
-//     });
-// };
+const updateSelf = async (id, updateBody) => {
+  console.log(id);
+  console.log(updateBody);
+  // Case of updated sucessfully
+  User.findByIdAndUpdate(id, { $set: updateBody }, { new: true })
+    .then((updatedData) => {
+      if (updatedData) {
+        return true;
+      }
+      return false;
+    })
+    // Case of error
+    .catch((err) => {
+      console.log(err);
+      return false
+    });
+};
 
 // // Delete this user and also his/her user-data block
 // exports.delete = async (req, res) => {
@@ -81,4 +80,5 @@ const getPersonalInfo = async (id) => {
 
 module.exports = {
   getPersonalInfo,
+  updateSelf,
 };

@@ -165,7 +165,8 @@ const findDataById = (data, id, id_label = 'shortName') => {
 const renderSetting = async (req, res) => {
   const personalInfo = await userController.getPersonalInfo(req.user._id);
   const clinicianInfo = await userController.getPersonalInfo(personalInfo.clinicianId);
-  const formattedDob = helperController.getDateAndTime(personalInfo.dateOfBirth);
+  personalInfo.dateOfBirth = personalInfo.dateOfBirth.toISOString().substr(0, 10);
+  const formattedDobClinician = helperController.getDateAndTime(clinicianInfo.dateOfBirth);
   const formattedRegDate = helperController.getDateAndTime(personalInfo.dateOfRegistration);
 
   res.render('shared/setting.hbs', {
@@ -173,7 +174,7 @@ const renderSetting = async (req, res) => {
     isPatient: true,
     personalInfo: personalInfo,
     clinicianInfo: clinicianInfo,
-    formattedDob: formattedDob,
+    formattedDobClinician: formattedDobClinician,
     formattedRegDate: formattedRegDate,
   });
 };
