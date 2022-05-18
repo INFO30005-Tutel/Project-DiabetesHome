@@ -56,7 +56,7 @@ const renderPatientDashboard = async (req, res) => {
     metadata: patientMetadata,
     date: dateAndTime.date,
     time: dateAndTime.time,
-    message: messages.slice(-1).content
+    message: messages !== null ? messages.slice(-1).content: null
   });
 };
 

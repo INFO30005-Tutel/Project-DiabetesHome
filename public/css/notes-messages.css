@@ -1,20 +1,70 @@
-.search-bar-box{
+
+.edit-section{
+    position:relative;
+    width:max-content;
+    height:auto;
+    left:25%;
+    top:50px;
+}
+.edit-section form{
     width: 50vw;
     height: 200px;
     background: url();
+  
 }
-/*.search-bar button{
-    background-color: blue;
-    width: 100px;
-    height: 100px;
-}*/
+.edit-section form input{
+    background-color: #F4F4F4;
+    border-radius: 16px;
+}
+#backToProfile{
+    text-decoration: none;
+    position:relative;
+    left:10%;
+    top:40px;
+
+    color:#011684;
+}
+::placeholder{
+    color:#011684;
+}
 @media only screen and (max-width: 800px){
     .search-bar{
         width: 70vw;
         height: 200px;
     }
 }
-/*@media screen and (min-width: 700px) & (max-width: 850px){
+.note-message-b{
+    background-color: #0A57AE;
+    height: 50px;
+    width: 180px;
+    position: absolute;
+    right:0;
+    top:80px;
+    font-size: 20;
+}
+.note-message-data{
+    display: flex;
+    flex-direction: row;
+    gap:30px;
+    align-items: center;
+    position:relative;
+    left:20%;
+    height: 50vh;
+}
+.note-message-data div{
+    background-color: #D0E0F1;
+    width:350px;
+    height:350px;
+    border-radius: 16px;
+    color:#011684;
+}
+.note-message-data div img{
+    width: 20px;
+    height: 20px;
+}
+
+
+/*@media screen and (min-width: 700px) and (max-width: 850px){
     .search-bar{
         width: 600px;
         height: 200px;

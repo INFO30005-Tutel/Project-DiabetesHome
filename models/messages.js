@@ -8,7 +8,8 @@ const MessageSchema = new mongoose.Schema({
     messages:[
         {
             content:{type:String, required: true},
-            time:{type:Date,required:true}
+            time:{type:Date,required:true},
+            type: {type: Number, default:0}
         }
     ]
 })

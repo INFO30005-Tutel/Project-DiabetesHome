@@ -1,9 +1,30 @@
+<div>
+<a id = "backToProfile" href = "">< Back to profile</a>
+<div class = "edit-section">
 
-<div class = "text-content">
-  <form class = "search-bar-box" action = "/clinician/messages">
-    <div class = "input-icon">
+  <form  action = "/clinician/messages">
+    <div class = "">
       <i class="fa-solid fa-magnifying-glass"></i>
       <input type = "text" placeholder="search {{type}}.." name = "search">
     </div>
   </form>
+  <button class = "note-message-b">
+      New {{#if typeId}}Note{{else}}Message{{/if}}
+  </button>
+</div>
+<div class = "note-message-data">
+    
+    {{#each data}}
+           
+            <div>
+                 <h1>{{this.content}}</h1>
+                  
+                	<i class="fa-solid fa-trash bin" onClick = "deleteNoteOrMessage(`{{this._id}}`, {{this.type}})"></i>
+                 
+            </div>
+            
+    {{/each}}
+    
+</div>
+
 </div>

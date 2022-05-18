@@ -9,17 +9,21 @@ const UserController = require('./user');
 const renderNotes = async (req, res) => {
   const patId = req.params.patId;
   const notes = await NoteController.getNotes(patId);
+
   res.render('clinician/patient-notes.hbs', {
     layout: 'clinician-layout.hbs',
-    notes: notes,
+    data: notes,
+    patId: patId,
   });
 };
 const renderMessages = async (req, res) => {
   const patId = req.params.patId;
   const messages = await MessageController.getMessages(patId);
+  console.log(messages);
   res.render('clinician/patient-messages.hbs', {
     layout: 'clinician-layout.hbs',
-    messages: messages,
+    data: messages,
+    patId: patId
   });
 };
 
@@ -221,10 +225,13 @@ const getIconColor = (patient) => {
   return ok;
 };
 
+const getNoteOrMessageInfo = (patId, itemId, type)=>{
+  return `${patId} ${itemId} ${type}`;
+}
 handlebars.registerHelper('getTextColor', getTextColor);
 handlebars.registerHelper('getIcon', getIcon);
 handlebars.registerHelper('getIconColor', getIconColor);
-
+//handlebars.registerHelper('getNoteOrMessageInfo', getNoteOrMessageInfo);
 module.exports = {
   renderClinicianDashboard,
   renderPatientProfile,

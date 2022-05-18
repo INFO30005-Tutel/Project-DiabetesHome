@@ -11,7 +11,7 @@ const addNote = async(req, res)=>{
     console.log(newNote);
     try{
         let notes = await Notes.findOneAndUpdate({userId: patId}, {$push: {notes:newNote}});
-    
+
         if(!notes){
             let newN = [];
             newN.push(newNote);
@@ -51,7 +51,7 @@ const deleteNote = async(req, res)=>{
         //update user's collection of notes
         notesForUser.notes = storedN;
         await notesForUser.save();
-        res.redirect(`/clinician/notes/${patId}`);
+        res.status(200).send({msg: "delete successfully"});
     }
     catch(err){
         console.log(err);

@@ -16,6 +16,7 @@
       rel='stylesheet'
       href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'
     />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
   <body>
     {{! HEADER }}
@@ -112,6 +113,21 @@
         }
       }
 
+      function deleteNoteOrMessage(itemId, typeId){
+        const url = window.location.href ;
+        const patId = url.split("/").slice(-1)[0];
+        if(typeId == 1){
+           axios.post(`/clinician/delete-note/${patId}`,{noteId:itemId}).then(function (response) {
+           window.location = `/clinician/notes/${patId}`}).catch(function (error) {
+           console.log(error)});
+        }
+        else{
+           axios.post(`/clinician/delete-message/${patId}`,{messageId:itemId}).then(function (response) {
+           window.location = `/clinician/messages/${patId}`}).catch(function (error) {
+           console.log(error)});
+        }
+        return;
+      }
     </script>
 
   </body>
