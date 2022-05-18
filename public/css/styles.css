@@ -114,19 +114,21 @@ footer img {
 
 /* sidebar items */
 .sidebar {
-  height: 195px;
+  height: auto;
   width: 0px;
+  display: flex;
+  flex-direction: column;
   background-color: #fff;
   position: fixed !important;
   z-index: 1;
   overflow: auto;
 }
 .sidebar button {
-  height: 33%;
+  height: 80px;
   width: 100%;
   text-decoration: none;
   font-size: 40px;
-  color: #0a57ae;
+  color: white;
   display: block;
   border: none;
 }
@@ -134,9 +136,8 @@ footer img {
   background-color: #d0e0f1;
 }
 .sidebar a {
-  height: 33%;
+  height: 60px;
   width: 100%;
-  text-decoration: none;
   font-size: 20px;
   color: #0a57ae;
   display: flex;
@@ -477,6 +478,9 @@ button:hover {
 }
 /* SMALL SCREENS */
 @media (max-width: 850px) {
+  .navbar {
+    padding: 0 5vw;
+  }
   .title {
     font-size: 28px;
   }

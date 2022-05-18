@@ -26,6 +26,8 @@
     <button onclick='sidebar_close()'>&times;</button>
     <a href='/about-diabetes'>About Diabetes</a>
     <a href='/about-this-website'>About This Website</a>
+    <a href='/patient'>Dashboard</a>
+    <a href='/patient/settings'>Settings</a>
   </div>
   {{! END OF SIDE BAR }}
 
@@ -37,8 +39,13 @@
         <img src='.././images/logo.png' />
       </a>
       <div class='nav-items'>
-        <button onclick='open_dashboard()'><b>Dashboard</b></button>
-        <button onclick='open_settings()'><b>Settings</b></button>
+        <a href="/patient">
+          <button><b>Dashboard</b></button>
+        </a>
+        <a href="/patient/settings">
+            <button><b>Settings</b></button>
+        </a>
+
         <form class="logout" action="/logout" method="post">
           <button type="submit">Log Out</button>
         </form>
@@ -75,8 +82,6 @@
   {{! END OF FOOTER }}
 </body>
 <script type="text/javascript">
-  function open_settings() { }
-  function open_dashboard() { }
 
   $(document).ready(function () {
     $((".icon")).on('click', function () {
