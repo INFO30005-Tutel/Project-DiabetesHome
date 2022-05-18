@@ -14,11 +14,13 @@ app.use(flash());
 
 // Setup Handlebars
 const exphbs = require('express-handlebars');
+
 app.engine(
   'hbs',
   exphbs.engine({
     defaultLayout: 'main',
     extname: 'hbs',
+    //partialsDir: __dirname + "/views/partials"
   })
 );
 app.set('View engine', 'hbs'); // set Handlebars view engine

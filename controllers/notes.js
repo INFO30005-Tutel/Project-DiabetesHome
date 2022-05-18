@@ -9,6 +9,7 @@ const addNote = async(req, res)=>{
         content: req.body.note,
         time: date
     }
+    console.log(newNote);
     try{
         let notes = await Notes.findOneAndUpdate({userId: patId}, {$push: {notes:newNote}});
     
@@ -19,12 +20,11 @@ const addNote = async(req, res)=>{
             notes = new Notes({userId: patId, notes: newN});
             notes.save();
         }
-        console.log(notes);
         res.redirect(`/clinician/notes/${patId}`);
     }
     catch(err){
         console.log(err);
-        res.status(500).send({msg: "Error while adding note"});
+        res.status(500).send({msg: "Error while adding a new note"});
     }
 }
 
@@ -32,15 +32,36 @@ const addNote = async(req, res)=>{
 const getNotes = async(patId)=>{
     try{
         let notes = await Notes.findOne({userId: patId});
+        console.log(notes.notes);
         return notes.notes;
     }
     catch(err){
         console.log(err);
-        res.status(500).send({msg: "Error while sending notes"});
+    }
+}
+
+//This function is called by a clinician to delete a note
+const deleteNote = async(req, res)=>{
+    const patId = req.params.patId;
+    try{
+        let notesForUser = await Notes.findOne({userId: patId});
+        //get all the stored notes
+        let storedN = notesForUser.notes;
+        //delete the required one
+        storedN = storedN.filter(note =>note._id != req.body.noteId);
+        //update user's collection of notes
+        notesForUser.notes = storedN;
+        await notesForUser.save();
+        res.redirect(`/clinician/notes/${patId}`);
+    }
+    catch(err){
+        console.log(err);
+        res.status(500).send({msg: "Error while deleting a note"});
     }
 }
 
 module.exports = {
     addNote,
-    getNotes
+    getNotes,
+    deleteNote
 }

@@ -44,4 +44,14 @@ app.post('/clinician/notes/:patId',
   NoteController.addNote
 )
 
+app.post('/clinician/delete-message/:patId',
+  //helper.isAuthenticated,
+  MessageController.deleteMessage
+)
+
+app.post('/clinician/delete-note/:patId',
+  //hepler.isAuthenticated,
+  NoteController.deleteNote
+)
+
 module.exports = app;

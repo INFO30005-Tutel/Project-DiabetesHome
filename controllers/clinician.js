@@ -6,23 +6,23 @@ const MessageController = require('./messages');
 const User = require('../models/user');
 const UserController = require('./user');
 
-const renderNotes = async (req, res)=>{
-  const patId = req.params.patId; 
-  const notes = await NoteController.getNotes(patId); 
-  res.render('clinician/patient-notes.hbs',{
+const renderNotes = async (req, res) => {
+  const patId = req.params.patId;
+  const notes = await NoteController.getNotes(patId);
+  res.render('clinician/patient-notes.hbs', {
     layout: 'clinician-layout.hbs',
-    notes: notes
-  })
-}
-
-const renderMessages = async (req, res)=>{
-  const patId = req.params.patId; 
+    notes: notes,
+  });
+};
+const renderMessages = async (req, res) => {
+  const patId = req.params.patId;
   const messages = await MessageController.getMessages(patId);
-  res.render('clinician/patient-messages.hbs',{
+  res.render('clinician/patient-messages.hbs', {
     layout: 'clinician-layout.hbs',
-    messages: messages
-  })
-}
+    messages: messages,
+  });
+};
+
 
 const renderClinicianDashboard = async (req, res) => {
   const clinicianId = req.user._id;
@@ -231,5 +231,5 @@ module.exports = {
   renderRegisterPatient,
   formatPatientRegister,
   renderMessages,
-  renderNotes
+  renderNotes,
 };

@@ -1,9 +1,28 @@
-.search-bar{
-    width: 100px;
+.search-bar-box{
+    width: 50vw;
     height: 200px;
+    background: url();
 }
-.search-bar button{
+/*.search-bar button{
     background-color: blue;
     width: 100px;
     height: 100px;
+}*/
+@media only screen and (max-width: 800px){
+    .search-bar{
+        width: 70vw;
+        height: 200px;
+    }
 }
+/*@media screen and (min-width: 700px) & (max-width: 850px){
+    .search-bar{
+        width: 600px;
+        height: 200px;
+    }
+}
+@media only screen and (min-width:850px){
+    .search-bar{
+        width: 800x;
+        height: 200px;
+    }
+}*/
