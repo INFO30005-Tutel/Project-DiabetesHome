@@ -26,6 +26,101 @@ function retrieveTodayData(dataArray) {
   }
 }
 
+// Get patient's engagement
+function getEngagementData(dateOfRegistration, patientData) {
+  let patientDataList = [
+    patientData.bloodGlucoseData,
+    patientData.weightData,
+    patientData.insulinDoseData,
+    patientData.stepCountData,
+  ];
+  let patientDataIndices = [];
+  patientDataList.forEach(() => {
+    patientDataIndices.push(0);
+  });
+  dateOfRegistration = new Date(
+    dateOfRegistration.getFullYear(),
+    dateOfRegistration.getMonth(),
+    dateOfRegistration.getDate()
+  );
+  let engagementSinceStart = [];
+  let date = dateOfRegistration;
+  let now = new Date();
+  let tomorrowDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+  // Loop over all days since the user registered
+  while (date < tomorrowDate) {
+    let nextDate = new Date(date);
+    nextDate.setDate(date.getDate() + 1);
+    let hasEntry = false;
+    for (let i = 0; i < patientDataIndices.length; ++i) {
+      // Increment the index until we get to the most recent entry on this date
+      while (
+        patientDataIndices[i] < patientDataList[i].length &&
+        patientDataList[i][patientDataIndices[i]].inputAt < date
+      ) {
+        patientDataIndices[i]++;
+      }
+      // If there is an entry on this day
+      if (
+        patientDataIndices[i] < patientDataList[i].length &&
+        patientDataList[i][patientDataIndices[i]].inputAt <= nextDate
+      ) {
+        hasEntry = true;
+      }
+    }
+    engagementSinceStart.push(hasEntry);
+    date = nextDate;
+  }
+  return {
+    engagementSinceStart: engagementSinceStart,
+    hasDataToday: engagementSinceStart[engagementSinceStart.length - 1],
+    startDate: dateOfRegistration,
+    endDate: tomorrowDate,
+    engagementRate: getEngagementRate(engagementSinceStart),
+    streak: getStreak(engagementSinceStart),
+    longestStreak: getLongestStreak(engagementSinceStart),
+  };
+}
+
+function getEngagementRate(engagementSinceStart) {
+  let days_engaged = 0;
+  engagementSinceStart.forEach((isEngaged) => {
+    days_engaged += isEngaged ? 1 : 0;
+  });
+  return days_engaged / engagementSinceStart.length;
+}
+
+function getStreak(engagementSinceStart) {
+  let streak = 0;
+  for (let i = engagementSinceStart.length - 1; i >= 0; --i) {
+    if (!engagementSinceStart[i]) {
+      if (i == engagementSinceStart.length - 1) {
+        // It is today so we don't break the streak
+        continue;
+      }
+      break;
+    }
+    ++streak;
+  }
+  return streak;
+}
+
+function getLongestStreak(engagementSinceStart) {
+  let longestStreak = 0;
+  let streak = 0;
+  for (let i = engagementSinceStart.length - 1; i >= 0; --i) {
+    if (!engagementSinceStart[i]) {
+      streak = 0;
+    } else {
+      ++streak;
+    }
+    if (streak > longestStreak) {
+      longestStreak = streak;
+    }
+  }
+  return longestStreak;
+}
+
 function retrieveDataDates(dataArray) {
   var prevOneYearDate = new Date(new Date().setFullYear(new Date().getFullYear() - 1));
   var todayDate = new Date();
@@ -123,4 +218,5 @@ module.exports = {
   isAuthenticated,
   formatThreshold,
   getUserDataId,
+  getEngagementData,
 };

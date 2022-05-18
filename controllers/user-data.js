@@ -12,6 +12,11 @@ const getTodayData = async (patientId) => {
   return patientData;
 };
 
+const getPatientEngagement = async (dateOfRegistration, patientId) => {
+  let patientData = await UserData.findOne({ userId: patientId }).lean();
+  return Helper.getEngagementData(dateOfRegistration, patientData);
+};
+
 const getAllDataDates = async (patientId) => {
   let patientData = await UserData.findOne({ userId: patientId }).lean();
 
@@ -324,6 +329,7 @@ const getDataColStyle = async (dataIndex) => {
 
 module.exports = {
   getTodayData,
+  getPatientEngagement,
   getAllDataDates,
   updateUserDataMeasurement,
   changePatientRecordParameter,
