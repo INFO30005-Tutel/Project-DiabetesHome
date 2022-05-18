@@ -15,7 +15,6 @@ const getPersonalInfo = async (id) => {
 };
 
 const updateSelf = async (id, updateBody) => {
-  console.log(id);
   console.log(updateBody);
   // Case of updated sucessfully
   User.findByIdAndUpdate(id, { $set: updateBody }, { new: true })
@@ -32,53 +31,28 @@ const updateSelf = async (id, updateBody) => {
     });
 };
 
-// // Delete this user and also his/her user-data block
-// exports.delete = async (req, res) => {
-//   const id = req.params.id;
-//   User.findByIdAndDelete(id)
-//     .then(async (data) => {
-//       if (!data) {
-//         // If no id found -> return error message
-//         return res
-//           .status(404)
-//           .send({ message: 'No data found to be deleted!' });
-//       }
-//       // Else, continue to delete its user-data data block
-//       await UserData.findByIdAndDelete({ userId: id }).then((userdata) => {
-//         if (!userdata) {
-//           res.status(500).send({ message: 'Missing userdata for this user!' });
-//         }
-//       });
-//       res.status(200).send({ message: 'Data is deleted successfully!' });
-//     })
-//     // Catching error when accessing the database
-//     .catch((err) => {
-//       console.log(err);
-//       res.status(500).send({ message: 'Error accessing the database!' });
-//     });
-// };
+const changePassword = async (req) => {
+  if (!req.user) {
+    return console.error();
+  }
 
-// exports.changePassword = async (req, res) => {
-//   if (!req.user) {
-//     return console.error();
-//   }
+  console.log(req.body);
 
-//   console.log(req.body);
+  let user = await User.findOne({ email: req.user.email });
 
-//   let user = await User.findOne({ email: req.user.email });
+  if (user.verifyPassword(req.body.oldPassword)) {
+    user.password = user.hashPassword(req.body.newPassword);
 
-//   if (user.verifyPassword(req.body.oldPassword)) {
-//     user.password = user.hashPassword(req.body.newPassword);
-
-//     await user.save();
-//     res.send(user);
-//   } else {
-//     // return new Error("Wrong password")
-//     return res.status(401).send('Wrong password');
-//   }
-// };
+    await user.save();
+    return true;
+  } else {
+    // return new Error("Wrong password")
+    return false;
+  }
+};
 
 module.exports = {
   getPersonalInfo,
   updateSelf,
+  changePassword,
 };

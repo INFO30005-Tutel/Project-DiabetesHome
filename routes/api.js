@@ -27,20 +27,13 @@ app.post('/update-personal-info', async (req, res) => {
   }
 });
 
-// // Get data during a period of time: week/month/year
-// // Req.json = {
-// //     from: Date,
-// //     to: Date,
-// //     type: int [blood/exercise/insulin/weight]
-// // }
-// app.post('/get-data-during', userDataController.getDataDuring);
-
-// // {
-// //   type: int (type index),
-// //   data: double/float/number
-// // }
-// app.put('/userdata/:id', userDataController.update);
-// app.get('/userdata', userDataController.findAll);
-// app.get('/userdata/:id', userDataController.findOne);
+app.post('/change-password', async (req, res) => {
+  let passwordChanged = await userController.changePassword(req);
+  if (passwordChanged) {
+    res.redirect('back');
+  } else {
+    console.log('Error - change password failed');
+  }
+});
 
 module.exports = app;
