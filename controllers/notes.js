@@ -3,8 +3,7 @@ const Notes = require('../models/notes');
 //This function is used to add a new note for each patient based on a patient's ID
 const addNote = async(req, res)=>{
     const patId = req.params.patId; 
-    let jsonDate = new Date().toJSON();
-    let date = new Date(jsonDate);
+    let date = new Date();
     let newNote = {
         content: req.body.note,
         time: date

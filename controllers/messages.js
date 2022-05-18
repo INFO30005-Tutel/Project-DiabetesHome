@@ -11,7 +11,6 @@ const sendMessage = async(req, res)=>{
     }
     try{
         let messages = await Messages.findOne({userId:patId});
-
         if(!messages){
             let newM = [];
             newM.push(newMessage);
