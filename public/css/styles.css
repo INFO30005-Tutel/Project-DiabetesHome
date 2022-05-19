@@ -478,6 +478,9 @@ button:hover {
 }
 /* SMALL SCREENS */
 @media (max-width: 850px) {
+  * {
+    font-size: 15px;
+  }
   .navbar {
     padding: 0 5vw;
   }
