@@ -68,14 +68,33 @@ passport.use(
           } else {
             now = new Date();
             const newUser = new User();
-            newUser.email = email.toLowerCase();
+            newUser.email = email.toLowerCase().trim();
             newUser.password = newUser.hashPassword(password);
-            newUser.firstName = req.body.firstName;
-            newUser.lastName = req.body.lastName;
-            newUser.dateOfRegistration =  new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            newUser.firstName = req.body.firstName.trim();
+            newUser.lastName = req.body.lastName.trim();
+            newUser.dateOfRegistration = new Date(now.getFullYear(), now.getMonth(), now.getDate());
             newUser.dateOfBirth = new Date(req.body.dateOfBirth);
-            newUser.phoneNumber = req.body.phoneNumber;
+            newUser.phoneNumber = req.body.phoneNumber.trim();
             newUser.clinicianId = req.body.clinicianId || null;
+
+            // Validate
+            if (newUser.email == '') return done(null, false, { message: 'Email cannot be empty' });
+            if (newUser.firstName == '')
+              return done(null, false, { message: 'First name cannot be empty' });
+            if (newUser.lastName == '')
+              return done(null, false, { message: 'Last name cannot be empty' });
+            if (newUser.phoneNumber == '')
+              return done(null, false, { message: 'Phone number cannot be empty' });
+            if (!/^\+*[0-9]+$/.test(newUser.phoneNumber))
+              return done(null, false, {
+                message: 'Phone number can only contain plus sign (+) and number',
+              });
+            if (password.trim() == '')
+              return done(null, false, { message: 'Password cannot be empty' });
+            if (/\s/.test(password))
+              return done(null, false, { message: 'Password cannot contain space' });
+            if (newUser.dateOfBirth.getTime() > now.getTime())
+              return done(null, false, { message: 'Date of birth is invalid' });
 
             newUser.save().then((savedUser) => {
               // If this user is a patient
