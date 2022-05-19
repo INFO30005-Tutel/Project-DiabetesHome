@@ -1,6 +1,7 @@
 const handlebars = require('handlebars');
 const userDataController = require('./user-data');
 const helperController = require('./helper');
+const userController = require('./user');
 const UserData = require('../models/user-data');
 
 const patientMetadata = [
@@ -228,6 +229,20 @@ const findDataById = (data, id, id_label = 'shortName') => {
   return dataElement;
 };
 
+const renderSetting = async (req, res) => {
+  const personalInfo = await userController.getPersonalInfo(req.user._id);
+  const clinicianInfo = await userController.getPersonalInfo(personalInfo.clinicianId);
+  personalInfo.dateOfBirth = personalInfo.dateOfBirth.toISOString().substr(0, 10);
+  const formattedDobClinician = helperController.getDateAndTime(clinicianInfo.dateOfBirth);
+
+  res.render('shared/setting.hbs', {
+    layout: 'patient-layout.hbs',
+    isPatient: true,
+    personalInfo: personalInfo,
+    clinicianInfo: clinicianInfo,
+    formattedDobClinician: formattedDobClinician,
+  });
+}
 const getBadges = (engagement) => {
   let index = -1;
   while (index + 1 < badges.length && engagement >= badges[index + 1].engagement) {
@@ -270,4 +285,5 @@ module.exports = {
   renderPatientDashboard,
   getPatientHasData,
   renderPatientDetails,
+  renderSetting,
 };

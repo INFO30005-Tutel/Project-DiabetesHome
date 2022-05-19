@@ -2,96 +2,54 @@
 const User = require('../models/user');
 const helper = require('./helper');
 
-const getPatientPersonalInfo = async (patId) => {
-  let patientInfo;
+const getPersonalInfo = async (id) => {
+  let personalInfo;
   try {
-    patientInfo = await User.findOne({ _id: patId }).lean();
+    personalInfo = await User.findOne({ _id: id }).lean();
   } catch (err) {
     console.log(err);
   }
-  return patientInfo;
+
+  //console.log(personalInfo);
+  return personalInfo;
 };
 
-// exports.updateSelf = (req, res) => {
-//   //console.log('updateSelf');
-//   // Get the id
-//   const id = req.user._id;
+const updateSelf = async (id, updateBody) => {
+  // console.log(updateBody);
+  let updatedUser = await User.findByIdAndUpdate(id, { $set: updateBody }, { new: true });
 
-//   // Case of updated sucessfully
-//   User.findByIdAndUpdate(id, { $set: req.body }, { new: true })
-//     .then((updatedData) => {
-//       res.status(200).send(updatedData);
-//     })
-//     // Case of error
-//     .catch((err) => {
-//       console.log(err);
-//       res.status(500).send({
-//         message: 'Error when updating Data!',
-//       });
-//     });
-// };
+  if (updatedUser) {
+    return true;
+  }
+  return false;
+};
 
-// // Delete this user and also his/her user-data block
-// exports.delete = async (req, res) => {
-//   const id = req.params.id;
-//   User.findByIdAndDelete(id)
-//     .then(async (data) => {
-//       if (!data) {
-//         // If no id found -> return error message
-//         return res
-//           .status(404)
-//           .send({ message: 'No data found to be deleted!' });
-//       }
-//       // Else, continue to delete its user-data data block
-//       await UserData.findByIdAndDelete({ userId: id }).then((userdata) => {
-//         if (!userdata) {
-//           res.status(500).send({ message: 'Missing userdata for this user!' });
-//         }
-//       });
-//       res.status(200).send({ message: 'Data is deleted successfully!' });
-//     })
-//     // Catching error when accessing the database
-//     .catch((err) => {
-//       console.log(err);
-//       res.status(500).send({ message: 'Error accessing the database!' });
-//     });
-// };
+const changePassword = async (req, res) => {
+  if (!req.user) {
+    return false;
+  }
+  console.log(req.body);
 
-// exports.changePassword = async (req, res) => {
-//   if (!req.user) {
-//     return console.error();
-//   }
+  await User.findOne({ email: req.user.email }).then((user) => {
+    user.verifyPassword(req.body.oldPassword, async (err, valid) => {
+      if (err || !valid) {
+        console.log('Wrong password!');
+        req.flash('error', 'Wrong password!');
+      }
+      else {
+        user.password = await user.hashPassword(req.body.newPassword);
+        await user.save();
+        console.log('Password changed!');
+        req.flash('info', 'Password changed!');
+      }
 
-//   console.log(req.body);
-
-//   let user = await User.findOne({ email: req.user.email });
-
-//   if (user.verifyPassword(req.body.oldPassword)) {
-//     user.password = user.hashPassword(req.body.newPassword);
-
-//     await user.save();
-//     res.send(user);
-//   } else {
-//     // return new Error("Wrong password")
-//     return res.status(401).send('Wrong password');
-//   }
-// };
-
-// exports.getPatients = (req, res) => {
-//   if (req.user.clinicianId) {
-//     return;
-//   }
-
-//   User.find({ clinicianId: req.user._id })
-//     .then((datas) => {
-//       return res.status(200).send(datas);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       res.status(500).send({ message: 'Error accessing the database!' });
-//     });
-// };
+      res.redirect('back');
+    });
+  });
+};
 
 module.exports = {
-  getPatientPersonalInfo,
+  getPersonalInfo,
+  updateSelf,
+  changePassword,
 };

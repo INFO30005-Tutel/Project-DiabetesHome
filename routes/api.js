@@ -4,6 +4,7 @@
 const express = require('express');
 const app = express();
 const userDataController = require('../controllers/user-data');
+const userController = require('../controllers/user');
 
 // THIS FILE IS ROUTE TESTING ONLY DONT USE IT FOR ACTUAL PRODUCTION
 
@@ -17,20 +18,16 @@ app.get('/today-userdata/:id', async (req, res) => {
   res.status(200).send(todayUserData);
 });
 
-// // Get data during a period of time: week/month/year
-// // Req.json = {
-// //     from: Date,
-// //     to: Date,
-// //     type: int [blood/exercise/insulin/weight]
-// // }
-// app.post('/get-data-during', userDataController.getDataDuring);
+app.post('/update-personal-info', async (req, res) => {
+  let isUpdated = await userController.updateSelf(req.user._id, req.body);
+  if (isUpdated) {
+    res.redirect('back');
+  } else {
+    console.log('Error - updated personal info failed!');
+    res.status(500).redirect('back');
+  }
+});
 
-// // {
-// //   type: int (type index),
-// //   data: double/float/number
-// // }
-// app.put('/userdata/:id', userDataController.update);
-// app.get('/userdata', userDataController.findAll);
-// app.get('/userdata/:id', userDataController.findOne);
+app.post('/change-password', userController.changePassword);
 
 module.exports = app;

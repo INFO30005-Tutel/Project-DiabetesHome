@@ -14,7 +14,6 @@ const isAuthenticated = (req, res, next) => {
 
 const isPatient = (req, res, next) => {
   // user don't have clinicianId -> user is clinician, not allowed to access
-  console.log(req.user);
   if (!req.user.clinicianId) {
     req.flash('error', 'Requires logged in as patient to access');
     return res.redirect('/login');
