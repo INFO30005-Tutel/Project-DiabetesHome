@@ -120,7 +120,8 @@
             <p>Fill in your data every day to increasing your engagement rate and earn even better badges.</p>
             {{#if engagement.badges.nextBadge}}
             <p>Reach an engagement rate of <b>{{engagement.badges.nextBadge.engagement}}%</b> to get the
-                <b>{{engagement.badges.nextBadge.name}}</b> badge.</p>
+                <b>{{engagement.badges.nextBadge.name}}</b> badge.
+            </p>
             {{else}}
             <p>Incredible! You have been awarded the highest badge possible. Keep up the great work.</p>
             {{/if}}
@@ -147,7 +148,7 @@
         <textarea class="note" type="text" placeholder="Input text here"
             name="note">{{#if this.entry}}{{this.entry.note}}{{/if}}</textarea>
         <div class="button-bar">
-            <a href="/patient/{{this.shortName}}"><button class="small-button-variant" type="button">View
+            <a href="/patient/view-data/{{this.shortName}}"><button class="small-button-variant" type="button">View
                     data</button></a>
             <button class="small-button-variant" type="submit" id="submit-button">{{#unless
                 this.entry}}Submit{{else}}Resubmit{{/unless}}</button>
@@ -159,7 +160,7 @@
         However, you may still view the data you've previously recorded.
     </p>
     <div class="button-bar">
-        <a href="/patient/{{this.shortName}}"><button class="small-button-variant" type="button">View
+        <a href="/patient/view-data/{{this.shortName}}"><button class="small-button-variant" type="button">View
                 data</button></a>
     </div>
     {{/unless}}

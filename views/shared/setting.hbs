@@ -98,24 +98,23 @@
       </form>
     </div>
   </div>
+  <script>
+    function check_confirm_password(input) {
+      if (input.value != document.getElementById('newPassword').value) {
+        input.setCustomValidity('Password must be matching.');
+      } else {
+        // input is valid -- reset the error message
+        input.setCustomValidity('');
+      }
+    }
+
+    function check_new_password(input) {
+      if (input.value == document.getElementById('oldPassword').value) {
+        input.setCustomValidity('Please enter new password!');
+      } else {
+        // input is valid -- reset the error message
+        input.setCustomValidity('');
+      }
+    }
+  </script>
 </div>
-
-<script>
-  function check_confirm_password(input) {
-    if (input.value != document.getElementById('newPassword').value) {
-      input.setCustomValidity('New password must be matching.');
-    } else {
-      // input is valid -- reset the error message
-      input.setCustomValidity('');
-    }
-  }
-
-  function check_new_password(input) {
-    if (input.value == document.getElementById('oldPassword').value) {
-      input.setCustomValidity('Please enter new password!');
-    } else {
-      // input is valid -- reset the error message
-      input.setCustomValidity('');
-    }
-  }
-</script>
