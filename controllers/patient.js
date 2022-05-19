@@ -77,19 +77,23 @@ const renderPatientDashboard = async (req, res) => {
   const patientEngagement = await getPatientEngagement(req.user);
   patientEngagement.engagementRate = Math.round(patientEngagement.engagementRate * 100);
   patientEngagement.badges = getBadges(patientEngagement.engagementRate);
-  const leaderboards = await userDataController.getLeaderboards();
-  console.log(leaderboards);
+  let leaderboards = await userDataController.getLeaderboards();
+  let podium = getPodium(leaderboards);
+  // Truncate leaderboards to top 30
+  leaderboards = leaderboards.slice(0, 30);
   res.render('patient/patient-dashboard.hbs', {
     layout: 'patient-layout.hbs',
     userId: patient._id,
     // Not normal UserData, but a combined User and UserData
-    userData: await getPatientData(patient),
+    userData: patient,
     metadata: patientMetadata,
     engagement: patientEngagement,
     date: dateAndTime.date,
     weekDay: dateAndTime.weekDay,
     time: dateAndTime.time,
     inputDates: await userDataController.getAllDataDates(patient._id),
+    leaderboards: leaderboards,
+    leaderboardsPodium: podium
   });
 };
 
@@ -220,6 +224,23 @@ const getBadges = (engagement) => {
     nextBadge: badges[index + 1],
   };
 };
+
+const getPodium = (leaderboards) => {
+  return {
+    first: {
+      name: leaderboards[0].name,
+      engagementRate: leaderboards[0].engagementRate
+    },
+    second: {
+      name: leaderboards[1].name,
+      engagementRate: leaderboards[1].engagementRate
+    },
+    third: {
+      name: leaderboards[2].name,
+      engagementRate: leaderboards[2].engagementRate
+    }
+  }
+}
 
 module.exports = {
   renderPatientDashboard,

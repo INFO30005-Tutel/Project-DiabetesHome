@@ -34,8 +34,8 @@ const getLeaderboards = async () => {
   })
   // Add ranks, and then round engagement rate to 2 decimals
   for (let i = 0; i < leaderboards.length; ++i) {
-    leaderboards[i].rank = i;
-    leaderboards[i].engagementRate;
+    leaderboards[i].rank = i+1;
+    leaderboards[i].engagementRate = leaderboards[i].engagementRate.toFixed(1);
   }
   return leaderboards
 }
