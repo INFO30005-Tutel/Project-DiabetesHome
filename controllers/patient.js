@@ -77,17 +77,23 @@ const renderPatientDashboard = async (req, res) => {
   const patientEngagement = await getPatientEngagement(req.user);
   patientEngagement.engagementRate = Math.round(patientEngagement.engagementRate * 100);
   patientEngagement.badges = getBadges(patientEngagement.engagementRate);
+  let leaderboards = await userDataController.getLeaderboards();
+  let podium = getPodium(leaderboards);
+  // Truncate leaderboards to top 30
+  leaderboards = leaderboards.slice(0, 30);
   res.render('patient/patient-dashboard.hbs', {
     layout: 'patient-layout.hbs',
     userId: patient._id,
     // Not normal UserData, but a combined User and UserData
-    userData: await getPatientData(patient),
+    userData: patient,
     metadata: patientMetadata,
     engagement: patientEngagement,
     date: dateAndTime.date,
     weekDay: dateAndTime.weekDay,
     time: dateAndTime.time,
     inputDates: await userDataController.getAllDataDates(patient._id),
+    leaderboards: leaderboards,
+    leaderboardsPodium: podium,
   });
 };
 
@@ -97,7 +103,7 @@ const renderPatientDetails = async (req, res) => {
   const patient = req.user;
   const todayAllData = await getPatientData(patient);
   if (!isRequired(todayAllData, req.params.dataSeries)) {
-    res.status(403).redirect("/patient");
+    res.status(403).redirect('/patient');
     return;
   }
   const todayData = findDataById(todayAllData.dataEntries, req.params.dataSeries);
@@ -181,7 +187,7 @@ const getPatientData = async (patientUser) => {
       return 1;
     }
     return -1;
-  })
+  });
   //console.log(patient);
   return patient;
 };
@@ -233,15 +239,32 @@ const getBadges = (engagement) => {
   };
 };
 
+const getPodium = (leaderboards) => {
+  return {
+    first: {
+      name: leaderboards[0].name,
+      engagementRate: leaderboards[0].engagementRate,
+    },
+    second: {
+      name: leaderboards[1].name,
+      engagementRate: leaderboards[1].engagementRate,
+    },
+    third: {
+      name: leaderboards[2].name,
+      engagementRate: leaderboards[2].engagementRate,
+    },
+  };
+};
+
 const isRequired = (patient, shortName) => {
   let hasEntry = false;
   patient.dataEntries.forEach((element) => {
     if (element.shortName == shortName) {
       hasEntry = true;
     }
-  })
+  });
   return hasEntry;
-}
+};
 
 module.exports = {
   renderPatientDashboard,
