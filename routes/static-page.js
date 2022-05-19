@@ -3,18 +3,30 @@ const app = express();
 const nodemailer = require('nodemailer');
 
 app.get('/', (req, res) => {
-  res.render('homepage.hbs');
+  res.render('homepage.hbs', {isAuthenticated: req.isAuthenticated()});
 });
 
 app.get('/about-diabetes', (req, res) => {
-  res.render('about-diabetes.hbs');
+  res.render('about-diabetes.hbs', {isAuthenticated: req.isAuthenticated()});
 });
 
 app.get('/about-this-website', (req, res) => {
-  res.render('about-this-website.hbs');
+  res.render('about-this-website.hbs', {isAuthenticated: req.isAuthenticated()});
 });
 
 app.get('/login', (req, res) => {
+  // Redirect if the user is already logged in
+  if (req.isAuthenticated()) {
+    if (req.user.clinicianId === null) {
+      // Redirect to clinician dashboard
+      res.redirect('/clinician');
+      return;
+    } else {
+      // Redirect to patient dashboard
+      res.redirect('patient');
+      return;
+    }
+  }
   res.render('login.hbs', { flash: req.flash('error') });
 });
 
