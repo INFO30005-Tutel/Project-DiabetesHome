@@ -37,7 +37,7 @@
         <div class='nav-items'>
           <a href='about-diabetes'>About Diabetes</a>
           <a href='about-this-website'>About This Website</a>
-          <button onclick="location.href='/login'"><b>Login</b></button>
+          <button onclick="location.href='/login'"><b>{{#unless isAuthenticated}}Login{{else}}Dashboard{{/unless}}</b></button>
         </div>
       </nav>
 
