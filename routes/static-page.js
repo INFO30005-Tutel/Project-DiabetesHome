@@ -15,7 +15,15 @@ app.get('/about-this-website', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-  res.render('login.hbs', { flash: req.flash('error') });
+  if (req.isAuthenticated()) {
+    if (req.user.clinicianId) {
+      return res.redirect('/patient');
+    } else {
+      return res.redirect('/clinician');
+    }
+  } else {
+    res.render('login.hbs', { flash: req.flash('error') });
+  }
 });
 
 app.get('/register', (req, res) => {
