@@ -57,7 +57,7 @@
       <br>
       <input type="email" name="email" id="email" value="{{personalInfo.email}}">
       <br>
-      <div class="button-wrapper" style="width: 100%;">
+      <div class="button-wrapper" style="margin-top: 15px;">
         <button type="submit" class="button large-button-variant">Save</button>
       </div>
     </form>
@@ -65,16 +65,13 @@
 
   <div class='home-component'>
     <h2 class='sub-title'>Account</h2>
-    <a onclick="toggleChangePassword()" style="cursor: pointer;">Change password</a>
-  </div>
-</div>
-
-{{!-- Change password pop-up --}}
-<div class='popup'>
-  <span id='change-password-popup' class='threshold-popup'>
     <div class='threshold-card'>
       <p><b style='font-size: 24px; color:#0a57ae;'>Change your password</b></p>
-      <p class="alert">{{msg}}</p>
+      {{#each flash}}
+      <div style="text-align: center;">
+        <p class="alert">{{this}}</p>
+      </div>
+      {{/each}}
       <form action="/api/change-password" method="POST" style="width: 60%; max-width: 500px;">
         <label for="oldPassword">Old password</label>
         <br>
@@ -88,20 +85,10 @@
         <br>
         <input type="password" name="confirmPassword" id="confirmPassword">
         <br>
-        <div class='popup-button-group' style="display: flex;">
-          <div class="popup-cancel-button" onclick="toggleChangePassword()">
-            <a>Cancel</a>
-          </div>
-          <button type='submit' class='cli-btn-default'>Save</button>
+        <div class="button-wrapper" style="margin-top: 10px;">
+          <button type='submit' class='button large-button-variant'>Save</button>
         </div>
       </form>
     </div>
-  </span>
+  </div>
 </div>
-
-<script>
-  function toggleChangePassword() {
-    var popup =
-      document.getElementById("change-password-popup"); popup.classList.toggle("show");
-  }
-</script>

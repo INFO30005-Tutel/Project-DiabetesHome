@@ -32,17 +32,22 @@ const changePassword = async (req, res) => {
   console.log(req.body);
 
   if (!(req.body.newPassword === req.body.confirmPassword)) {
-    return res.status(400).send({ msg: 'Confirm password must match!' });
+    req.flash('error', 'Confirm password must match!');
+    //req.session.error = 'Confirm password must match!';
+    return res.redirect('back', { message: req.flash('error') });
   }
   if (req.body.oldPassword === req.body.newPassword) {
-    return res.status(500).send({ msg: 'Please enter new password!' });
+    req.flash('error', 'Please enter new password!');
+    // req.session.error = 'Please enter new password!';
+    return res.redirect('back');
   }
 
   await User.findOne({ email: req.user.email }).then(async (user) => {
     if (user) {
       await user.verifyPassword(req.body.oldPassword, (err, valid) => {
         if (err || !valid) {
-          return res.status(400).send({ msg: 'Wrong password!' });
+          req.flash('error', 'Wrong password!');
+          return res.redirect('back');
         }
 
         user.password = user.hashPassword(req.body.newPassword);
