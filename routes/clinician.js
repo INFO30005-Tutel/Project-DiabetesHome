@@ -53,6 +53,7 @@ app.post(
 app.get(
   '/clinician/setting',
   helper.isAuthenticated,
+  helper.isClinician,
   clinicianController.renderSetting
 );
 
