@@ -198,6 +198,24 @@
         }
         return;
       }
+      function emoji(option) {
+        emo = "";
+        if (option === "smile") {
+          emo = "😀";
+        } else if (option === "love") {
+          emo = "❤️";
+        } else if (option === "celebrate") {
+          emo = "🎉";
+        } else if (option === "pill") {
+          emo = "💊";
+        } else if (option === "vax") {
+          emo = "💉";
+        }
+        $("#text-note-message").val(function(i, val) {
+          return val + emo;
+        });
+        return;
+      }
     </script>
 
   </body>

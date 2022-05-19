@@ -1,5 +1,5 @@
 <div>
-<a id = "backToProfile" href = "">< Back to profile</a>
+<a id = "backToProfile" href = "">Back to profile</a>
 <div class = "edit-section">
   <form>
     <div>
@@ -55,13 +55,32 @@
       <i class="fa fa-align-left"  aria-hidden= "true"></i></button>
       <button
       onclick="alignText('center')" 
-    
       title="Center Align">
       <i class="fa fa-align-center" aria-hidden= "true"></i></button>
       <button 
       onclick="alignText('right')" 
       title="Right Align">
       <i class="fa fa-align-right" aria-hidden = "true"></i></button>
+      <button
+      onClick="emoji('smile')"
+      title="smileEmoji">
+      😀</button>
+      <button
+      onClick="emoji('love')"
+      title="loveEmoji">
+      ❤️</button>
+      <button
+      onClick="emoji('celebrate')"
+      title="celebrateEmoji">
+      🎉</button>
+      <button
+      onClick="emoji('pill')"
+      title="pillEmoji">
+      💊</button>
+      <button
+      onClick="emoji('vax')"
+      title="vaxEmoji">
+      💉</button>
     </span>
   </div>
 <form id = "note-message-form" method = "POST" action = "/clinician/{{type}}/{{patId}}">
