@@ -1,5 +1,6 @@
 <div class="main-content patient-details">
 
+    {{#unless todayData.isDisabled}}
     <div>
         <h1>{{metadata.name}}</h1>
         <h2>Today's {{metadata.name}} Level: </h2>
@@ -29,6 +30,7 @@
         </form>
         {{/with}}
     </div>
+    {{/unless}}
 
     <div>
         <h2>
