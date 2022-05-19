@@ -15,7 +15,7 @@
         <a href="messages"><button class="small-button-variant">View all</button></a>
     </div>
     <div class="dashboard-main">
-        <h1>Today's tasks:</h1>
+        <h1>Your data</h1>
         <div class="patient-data">
             {{#each userData.dataEntries}}
             <div class="task">
@@ -30,57 +30,52 @@
             </div>
             {{/each}}
         </div>
-        <h1>Top Engagement rates in the past 365 days</h1>
+        <h1>Top Engagement Rates</h1>
+        {{#with leaderboardsPodium}}
         <div class="podium">
             <span id="second-place">2nd</span>
             <span id="first-place">1st</span>
             <span id="third-place">3rd</span>
-            <p id="second-place-text">Bob 95%</p>
-            <p id="first-place-text">Alice 97%</p>
-            <p id="third-place-text">Charlie 93%</p>
+            <p id="second-place-text">
+                {{#if second.name}}
+                    {{second.name}} {{second.engagementRate}}%
+                {{/if}}
+            </p>
+            <p id="first-place-text">
+                {{#if first.name}}
+                    {{first.name}} {{first.engagementRate}}%
+                {{/if}}
+            </p>
+            <p id="third-place-text">
+                {{#if third.name}}
+                    {{third.name}} {{third.engagementRate}}%
+                {{/if}}
+            </p>
         </div>
-        <h2>Your rank</h2>
+        {{/with}}
+        <h2>Leaderboards</h2>
         <div class="table-parent">
             <table class="data-table">
                 <tr>
                     <th>Rank</th>
                     <th>Username</th>
-                    <th>Engagement Rate %</th>
+                    <th>Engagement Rate</th>
                 </tr>
+                {{#each leaderboards}}
                 <tr>
-                    <td>481</td>
-                    <td>Steven Armstrong</td>
-                    <td>54.1%</td>
+                    <td>{{this.rank}}</td>
+                    <td>{{this.name}}</td>
+                    <td>{{this.engagementRate}}%</td>
                 </tr>
-                <tr class="highlight">
-                    <td>482</td>
-                    <td>Pat Sadguy (You)</td>
-                    <td>53.4%</td>
-                </tr>
-                <tr>
-                    <td>483</td>
-                    <td>Lee Min Hoo</td>
-                    <td>53.2%</td>
-                </tr>
-                <tr>
-                    <td>484</td>
-                    <td>Dante Sparda</td>
-                    <td>52.8%</td>
-                </tr>
-                <tr>
-                    <td>485</td>
-                    <td>Ben Rottenborn</td>
-                    <td>52.4%</td>
-                </tr>
+                {{/each}}
             </table>
+
             <div class='page-change'>
-                <p style='text-align: center'>Show 481-485 of 2347</p>
+                <p style='text-align: center'>Show 1-5 of 5</p>
                 <div class='page-num'>
-                    <a href="">Page 1</a>
                     <button><i class='fa fa-arrow-left' style="color: white;"></i></button>
-                    <b>96</b>
+                    <b>1</b>
                     <button><i class='fa fa-arrow-right' style="color: white;"></i></button>
-                    <a href="">Your rank</a>
                 </div>
             </div>
         </div>
@@ -135,6 +130,7 @@
 <div class="pop-up" id="{{this.shortName}}-popup">
     <div class="exit-button"><span class="lni lni-close"></span></div>
     <h3 id="form-title" style="color: #0A57AE;">{{this.name}}</h3>
+    {{#unless this.isDisabled}}
     <form id="{{this.shortName}}-form" method='POST' action='/update-measurement'>
         <input type='hidden' name='type' value='{{this.index}}' />
         <div>
@@ -153,6 +149,16 @@
                 this.entry}}Submit{{else}}Resubmit{{/unless}}</button>
         </div>
     </form>
+    {{else}}
+    <p style="flex: 1">
+        Your clinician has specified that you will no longer need to record this data.
+        However, you may still view the data you've previously recorded.
+    </p>
+    <div class="button-bar">
+            <a href="/patient/{{this.shortName}}"><button class="small-button-variant" type="button">View
+                    data</button></a>
+        </div>
+    {{/unless}}
 </div>
 {{/each}}
 

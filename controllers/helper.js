@@ -59,11 +59,17 @@ function getEngagementData(dateOfRegistration, patientData) {
   patientDataList.forEach(() => {
     patientDataIndices.push(0);
   });
-  dateOfRegistration = new Date(
-    dateOfRegistration.getFullYear(),
-    dateOfRegistration.getMonth(),
-    dateOfRegistration.getDate()
-  );
+  if (dateOfRegistration) {
+    dateOfRegistration = new Date(
+      dateOfRegistration.getFullYear(),
+      dateOfRegistration.getMonth(),
+      dateOfRegistration.getDate()
+    );
+  } else {
+    console.log('Patient ' + patientData.userId + " don't have a dateOfRegistration!");
+    dateOfRegistration = new Date();
+  }
+
   let engagementSinceStart = [];
   let date = dateOfRegistration;
   let now = new Date();
