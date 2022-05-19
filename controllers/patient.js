@@ -164,7 +164,7 @@ const getPatientData = async (patientUser) => {
     data.index = i;
     //console.log(data.entry);
     // Add the entry to patient
-    if (/*data.exists ||*/ data.required) {
+    if (data.exists || data.required) {
       patient.dataEntries.push(data);
     }
   }

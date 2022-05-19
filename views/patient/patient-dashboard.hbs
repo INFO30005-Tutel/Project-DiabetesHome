@@ -15,7 +15,7 @@
         <a href="messages"><button class="small-button-variant">View all</button></a>
     </div>
     <div class="dashboard-main">
-        <h1>Today's tasks:</h1>
+        <h1>Your data</h1>
         <div class="patient-data">
             {{#each userData.dataEntries}}
             <div class="task">
@@ -135,6 +135,7 @@
 <div class="pop-up" id="{{this.shortName}}-popup">
     <div class="exit-button"><span class="lni lni-close"></span></div>
     <h3 id="form-title" style="color: #0A57AE;">{{this.name}}</h3>
+    {{#unless this.isDisabled}}
     <form id="{{this.shortName}}-form" method='POST' action='/update-measurement'>
         <input type='hidden' name='type' value='{{this.index}}' />
         <div>
@@ -153,6 +154,9 @@
                 this.entry}}Submit{{else}}Resubmit{{/unless}}</button>
         </div>
     </form>
+    {{else}}
+    
+    {{/unless}}
 </div>
 {{/each}}
 
