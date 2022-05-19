@@ -74,24 +74,25 @@
   <span id='change-password-popup' class='threshold-popup'>
     <div class='threshold-card'>
       <p><b style='font-size: 24px; color:#0a57ae;'>Change your password</b></p>
+      <p class="alert">{{msg}}</p>
       <form action="/api/change-password" method="POST" style="width: 60%; max-width: 500px;">
         <label for="oldPassword">Old password</label>
         <br>
-        <input type="text" name="oldPassword" id="oldPassword">
+        <input type="password" name="oldPassword" id="oldPassword">
         <br>
         <label for="newPassword">New password</label>
         <br>
-        <input type="text" name="newPassword" id="newPassword">
+        <input type="password" name="newPassword" id="newPassword">
         <br>
         <label for="confirmPassword">Confirm new password</label>
         <br>
-        <input type="text" name="confirmPassword" id="confirmPassword">
+        <input type="password" name="confirmPassword" id="confirmPassword">
         <br>
         <div class='popup-button-group' style="display: flex;">
           <div class="popup-cancel-button" onclick="toggleChangePassword()">
             <a>Cancel</a>
           </div>
-          <button type='submit' class='cli-btn-default' onclick='toggleChangePassword()'>Save</button>
+          <button type='submit' class='cli-btn-default'>Save</button>
         </div>
       </form>
     </div>

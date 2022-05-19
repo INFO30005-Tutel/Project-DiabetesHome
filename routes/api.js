@@ -24,16 +24,19 @@ app.post('/update-personal-info', async (req, res) => {
     res.redirect('back');
   } else {
     console.log('Error - updated personal info failed!');
+    res.status(500).redirect('back');
   }
 });
 
-app.post('/change-password', async (req, res) => {
-  let passwordChanged = await userController.changePassword(req);
-  if (passwordChanged) {
-    res.redirect('back');
-  } else {
-    console.log('Error - change password failed');
-  }
-});
+app.post('/change-password', userController.changePassword
+  // async (req, res) => {
+  //   let passwordChanged = await userController.changePassword(req);
+  //   if (passwordChanged) {
+  //     res.redirect('back');
+  //   } else {
+  //     console.log('Error - change password failed: either wrong password or confirm password not correct!');
+  //     res.status(500).redirect('back');
+  //   }}
+);
 
 module.exports = app;

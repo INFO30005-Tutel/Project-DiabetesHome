@@ -15,40 +15,42 @@ const getPersonalInfo = async (id) => {
 };
 
 const updateSelf = async (id, updateBody) => {
-  console.log(updateBody);
-  // Case of updated sucessfully
-  User.findByIdAndUpdate(id, { $set: updateBody }, { new: true })
-    .then((updatedData) => {
-      if (updatedData) {
-        return true;
-      }
-      return false;
-    })
-    // Case of error
-    .catch((err) => {
-      console.log(err);
-      return false
-    });
+  // console.log(updateBody);
+  let updatedUser = await User.findByIdAndUpdate(id, { $set: updateBody }, { new: true });
+
+  if (updatedUser) {
+    return true;
+  }
+  return false;
 };
 
-const changePassword = async (req) => {
+const changePassword = async (req, res) => {
   if (!req.user) {
-    return console.error();
+    return res.status(404).redirect('back');
   }
 
   console.log(req.body);
 
-  let user = await User.findOne({ email: req.user.email });
-
-  if (user.verifyPassword(req.body.oldPassword)) {
-    user.password = user.hashPassword(req.body.newPassword);
-
-    await user.save();
-    return true;
-  } else {
-    // return new Error("Wrong password")
-    return false;
+  if (!(req.body.newPassword === req.body.confirmPassword)) {
+    return res.status(400).send({ msg: 'Confirm password must match!' });
   }
+  if (req.body.oldPassword === req.body.newPassword) {
+    return res.status(500).send({ msg: 'Please enter new password!' });
+  }
+
+  await User.findOne({ email: req.user.email }).then(async (user) => {
+    if (user) {
+      await user.verifyPassword(req.body.oldPassword, (err, valid) => {
+        if (err || !valid) {
+          return res.status(400).send({ msg: 'Wrong password!' });
+        }
+
+        user.password = user.hashPassword(req.body.newPassword);
+        user.save();
+        return res.redirect('back');
+      });
+    }
+  });
 };
 
 module.exports = {
