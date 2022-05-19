@@ -12,6 +12,27 @@ const isAuthenticated = (req, res, next) => {
   return next();
 };
 
+const isPatient = (req, res, next) => {
+  // user don't have clinicianId -> user is clinician, not allowed to access
+  console.log(req.user);
+  if (!req.user.clinicianId) {
+    req.flash('error', 'Requires logged in as patient to access');
+    return res.redirect('/login');
+  }
+  // Otherwise, proceed to next middleware function
+  return next();
+};
+
+const isClinician = (req, res, next) => {
+  // user has clinicianId -> user is patient, not allowed to access
+  if (req.user.clinicianId) {
+    req.flash('error', 'Requires logged in as clinician to access');
+    return res.redirect('/login');
+  }
+  // Otherwise, proceed to next middleware function
+  return next();
+};
+
 // Retrieve data from an array
 function retrieveTodayData(dataArray) {
   var now = new Date();
@@ -216,6 +237,8 @@ module.exports = {
   retrieveDataDates,
   getDateAndTime,
   isAuthenticated,
+  isPatient,
+  isClinician,
   formatThreshold,
   getUserDataId,
   getEngagementData,
