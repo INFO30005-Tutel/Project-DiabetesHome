@@ -155,7 +155,14 @@
         </div>
     </form>
     {{else}}
-    
+    <p style="flex: 1">
+        Your clinician has specified that you will no longer need to record this data.
+        However, you may still view the data you've previously recorded.
+    </p>
+    <div class="button-bar">
+            <a href="/patient/{{this.shortName}}"><button class="small-button-variant" type="button">View
+                    data</button></a>
+        </div>
     {{/unless}}
 </div>
 {{/each}}
