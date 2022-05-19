@@ -77,6 +77,8 @@ const renderPatientDashboard = async (req, res) => {
   const patientEngagement = await getPatientEngagement(req.user);
   patientEngagement.engagementRate = Math.round(patientEngagement.engagementRate * 100);
   patientEngagement.badges = getBadges(patientEngagement.engagementRate);
+  const leaderboards = await userDataController.getLeaderboards();
+  console.log(leaderboards);
   res.render('patient/patient-dashboard.hbs', {
     layout: 'patient-layout.hbs',
     userId: patient._id,
