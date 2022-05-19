@@ -96,8 +96,12 @@ const renderPatientDetails = async (req, res) => {
   const metadata = findDataById(patientMetadata, req.params.dataSeries);
   const patient = req.user;
   const todayAllData = await getPatientData(patient);
+  console.log(isRequired(todayAllData, req.params.dataSeries))
+  // Check if this is a data series the patient should not record
+  if (!isRequired(todayAllData, req.params.dataSeries)) {
+    res.status(403).redirect("/patient");
+  }
   const todayData = findDataById(todayAllData.dataEntries, req.params.dataSeries);
-
   const allDataHistory = await userDataController.getDetailedData(patient._id);
   let dataId;
   switch (req.params.dataSeries) {
@@ -127,22 +131,12 @@ const getPatientData = async (patientUser) => {
   // Clone the patient's User object
   let patient = JSON.parse(JSON.stringify(patientUser));
   let patientUserData;
-  let patientHasData;
-  let patientEngagement;
 
   try {
     patientUserData = await userDataController.getTodayData(patient._id);
   } catch (err) {
     console.log(err);
   }
-  try {
-    patientHasData = await getPatientHasData(patient._id);
-  } catch (err) {
-    console.log(err);
-  }
-
-  // console.log(patientUserData);
-  // console.log(patientHasData);
 
   patientDataList = [
     patientUserData.bloodGlucoseData,
@@ -159,30 +153,13 @@ const getPatientData = async (patientUser) => {
     // Add the data entry
     data.entry = patientDataList[i];
     data.required = patientUserData.requiredFields.includes(i);
-    data.exists = patientHasData[i];
-    data.isDisabled = data.exists && !data.required;
     data.index = i;
-    //console.log(data.entry);
     // Add the entry to patient
-    if (/*data.exists ||*/ data.required) {
+    if (data.required) {
       patient.dataEntries.push(data);
     }
   }
-  //console.log(patient);
   return patient;
-};
-
-const getPatientHasData = async (patientID) => {
-  let patientData = await UserData.findOne({ userId: patientID }).lean();
-
-  let hasData = [];
-
-  hasData.push(patientData.bloodGlucoseData.length > 0);
-  hasData.push(patientData.weightData.length > 0);
-  hasData.push(patientData.insulinDoseData.length > 0);
-  hasData.push(patientData.stepCountData.length > 0);
-
-  return hasData;
 };
 
 const getPatientEngagement = async (patient) => {
@@ -219,8 +196,17 @@ const getBadges = (engagement) => {
   };
 };
 
+const isRequired = (patient, shortName) => {
+  let hasEntry = false;
+  patient.dataEntries.forEach((element) => {
+    if (element.shortName == shortName) {
+      hasEntry = true;
+    }
+  })
+  return hasEntry;
+}
+
 module.exports = {
   renderPatientDashboard,
-  getPatientHasData,
   renderPatientDetails,
 };
