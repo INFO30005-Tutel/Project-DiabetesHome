@@ -116,7 +116,7 @@
           }
         }
       }
-
+      //This function is used to delete notes or messages
       function deleteNoteOrMessage(itemId, typeId){
         const url = window.location.href ;
         const patId = url.split("/").slice(-1)[0];
@@ -132,9 +132,7 @@
         }
         return;
       }
-
       //This function is used to pop up notes and messages
-  
       function openPopUp(){
          $("#popup").addClass('active');
             $("#overlay").addClass('active');
@@ -144,9 +142,51 @@
             });
           return;
       }
-          
-    
-    
+      //This function is used to edit text style
+      function editStyle(){
+        let selectBox = document.getElementById("text-style");
+        let selectedValue = selectBox.options[selectBox.selectedIndex].value;
+        $("#text-note-message").css("font-family", selectedValue);
+      }
+      //This function is used to edit text size
+      function editSize(){
+        let selectBox = document.getElementById("text-size");
+        let selectedValue = selectBox.options[selectBox.selectedIndex].value;
+        $("#text-note-message").css("font-size", selectedValue + "px");
+      }
+      //This function is used to make text bold
+      function bold(){
+        if(($("#text-note-message").css("font-weight")) == 700){
+           $("#text-note-message").css("font-weight", 400);
+           console.log(0);
+        }
+        else {
+           $("#text-note-message").css("font-weight", 700);
+        }
+        return;
+      }
+      //This function is used to make text italic
+      function italic(){
+      
+        if($("#text-note-message").css("font-style") == "italic"){
+           $("#text-note-message").css("font-style", "normal");
+        }
+        else {
+           $("#text-note-message").css("font-style", "italic");
+        }
+        return;
+      }
+      //This function is used to align text.
+       function alignText(option){
+        let initialAlignment = $("#text-note-message").css("text-align");
+        if($("#text-note-message").css("text-align") != option){
+           $("#text-note-message").css("text-align", option);
+        }
+        else {
+           $("#text-note-message").css("text-align", initialAlignment);
+        }
+        return;
+      }
     </script>
 
   </body>

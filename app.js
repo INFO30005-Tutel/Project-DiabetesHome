@@ -17,17 +17,14 @@ app.use(flash());
 
 // Setup Handlebars
 const exphbs = require('express-handlebars');
-const hbs = require('hbs');
 
-//hbs.registerPartials(__dirname + '/views/partials');
 app.engine(
   'hbs',
   exphbs.engine({
     defaultLayout: 'main',
     extname: 'hbs',
     partialsDir: [
-      path.join(__dirname, 'views/clinician'),
-      path.join(__dirname, '/views/partials')
+      path.join(__dirname, 'views/clinician')
     ],
     handlebars: allowInsecurePrototypeAccess(handlebars)
   })

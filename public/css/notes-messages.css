@@ -141,6 +141,8 @@
 #note-message-form input{
     width:53vw;
     height:100%;
+    font-family: 'Courier New';
+    font-style: 'normal';
 }
 #note-message-form button{
     width:160px;
@@ -149,7 +151,6 @@
     margin-left: 140px;
     margin-top:20px;
     font-size: 25px;
-
 }
 #cancel-button{
     background-color: #F4F4F4 !important;
@@ -161,7 +162,7 @@
 @media screen and (min-width:1500px){
     #note-message-form button{
         width: 200px;
-        
+
     }
 }
 
