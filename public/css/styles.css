@@ -458,6 +458,11 @@ button:hover {
   margin: 0;
 }
 
+.infomative {
+  color: green;
+  margin: 0;
+}
+
 /* LARGER SCREEN */
 @media (min-width: 850px) {
   .title {

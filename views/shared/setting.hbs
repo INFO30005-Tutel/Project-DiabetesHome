@@ -67,23 +67,30 @@
     <h2 class='sub-title'>Account</h2>
     <div class='threshold-card'>
       <p><b style='font-size: 24px; color:#0a57ae;'>Change your password</b></p>
-      {{#each flash}}
+      {{#if messages}}
       <div style="text-align: center;">
-        <p class="alert">{{this}}</p>
+        <p class="alert">{{messages.error}}</p>
+        <p class="infomative">{{messages.info}}</p>
       </div>
-      {{/each}}
+      {{/if}}
       <form action="/api/change-password" method="POST" style="width: 60%; max-width: 500px;">
         <label for="oldPassword">Old password</label>
         <br>
-        <input type="password" name="oldPassword" id="oldPassword">
+        <input type="password" name="oldPassword" id="oldPassword" required>
         <br>
         <label for="newPassword">New password</label>
         <br>
-        <input type="password" name="newPassword" id="newPassword">
+        <input type="password" name="newPassword" id="newPassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+          oninput="check_new_password(this)"
+          title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+          required>
         <br>
         <label for="confirmPassword">Confirm new password</label>
         <br>
-        <input type="password" name="confirmPassword" id="confirmPassword">
+        <input type="password" name="confirmPassword" id="confirmPassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+          oninput="check_confirm_password(this)"
+          title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+          required>
         <br>
         <div class="button-wrapper" style="margin-top: 10px;">
           <button type='submit' class='button large-button-variant'>Save</button>
@@ -92,3 +99,23 @@
     </div>
   </div>
 </div>
+
+<script>
+  function check_confirm_password(input) {
+    if (input.value != document.getElementById('newPassword').value) {
+      input.setCustomValidity('New password must be matching.');
+    } else {
+      // input is valid -- reset the error message
+      input.setCustomValidity('');
+    }
+  }
+
+  function check_new_password(input) {
+    if (input.value == document.getElementById('oldPassword').value) {
+      input.setCustomValidity('Please enter new password!');
+    } else {
+      // input is valid -- reset the error message
+      input.setCustomValidity('');
+    }
+  }
+</script>

@@ -10,7 +10,7 @@ const getPersonalInfo = async (id) => {
     console.log(err);
   }
 
-  console.log(personalInfo);
+  //console.log(personalInfo);
   return personalInfo;
 };
 
@@ -26,35 +26,25 @@ const updateSelf = async (id, updateBody) => {
 
 const changePassword = async (req, res) => {
   if (!req.user) {
-    return res.status(404).redirect('back');
+    return false;
   }
-
   console.log(req.body);
 
-  if (!(req.body.newPassword === req.body.confirmPassword)) {
-    req.flash('error', 'Confirm password must match!');
-    //req.session.error = 'Confirm password must match!';
-    return res.redirect('back', { message: req.flash('error') });
-  }
-  if (req.body.oldPassword === req.body.newPassword) {
-    req.flash('error', 'Please enter new password!');
-    // req.session.error = 'Please enter new password!';
-    return res.redirect('back');
-  }
+  await User.findOne({ email: req.user.email }).then((user) => {
+    user.verifyPassword(req.body.oldPassword, async (err, valid) => {
+      if (err || !valid) {
+        console.log('Wrong password!');
+        req.flash('error', 'Wrong password!');
+      }
+      else {
+        user.password = await user.hashPassword(req.body.newPassword);
+        await user.save();
+        console.log('Password changed!');
+        req.flash('info', 'Password changed!');
+      }
 
-  await User.findOne({ email: req.user.email }).then(async (user) => {
-    if (user) {
-      await user.verifyPassword(req.body.oldPassword, (err, valid) => {
-        if (err || !valid) {
-          req.flash('error', 'Wrong password!');
-          return res.redirect('back');
-        }
-
-        user.password = user.hashPassword(req.body.newPassword);
-        user.save();
-        return res.redirect('back');
-      });
-    }
+      res.redirect('back');
+    });
   });
 };
 

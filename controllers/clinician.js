@@ -59,13 +59,11 @@ const renderRegisterPatient = async (req, res) => {
 const renderSetting = async (req, res) => {
   const personalInfo = await UserController.getPersonalInfo(req.user._id);
   personalInfo.dateOfBirth = personalInfo.dateOfBirth.toISOString().substr(0, 10);
-  const formattedRegDate = HelperController.getDateAndTime(personalInfo.dateOfRegistration);
 
   res.render('shared/setting.hbs', {
     layout: 'clinician-layout.hbs',
     isPatient: false,
     personalInfo: personalInfo,
-    formattedRegDate: formattedRegDate,
   });
 };
 
