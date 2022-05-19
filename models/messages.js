@@ -9,7 +9,8 @@ const MessageSchema = new mongoose.Schema({
         {
             content:{type:String, required: true},
             time:{type:Date,required:true},
-            type: {type: Number, default:0}
+            type: {type: Number, default:0},
+            style:{type:String}
         }
     ]
 })

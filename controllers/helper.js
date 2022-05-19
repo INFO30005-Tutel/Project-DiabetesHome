@@ -102,6 +102,13 @@ var formatDateTime = (inputDT)=>{
   var result = time.toStrin() + date.toString();
   return result;
 }
+
+const styleSingleNoteOrMessage = function (fontFamily, fontSize, fontWeight, fontStyle, textAlign){
+const defaultStyle = "background-color: #D0E0F1; width:350px; height:350px; border-radius: 16px; color:#011684;position: relative;display: inline-block; padding-top: 20px; padding-left: 20px;";
+const inputStyle = `font-family: ${fontFamily} !important;font-size: ${fontSize};font-weight: ${fontWeight};font-style: ${fontStyle};text-align: ${textAlign};`;
+
+return defaultStyle + inputStyle;
+ };
 // // Update a data identified by the data's Id =====================================
 // function updateData(controller, req, res) {
 //   // Get the id
@@ -184,5 +191,6 @@ module.exports = {
   getDateAndTime,
   isAuthenticated,
   formatThreshold,
-  formatDateTime
+  formatDateTime,
+  styleSingleNoteOrMessage
 };

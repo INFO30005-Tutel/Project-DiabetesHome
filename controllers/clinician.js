@@ -12,7 +12,7 @@ const hbs = create({
     formateDateTime(input){HelperController.formatDateTime(input)}
   }
 })
-const textSize = [8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72];
+const textSize = [8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26];
 const textStyle =  ["Arial", "Times New Roman", "Times", "Courier New",  "Courier", "Verdana", "Georgia", "Palantino", "Garamond", "Bookman", "Tahoma", "Trebuchet MS", "Arial Black", "Comic Sans Ms", "Impact"];
 const renderNotes = async (req, res) => {
   const patId = req.params.patId;
@@ -237,11 +237,9 @@ const getIconColor = (patient) => {
   return ok;
 };
 
-
 handlebars.registerHelper('getTextColor', getTextColor);
 handlebars.registerHelper('getIcon', getIcon);
 handlebars.registerHelper('getIconColor', getIconColor);
-//handlebars.registerHelper('getNoteOrMessageInfo', getNoteOrMessageInfo);
 module.exports = {
   renderClinicianDashboard,
   renderPatientProfile,

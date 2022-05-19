@@ -144,46 +144,57 @@
       }
       //This function is used to edit text style
       function editStyle(){
+        const target = "font-family";
         let selectBox = document.getElementById("text-style");
         let selectedValue = selectBox.options[selectBox.selectedIndex].value;
-        $("#text-note-message").css("font-family", selectedValue);
+        $("#text-note-message").css(target, selectedValue);
+        $(`#${target}`).val(selectedValue);
       }
       //This function is used to edit text size
       function editSize(){
+        const target = "font-size";
         let selectBox = document.getElementById("text-size");
-        let selectedValue = selectBox.options[selectBox.selectedIndex].value;
-        $("#text-note-message").css("font-size", selectedValue + "px");
+        let selectedValue = selectBox.options[selectBox.selectedIndex].value + "px";
+        $("#text-note-message").css(target, selectedValue);
+        $(`#${target}`).val(selectedValue);
       }
       //This function is used to make text bold
       function bold(){
-        if(($("#text-note-message").css("font-weight")) == 700){
-           $("#text-note-message").css("font-weight", 400);
-           console.log(0);
+        const target = "font-weight";
+        if(($("#text-note-message").css(target)) == 700){
+           $("#text-note-message").css(target, 400);
+           $(`#${target}`).val("400");
         }
         else {
-           $("#text-note-message").css("font-weight", 700);
+           $("#text-note-message").css(target, 700);
+          $(`#${target}`).val("700")
         }
         return;
       }
       //This function is used to make text italic
       function italic(){
-      
+         const target = "font-style";
         if($("#text-note-message").css("font-style") == "italic"){
            $("#text-note-message").css("font-style", "normal");
+           $(`#${target}`).val("normal");
         }
         else {
            $("#text-note-message").css("font-style", "italic");
+           $(`#${target}`).val("italic");
         }
         return;
       }
       //This function is used to align text.
        function alignText(option){
-        let initialAlignment = $("#text-note-message").css("text-align");
-        if($("#text-note-message").css("text-align") != option){
-           $("#text-note-message").css("text-align", option);
+        const target = "text-align";
+        let initialAlignment = $("#text-note-message").css(target);
+        if($("#text-note-message").css(target) != option){
+           $("#text-note-message").css(target, option);
+           $(`#${target}`).val(option)
         }
         else {
            $("#text-note-message").css("text-align", initialAlignment);
+           $(`#${target}`).val(initialAlignment);
         }
         return;
       }

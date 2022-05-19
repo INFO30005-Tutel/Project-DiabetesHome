@@ -1,12 +1,14 @@
 const Notes = require('../models/notes');
-
+const Helper = require('./helper');
 //This function is used to add a new note for each patient based on a patient's ID
 const addNote = async(req, res)=>{
     const patId = req.params.patId; 
     let date = new Date();
+    let style = Helper.styleSingleNoteOrMessage(req.body.fontFamily, req.body.fontSize, req.body.fontWeight, req.body.fontStyle, req.body.textAlign);
     let newNote = {
         content: req.body.note,
-        time: date
+        time: date,
+        style: style
     }
     console.log(newNote);
     try{

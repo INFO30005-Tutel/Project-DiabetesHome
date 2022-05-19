@@ -2,7 +2,6 @@
 const express = require('express');
 const app = express();
 const passport = require('passport');
-const {create} = require('express-handlebars');
 const controller = require('../controllers/clinician');
 const MessageController = require('../controllers/messages');
 const NoteController = require('../controllers/notes');

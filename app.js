@@ -24,8 +24,7 @@ app.engine(
     defaultLayout: 'main',
     extname: 'hbs',
     partialsDir: [
-      path.join(__dirname, 'views/clinician')
-    ],
+      path.join(__dirname, 'views/clinician')],
     handlebars: allowInsecurePrototypeAccess(handlebars)
   })
 );

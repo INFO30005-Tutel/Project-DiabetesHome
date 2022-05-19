@@ -64,24 +64,17 @@
     left:20%;
     height: 50vh;
 }
-.note-message-data div{
-    background-color: #D0E0F1;
-    width:350px;
-    height:350px;
-    border-radius: 16px;
-    color:#011684;
-    position: relative;
-}
+
 
 .note-message-data div img{
     width: 20px;
     height: 20px;
 }
-.note-message-data div p:first-child{
+/*.note-message-data div p:first-child{
     left: 10px;
     top:30px;
     position:absolute;
-}
+}*/
 .note-message-data div p:last-child{
     left:0;
     bottom:0;

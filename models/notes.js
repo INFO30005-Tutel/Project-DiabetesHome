@@ -7,9 +7,10 @@ const NoteSchema = new mongoose.Schema({
     },
     notes:[
         {
-            content:{type:String},
+            content:{type:String, required: true},
             time:{type:Date, required: true},
-            type: {type: Number, default:1}
+            type: {type: Number, default:1},
+            style:{type:String}
         }
     ],
 })
