@@ -1,5 +1,5 @@
 const UserData = require('../models/user-data');
-const UserModel = require('../models/user')
+const UserModel = require('../models/user');
 const Helper = require('../controllers/helper');
 
 const getTodayData = async (patientId) => {
@@ -19,26 +19,33 @@ const getPatientEngagement = async (dateOfRegistration, patientId) => {
 };
 
 const getLeaderboards = async () => {
-  let patients = await UserModel.find({"clinicianId": {"$ne": null}}, ["_id", "firstName", "lastName", "dateOfRegistration"]).lean();
-  let leaderboards = await Promise.all(patients.map(async (patient) => {
-    let leaderboardEntry = {}
-    let engagement = await getPatientEngagement(patient.dateOfRegistration, patient._id);
-    leaderboardEntry.name = patient.firstName + " " + patient.lastName;
-    leaderboardEntry.engagementRate = engagement.engagementRate * 100;
-    return leaderboardEntry;
-  }));
+  let patients = await UserModel.find({ clinicianId: { $ne: null } }, [
+    '_id',
+    'firstName',
+    'lastName',
+    'dateOfRegistration',
+  ]).lean();
+  let leaderboards = await Promise.all(
+    patients.map(async (patient) => {
+      let leaderboardEntry = {};
+      let engagement = await getPatientEngagement(patient.dateOfRegistration, patient._id);
+      leaderboardEntry.name = patient.firstName + ' ' + patient.lastName;
+      leaderboardEntry.engagementRate = engagement.engagementRate * 100;
+      return leaderboardEntry;
+    })
+  );
   // Sort leaderboards by ER
   leaderboards.sort((a, b) => {
     //
-    return -(a.engagementRate - b.engagementRate)
-  })
+    return -(a.engagementRate - b.engagementRate);
+  });
   // Add ranks, and then round engagement rate to 2 decimals
   for (let i = 0; i < leaderboards.length; ++i) {
-    leaderboards[i].rank = i+1;
+    leaderboards[i].rank = i + 1;
     leaderboards[i].engagementRate = leaderboards[i].engagementRate.toFixed(1);
   }
-  return leaderboards
-}
+  return leaderboards;
+};
 
 const getAllDataDates = async (patientId) => {
   let patientData = await UserData.findOne({ userId: patientId }).lean();
@@ -68,7 +75,7 @@ const updateUserDataMeasurement = async (req, res) => {
 
   let input = {
     value: req.body.value,
-    note: req.body.note,
+    note: req.body.note.trim(),
     inputAt: new Date(),
   };
   let now = new Date();

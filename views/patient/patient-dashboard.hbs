@@ -141,7 +141,7 @@
         <div>
             <input type="number" class="small-input" {{#if this.entry}}value="{{this.entry.value}}" {{/if}}
                 placeholder="Input here" name="value" min="{{this.minValid}}" max="{{this.maxValid}}"
-                step="{{this.incStep}}">
+                step="{{this.incStep}}" oninput="preventMultipleZero(this)" required>
             <label for="enter-data" id="unit" name="unit">{{this.units}}</label>
         </div>
         <h4>Notes</h4>

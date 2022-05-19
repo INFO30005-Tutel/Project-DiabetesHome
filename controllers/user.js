@@ -35,14 +35,16 @@ const changePassword = async (req, res) => {
       if (err || !valid) {
         console.log('Wrong password!');
         req.flash('error', 'Wrong password!');
+      } else {
+        if (/\s/.test(req.body.newPassword)) {
+          req.flash('error', 'Password cannot contain space!');
+        } else {
+          user.password = await user.hashPassword(req.body.newPassword);
+          await user.save();
+          console.log('Password changed!');
+          req.flash('info', 'Password changed!');
+        }
       }
-      else {
-        user.password = await user.hashPassword(req.body.newPassword);
-        await user.save();
-        console.log('Password changed!');
-        req.flash('info', 'Password changed!');
-      }
-
       res.redirect('back');
     });
   });

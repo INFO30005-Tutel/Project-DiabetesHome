@@ -121,6 +121,13 @@
     return result;
   };
 
+  function preventMultipleZero(input){
+    var val = input.value;
+    if(val.startsWith("0")){
+      input.value = "0";
+    }
+  }
+
   $(".datepicker").datepicker({
     prevText: '<i class="fa fa-fw fa-angle-left"></i>',
     nextText: '<i class="fa fa-fw fa-angle-right"></i>',
