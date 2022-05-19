@@ -6,21 +6,28 @@ const clinicianController = require('../controllers/clinician');
 const userDataController = require('../controllers/user-data');
 const helper = require('../controllers/helper');
 
-app.get('/clinician', helper.isAuthenticated, clinicianController.renderClinicianDashboard);
+app.get(
+  '/clinician',
+  helper.isAuthenticated,
+  helper.isClinician,
+  clinicianController.renderClinicianDashboard
+);
 
 app.get(
   '/clinician/register-patient',
   helper.isAuthenticated,
+  helper.isClinician,
   clinicianController.renderRegisterPatient
 );
 
 app.get(
   '/clinician/view-patient/:patId',
   helper.isAuthenticated,
+  helper.isClinician,
   clinicianController.renderPatientProfile
 );
 
-app.post('/change-parameter/:id', async (req, res) => {
+app.post('/change-parameter/:id', helper.isAuthenticated, helper.isClinician, async (req, res) => {
   let updatedUserData = await userDataController.changePatientRecordParameter(req, res);
   if (updatedUserData) {
     res.redirect('back');
@@ -32,6 +39,7 @@ app.post('/change-parameter/:id', async (req, res) => {
 app.post(
   '/clinician/register-patient',
   helper.isAuthenticated,
+  helper.isClinician,
   clinicianController.formatPatientRegister,
   passport.authenticate('register', {
     session: false,
