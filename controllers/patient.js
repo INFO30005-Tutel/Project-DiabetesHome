@@ -168,6 +168,16 @@ const getPatientData = async (patientUser) => {
       patient.dataEntries.push(data);
     }
   }
+  // Sort the data so disabled entries always comes last
+  patient.dataEntries.sort((a, b) => {
+    if (a.isDisabled) {
+      if (b.isDisabled) {
+        return 0;
+      }
+      return 1;
+    }
+    return -1;
+  })
   //console.log(patient);
   return patient;
 };
