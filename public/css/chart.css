@@ -44,7 +44,6 @@
 }
 
 .table-section {
-  align-items: center;
   margin-top: 15px;
 }
 
@@ -128,4 +127,25 @@
 .detailed-table tr {
   text-align: center;
   height: 30px;
+}
+
+.dataTables_length {
+  margin-bottom: 18px;
+}
+
+.dataTables_length label {
+  font-weight: bold;
+}
+
+.dataTables_filter {
+  display: none;
+}
+
+.dataTables_info {
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.dataTables_paginate {
+  margin-top: 15px;
 }
