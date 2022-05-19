@@ -43,20 +43,58 @@ const patientMetadata = [
   },
 ];
 
+const badges = [
+  {
+    name: 'Thorough',
+    engagement: 80,
+    icon: '/images/badges/icon-thorough.svg',
+  },
+  {
+    name: 'Diligent',
+    engagement: 85,
+    icon: '/images/badges/icon-diligent.svg',
+  },
+  {
+    name: 'Devoted',
+    engagement: 90,
+    icon: '/images/badges/icon-devoted.svg',
+  },
+  {
+    name: 'Meticulous',
+    engagement: 95,
+    icon: '/images/badges/icon-meticulous.svg',
+  },
+  {
+    name: 'Perfectionist',
+    engagement: 98,
+    icon: '/images/badges/icon-perfectionist.svg',
+  },
+];
+
 // handle dashboard data
 const renderPatientDashboard = async (req, res) => {
-  const patient = req.user;
+  const patient = await getPatientData(req.user);
   const dateAndTime = helperController.getDateAndTime(new Date());
+  const patientEngagement = await getPatientEngagement(req.user);
+  patientEngagement.engagementRate = Math.round(patientEngagement.engagementRate * 100);
+  patientEngagement.badges = getBadges(patientEngagement.engagementRate);
+  let leaderboards = await userDataController.getLeaderboards();
+  let podium = getPodium(leaderboards);
+  // Truncate leaderboards to top 30
+  leaderboards = leaderboards.slice(0, 30);
   res.render('patient/patient-dashboard.hbs', {
     layout: 'patient-layout.hbs',
     userId: patient._id,
     // Not normal UserData, but a combined User and UserData
-    userData: await getPatientData(patient),
+    userData: patient,
     metadata: patientMetadata,
+    engagement: patientEngagement,
     date: dateAndTime.date,
     weekDay: dateAndTime.weekDay,
     time: dateAndTime.time,
     inputDates: await userDataController.getAllDataDates(patient._id),
+    leaderboards: leaderboards,
+    leaderboardsPodium: podium,
   });
 };
 
@@ -65,6 +103,10 @@ const renderPatientDetails = async (req, res) => {
   const metadata = findDataById(patientMetadata, req.params.dataSeries);
   const patient = req.user;
   const todayAllData = await getPatientData(patient);
+  if (!isRequired(todayAllData, req.params.dataSeries)) {
+    res.status(403).redirect('/patient');
+    return;
+  }
   const todayData = findDataById(todayAllData.dataEntries, req.params.dataSeries);
 
   const allDataHistory = await userDataController.getDetailedData(patient._id);
@@ -97,6 +139,7 @@ const getPatientData = async (patientUser) => {
   let patient = JSON.parse(JSON.stringify(patientUser));
   let patientUserData;
   let patientHasData;
+  let patientEngagement;
 
   try {
     patientUserData = await userDataController.getTodayData(patient._id);
@@ -108,6 +151,7 @@ const getPatientData = async (patientUser) => {
   } catch (err) {
     console.log(err);
   }
+
   // console.log(patientUserData);
   // console.log(patientHasData);
 
@@ -131,10 +175,20 @@ const getPatientData = async (patientUser) => {
     data.index = i;
     //console.log(data.entry);
     // Add the entry to patient
-    if (/*data.exists ||*/ data.required) {
+    if (data.exists || data.required) {
       patient.dataEntries.push(data);
     }
   }
+  // Sort the data so disabled entries always comes last
+  patient.dataEntries.sort((a, b) => {
+    if (a.isDisabled) {
+      if (b.isDisabled) {
+        return 0;
+      }
+      return 1;
+    }
+    return -1;
+  });
   //console.log(patient);
   return patient;
 };
@@ -150,6 +204,19 @@ const getPatientHasData = async (patientID) => {
   hasData.push(patientData.stepCountData.length > 0);
 
   return hasData;
+};
+
+const getPatientEngagement = async (patient) => {
+  let patientEngagement;
+  try {
+    patientEngagement = await userDataController.getPatientEngagement(
+      patient.dateOfRegistration,
+      patient._id
+    );
+  } catch (err) {
+    console.log(err);
+  }
+  return patientEngagement;
 };
 
 const findDataById = (data, id, id_label = 'shortName') => {
@@ -175,6 +242,43 @@ const renderSetting = async (req, res) => {
     clinicianInfo: clinicianInfo,
     formattedDobClinician: formattedDobClinician,
   });
+}
+const getBadges = (engagement) => {
+  let index = -1;
+  while (index + 1 < badges.length && engagement >= badges[index + 1].engagement) {
+    ++index;
+  }
+  return {
+    badge: badges[index],
+    nextBadge: badges[index + 1],
+  };
+};
+
+const getPodium = (leaderboards) => {
+  return {
+    first: {
+      name: leaderboards[0].name,
+      engagementRate: leaderboards[0].engagementRate,
+    },
+    second: {
+      name: leaderboards[1].name,
+      engagementRate: leaderboards[1].engagementRate,
+    },
+    third: {
+      name: leaderboards[2].name,
+      engagementRate: leaderboards[2].engagementRate,
+    },
+  };
+};
+
+const isRequired = (patient, shortName) => {
+  let hasEntry = false;
+  patient.dataEntries.forEach((element) => {
+    if (element.shortName == shortName) {
+      hasEntry = true;
+    }
+  });
+  return hasEntry;
 };
 
 module.exports = {

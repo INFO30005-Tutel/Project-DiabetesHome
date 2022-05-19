@@ -6,6 +6,11 @@ const helper = require('../controllers/helper');
 
 app.get('/patient', helper.isAuthenticated, controller.renderPatientDashboard);
 app.get('/patient/setting', helper.isAuthenticated, controller.renderSetting);
-app.get('/patient/view-data/:dataSeries', helper.isAuthenticated, controller.renderPatientDetails);
+app.get(
+  '/patient/view-data/:dataSeries',
+  helper.isAuthenticated,
+  helper.isPatient,
+  controller.renderPatientDetails
+);
 
 module.exports = app;

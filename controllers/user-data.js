@@ -1,4 +1,5 @@
 const UserData = require('../models/user-data');
+const UserModel = require('../models/user')
 const Helper = require('../controllers/helper');
 
 const getTodayData = async (patientId) => {
@@ -11,6 +12,33 @@ const getTodayData = async (patientId) => {
 
   return patientData;
 };
+
+const getPatientEngagement = async (dateOfRegistration, patientId) => {
+  let patientData = await UserData.findOne({ userId: patientId }).lean();
+  return Helper.getEngagementData(dateOfRegistration, patientData);
+};
+
+const getLeaderboards = async () => {
+  let patients = await UserModel.find({"clinicianId": {"$ne": null}}, ["_id", "firstName", "lastName", "dateOfRegistration"]).lean();
+  let leaderboards = await Promise.all(patients.map(async (patient) => {
+    let leaderboardEntry = {}
+    let engagement = await getPatientEngagement(patient.dateOfRegistration, patient._id);
+    leaderboardEntry.name = patient.firstName + " " + patient.lastName;
+    leaderboardEntry.engagementRate = engagement.engagementRate * 100;
+    return leaderboardEntry;
+  }));
+  // Sort leaderboards by ER
+  leaderboards.sort((a, b) => {
+    //
+    return -(a.engagementRate - b.engagementRate)
+  })
+  // Add ranks, and then round engagement rate to 2 decimals
+  for (let i = 0; i < leaderboards.length; ++i) {
+    leaderboards[i].rank = i+1;
+    leaderboards[i].engagementRate = leaderboards[i].engagementRate.toFixed(1);
+  }
+  return leaderboards
+}
 
 const getAllDataDates = async (patientId) => {
   let patientData = await UserData.findOne({ userId: patientId }).lean();
@@ -324,6 +352,8 @@ const getDataColStyle = async (dataIndex) => {
 
 module.exports = {
   getTodayData,
+  getPatientEngagement,
+  getLeaderboards,
   getAllDataDates,
   updateUserDataMeasurement,
   changePatientRecordParameter,
