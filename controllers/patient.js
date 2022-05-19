@@ -96,6 +96,10 @@ const renderPatientDetails = async (req, res) => {
   const metadata = findDataById(patientMetadata, req.params.dataSeries);
   const patient = req.user;
   const todayAllData = await getPatientData(patient);
+  if (!isRequired(todayAllData, req.params.dataSeries)) {
+    res.status(403).redirect("/patient");
+    return;
+  }
   const todayData = findDataById(todayAllData.dataEntries, req.params.dataSeries);
 
   const allDataHistory = await userDataController.getDetailedData(patient._id);
@@ -164,10 +168,20 @@ const getPatientData = async (patientUser) => {
     data.index = i;
     //console.log(data.entry);
     // Add the entry to patient
-    if (/*data.exists ||*/ data.required) {
+    if (data.exists || data.required) {
       patient.dataEntries.push(data);
     }
   }
+  // Sort the data so disabled entries always comes last
+  patient.dataEntries.sort((a, b) => {
+    if (a.isDisabled) {
+      if (b.isDisabled) {
+        return 0;
+      }
+      return 1;
+    }
+    return -1;
+  })
   //console.log(patient);
   return patient;
 };
@@ -218,6 +232,16 @@ const getBadges = (engagement) => {
     nextBadge: badges[index + 1],
   };
 };
+
+const isRequired = (patient, shortName) => {
+  let hasEntry = false;
+  patient.dataEntries.forEach((element) => {
+    if (element.shortName == shortName) {
+      hasEntry = true;
+    }
+  })
+  return hasEntry;
+}
 
 module.exports = {
   renderPatientDashboard,
