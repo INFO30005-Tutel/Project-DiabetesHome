@@ -6,6 +6,13 @@
     left:25%;
     top:50px;
 }
+#edit-options button{
+    margin-top: 20px;
+    background-color: #F4F4F4;
+}
+#edit-options button i{
+    color:#BBB8B8;
+}
 .edit-section form{
     width: 50vw;
     height: 200px;
@@ -96,7 +103,7 @@
     z-index: 10;
     background-color: white;
     width: 60vw;
-    height: 60vh;
+    height: 63vh;
     max-width: 80%;
     border-radius: 16px;
 }
@@ -137,12 +144,17 @@
     font-family: 'Courier New';
     font-style: 'normal';
 }
-#note-message-form button{
+#note-message-form div{
+    display:flex;
+    flex-direction:row;
+    justify-content: center;
+    gap: 50px;
+
+}
+#note-message-form div button{
     width:160px;
     height:50px;
     border-radius: 16px;
-    margin-left: 140px;
-    margin-top:20px;
     font-size: 25px;
 }
 #cancel-button{
@@ -152,24 +164,56 @@
     color:#0A57AE;
 }
 
-@media screen and (min-width:1500px){
-    #note-message-form button{
-        width: 200px;
-
+@media only screen and (min-width: 890px) and (max-width:1000px){
+    #note-message-form div{
+        justify-content: flex-start;
+        gap: 100px;
     }
 }
 
-@media only screen and (min-width: 600px) and (max-width:1000px){
-    #note-message-form input{
-        width: 45vw;
+@media only screen and (min-width: 790px) and (max-width: 890px){
+    #note-message-form div{
+        justify-content: flex-start;
+        gap: 80px; 
     }
 }
+
+@media only screen and (min-width: 570px) and (max-width: 790px){
+    #popup{
+        width: 70vw;
+    }
+    #note-message-form div{
+        justify-content: flex-start;
+        gap: 90px; 
+    }
+    #note-message-form div button{
+        width: 140px;
+    }
+}
+
+@media only screen and (max-width: 570px){
+    #popup{
+        width: 80vw;
+    }
+    #note-message-form div{
+        justify-content: flex-start;
+        gap: 50px; 
+    }
+    #note-message-form div button{
+        width: 100px;
+    }
+}
+
+
 @media only screen and (max-width:600px){
-    #note-message-form input{
-        width: 40vw;
-    }
+   
     #text-editor{
         margin-left:30px;
+    }
+}
+@media only screen and (max-height: 765px){
+    #popup{
+        height: 80vh;
     }
 }
 #overlay {

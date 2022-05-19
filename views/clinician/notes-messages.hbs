@@ -42,12 +42,12 @@
       <button
       onClick="bold()" 
       value = 0>
-      <i class="fa fa-bold" aria-hidden="true"></i>
+      <i class="fa fa-bold" aria-hidden="true" style = "color: #000000 !important;"></i>
       </button>
       <button
       onclick="italic()"  
       title="Italic Text">
-      <i class="fa fa-italic" aria-hidden="true"></i>
+      <i class="fa fa-italic" aria-hidden="true" style = "color: #000000 !important"></i>
       </button>
       <button
       onclick="alignText('left')" 
@@ -71,8 +71,10 @@
     <input type = "hidden" name = "fontWeight" id = "font-weight" value = "400"></input>
     <input type = "hidden" name = "fontStyle" id = "font-style" value = "normal"></input>
     <input type = "hidden" name = "textAlign" id = "text-align" value = "start"></input>
-    <button id = "cancel-button" form = "none">Cancel</button>
-    <button id = "Save-button" form = "note-message-form" type = "submit">Save</button>
+    <div>
+      <button id = "cancel-button" form = "none">Cancel</button>
+      <button id = "Save-button" form = "note-message-form" type = "submit">Save</button>
+    </div>
   </form>
 </div>
 </div>
