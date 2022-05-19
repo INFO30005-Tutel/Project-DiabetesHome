@@ -1,13 +1,12 @@
 const mongoose = require('mongoose');
 const Messages = require('../models/messages');
-
+const Helper = require('./helper');
 
 const sendMessage = async(req, res)=>{
     const patId = req.params.patId; 
-    let date = new Date();
     let newMessage = {
         content: req.body.message,
-        time: date
+        time: new Date()
     }
     try{
         let messages = await Messages.findOne({userId:patId});
@@ -16,7 +15,7 @@ const sendMessage = async(req, res)=>{
             newM.push(newMessage);
             messages = new Messages({userId: patId}, {$push:{messages:newM}});
             await messages.save();
-            res.redirect(`/clinician/messages/${patId}`);
+            res.redirect(`/clinician/message/${patId}`);
             return;
         }
         //get all the stored messages
@@ -31,7 +30,7 @@ const sendMessage = async(req, res)=>{
             storedM.push(newMessage);
         }
         await messages.save();
-        res.redirect(`/clinician/messages/${patId}`);
+        res.redirect(`/clinician/message/${patId}`);
     }
     catch(err){
         console.log(err);
@@ -62,7 +61,7 @@ const deleteMessage = async(req, res)=>{
         let messagesForUser = await Messages.findOne({userId: patId});
         //get all the stored messages
         let storedM = messagesForUser.messages;
-        //delete the required one
+        //delete the required on
         storedM = storedM.filter(message => message._id != req.body.messageId);
         //update user's collection of messages
         messagesForUser.messages = storedM;

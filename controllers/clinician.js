@@ -1,4 +1,5 @@
 const handlebars = require('handlebars');
+const {create} = require("express-handlebars");
 const UserDataController = require('./user-data');
 const HelperController = require('./helper');
 const NoteController = require('./notes');
@@ -6,6 +7,13 @@ const MessageController = require('./messages');
 const User = require('../models/user');
 const UserController = require('./user');
 
+const hbs = create({
+  helpers:{
+    formateDateTime(input){HelperController.formatDateTime(input)}
+  }
+})
+const textSize = [8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72];
+const textStyle =  ["Arial", "Times New Roman", "Times", "Courier New",  "Courier", "Verdana", "Georgia", "Palantino", "Garamond", "Bookman", "Tahoma", "Trebuchet MS", "Arial Black", "Comic Sans Ms", "Impact"];
 const renderNotes = async (req, res) => {
   const patId = req.params.patId;
   const notes = await NoteController.getNotes(patId);
@@ -14,6 +22,8 @@ const renderNotes = async (req, res) => {
     layout: 'clinician-layout.hbs',
     data: notes,
     patId: patId,
+    textSize: textSize,
+    textStyle: textStyle
   });
 };
 const renderMessages = async (req, res) => {
@@ -23,7 +33,9 @@ const renderMessages = async (req, res) => {
   res.render('clinician/patient-messages.hbs', {
     layout: 'clinician-layout.hbs',
     data: messages,
-    patId: patId
+    patId: patId,
+    textSize: textSize,
+    textStyle: textStyle
   });
 };
 
@@ -225,9 +237,7 @@ const getIconColor = (patient) => {
   return ok;
 };
 
-const getNoteOrMessageInfo = (patId, itemId, type)=>{
-  return `${patId} ${itemId} ${type}`;
-}
+
 handlebars.registerHelper('getTextColor', getTextColor);
 handlebars.registerHelper('getIcon', getIcon);
 handlebars.registerHelper('getIconColor', getIconColor);

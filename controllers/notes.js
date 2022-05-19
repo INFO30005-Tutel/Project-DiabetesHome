@@ -19,7 +19,7 @@ const addNote = async(req, res)=>{
             notes = new Notes({userId: patId, notes: newN});
             notes.save();
         }
-        res.redirect(`/clinician/notes/${patId}`);
+        res.redirect(`/clinician/note/${patId}`);
     }
     catch(err){
         console.log(err);

@@ -17,6 +17,10 @@
       href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'
     />
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
   </head>
   <body>
     {{! HEADER }}
@@ -118,16 +122,31 @@
         const patId = url.split("/").slice(-1)[0];
         if(typeId == 1){
            axios.post(`/clinician/delete-note/${patId}`,{noteId:itemId}).then(function (response) {
-           window.location = `/clinician/notes/${patId}`}).catch(function (error) {
+           window.location = `/clinician/note/${patId}`}).catch(function (error) {
            console.log(error)});
         }
         else{
            axios.post(`/clinician/delete-message/${patId}`,{messageId:itemId}).then(function (response) {
-           window.location = `/clinician/messages/${patId}`}).catch(function (error) {
+           window.location = `/clinician/message/${patId}`}).catch(function (error) {
            console.log(error)});
         }
         return;
       }
+
+      //This function is used to pop up notes and messages
+  
+      function openPopUp(){
+         $("#popup").addClass('active');
+            $("#overlay").addClass('active');
+            $("#cancel-button").on('click', function() {
+                $("#popup").removeClass('active');
+                $("#overlay").removeClass('active');
+            });
+          return;
+      }
+          
+    
+    
     </script>
 
   </body>

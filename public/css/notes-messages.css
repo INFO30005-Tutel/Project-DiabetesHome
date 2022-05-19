@@ -12,6 +12,11 @@
     background: url();
   
 }
+#search-icon{
+    position:relative;
+    top:50px;
+    left: 5px;
+}
 .edit-section form input{
     background-color: #F4F4F4;
     border-radius: 16px;
@@ -33,14 +38,22 @@
         height: 200px;
     }
 }
-.note-message-b{
+#add-button{
     background-color: #0A57AE;
-    height: 50px;
-    width: 180px;
+    height: 60px;
+    width: 200px;
     position: absolute;
     right:0;
-    top:80px;
+    top:100px;
     font-size: 20;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding-top: 5px;
+}
+#add-button p{
+    margin-top: 10px;
 }
 .note-message-data{
     display: flex;
@@ -57,22 +70,127 @@
     height:350px;
     border-radius: 16px;
     color:#011684;
+    position: relative;
 }
+
 .note-message-data div img{
     width: 20px;
     height: 20px;
 }
+.note-message-data div p:first-child{
+    left: 10px;
+    top:30px;
+    position:absolute;
+}
+.note-message-data div p:last-child{
+    left:0;
+    bottom:0;
+    position:absolute;
+}
+#bin{
+    position:absolute;
+    right:20px;
+    bottom:20px;
+}
+#popup{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 1px solid black;
+    border-radius: 10px;
+    z-index: 10;
+    background-color: white;
+    width: 60vw;
+    height: 60vh;
+    max-width: 80%;
+    border-radius: 16px;
+}
+#popup.active {
+    transform: translate(-50%, -50%) scale(1);
+}
 
+#popup .header{
+    background-color:#0A57AE;
+    height: 100px;
+    width: 100%;
+    color: white;
+    border-radius: 16px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top:0;
+}
 
-/*@media screen and (min-width: 700px) and (max-width: 850px){
-    .search-bar{
-        width: 600px;
-        height: 200px;
+#popup .header p{
+    text-align: center;
+    font-weight: bold;
+    position:relative;
+    top:30px;
+}
+#text-editor{
+    width:90%;
+    height:80%;
+    margin-left: 50px;
+}
+#note-message-form{
+    width:100%;
+    height:60%;
+    position:relative;
+}
+#note-message-form input{
+    width:53vw;
+    height:100%;
+}
+#note-message-form button{
+    width:160px;
+    height:50px;
+    border-radius: 16px;
+    margin-left: 140px;
+    margin-top:20px;
+    font-size: 25px;
+
+}
+#cancel-button{
+    background-color: #F4F4F4 !important;
+    border-style: solid;
+    border-color: #0A57AE !important;
+    color:#0A57AE;
+}
+
+@media screen and (min-width:1500px){
+    #note-message-form button{
+        width: 200px;
+        
     }
 }
-@media only screen and (min-width:850px){
-    .search-bar{
-        width: 800x;
-        height: 200px;
+
+@media only screen and (min-width: 600px) and (max-width:1000px){
+    #note-message-form input{
+        width: 45vw;
     }
-}*/
+}
+@media only screen and (max-width:600px){
+    #note-message-form input{
+        width: 40vw;
+    }
+    #text-editor{
+        margin-left:30px;
+    }
+}
+#overlay {
+    position: fixed;
+    opacity: 0;
+    transition: 200ms ease-in-out;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .5);
+    pointer-events: none;
+  }
+ #overlay.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+  

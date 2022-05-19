@@ -1,0 +1,80 @@
+<div>
+<a id = "backToProfile" href = "">< Back to profile</a>
+<div class = "edit-section">
+  <form>
+    <div>
+      <i class="fa fa-search fa-lg" id = "search-icon" aria-hidden="true"></i>
+      <input type = "text" placeholder="      search {{type}}.." name = "search">
+    </div>
+  </form>
+  <button class = "note-message-b" id = "add-button" type = "submit" onClick = "openPopUp()">
+      <p>New {{#if typeId}}Note{{else}}Message{{/if}}</p>
+      <i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i>
+  </button>
+</div>
+<div class = "note-message-data">
+  {{#each data}}
+    <div>
+      <p>{{this.content}}</p>
+      <i class="fa fa-trash fa-2x" aria-hidden="true" style = 'color: black; ' id = "bin" onClick = "deleteNoteOrMessage(`{{this._id}}`, {{this.type}})"></i>
+    </div>
+  {{/each}}
+</div>
+<div id = "popup">
+  <div class = "header"><p>Add {{type}} to this patient</p></div>
+  <div id = "text-editor">
+  <div id = "edit-options">
+    <span>
+      <select>
+        {{#each textStyle}}
+            <option>{{this}}</option>
+        {{/each}}
+      </select>
+    </span>
+    <span>
+      <select>
+        {{#each textSize}}
+            <option>{{this}}</option>
+        {{/each}}
+      </select>
+    </span>
+    <span>
+      <button
+      onclick="bold()" 
+      title="Bold Text">
+      <i class="fa fa-bold" aria-hidden="true"></i>
+      </button>
+      <button
+      onclick="italic()" 
+      class="shadow-sm btn btn-outline-success" 
+      title="Italic Text">
+      <i class="fa fa-italic" aria-hidden="true"></i>
+      </button>
+      <button
+      onclick="alignLeft()" 
+      class=" shadow-sm btn btn-outline-primary" 
+      title="Left Align">
+      <i class="fa fa-align-left"  aria-hidden= "true"></i></button>
+      <button
+      onclick="alignCenter()" 
+      class="btn shadow-sm btn-outline-secondary" 
+      title="Center Align">
+      <i class="fa fa-align-center" aria-hidden= "true"></i></button>
+      <button 
+      onclick="alignRight()" 
+      class="btn shadow-sm btn-outline-primary" 
+      title="Right Align">
+      <i class="fa fa-align-right" aria-hidden = "true"></i></button>
+    </span>
+  </div>
+<form id = "note-message-form" method = "POST" action = "/clinician/{{type}}/{{patId}}">
+    <input type = "text" placeholder= "Enter your {{type}} here..." name = {{type}}></input>
+    <button id = "cancel-button" form = "none">Cancel</button>
+    <button id = "Save-button" form = "note-message-form" type = "submit">Save</button>
+  </form>
+</div>
+</div>
+  </div>
+</div>
+<div id="overlay"></div>
+</div>
