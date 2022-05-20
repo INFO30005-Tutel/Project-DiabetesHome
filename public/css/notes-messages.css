@@ -51,7 +51,7 @@
     width: 200px;
     position: absolute;
     right:0;
-    top:100px;
+    top:150px;
     font-size: 20;
     border-radius: 16px;
     display: flex;
@@ -65,11 +65,19 @@
 .note-message-data{
     display: flex;
     flex-direction: row;
-    gap:30px;
+    gap:50px;
     align-items: center;
     position:relative;
     left:20%;
-    height: 50vh;
+    flex-wrap: wrap;
+    flex-shrink: 1;
+    width: 70%;
+    height:fit-content;
+    margin-top: 150px;
+    margin-bottom: 100px;
+    row-gap:50px;
+    flex-wrap: 1;
+
 }
 
 

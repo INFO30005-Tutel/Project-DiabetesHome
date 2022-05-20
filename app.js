@@ -25,7 +25,6 @@ app.engine(
     extname: 'hbs',
     partialsDir: [
       path.join(__dirname, 'views/clinician')],
-    handlebars: allowInsecurePrototypeAccess(handlebars),
     helpers: {
       json(obj) {
         return JSON.stringify(obj);

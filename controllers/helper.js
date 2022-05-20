@@ -71,7 +71,7 @@ const getDateAndTime = () => {
   };
 };
 
-var formatDateTime = (inputDT)=>{
+var formatDateTime = (inputDT) => {
   var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   var months = [
     'January',
@@ -87,28 +87,21 @@ var formatDateTime = (inputDT)=>{
     'November',
     'December',
   ];
-  
-  var time =
-    inputDT.getHours() +
-    ':' +
-    inputDT.getMinutes();
 
-  var date =
-    today.getDate() +
-    ' ' +
-    months[today.getMonth()] +
-    ' ' +
-    today.getFullYear();
-  var result = time.toStrin() + date.toString();
+  var time = inputDT.getHours() + ':' + inputDT.getMinutes();
+
+  var date = today.getDate() + ' ' + months[inputDT.getMonth()] + ' ' + inputDT.getFullYear();
+  var result = time.toString() + ' ' + date.toString();
   return result;
-}
+};
 
-const styleSingleNoteOrMessage = function (fontFamily, fontSize, fontWeight, fontStyle, textAlign){
-const defaultStyle = "background-color: #D0E0F1; width:350px; height:350px; border-radius: 16px; color:#011684;position: relative;display: inline-block; padding-top: 20px; padding-left: 20px;";
-const inputStyle = `font-family: ${fontFamily} !important;font-size: ${fontSize};font-weight: ${fontWeight};font-style: ${fontStyle};text-align: ${textAlign};`;
+const styleSingleNoteOrMessage = function (fontFamily, fontSize, fontWeight, fontStyle, textAlign) {
+  const defaultStyle =
+    'background-color: #D0E0F1; width:450px; height:450px; border-radius: 16px; color:#011684;position: relative;display: inline-block; padding-top: 20px; padding-left: 20px;';
+  const inputStyle = `font-family: ${fontFamily} !important;font-size: ${fontSize};font-weight: ${fontWeight};font-style: ${fontStyle};text-align: ${textAlign};`;
 
-return defaultStyle + inputStyle;
- };
+  return defaultStyle + inputStyle;
+};
 // // Update a data identified by the data's Id =====================================
 // function updateData(controller, req, res) {
 //   // Get the id
@@ -192,5 +185,5 @@ module.exports = {
   isAuthenticated,
   formatThreshold,
   formatDateTime,
-  styleSingleNoteOrMessage
+  styleSingleNoteOrMessage,
 };
