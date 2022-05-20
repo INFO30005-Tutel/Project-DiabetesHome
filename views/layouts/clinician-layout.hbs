@@ -1,5 +1,4 @@
 <html lang='en'>
-
 <head>
   <meta charset='UTF-8' />
   <meta http-equiv='X-UA-Compatible' content='IE=edge' />
@@ -23,6 +22,7 @@
   <script src='https://cdn.anychart.com/releases/8.0.0/js/anychart-base.min.js'></script>
   <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
   <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 </head>
 
 <body>
@@ -66,6 +66,15 @@
     <p class='footer-copyright'>©Diabetes@Home 2022</p>
   </footer>
   {{! END OF FOOTER }}
+
+  <script id="note-message-template" type="template/handlebars">
+      \{{#each item}}
+        <div style = "{{this.style}}">
+        \{{this.content}}
+        <i class="fa fa-trash fa-2x" aria-hidden="true" style = 'color: black;' id = "bin" onClick = "deleteNoteOrMessage(`{{this._id}}`, {{this.type}})"></i>
+        </div>
+      \{{/each}}
+  </script>
 
   <script>
     function open_settings() {
@@ -235,14 +244,41 @@
       });
     });
 
-    function filterItems(items, keyword) {
-      var filteredItems = items.filter(function (item) {
-        return item.content.indexOf(keyword) > -1;
-      });
-    }
+      function filterItems(items, keyword) {
+        var filteredItems = items.filter(function(item) {
+          return item.content.indexOf(keyword) > -1;
+        });
+        return filteredItems;
+      }
 
-    var noteMessageData = document.getElementById("note-message-data").value.split(/(?<=})\s*,\s*(?={)/);
-    console.log(noteMessageData[0]);
-  </script>
+      var noteMessageData = document.getElementById("note-message-data").value;
+      noteMessageData = noteMessageData.substring(1, noteMessageData.length - 1).split(/(?<=})\s*,\s*(?={)/);
+      noteMessageData = noteMessageData.map(JSON.parse);
+      
+      function getFilteredItems(keyword) {
+        filteredItems = filterItems(noteMessageData, keyword);
+
+        var $itemsContainer = $('.note-message-data');
+        $itemsContainer.empty();
+        var items = [];
+        var item = {};
+        var data = {};
+        var source = $('#note-message-template').html();
+        var template = Handlebars.compile(source);
+        items = filteredItems.map(function(element) {
+          return item = {
+            _id: element._id,
+            style: element.style,
+            content: element.content,
+            type: element.type,
+          }
+        });         
+      
+        data = {item: items};
+        $itemsContainer.append(template(data));
+        {{!-- console.log(source); --}}
+        {{!-- console.log(data); --}}
+      }
+    </script>
 
 </html>

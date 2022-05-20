@@ -32,8 +32,8 @@ const addNote = async(req, res)=>{
 //This function is called by a clinician to see all the notes taken for a current patient
 const getNotes = async(patId)=>{
     try{
-        let notes = await Notes.findOne({userId: patId}).lean();
-        console.log(notes.notes);
+        let notes = await Notes.findOne({userId: patId});
+        // console.log(JSON.stringify(notes.notes).split(/(?<=})\s*,\s*(?={)/));
         return notes.notes;
     }
     catch(err){
