@@ -140,7 +140,10 @@ const renderPatientDetails = async (req, res) => {
 };
 
 const renderPatientMessages = async (req, res) => {
-  const messages = await MessageController.getMessages(req.user._id);
+  let messages = await MessageController.getMessages(req.user._id);
+  if (messages != null) {
+    messages = messages.reverse()
+  }
   res.render('patient/patient-messages.hbs', {
     layout: 'patient-layout.hbs',
     messages: messages
