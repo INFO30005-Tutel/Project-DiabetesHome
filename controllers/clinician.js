@@ -42,6 +42,7 @@ const renderNotes = async (req, res) => {
     patId: patId,
     textSize: textSize,
     textStyle: textStyle,
+    patId: patId,
   });
 };
 const renderMessages = async (req, res) => {
@@ -53,6 +54,7 @@ const renderMessages = async (req, res) => {
     patId: patId,
     textSize: textSize,
     textStyle: textStyle,
+    patId: patId,
   });
 };
 
