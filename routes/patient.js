@@ -22,5 +22,11 @@ app.get(
   helper.isPatient,
   patientController.renderPatientDetails
 );
+app.get(
+  '/patient/messages',
+  helper.isAuthenticated,
+  helper.isPatient,
+  patientController.renderPatientMessages
+);
 
 module.exports = app;

@@ -1,5 +1,4 @@
 <html lang='en'>
-
 <head>
   <meta charset='UTF-8' />
   <meta http-equiv='X-UA-Compatible' content='IE=edge' />
@@ -9,9 +8,11 @@
   <link rel='stylesheet' href='/css/clinician.css' />
   <link rel='stylesheet' href='/css/popup.css' />
   <link rel='stylesheet' href='/css/chart.css' />
+  <link rel='stylesheet' href='/css/notes-messages.css' />
   <link rel='preconnect' href='https://fonts.gstatic.com' />
   <link href='https://fonts.googleapis.com/css2?family=Lexend+Mega&family=Rammetto+One&display=swap' rel='stylesheet' />
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' />
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src='https://cdn.anychart.com/releases/8.0.0/js/anychart-base.min.js'></script>
   <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
   <script src='https://unpkg.com/axios/dist/axios.min.js'></script>
@@ -21,6 +22,7 @@
   <script src='https://cdn.anychart.com/releases/8.0.0/js/anychart-base.min.js'></script>
   <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
   <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 </head>
 
 <body>
@@ -60,10 +62,19 @@
         <a href='contact'>Contact us</a>
         <a href='press-kit'>Press kit</a>
       </div>
-    </div>
-    <p class='footer-copyright'>©Diabetes@Home 2022</p>
-  </footer>
-  {{! END OF FOOTER }}
+      <p class='footer-copyright'>©Diabetes@Home 2022</p>
+    </footer>
+    {{! END OF FOOTER }}
+
+     <script id="note-message-template" type="template/handlebars">
+      \{{#each item}}
+        <div style = "\{{this.style}}">
+        \{{this.content}}
+        <h5 style = 'color: black; position: absolute; left: 20px; bottom: 20px;'>\{{this.time}}</h5>
+        <i class="fa fa-trash fa-2x" aria-hidden="true" style = 'color: black;' id = "bin" onClick = "deleteNoteOrMessage(`\{{this._id}}`, \{{this.type}})"></i>
+        </div>
+      \{{/each}}
+    </script>
 
   <script>
     function open_settings() {
@@ -121,9 +132,185 @@
         }
       }
     }
+    //This function is used to delete notes or messages
+    function deleteNoteOrMessage(itemId, typeId) {
+      const url = window.location.href;
+      const patId = url.split("/").slice(-1)[0];
+      if (typeId == 1) {
+        axios.post(`/clinician/delete-note/${patId}`, { noteId: itemId }).then(function (response) {
+          window.location = `/clinician/note/${patId}`
+        }).catch(function (error) {
+          console.log(error)
+        });
+      }
+      else {
+        axios.post(`/clinician/delete-message/${patId}`, { messageId: itemId }).then(function (response) {
+          window.location = `/clinician/message/${patId}`
+        }).catch(function (error) {
+          console.log(error)
+        });
+      }
+      return;
+    }
+    //This function is used to pop up notes and messages
+    function openPopUp() {
+      $("#popup").addClass('active');
+      $("#overlay").addClass('active');
+      $("#cancel-button").on('click', function () {
+        $("#popup").removeClass('active');
+        $("#overlay").removeClass('active');
+      });
+      return;
+    }
+    //This function is used to edit text style
+    function editStyle() {
+      const target = "font-family";
+      let selectBox = document.getElementById("text-style");
+      let selectedValue = selectBox.options[selectBox.selectedIndex].value;
+      $("#text-note-message").css(target, selectedValue);
+      $(`#${target}`).val(selectedValue);
+    }
+    //This function is used to edit text size
+    function editSize() {
+      const target = "font-size";
+      let selectBox = document.getElementById("text-size");
+      let selectedValue = selectBox.options[selectBox.selectedIndex].value + "px";
+      $("#text-note-message").css(target, selectedValue);
+      $(`#${target}`).val(selectedValue);
+    }
+    //This function is used to make text bold
+    function bold() {
+      const target = "font-weight";
+      if (($("#text-note-message").css(target)) == 700) {
+        $("#text-note-message").css(target, 400);
+        $(`#${target}`).val("400");
+      }
+      else {
+        $("#text-note-message").css(target, 700);
+        $(`#${target}`).val("700")
+      }
+      return;
+    }
+    //This function is used to make text italic
+    function italic() {
+      const target = "font-style";
+      if ($("#text-note-message").css("font-style") == "italic") {
+        $("#text-note-message").css("font-style", "normal");
+        $(`#${target}`).val("normal");
+      }
+      else {
+        $("#text-note-message").css("font-style", "italic");
+        $(`#${target}`).val("italic");
+      }
+      return;
+    }
+    //This function is used to align text.
+    function alignText(option) {
+      const target = "text-align";
+      let initialAlignment = $("#text-note-message").css(target);
+      if ($("#text-note-message").css(target) != option) {
+        $("#text-note-message").css(target, option);
+        $(`#${target}`).val(option)
+      }
+      else {
+        $("#text-note-message").css("text-align", initialAlignment);
+        $(`#${target}`).val(initialAlignment);
+      }
+      return;
+    }
+    function emoji(option) {
+      emo = "";
+      if (option === "smile") {
+        emo = "😀";
+      } else if (option === "love") {
+        emo = "❤️";
+      } else if (option === "celebrate") {
+        emo = "🎉";
+      } else if (option === "pill") {
+        emo = "💊";
+      } else if (option === "vax") {
+        emo = "💉";
+      }
+      $("#text-note-message").val(function (i, val) {
+        return val + emo;
+      });
+      return;
+    }
 
-  </script>
+      
+    $(function () {
+      $('#note-message-search').keyup(function () {
+        var keyword = $(this).val();
+        if (keyword != undefined) {
+          {{!-- console.log(keyword); --}}
+          keyword = keyword.trim().toLowerCase();
+        }
+        getFilteredItems(keyword);
+      });
+    });
 
-</body>
+      function filterItems(items, keyword) {
+        if (items.length == 0) {
+          return items;
+        }
+        var filteredItems = items.filter(function(item) {
+          return item.content.toLowerCase().indexOf(keyword) > -1;
+        });
+        return filteredItems;
+      }
+
+      var noteMessageData = document.getElementById("note-message-data").value;
+      noteMessageData = noteMessageData.substring(1, noteMessageData.length - 1).split(/(?<=})\s*,\s*(?={)/);
+      noteMessageData = noteMessageData.length > 0 ? noteMessageData.map(JSON.parse) : noteMessageData;
+      
+      function formatDateTime(inputDT) {
+        var months = [
+          'January',
+          'February',
+          'March',
+          'April',
+          'May',
+          'June',
+          'July',
+          'August',
+          'September',
+          'October',
+          'November',
+          'December',
+        ];
+
+        var minute = inputDT.getMinutes().toString().length < 2 ? "0" + inputDT.getMinutes() : inputDT.getMinutes(); 
+        var time = inputDT.getHours() + ':' + minute;
+        var date = inputDT.getDate() + ' ' + months[inputDT.getMonth()] + ' ' + inputDT.getFullYear();
+        var result = time.toString() + ' ' + date.toString();
+        return result;
+      }
+
+      function getFilteredItems(keyword) {
+        filteredItems = filterItems(noteMessageData, keyword);
+
+        var $itemsContainer = $('.note-message-data');
+        $itemsContainer.empty();
+        var items = [];
+        var item = {};
+        var data = {};
+        var source = $('#note-message-template').html();
+        var template = Handlebars.compile(source);
+        items = filteredItems.map(function(element) {
+          return item = {
+            _id: element._id,
+            style: element.style,
+            content: element.content,
+            type: element.type,
+            time: formatDateTime(new Date(element.time)),
+          }
+        });         
+      
+        data = {item: items};
+        $itemsContainer.append(template(data));
+        {{!-- console.log(source); --}}
+        {{!-- console.log(data); --}}
+      }
+    </script>
 
 </html>

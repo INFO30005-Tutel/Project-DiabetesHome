@@ -7,12 +7,15 @@
             <br>
             {{weekDay}}{{date}}
         </p>
-        <h1>Messages from your clinician</h1>
+        <h1>Today's message from your clinician</h1>
         <div class="box">
-            <p>Good work with the high engagement rate, keep it up 😊</p>
-            <a href="">Dismiss</a>
+            {{#if todayMessage}}
+                {{todayMessage.content}}
+            {{else}}
+                No messages today 😊
+            {{/if}}
         </div>
-        <a href="messages"><button class="small-button-variant">View all</button></a>
+        <a href="/patient/messages"><button class="small-button-variant">View all</button></a>
     </div>
     <div class="dashboard-main">
         <h1>Your data</h1>

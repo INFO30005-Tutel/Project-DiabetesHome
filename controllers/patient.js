@@ -3,6 +3,7 @@ const userDataController = require('./user-data');
 const helperController = require('./helper');
 const userController = require('./user');
 const UserData = require('../models/user-data');
+const MessageController = require('./messages');
 
 const patientMetadata = [
   {
@@ -80,6 +81,7 @@ const renderPatientDashboard = async (req, res) => {
   patientEngagement.badges = getBadges(patientEngagement.engagementRate);
   let leaderboards = await userDataController.getLeaderboards();
   let podium = getPodium(leaderboards);
+  const todayMessage = await MessageController.getTodayMessage(req.user._id);
   res.render('patient/patient-dashboard.hbs', {
     layout: 'patient-layout.hbs',
     userId: patient._id,
@@ -90,6 +92,7 @@ const renderPatientDashboard = async (req, res) => {
     date: dateAndTime.date,
     weekDay: dateAndTime.weekDay,
     time: dateAndTime.time,
+    todayMessage: todayMessage,
     inputDates: await userDataController.getAllDataDates(patient._id),
     leaderboards: leaderboards,
     leaderboardsPodium: podium,
@@ -135,6 +138,17 @@ const renderPatientDetails = async (req, res) => {
     dataOverview: dataOverview,
   });
 };
+
+const renderPatientMessages = async (req, res) => {
+  let messages = await MessageController.getMessages(req.user._id);
+  if (messages != null) {
+    messages = messages.reverse()
+  }
+  res.render('patient/patient-messages.hbs', {
+    layout: 'patient-layout.hbs',
+    messages: messages
+  })
+}
 
 const getPatientData = async (patientUser) => {
   // Clone the patient's User object
@@ -300,4 +314,5 @@ module.exports = {
   getPatientHasData,
   renderPatientDetails,
   renderSetting,
+  renderPatientMessages
 };

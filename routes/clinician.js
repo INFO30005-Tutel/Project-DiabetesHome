@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const passport = require('passport');
+const MessageController = require('../controllers/messages');
+const NoteController = require('../controllers/notes');
 
 const clinicianController = require('../controllers/clinician');
 const userDataController = require('../controllers/user-data');
@@ -37,6 +39,24 @@ app.post('/change-parameter/:id', helper.isAuthenticated, helper.isClinician, as
   }
 });
 
+//app.get('/clinician/messages/:patId', helper.isAuthenticated, controller.renderNotesForPatient);
+
+app.get(
+  '/clinician/message/:patId',
+  helper.isAuthenticated,
+  helper.isClinician,
+  clinicianController.renderMessages
+);
+
+//app.get('/clinician/notes/:patId', helper.isAuthenticated, controller.renderMessagesForPatient);
+
+app.get(
+  '/clinician/note/:patId',
+  helper.isAuthenticated,
+  helper.isClinician,
+  clinicianController.renderNotes
+);
+
 app.post(
   '/clinician/register-patient',
   helper.isAuthenticated,
@@ -50,6 +70,33 @@ app.post(
   })
 );
 
+app.post(
+  '/clinician/message/:patId',
+  helper.isAuthenticated,
+  helper.isClinician,
+  MessageController.sendMessage
+);
+
+app.post(
+  '/clinician/note/:patId',
+  helper.isAuthenticated,
+  helper.isClinician,
+  NoteController.addNote
+);
+
+app.post(
+  '/clinician/delete-message/:patId',
+  helper.isAuthenticated,
+  helper.isClinician,
+  MessageController.deleteMessage
+);
+
+app.post(
+  '/clinician/delete-note/:patId',
+  helper.isAuthenticated,
+  helper.isClinician,
+  NoteController.deleteNote
+);
 app.get(
   '/clinician/setting',
   helper.isAuthenticated,

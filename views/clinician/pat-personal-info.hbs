@@ -10,8 +10,12 @@
       </div>
     </div>
     <div class='flex-column' style='gap: 10px;'>
-      <button class='cli-btn cli-btn-white'>View notes<i class='fa fa-sticky-note cli-btn-icon'></i></button>
-      <button class='cli-btn cli-btn-default'>View messages<i class='fa fa-commenting-o cli-btn-icon'></i></button>
+      <a href="/clinician/note/{{patPersonalInfo._id}}">
+        <button class='cli-btn cli-btn-white'>View notes<i class='fa fa-sticky-note cli-btn-icon'></i></button>
+      </a>
+      <a href="/clinician/message/{{patPersonalInfo._id}}">
+        <button class='cli-btn cli-btn-default'>View messages<i class='fa fa-commenting-o cli-btn-icon'></i></button>
+      </a>
     </div>
   </div>
   <hr style='border: 2px solid #292929;' />

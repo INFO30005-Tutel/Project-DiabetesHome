@@ -234,4 +234,12 @@ input[type='checkbox'] {
   .searching-area {
     justify-content: center;
   }
+  .searching-area input[type='text'] {
+    width: 50vw;
+  }
 }
+
+/*These css styles below are for notes and messages*/
+
+
+

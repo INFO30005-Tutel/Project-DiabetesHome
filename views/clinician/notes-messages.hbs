@@ -1,0 +1,106 @@
+<div>
+<a id = "backToProfile" href = "/clinician/view-patient/{{patId}}"><< Back to profile</a>
+<div class = "edit-section">
+  <form>
+    <div>
+    
+      <input id="note-message-search" type = "text" placeholder="search {{type}}.." name = "search">
+      
+    </div>
+  </form>
+  <button class = "note-message-b" id = "add-button" type = "submit" onClick = "openPopUp()">
+      <p>New {{#if typeId}}Note{{else}}Message{{/if}}</p>
+      <i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i>
+  </button>
+</div>
+<input type="hidden" id="note-message-data" value="{{json data}}"></input>
+<div class = "note-message-data">
+  {{#each data}}
+    <div style = "{{this.style}}">
+      {{this.content}}
+      <h5 style = 'color: black; position: absolute; left: 20px; bottom: 20px;'>{{formatDateTime this.time}}</h5>
+      <i class="fa fa-trash fa-2x" aria-hidden="true" style = 'color: black; position: absolute; right: 20px; bottom: 20px;' id = "bin" onClick = "deleteNoteOrMessage(`{{this._id}}`, {{this.type}})"></i>
+    </div>
+  {{/each}} 
+</div>
+<div id = "popup">
+  <div class = "header"><p>Add {{type}} to this patient</p></div>
+  <div id = "text-editor">
+  <div id = "edit-options">
+    <span>
+      <select id = "text-style" onChange = "editStyle();">
+        {{#each textStyle}}
+            <option value = {{this}}>{{this}}</option>
+        {{/each}}
+      </select>
+    </span>
+    <span>
+      <select id = "text-size" onChange = "editSize();">
+        {{#each textSize}}
+            <option value = {{this}}>{{this}}</option>
+        {{/each}}
+      </select>
+    </span>
+    <span>
+      <button
+      onClick="bold()" 
+      value = 0>
+      <i class="fa fa-bold" aria-hidden="true" style = "color: #000000 !important;"></i>
+      </button>
+      <button
+      onclick="italic()"  
+      title="Italic Text">
+      <i class="fa fa-italic" aria-hidden="true" style = "color: #000000 !important"></i>
+      </button>
+      <button
+      onclick="alignText('left')" 
+      title="Left Align">
+      <i class="fa fa-align-left"  aria-hidden= "true"></i></button>
+      <button
+      onclick="alignText('center')" 
+      title="Center Align">
+      <i class="fa fa-align-center" aria-hidden= "true"></i></button>
+      <button 
+      onclick="alignText('right')" 
+      title="Right Align">
+      <i class="fa fa-align-right" aria-hidden = "true"></i></button>
+      <button
+      onClick="emoji('smile')"
+      title="smileEmoji">
+      😀</button>
+      <button
+      onClick="emoji('love')"
+      title="loveEmoji">
+      ❤️</button>
+      <button
+      onClick="emoji('celebrate')"
+      title="celebrateEmoji">
+      🎉</button>
+      <button
+      onClick="emoji('pill')"
+      title="pillEmoji">
+      💊</button>
+      <button
+      onClick="emoji('vax')"
+      title="vaxEmoji">
+      💉</button>
+    </span>
+  </div>
+<form id = "note-message-form" method = "POST" action = "/clinician/{{type}}/{{patId}}">
+    <input id = "text-note-message" type = "text" placeholder= "Enter your {{type}} here..." name = {{type}}></input>
+    <input type = "hidden" name = "fontFamily" id = "font-family" value = "Arial"></input>
+     <input type = "hidden" name = "fontSize" id = "font-size" value = "18px"></input>
+    <input type = "hidden" name = "fontWeight" id = "font-weight" value = "400"></input>
+    <input type = "hidden" name = "fontStyle" id = "font-style" value = "normal"></input>
+    <input type = "hidden" name = "textAlign" id = "text-align" value = "start"></input>
+    <div>
+      <button id = "cancel-button" form = "none">Cancel</button>
+      <button id = "Save-button" form = "note-message-form" type = "submit">Save</button>
+    </div>
+  </form>
+</div>
+</div>
+  </div>
+</div>
+<div id="overlay"></div>
+</div>

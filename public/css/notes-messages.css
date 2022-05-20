@@ -1,0 +1,194 @@
+
+.edit-section{
+    position:relative;
+    width:max-content;
+    height:auto;
+    left:25%;
+    top:50px;
+}
+#edit-options button{
+    margin-top: 20px;
+    background-color: #F4F4F4;
+}
+#edit-options button i{
+    color:#BBB8B8;
+}
+.edit-section form{
+    width: 50vw;
+    height: 200px;
+    background: url();
+  
+}
+#search-icon{
+    position:relative;
+    top:50px;
+    left: 5px;
+}
+.edit-section form input{
+    background-color: #F4F4F4;
+    border-radius: 16px;
+}
+#backToProfile{
+    text-decoration: none;
+    position:relative;
+    left:10%;
+    top:40px;
+
+    color:#011684;
+}
+::placeholder{
+    color:#011684;
+}
+@media only screen and (max-width: 800px){
+    .search-bar{
+        width: 70vw;
+        height: 200px;
+    }
+}
+#add-button{
+    background-color: #0A57AE;
+    height: 60px;
+    width: 200px;
+    position: absolute;
+    right:0;
+    top:150px;
+    font-size: 20;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding-top: 5px;
+}
+#add-button p{
+    margin-top: 10px;
+}
+.note-message-data{
+    display: flex;
+    flex-direction: row;
+    gap:50px;
+    align-items: center;
+    position:relative;
+    left:20%;
+    flex-wrap: wrap;
+    flex-shrink: 1;
+    width: 70%;
+    height:fit-content;
+    margin-top: 150px;
+    margin-bottom: 100px;
+    row-gap:50px;
+    flex-wrap: 1;
+
+}
+
+
+.note-message-data div img{
+    width: 20px;
+    height: 20px;
+}
+/*.note-message-data div p:first-child{
+    left: 10px;
+    top:30px;
+    position:absolute;
+}*/
+.note-message-data div p:last-child{
+    left:0;
+    bottom:0;
+    position:absolute;
+}
+#bin{
+    position:absolute;
+    right:20px;
+    bottom:20px;
+}
+#popup{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 1px solid black;
+    border-radius: 10px;
+    z-index: 10;
+    background-color: white;
+    width: 60vw;
+    height: 63vh;
+    max-width: 80%;
+    border-radius: 16px;
+}
+#popup.active {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+#popup .header{
+    background-color:#0A57AE;
+    height: 100px;
+    width: 100%;
+    color: white;
+    border-radius: 16px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top:0;
+}
+
+#popup .header p{
+    text-align: center;
+    font-weight: bold;
+    position:relative;
+    top:30px;
+}
+#text-editor{
+    width:90%;
+    height:80%;
+    margin-left: 50px;
+}
+#note-message-form{
+    width:100%;
+    height:60%;
+    position:relative;
+}
+#note-message-form input{
+    width:53vw;
+    height:100%;
+    font-family: 'Courier New';
+    font-style: 'normal';
+}
+#note-message-form div{
+    display:flex;
+    flex-direction:row;
+    justify-content: center;
+    gap: 50px;
+
+}
+#note-message-form div button{
+    width:160px;
+    height:50px;
+    border-radius: 16px;
+    font-size: 25px;
+}
+#cancel-button{
+    background-color: #F4F4F4 !important;
+    border-style: solid;
+    border-color: #0A57AE !important;
+    color:#0A57AE;
+}
+@media only screen and (min-height: 1200px){
+    #text-editor div{
+        margin-top: 30px;
+    }
+}
+#overlay {
+    position: fixed;
+    opacity: 0;
+    transition: 200ms ease-in-out;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .5);
+    pointer-events: none;
+  }
+ #overlay.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+  

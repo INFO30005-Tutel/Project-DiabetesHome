@@ -6,6 +6,7 @@ const session = require('express-session'); // for managing user sessions
 const mongoose = require('mongoose');
 const config = require('./config');
 const passport = require('./passport.js');
+var path = require('path');
 const app = express();
 var path = require('path');
 app.use(express.urlencoded({ extended: true })); // replaces body-parser
@@ -15,6 +16,7 @@ app.use(flash());
 
 // Setup Handlebars
 const exphbs = require('express-handlebars');
+
 app.engine(
   'hbs',
   exphbs.engine({
