@@ -62,12 +62,10 @@
         <a href='contact'>Contact us</a>
         <a href='press-kit'>Press kit</a>
       </div>
-    </div>
-    <p class='footer-copyright'>©Diabetes@Home 2022</p>
-  </footer>
-  {{! END OF FOOTER }}
-
-  <script id="note-message-template" type="template/handlebars">
+      <p class='footer-copyright'>©Diabetes@Home 2022</p>
+    </footer>
+    {{! END OF FOOTER }}
+     <script id="note-message-template" type="template/handlebars">
       \{{#each item}}
         <div style = "\{{this.style}}">
         \{{this.content}}
@@ -75,6 +73,9 @@
         </div>
       \{{/each}}
   </script>
+    <script>
+      function open_settings() {} 
+      function open_dashboard() {}
 
   <script>
     function open_settings() {
@@ -237,6 +238,7 @@
       return;
     }
 
+      
     $(function () {
       $('#note-message-search').keyup(function () {
         var keyword = $(this).val();
