@@ -139,6 +139,14 @@ const renderPatientDetails = async (req, res) => {
   });
 };
 
+const renderPatientMessages = async (req, res) => {
+  const messages = await MessageController.getMessages(req.user._id);
+  res.render('patient/patient-messages.hbs', {
+    layout: 'patient-layout.hbs',
+    messages: messages
+  })
+}
+
 const getPatientData = async (patientUser) => {
   // Clone the patient's User object
   let patient = JSON.parse(JSON.stringify(patientUser));
@@ -303,4 +311,5 @@ module.exports = {
   getPatientHasData,
   renderPatientDetails,
   renderSetting,
+  renderPatientMessages
 };

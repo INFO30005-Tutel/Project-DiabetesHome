@@ -60,7 +60,7 @@ const getTodayMessage = async(patId) => {
     try{
         let messages = await Messages.findOne({userId: patId}).lean();
         if (messages !== null && messages.messages.length > 0) {
-            let lastMessage = messages.messages[messages.length-1];
+            let lastMessage = messages.messages[messages.messages.length-1];
             let now = new Date();
             let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
             if (lastMessage.time >= today) {
