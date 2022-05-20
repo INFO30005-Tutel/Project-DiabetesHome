@@ -80,7 +80,6 @@ const renderPatientDashboard = async (req, res) => {
   patientEngagement.badges = getBadges(patientEngagement.engagementRate);
   let leaderboards = await userDataController.getLeaderboards();
   let podium = getPodium(leaderboards);
-  console.log(podium);
   res.render('patient/patient-dashboard.hbs', {
     layout: 'patient-layout.hbs',
     userId: patient._id,
@@ -127,7 +126,6 @@ const renderPatientDetails = async (req, res) => {
   }
   const dataHistory = findDataById(allDataHistory, 'detailed-' + dataId, 'id');
   const dataOverview = findDataById(overViewData, 'overview-' + dataId, 'id');
-  console.log(dataOverview);
 
   res.render('patient/patient-details.hbs', {
     layout: 'patient-layout.hbs',
