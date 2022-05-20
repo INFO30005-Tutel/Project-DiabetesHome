@@ -1,0 +1,177 @@
+/* ======== CSS FOR CHARTS, DIAGRAMS AND TABLES ======== */
+
+.date-box {
+  border: 3px solid black;
+  border-radius: 30px;
+  background-color: white;
+  color: black;
+  height: 50px;
+  width: 230px;
+  align-self: end;
+  font-size: 22px;
+  margin-right: 2rem;
+}
+
+.overview-chart {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.overview-chart h2 {
+  text-align: center;
+  text-orientation: mixed;
+  writing-mode: sideways-lr;
+  width: max-content;
+  font-size: 24px;
+}
+
+.chart-card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  border-radius: 50px;
+  border: 2px solid black;
+  width: 50vw;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chart-container {
+  width: 95%;
+  height: 95%
+}
+
+.table-section {
+  margin-top: 15px;
+}
+
+.dash-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.dash-table th {
+  color: black;
+  background-color: #dcdcdc;
+}
+
+.dash-table tr {
+  height: 65px;
+}
+
+.dash-table td {
+  text-align: center;
+}
+
+.dash-table tr:hover {
+  background-color: aliceblue;
+}
+
+.dash-table td a {
+  color: #0a57ae;
+  text-decoration: none;
+}
+
+.thres-box {
+  gap: 20px;
+  align-items: center;
+}
+
+.threshold-table {
+  border-collapse: collapse;
+  width: 90%;
+}
+
+.threshold-table tr {
+  height: 35px;
+}
+
+.threshold-table tr:hover {
+  background-color: aliceblue;
+}
+
+.thres-name {
+  text-align: start;
+}
+
+.thres-data {
+  text-align: end;
+  padding-right: 20px;
+}
+
+.thres-unit {
+  text-align: start;
+  width: 75px;
+}
+
+.thres-time {
+  text-align: center;
+  width: 125px;
+}
+
+.detailed-table {
+  width: 47%;
+  margin-bottom: 2rem;
+}
+
+.detailed-table .dataTables_info {
+  display: none;
+}
+
+.detailed-table h2 {
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 550;
+}
+
+.detailed-table tr {
+  text-align: center;
+  height: 30px;
+}
+
+.dataTables_length {
+  margin-bottom: 18px;
+}
+
+.dataTables_length label {
+  font-weight: bold;
+}
+
+.dataTables_filter {
+  display: none;
+}
+
+.dataTables_info {
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.dataTables_paginate {
+  margin-top: 15px;
+}
+
+.table-display {
+  margin-bottom: 1rem
+}
+
+.clinician-info {
+  border-collapse: collapse;
+  width: 60%;
+  margin-bottom: 20px;
+}
+
+.clinician-info h3 {
+  margin-bottom: 0px;
+  text-align: start;
+}
+
+.clinician-info tr {
+  text-align: end;
+  border-bottom: solid 2px #1b66bc;
+  height: 55px;
+}

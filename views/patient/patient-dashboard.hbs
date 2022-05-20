@@ -1,11 +1,11 @@
-<div class="patient-dashboard">
+<div class="patient-dashboard main-content">
     <div class="dashboard-side">
         <p>
             Welcome, <b>{{userData.firstName}}</b>
             <br>
             {{time}}
             <br>
-            {{date}}
+            {{weekDay}}{{date}}
         </p>
         <h1>Messages from your clinician</h1>
         <div class="box">
@@ -15,7 +15,7 @@
         <a href="messages"><button class="small-button-variant">View all</button></a>
     </div>
     <div class="dashboard-main">
-        <h1>Today's tasks:</h1>
+        <h1>Your data</h1>
         <div class="patient-data">
             {{#each userData.dataEntries}}
             <div class="task">
@@ -30,72 +30,102 @@
             </div>
             {{/each}}
         </div>
-        <h1>Top Engagement rates in the past 365 days</h1>
+        <h1>Top Engagement Rates</h1>
+        {{#with leaderboardsPodium}}
         <div class="podium">
             <span id="second-place">2nd</span>
             <span id="first-place">1st</span>
             <span id="third-place">3rd</span>
-            <p id="second-place-text">Bob 95%</p>
-            <p id="first-place-text">Alice 97%</p>
-            <p id="third-place-text">Charlie 93%</p>
+            <p id="second-place-text">
+                {{#if second.name}}
+                {{second.name}} {{second.engagementRate}}%
+                {{/if}}
+            </p>
+            <p id="first-place-text">
+                {{#if first.name}}
+                {{first.name}} {{first.engagementRate}}%
+                {{/if}}
+            </p>
+            <p id="third-place-text">
+                {{#if third.name}}
+                {{third.name}} {{third.engagementRate}}%
+                {{/if}}
+            </p>
         </div>
-        <h2>Your rank</h2>
-        <div class="ranking">
-            <table id="ranking-table">
-                <tr>
+        {{/with}}
+        <h2>Leaderboards</h2>
+        <div class="table-parent" >
+            <table class="data-table" id="leaderboards-table">
+                <thead>
                     <th>Rank</th>
                     <th>Username</th>
-                    <th>Engagement Rate %</th>
-                </tr>
-                <tr>
-                    <td>481</td>
-                    <td>Steven Armstrong</td>
-                    <td>54.1%</td>
-                </tr>
-                <tr class="your-rank">
-                    <td>482</td>
-                    <td>Pat Sadguy (You)</td>
-                    <td>53.4%</td>
-                </tr>
-                <tr>
-                    <td>483</td>
-                    <td>Lee Min Hoo</td>
-                    <td>53.2%</td>
-                </tr>
-                <tr>
-                    <td>484</td>
-                    <td>Dante Sparda</td>
-                    <td>52.8%</td>
-                </tr>
-                <tr>
-                    <td>485</td>
-                    <td>Ben Rottenborn</td>
-                    <td>52.4%</td>
-                </tr>
+                    <th>Engagement Rate</th>
+                </thead>
+                <tbody>
+                    {{#each leaderboards}}
+                    <tr>
+                        <td>{{this.rank}}</td>
+                        <td>{{this.name}}</td>
+                        <td>{{this.engagementRate}}%</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
             </table>
-            <div class='page-change'>
-                <p style='text-align: center'>Show 481-485 of 2347</p>
-                <div class='page-num'>
-                    <a href="">Page 1</a>
-                    <button><i class='fa fa-arrow-left' style="color: white;"></i></button>
-                    <b>96</b>
-                    <button><i class='fa fa-arrow-right' style="color: white;"></i></button>
-                    <a href="">Your rank</a>
-                </div>
-            </div>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    var table = $('#leaderboards-table').DataTable({
+                        "ordering": false
+                    });
+                    console.log("Stuff");
+                });
+            </script>
         </div>
     </div>
     <div class="dashboard-side">
-        <h1>Your engagement</h1>
+        <span>
+            <h1 style="display: inline-block">Your engagement</h1><i id="engagement-info" class="fa fa-info-circle"
+                aria-hidden="true"></i>
+            <div id="engagement-info" class="box">
+                <p>Days that you have previously submitted required data (partial/full) are highlighted in <span
+                        style="color:#0A57AE; font-size:inherit">blue.</span></p>
+                <p style="margin-bottom: 0;">Today date is highlighted in <span
+                        style="color:#6aa84f; font-size:inherit">green.</span></p>
+            </div>
+        </span>
+        <input type="hidden" id="inputDates" value={{inputDates}} />
         <div class="datepicker"></div>
         <div class="box">
             <img src="/images/fire.svg">
-            <h3 style="color: #0A57AE;">0 day streak</h3>
+            <h3 style="color: #0A57AE;">{{engagement.streak}} day streak</h3>
             <p style="margin-bottom: 0;">
-                Highest streak: 3 days
+                Highest streak: {{engagement.longestStreak}} days
                 <br>
-                Complete today's tasks to <b>start a new streak</b>!
+                {{#unless engagement.hasDataToday}}
+                Complete today's tasks to <b>extend your streak</b>!
+                {{else}}
+                Come back tomorrow to <b>extend your streak</b>!
+                {{/unless}}
             </p>
+        </div>
+
+        <div class="box">
+            {{#if engagement.badges.badge}}
+            <h3>Nice work!</h3>
+            <img src="{{engagement.badges.badge.icon}}">
+            {{else}}
+            <h3>You can do it!</h3>
+            {{/if}}
+            <p>Your engagement rate is <b>{{engagement.engagementRate}}%</b>. {{#if engagement.badges.badge}}
+                You have received the <b>{{engagement.badges.badge.name}}</b> badge.{{/if}}</p>
+            <p>Users who have 80% engagement rate or higher can get a special badge!</p>
+            <p>Fill in your data every day to increasing your engagement rate and earn even better badges.</p>
+            {{#if engagement.badges.nextBadge}}
+            <p>Reach an engagement rate of <b>{{engagement.badges.nextBadge.engagement}}%</b> to get the
+                <b>{{engagement.badges.nextBadge.name}}</b> badge.
+            </p>
+            {{else}}
+            <p>Incredible! You have been awarded the highest badge possible. Keep up the great work.</p>
+            {{/if}}
         </div>
     </div>
 
@@ -106,36 +136,35 @@
 <div class="pop-up" id="{{this.shortName}}-popup">
     <div class="exit-button"><span class="lni lni-close"></span></div>
     <h3 id="form-title" style="color: #0A57AE;">{{this.name}}</h3>
-    {{#unless this.entry}}
+    {{#unless this.isDisabled}}
     <form id="{{this.shortName}}-form" method='POST' action='/update-measurement'>
         <input type='hidden' name='type' value='{{this.index}}' />
         <div>
-            <input type="number" class="small-input" placeholder="Input here" name="value" min="{{this.minValid}}" max="{{this.maxValid}}" step="{{this.incStep}}">
+            <input type="number" class="small-input" {{#if this.entry}}value="{{this.entry.value}}" {{/if}}
+                placeholder="Input here" name="value" min="{{this.minValid}}" max="{{this.maxValid}}"
+                step="{{this.incStep}}" oninput="preventMultipleZero(this)" required>
             <label for="enter-data" id="unit" name="unit">{{this.units}}</label>
         </div>
         <h4>Notes</h4>
-        <textarea class="note" type="text" placeholder="Input text here" name="note"></textarea>
+        <textarea class="note" type="text" placeholder="Input text here"
+            name="note">{{#if this.entry}}{{this.entry.note}}{{/if}}</textarea>
         <div class="button-bar">
-            <a href="{{this.shortName}}"><button class="small-button-variant" type="button">View data</button></a>
-            <button class="small-button-variant" type="submit" id="submit-button">Submit</button>
+            <a href="/patient/view-data/{{this.shortName}}"><button class="small-button-variant" type="button">View
+                    data</button></a>
+            <button class="small-button-variant" type="submit" id="submit-button">{{#unless
+                this.entry}}Submit{{else}}Resubmit{{/unless}}</button>
         </div>
     </form>
     {{else}}
-    <form id="{{this.shortName}}-form" method='POST' action='/update-measurement'>
-        <input type='hidden' name='type' value='{{this.index}}' />
-        <div>
-            <input type="number" class="small-input" value={{this.entry.value}} name="value" min="{{this.minValid}}" max="{{this.maxValid}}" step="{{this.incStep}}">
-            <label for="enter-data" id="unit" name="unit">{{this.units}}</label>
-        </div>
-        <h4>Notes</h4>
-        <textarea class="note" type="text" placeholder="Input text here" name="note">{{this.entry.note}}</textarea>
-        <div class="button-bar">
-            <a href="{{this.shortName}}"><button class="small-button-variant" type="button">View data</button></a>
-            <button class="small-button-variant" type="submit" id="submit-button">Resubmit</button>
-        </div>
-    </form>
+    <p style="flex: 1">
+        Your clinician has specified that you will no longer need to record this data.
+        However, you may still view the data you've previously recorded.
+    </p>
+    <div class="button-bar">
+        <a href="/patient/view-data/{{this.shortName}}"><button class="small-button-variant" type="button">View
+                data</button></a>
+    </div>
     {{/unless}}
-
 </div>
 {{/each}}
 

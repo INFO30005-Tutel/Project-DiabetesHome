@@ -49,7 +49,7 @@ const isSameDate = (d1, d2)=>{
 
 const getMessages = async(patId)=>{
     try{
-        let messages = await Messages.findOne({userId: patId});
+        let messages = await Messages.findOne({userId: patId}).lean();
         return messages !== null ? messages.messages: null;
     }
     catch(err){

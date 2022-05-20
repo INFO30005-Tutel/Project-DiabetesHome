@@ -37,9 +37,7 @@
         <div class='nav-items'>
           <a href='about-diabetes'>About Diabetes</a>
           <a href='about-this-website'>About This Website</a>
-          <a href='login'>
-            <button><b>Login</b></button>
-          </a>
+          <button onclick="location.href='/login'"><b>{{#unless isAuthenticated}}Login{{else}}Dashboard{{/unless}}</b></button>
         </div>
       </nav>
 
@@ -52,7 +50,7 @@
     </main>
     {{! END OF PAGE'S CONTENT }}
 
-    {{! FOOTER }}
+    {{! FOOTER: need to be replaced by partial instead}}
     <footer>
       <div class='footer-upper'>
         <div class='footer-logo'>

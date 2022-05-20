@@ -1,0 +1,103 @@
+<div class="main-content patient-details">
+
+    <div>
+        <h1>{{metadata.name}}</h1>
+        {{#unless todayData.isDisabled}}
+        <h2>Today's {{metadata.name}} Level: </h2>
+
+            {{#unless todayData.entry}}
+            <p>
+                <span class="fa fa-exclamation-circle" style="font-size: 1.5em;"></span>
+                You have not filled in this data today
+            </p>
+            {{/unless}}
+
+            {{#with todayData}}
+            <form id="{{shortName}}-form" method='POST' action='/update-measurement'>
+                <input type='hidden' name='type' value='{{index}}' />
+                <div>
+                    <input type="number" class="small-input" {{#if entry}}value="{{entry.value}}" {{/if}}
+                        placeholder="Input here" name="value" min="{{minValid}}" max="{{maxValid}}" step="{{incStep}}">
+                    <label for="enter-data" id="unit" name="unit">{{units}}</label>
+                </div>
+                <h4>Notes</h4>
+                <textarea class="note" type="text" placeholder="Input text here"
+                    name="note">{{#if entry}}{{entry.note}}{{/if}}</textarea>
+                <div class="button-bar">
+                    <button class="small-button-variant" type="submit" id="submit-button">{{#unless
+                        entry}}Submit{{else}}Resubmit{{/unless}}</button>
+                </div>
+            </form>
+            {{/with}}
+        {{else}}
+        <p>
+            Your clinician has specified you no longer need to record this data. However, you can still view the past data you've recorded.
+        </p>
+        {{/unless}}
+    </div>
+
+
+    <div>
+        <h2>
+            History
+        </h2>
+
+        {{#with dataOverview}}
+        <div class='overview-chart'>
+        <h2>{{dataName}}</h2>
+        <div class='chart-card'>
+            <div id='{{id}}' class='chart-container'></div>
+            <script type="text/javascript" containerId="{{id}}" dataBlock="{{data}}" title="{{dataName}}">
+            // Decode data block
+            var data = JSON.parse(document.currentScript.getAttribute('dataBlock'));
+            var dataSet = anychart.data.set(data);
+
+            // Create diagram
+            var chart = anychart.column();
+            var series1 = chart.column(data);
+
+            var title = document.currentScript.getAttribute('title');
+            chart.title(title);
+
+            var containerId = document.currentScript.getAttribute('containerId');
+            chart.container(containerId);
+            chart.draw();
+            </script>
+        </div>
+        </div>
+        {{/with}}
+
+        <div class="table-parent">
+            <table class="data-table" id="patient-data">
+                <thead>
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>{{metadata.name}} ({{metadata.units}})</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each historicalData}}
+                    <tr>
+                        <td>{{this.timestamp}}</td>
+                        <td>{{this.value}}</td>
+                        <td>{{this.note}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+                </tr>
+            </table>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    var table = $('#patient-data').DataTable({
+                        "ordering": false
+                    });
+                    console.log("Stuff");
+                });
+            </script>
+        </div>
+    </div>
+
+
+
+</div>

@@ -3,18 +3,30 @@ const app = express();
 const nodemailer = require('nodemailer');
 
 app.get('/', (req, res) => {
-  res.render('homepage.hbs');
+  res.render('homepage.hbs', { isAuthenticated: req.isAuthenticated() });
 });
 
 app.get('/about-diabetes', (req, res) => {
-  res.render('about-diabetes.hbs');
+  res.render('about-diabetes.hbs', { isAuthenticated: req.isAuthenticated() });
 });
 
 app.get('/about-this-website', (req, res) => {
-  res.render('about-this-website.hbs');
+  res.render('about-this-website.hbs', { isAuthenticated: req.isAuthenticated() });
 });
 
 app.get('/login', (req, res) => {
+  // Redirect if the user is already logged in
+  if (req.isAuthenticated()) {
+    if (req.user.clinicianId === null) {
+      // Redirect to clinician dashboard
+      res.redirect('/clinician');
+      return;
+    } else {
+      // Redirect to patient dashboard
+      res.redirect('patient');
+      return;
+    }
+  }
   res.render('login.hbs', { flash: req.flash('error') });
 });
 
@@ -23,16 +35,16 @@ app.get('/register', (req, res) => {
 });
 
 app.get('/staying-motivated', (req, res) => {
-  res.render('staying-motivated.hbs');
+  res.render('staying-motivated.hbs', { isAuthenticated: req.isAuthenticated() });
 });
 app.get('/measuring-blood-glucose', (req, res) => {
-  res.render('measuring-blood-glucose.hbs');
+  res.render('measuring-blood-glucose.hbs', { isAuthenticated: req.isAuthenticated() });
 });
 app.get('/press-kit', (req, res) => {
-  res.render('press-kit.hbs');
+  res.render('press-kit.hbs', { isAuthenticated: req.isAuthenticated() });
 });
 app.get('/contact-us', (req, res) => {
-  res.render('contact-us.hbs');
+  res.render('contact-us.hbs', { isAuthenticated: req.isAuthenticated() });
 });
 
 app.post('/contact-us', (req, res) => {

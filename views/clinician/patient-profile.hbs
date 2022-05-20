@@ -1,0 +1,142 @@
+<div class='flex-column dashboard'>
+  {{!-- PERSONAL-INFO --}}
+  {{> pat-personal-info }}
+
+  {{!-- SAFETY THRESHOLDS --}}
+  {{> safety-threshold }}
+
+  {{!-- RECORDED DATA --}}
+  <p style='margin-top: 20px;'><b style='font-size: 22px;'>Recorded data:</b></p>
+  <div class='tabs'>
+    <div class='tab chosen noHover' id='overview'
+      onclick="OnTabChosen('detailed', 'overview', 'detailed-tab','overview-tab')">
+      <label for='overview'>Overview</label>
+    </div>
+    <div class='tab' id='detailed' onclick="OnTabChosen('overview', 'detailed','overview-tab', 'detailed-tab')">
+      <label for='details'>Details</label>
+    </div>
+  </div>
+
+  {{!-- Overview tab content --}}
+  <div id='overview-tab' class='tab-content tab-show'>
+    {{#each overviewData}}
+    <div class='overview-chart'>
+      <h2>{{dataName}}</h2>
+      <div class='chart-card'>
+        <div id='{{id}}' class='chart-container'></div>
+        <script type="text/javascript" containerId="{{id}}" dataBlock="{{data}}" title="{{dataName}}">
+          // Decode data block
+          var data = JSON.parse(document.currentScript.getAttribute('dataBlock'));
+          var dataSet = anychart.data.set(data);
+
+          // Create diagram
+          var chart = anychart.column();
+          var series1 = chart.column(data);
+
+          var title = document.currentScript.getAttribute('title');
+          chart.title(title);
+
+          var containerId = document.currentScript.getAttribute('containerId');
+          chart.container(containerId);
+          chart.draw();
+        </script>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+
+  {{!-- Detailed tab content --}}
+  <div id='detailed-tab' class='tab-content'>
+    {{#each detailedData}}
+    <div id='{{id}}' class='flex-column detailed-table'>
+      <h2>{{dataName}}</h2>
+      <table class="table-display" id='{{id}}-table'>
+        <thead style='border-bottom: 2px solid #0a57ae;'>
+          <th>Timestamp</th>
+          <th>{{unit}}</th>
+          <th>Notes</th>
+        </thead>
+        <tbody>
+          {{#each data}}
+          <tr style='border-bottom: 1px solid #292929;'>
+            <td>{{timestamp}}</td>
+            <td>{{value}}</td>
+            <td>{{note}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      <a onclick="ExportToCSV('{{id}}.csv', '{{id}}')" style="cursor: pointer; margin-top:15px">Download all data (.csv)
+        <i class='fa fa-download'></i></a>
+    </div>
+    {{/each}}
+    <script>
+      $(document).ready(function () {
+        $('table.table-display').DataTable({
+          scrollY: '54vh',
+          scrollCollapse: true,
+          paging: false,
+          ordering: false,
+        });
+        var headers = document.getElementsByClassName("dataTables_scrollHeadInner");
+        for (let i = 0; i < headers.length; i++) {
+          headers[i].style.width = null;
+        }
+
+        var headerInners = document.getElementsByClassName("table-display dataTable no-footer");
+        for (let j = 0; j < headerInners.length; j++) {
+          headerInners[j].style.width = null;
+          headerInners[j].style.borderBottom = 'solid 1px black';
+        }
+      });
+    </script>
+  </div>
+</div>
+</div>
+
+<script>
+  function OnTabChosen(chosenTab, targetTab, chosenTabContent, targetTabContent) {
+    var currTab = document.getElementById(chosenTab);
+    if (currTab.classList.contains('chosen')) {
+      currTab.classList.toggle('chosen');
+      currTab.classList.toggle('noHover');
+      var currTabContent = document.getElementById(chosenTabContent);
+      currTabContent.classList.toggle('tab-show');
+    }
+    var nextTab = document.getElementById(targetTab);
+    if (!nextTab.classList.contains('chosen')) {
+      nextTab.classList.toggle('chosen');
+      nextTab.classList.toggle('noHover');
+      var nextTabContent = document.getElementById(targetTabContent);
+      nextTabContent.classList.toggle('tab-show');
+    }
+  }
+</script>
+
+<script>
+  function ExportToCSV(filename, containerId) {
+    var table = document.getElementById(containerId);
+    var rows = table.querySelectorAll("table tr");
+    var data = [];
+
+    for (var i = 0; i < rows.length; i++) {
+      var row = [], cols = rows[i].querySelectorAll("td, th");
+
+      for (var j = 0; j < cols.length; j++) {
+        row.push(cols[j].innerText);
+      }
+
+      data.push(row.join(","));
+    }
+
+    var csvFile, downloadLink;
+    csvFile = new Blob([data.join('\n')], { type: 'text/csv' });
+    downloadLink = document.createElement('a');
+    downloadLink.download = filename;
+    downloadLink.href = window.URL.createObjectURL(csvFile);
+    downloadLink.style.display = 'none';
+
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+  }
+</script>

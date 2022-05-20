@@ -10,6 +10,7 @@ var path = require('path');
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access');
 const handlebars = require('handlebars');
 const app = express();
+var path = require('path');
 app.use(express.urlencoded({ extended: true })); // replaces body-parser
 app.use(express.static('public')); // define where static assets live
 app.use(express.json()); // parse application/json
@@ -24,13 +25,8 @@ app.engine(
     defaultLayout: 'main',
     extname: 'hbs',
     partialsDir: [
-      path.join(__dirname, 'views/clinician')],
-    handlebars: allowInsecurePrototypeAccess(handlebars),
-    helpers: {
-      json(obj) {
-        return JSON.stringify(obj);
-      }
-    }
+      path.join(__dirname, 'views/clinician'),
+    ]
   })
 );
 app.set('View engine', 'hbs'); // set Handlebars view engine

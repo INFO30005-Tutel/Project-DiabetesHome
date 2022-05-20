@@ -9,6 +9,7 @@ h2 {
   font-size: 1.8em;
   color: #0a57ae;
   font-weight: bold;
+  margin-bottom: 10px;
 }
 
 h3 {
@@ -21,18 +22,25 @@ h4 {
   font-weight: bold;
 }
 
-.patient-dashboard {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-auto-rows: 0fr 1fr;
+.main-content {
   gap: 48px;
-  font-size: 20px;
   width: min(1428px, 90%);
   margin-left: auto;
   margin-right: auto;
   color: #3d3d3d;
   margin-top: 80px;
   margin-bottom: 80px;
+}
+
+.patient-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.patient-dashboard {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: 0fr 1fr;
 }
 
 .dashboard-main {
@@ -48,6 +56,7 @@ h4 {
   text-align: center;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 /*CSS Styles for clickable icons*/
@@ -165,6 +174,7 @@ form .small-input {
 /*The CSS style for the note input*/
 .note {
   flex: 1;
+  width: 100%;
 }
 
 /*style submit buttons*/
@@ -215,6 +225,25 @@ img {
   font-weight: bold;
 }
 
+div#engagement-info {
+  display: none;
+  padding: 20px;
+  /* background-color: #d0e0f1;
+  border-radius: 10px; */
+}
+
+div#engagement-info > p {
+  font-size: 17px;
+}
+
+i#engagement-info {
+  /* float: right; */
+  margin-left: 10px;
+}
+
+i#engagement-info:hover + div#engagement-info {
+  display: block;
+}
 /* Inspired by information presented at https://csshint.com/javascript-calendar/. The date picker css sytles below is for the calendar */
 .datepicker {
   width: 100%;
@@ -351,43 +380,43 @@ td {
 }
 
 /*The css below is for the ranking table*/
-.ranking {
+.table-parent {
   width: 100%;
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
-#ranking-table {
+.data-table {
   border-collapse: collapse;
   table-layout: auto;
   width: 100%;
   margin-bottom: 10px;
 }
 
-#ranking-table td,
-#ranking-table th {
+.data-table td,
+.data-table th {
   text-align: center;
 }
 
-#ranking-table td {
+.data-table td {
   padding: 20px 30px;
 }
 
-#ranking-table th {
+.data-table th {
   border-bottom: 1px solid #d0e0f1;
   background-color: #fff !important;
 }
 
-#ranking-table tr:nth-child(odd) {
+.data-table tr:nth-child(odd) {
   background-color: #d0e0f1;
   height: 20px;
 }
 
-#ranking-table tr:hover {
+.data-table tr:hover {
   background-color: #ddd;
 }
 
-#ranking-table .your-rank {
+.data-table .highlight {
   color: #0a57ae;
   font-weight: bold;
 }
