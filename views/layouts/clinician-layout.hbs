@@ -285,6 +285,17 @@
         {{!-- console.log(source); --}}
         {{!-- console.log(data); --}}
       }
+      function viewNote(){
+         const url = window.location.href;
+         const patId = url.split("/").slice(-1)[0];
+          window.location = `/clinician/note/${patId}`;
+      
+      }
+      function viewMessage(){
+         const url = window.location.href;
+         const patId = url.split("/").slice(-1)[0];
+        window.location = `/clinician/message/${patId}`;
+      }
     </script>
 
 </html>
