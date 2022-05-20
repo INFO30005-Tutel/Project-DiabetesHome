@@ -211,9 +211,9 @@ const getDateAndTime = (dateString) => {
   ];
   //var today = new Date();
   var time =
-    dateString.getHours() +
+    ('0' + dateString.getHours()).slice(-2) +
     ':' +
-    dateString.getMinutes() +
+    ('0' + dateString.getMinutes()).slice(-2) +
     ' ' +
     Intl.DateTimeFormat().resolvedOptions().timeZone;
   var weekDay = days[dateString.getDay()] + ', ';
