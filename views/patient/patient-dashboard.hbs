@@ -1,7 +1,7 @@
 <div class="patient-dashboard main-content">
     <div class="dashboard-side">
         <p>
-            Welcome, <b>{{userData.firstName}}</b>
+            Welcome back, <b>{{userData.firstName}} {{userData.lastName}}</b>
             <br>
             {{time}}
             <br>
@@ -65,7 +65,7 @@
                     {{#each leaderboards}}
                     <tr>
                         <td>{{this.rank}}</td>
-                        <td>{{this.name}}</td>
+                        {{{boldNameIfCurrentPatient this.name ../userData}}}
                         <td>{{this.engagementRate}}%</td>
                     </tr>
                     {{/each}}
@@ -86,10 +86,13 @@
             <h1 style="display: inline-block">Your engagement</h1><i id="engagement-info" class="fa fa-info-circle"
                 aria-hidden="true"></i>
             <div id="engagement-info" class="box">
+                
                 <p>Days that you have previously submitted required data (partial/full) are highlighted in <span
                         style="color:#0A57AE; font-size:inherit">blue.</span></p>
-                <p style="margin-bottom: 0;">Today date is highlighted in <span
-                        style="color:#6aa84f; font-size:inherit">green.</span></p>
+                <p>Today date is highlighted in <span style="color:#6aa84f; font-size:inherit">green.</span></p>
+                <p style="margin-bottom: 0;">Due to different timezone, your streak score maybe slightly off 
+                    compared to this calender, which displayed in your local timezone.</p>
+                        
             </div>
         </span>
         <input type="hidden" id="inputDates" value={{inputDates}} />

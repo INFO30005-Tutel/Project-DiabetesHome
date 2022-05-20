@@ -9,20 +9,20 @@
     <p class="alert">{{this}}</p>
   {{/each}}
   <form action="/register" method="POST">
-    <label for="email">Email</label>
+    <label for="email">Email *</label>
     <input type="email" name="email" id="email" required>
-    <label for"phoneNumber">Phone Number</label>
+    <label for"phoneNumber">Phone Number *</label>
     <input type="tel" name="phoneNumber" id="phoneNumber" required>
-    <label for="firstName">First Name</label>
+    <label for="firstName">First Name *</label>
     <input type="text" name="firstName" id="firstName" required>
-    <label for="lastName">Last Name</label>
+    <label for="lastName">Last Name *</label>
     <input type="text" name="lastName" id="lastName" required>
-    <label for="dateOfBirth">Date of Birth</label>
+    <label for="dateOfBirth">Date of Birth *</label>
     <input type="date" name="dateOfBirth" id="dateOfBirth" required>
-    <label for="password">Password</label>
+    <label for="password">Password *</label>
     <input type="password" name="password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
     title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
-    <label for="confirm-password">Confirm Password</label>
+    <label for="confirm-password">Confirm Password *</label>
     <input type="password" name="confirm-password" id="confirm-password" oninput="check_confirm_password(this)" required>
     <br>
     <div class="button-wrapper" style="width: 100%;">

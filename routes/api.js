@@ -18,15 +18,7 @@ app.get('/today-userdata/:id', async (req, res) => {
   res.status(200).send(todayUserData);
 });
 
-app.post('/update-personal-info', async (req, res) => {
-  let isUpdated = await userController.updateSelf(req.user._id, req.body);
-  if (isUpdated) {
-    res.redirect('back');
-  } else {
-    console.log('Error - updated personal info failed!');
-    res.status(500).redirect('back');
-  }
-});
+app.post('/update-personal-info', userController.updatePersonalInfo);
 
 app.post('/change-password', userController.changePassword);
 

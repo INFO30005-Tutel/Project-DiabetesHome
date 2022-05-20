@@ -34,19 +34,30 @@
   </div>
   {{/if}}
 
+  {{#if messages}}
+  <div style="text-align: center;">
+    <h2 class="alert">{{messages.error}}</h2>
+    <h2 class="infomative">{{messages.info}}</h2>
+  </div>
+  {{/if}}
+
   <div class='home-component'>
     <h2 class='sub-title'>Profile <i class="fa fa-edit" onclick="toggle_edit_setting()"></i></h2>
     <form action="/api/update-personal-info" method="POST" style="width: 80%; max-width: 650px;">
       <label for="firstName">First Name</label>
       <input type="text" name="firstName" id="firstName" value="{{personalInfo.firstName}}">
-      <label for="lastName">First Name</label>
+      <label for="lastName">Last Name</label>
       <input type="text" name="lastName" id="lastName" value="{{personalInfo.lastName}}">
+      {{#if isPatient}}
+      <label for="leaderboardName">Leaderboard Name</label>
+      <input type="text" name="leaderboardName" id="leaderboardName" value="{{personalInfo.leaderboardName}}">
+      {{/if}}
       <label for="dateOfBirth">Date of Birth</label>
       <input type="date" name="dateOfBirth" id="dateOfBirth" value="{{personalInfo.dateOfBirth}}">
       <label for"phoneNumber">Phone Number</label>
       <input type="tel" name="phoneNumber" id="phoneNumber" value="{{personalInfo.phoneNumber}}">
       <label for="email">Email</label>
-      <input type="email" name="email" id="email" value="{{personalInfo.email}}">
+      <input type="email" name="email" id="email" value="{{personalInfo.email}}" disabled>
       <br>
       <div class="button-wrapper" style="margin-top: 15px;">
         <button type="submit" class="button large-button-variant">Save</button>
@@ -58,13 +69,7 @@
     <h2 class='sub-title'>Account</h2>
     <div class='threshold-card'>
       <p><b style='font-size: 24px; color:#0a57ae;'>Change your password</b></p>
-      {{#if messages}}
-      <div style="text-align: center;">
-        <p class="alert">{{messages.error}}</p>
-        <p class="infomative">{{messages.info}}</p>
-      </div>
-      {{/if}}
-      <form action="/api/change-password" method="POST" style="width: 60%; max-width: 500px;">
+      <form action="/api/change-password" method="POST" style="width: 80%; max-width: 500px;">
         <label for="oldPassword">Old password</label>
         <input type="password" name="oldPassword" id="oldPassword" required>
         <label for="newPassword">New password</label>
