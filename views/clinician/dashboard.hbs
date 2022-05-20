@@ -66,11 +66,6 @@
       $(document).ready(function () {
         var table = $('#dashboard-table').DataTable();
 
-        table.on('draw', function () {
-          $('dashboard-table_previous').html("<i class='fa fa-arrow-left' style='color: white;'></i>");
-          $('dashboard-table_next').html("<i class='fa fa-arrow-right' style='color: white;'></i>");
-        });
-
         $('#searchBox').on('keyup', function () {
           table.search(this.value).draw();
         });
