@@ -73,10 +73,21 @@
     <script>
       $(document).ready(function () {
         $('table.table-display').DataTable({
-          scrollY: '50vh',
+          scrollY: '60vh',
           scrollCollapse: true,
           paging: false,
+          ordering: false,
         });
+        var headers = document.getElementsByClassName("dataTables_scrollHeadInner");
+        for (let i = 0; i < headers.length; i++) {
+          headers[i].style.width = null;
+        }
+
+        var headerInners = document.getElementsByClassName("table-display dataTable no-footer");
+        for (let j = 0; j < headerInners.length; j++) {
+          headerInners[j].style.width = null;
+          headerInners[j].style.borderBottom = 'solid 1px black';
+        }
       });
     </script>
   </div>
