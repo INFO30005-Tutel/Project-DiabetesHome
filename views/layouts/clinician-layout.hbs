@@ -216,6 +216,22 @@
         });
         return;
       }
+
+      $(function() {
+        $('#note-message-search').on('change', function() {
+          var keyword = $(this).val();
+          getFilteredItems(keyword);
+        });
+      });
+
+      function filterItems(items, keyword) {
+        var filteredItems = items.filter(function(item) {
+          return item.content.indexOf(keyword) > -1;
+        });
+      }
+
+      var noteMessageData = document.getElementById("note-message-data").value.split(/(?<=})\s*,\s*(?={)/);
+      console.log(noteMessageData[0]);
     </script>
 
   </body>

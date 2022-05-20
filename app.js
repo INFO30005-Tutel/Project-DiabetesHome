@@ -25,7 +25,12 @@ app.engine(
     extname: 'hbs',
     partialsDir: [
       path.join(__dirname, 'views/clinician')],
-    handlebars: allowInsecurePrototypeAccess(handlebars)
+    handlebars: allowInsecurePrototypeAccess(handlebars),
+    helpers: {
+      json(obj) {
+        return JSON.stringify(obj);
+      }
+    }
   })
 );
 app.set('View engine', 'hbs'); // set Handlebars view engine
