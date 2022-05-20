@@ -7,8 +7,6 @@ const mongoose = require('mongoose');
 const config = require('./config');
 const passport = require('./passport.js');
 var path = require('path');
-const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access');
-const handlebars = require('handlebars');
 const app = express();
 var path = require('path');
 app.use(express.urlencoded({ extended: true })); // replaces body-parser
