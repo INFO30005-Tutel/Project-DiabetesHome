@@ -315,8 +315,9 @@ var formatDateTime = (inputDT) => {
     'November',
     'December',
   ];
-
-  var time = inputDT.getHours() + ':' + inputDT.getMinutes();
+  
+  var minute = inputDT.getMinutes().toString().length < 2 ? "0" + inputDT.getMinutes() : inputDT.getMinutes(); 
+  var time = inputDT.getHours() + ':' + minute;
 
   var date = inputDT.getDate() + ' ' + months[inputDT.getMonth()] + ' ' + inputDT.getFullYear();
   var result = time.toString() + ' ' + date.toString();
