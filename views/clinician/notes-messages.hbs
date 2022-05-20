@@ -17,7 +17,8 @@
   {{!-- {{#each data}}
     <div style = "{{this.style}}">
       {{this.content}}
-      <i class="fa fa-trash fa-2x" aria-hidden="true" style = 'color: black; ' id = "bin" onClick = "deleteNoteOrMessage(`{{this._id}}`, {{this.type}})"></i>
+      <h5 style = 'color: black; position: absolute; left: 20px; bottom: 20px;'>{{formatDateTime this.time}}</h5>
+      <i class="fa fa-trash fa-2x" aria-hidden="true" style = 'color: black; position: absolute; right: 20px; bottom: 20px;' id = "bin" onClick = "deleteNoteOrMessage(`{{this._id}}`, {{this.type}})"></i>
     </div>
   {{/each}} --}}
 </div>
