@@ -241,7 +241,7 @@
       $('#note-message-search').keyup(function () {
         var keyword = $(this).val();
         if (keyword != undefined) {
-          console.log(keyword);
+          {{!-- console.log(keyword); --}}
           keyword = keyword.trim().toLowerCase();
         }
         getFilteredItems(keyword);
@@ -249,6 +249,9 @@
     });
 
       function filterItems(items, keyword) {
+        if (items.length == 0) {
+          return items;
+        }
         var filteredItems = items.filter(function(item) {
           return item.content.toLowerCase().indexOf(keyword) > -1;
         });
@@ -257,7 +260,7 @@
 
       var noteMessageData = document.getElementById("note-message-data").value;
       noteMessageData = noteMessageData.substring(1, noteMessageData.length - 1).split(/(?<=})\s*,\s*(?={)/);
-      noteMessageData = noteMessageData.map(JSON.parse);
+      noteMessageData = noteMessageData.length > 0 ? noteMessageData.map(JSON.parse) : noteMessageData;
       
       function getFilteredItems(keyword) {
         filteredItems = filterItems(noteMessageData, keyword);
