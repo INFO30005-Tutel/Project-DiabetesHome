@@ -12,7 +12,7 @@ const hbs = create({
     formateDateTime(input){HelperController.formatDateTime(input)}
   }
 })
-const textSize = [8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26];
+const textSize = [12, 14, 16, 18, 20, 22, 24, 26];
 const textStyle =  ["Arial", "Times New Roman", "Times", "Courier New",  "Courier", "Verdana", "Georgia", "Palantino", "Garamond", "Bookman", "Tahoma", "Trebuchet MS", "Arial Black", "Comic Sans Ms", "Impact"];
 const renderNotes = async (req, res) => {
   const patId = req.params.patId;
@@ -265,12 +265,46 @@ const getIconColor = (patient) => {
   return ok;
 };
 
+var formatDateTime = (inputDT)=>{
+  var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  var months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  
+  var time =
+    inputDT.getHours() +
+    ':' +
+    inputDT.getMinutes();
+
+  var date =
+    inputDT.getDate() +
+    ' ' +
+    months[inputDT.getMonth()] +
+    ' ' +
+    inputDT.getFullYear();
+  var result = time.toString() + ' '+ date.toString();
+  return result;
+}
+
 handlebars.registerHelper('getTextColor', getTextColor);
 handlebars.registerHelper('getIcon', getIcon);
 handlebars.registerHelper('getIconColor', getIconColor);
 handlebars.registerHelper('json', (obj) => {
   return JSON.stringify(obj);
 });
+handlebars.registerHelper('formatDateTime', formatDateTime); 
+
 module.exports = {
   renderClinicianDashboard,
   renderPatientProfile,
@@ -279,4 +313,5 @@ module.exports = {
   formatPatientRegister,
   renderMessages,
   renderNotes,
+  formatDateTime
 };

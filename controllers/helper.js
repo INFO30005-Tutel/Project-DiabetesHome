@@ -230,10 +230,11 @@ var formatDateTime = (inputDT) => {
   const dateAndTime = getDateAndTime(inputDT);
   var result = dateAndTime.time.toString() + dateAndTime.date.toString();
   return result;
-}
+};
 
 const styleSingleNoteOrMessage = function (fontFamily, fontSize, fontWeight, fontStyle, textAlign) {
-  const defaultStyle = "background-color: #D0E0F1; width:350px; height:350px; border-radius: 16px; color:#011684;position: relative;display: inline-block; padding-top: 20px; padding-left: 20px;";
+  const defaultStyle =
+    'background-color: #D0E0F1; width:450px; height:450px; border-radius: 16px; color:#011684;position: relative;display: inline-block; padding-top: 20px; padding-left: 20px;';
   const inputStyle = `font-family: ${fontFamily} !important;font-size: ${fontSize};font-weight: ${fontWeight};font-style: ${fontStyle};text-align: ${textAlign};`;
 
   return defaultStyle + inputStyle;
