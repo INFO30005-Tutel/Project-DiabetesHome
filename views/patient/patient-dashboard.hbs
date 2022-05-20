@@ -38,17 +38,17 @@
             <span id="third-place">3rd</span>
             <p id="second-place-text">
                 {{#if second.name}}
-                    {{second.name}} {{second.engagementRate}}%
+                {{second.name}} {{second.engagementRate}}%
                 {{/if}}
             </p>
             <p id="first-place-text">
                 {{#if first.name}}
-                    {{first.name}} {{first.engagementRate}}%
+                {{first.name}} {{first.engagementRate}}%
                 {{/if}}
             </p>
             <p id="third-place-text">
                 {{#if third.name}}
-                    {{third.name}} {{third.engagementRate}}%
+                {{third.name}} {{third.engagementRate}}%
                 {{/if}}
             </p>
         </div>
@@ -82,10 +82,13 @@
     </div>
     <div class="dashboard-side">
         <span>
-            <h1 style="display: inline-block">Your engagement</h1><i id="engagement-info" class="fa fa-info-circle" aria-hidden="true"></i>
+            <h1 style="display: inline-block">Your engagement</h1><i id="engagement-info" class="fa fa-info-circle"
+                aria-hidden="true"></i>
             <div id="engagement-info" class="box">
-                <p>Days that you have previously submitted required data (partial/full) are highlighted in <span style="color:#0A57AE; font-size:inherit">blue.</span></p>
-                <p style="margin-bottom: 0;">Today date is highlighted in <span style="color:#6aa84f; font-size:inherit">green.</span></p>
+                <p>Days that you have previously submitted required data (partial/full) are highlighted in <span
+                        style="color:#0A57AE; font-size:inherit">blue.</span></p>
+                <p style="margin-bottom: 0;">Today date is highlighted in <span
+                        style="color:#6aa84f; font-size:inherit">green.</span></p>
             </div>
         </span>
         <input type="hidden" id="inputDates" value={{inputDates}} />
@@ -116,7 +119,9 @@
             <p>Users who have 80% engagement rate or higher can get a special badge!</p>
             <p>Fill in your data every day to increasing your engagement rate and earn even better badges.</p>
             {{#if engagement.badges.nextBadge}}
-            <p>Reach an engagement rate of <b>{{engagement.badges.nextBadge.engagement}}%</b> to get the <b>{{engagement.badges.nextBadge.name}}</b> badge.</p>
+            <p>Reach an engagement rate of <b>{{engagement.badges.nextBadge.engagement}}%</b> to get the
+                <b>{{engagement.badges.nextBadge.name}}</b> badge.
+            </p>
             {{else}}
             <p>Incredible! You have been awarded the highest badge possible. Keep up the great work.</p>
             {{/if}}
@@ -136,14 +141,14 @@
         <div>
             <input type="number" class="small-input" {{#if this.entry}}value="{{this.entry.value}}" {{/if}}
                 placeholder="Input here" name="value" min="{{this.minValid}}" max="{{this.maxValid}}"
-                step="{{this.incStep}}">
+                step="{{this.incStep}}" oninput="preventMultipleZero(this)" required>
             <label for="enter-data" id="unit" name="unit">{{this.units}}</label>
         </div>
         <h4>Notes</h4>
         <textarea class="note" type="text" placeholder="Input text here"
             name="note">{{#if this.entry}}{{this.entry.note}}{{/if}}</textarea>
         <div class="button-bar">
-            <a href="/patient/{{this.shortName}}"><button class="small-button-variant" type="button">View
+            <a href="/patient/view-data/{{this.shortName}}"><button class="small-button-variant" type="button">View
                     data</button></a>
             <button class="small-button-variant" type="submit" id="submit-button">{{#unless
                 this.entry}}Submit{{else}}Resubmit{{/unless}}</button>
@@ -155,9 +160,9 @@
         However, you may still view the data you've previously recorded.
     </p>
     <div class="button-bar">
-            <a href="/patient/{{this.shortName}}"><button class="small-button-variant" type="button">View
-                    data</button></a>
-        </div>
+        <a href="/patient/view-data/{{this.shortName}}"><button class="small-button-variant" type="button">View
+                data</button></a>
+    </div>
     {{/unless}}
 </div>
 {{/each}}

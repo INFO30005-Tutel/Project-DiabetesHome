@@ -4,6 +4,7 @@ const passport = require('passport');
 
 const clinicianController = require('../controllers/clinician');
 const userDataController = require('../controllers/user-data');
+const userController = require('../controllers/user');
 const helper = require('../controllers/helper');
 
 app.get(
@@ -47,6 +48,13 @@ app.post(
     successRedirect: '/clinician',
     failureFlash: true,
   })
+);
+
+app.get(
+  '/clinician/setting',
+  helper.isAuthenticated,
+  helper.isClinician,
+  clinicianController.renderSetting
 );
 
 module.exports = app;

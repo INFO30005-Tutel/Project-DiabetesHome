@@ -157,3 +157,20 @@
 .table-display {
   margin-bottom: 1rem
 }
+
+.clinician-info {
+  border-collapse: collapse;
+  width: 60%;
+  margin-bottom: 20px;
+}
+
+.clinician-info h3 {
+  margin-bottom: 0px;
+  text-align: start;
+}
+
+.clinician-info tr {
+  text-align: end;
+  border-bottom: solid 2px #1b66bc;
+  height: 55px;
+}

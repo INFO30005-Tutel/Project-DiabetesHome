@@ -1,0 +1,106 @@
+<div class='home'>
+  <h1 class='title'>Settings</h1>
+  {{#if isPatient}}
+  <div class='home-component'>
+    <h2 class='sub-title'>Your clinician</h2>
+    <div class="table-section" style="display: flex; justify-content:center;">
+      <table class="clinician-info">
+        <tr>
+          <td>
+            <h3>Clinician name:</h3>
+          </td>
+          <td>{{clinicianInfo.firstName}} {{clinicianInfo.lastName}}</td>
+        </tr>
+        <tr>
+          <td>
+            <h3>DOB:</h3>
+          </td>
+          <td>{{formattedDobClinician.date}}</td>
+        </tr>
+        <tr>
+          <td>
+            <h3>Phone number:</h3>
+          </td>
+          <td>{{clinicianInfo.phoneNumber}}</td>
+        </tr>
+        <tr>
+          <td>
+            <h3>Email:</h3>
+          </td>
+          <td>{{clinicianInfo.email}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  {{/if}}
+
+  <div class='home-component'>
+    <h2 class='sub-title'>Profile <i class="fa fa-edit" onclick="toggle_edit_setting()"></i></h2>
+    <form action="/api/update-personal-info" method="POST" style="width: 80%; max-width: 650px;">
+      <label for="firstName">First Name</label>
+      <input type="text" name="firstName" id="firstName" value="{{personalInfo.firstName}}">
+      <label for="lastName">First Name</label>
+      <input type="text" name="lastName" id="lastName" value="{{personalInfo.lastName}}">
+      <label for="dateOfBirth">Date of Birth</label>
+      <input type="date" name="dateOfBirth" id="dateOfBirth" value="{{personalInfo.dateOfBirth}}">
+      <label for"phoneNumber">Phone Number</label>
+      <input type="tel" name="phoneNumber" id="phoneNumber" value="{{personalInfo.phoneNumber}}">
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" value="{{personalInfo.email}}">
+      <br>
+      <div class="button-wrapper" style="margin-top: 15px;">
+        <button type="submit" class="button large-button-variant">Save</button>
+      </div>
+    </form>
+  </div>
+
+  <div class='home-component'>
+    <h2 class='sub-title'>Account</h2>
+    <div class='threshold-card'>
+      <p><b style='font-size: 24px; color:#0a57ae;'>Change your password</b></p>
+      {{#if messages}}
+      <div style="text-align: center;">
+        <p class="alert">{{messages.error}}</p>
+        <p class="infomative">{{messages.info}}</p>
+      </div>
+      {{/if}}
+      <form action="/api/change-password" method="POST" style="width: 60%; max-width: 500px;">
+        <label for="oldPassword">Old password</label>
+        <input type="password" name="oldPassword" id="oldPassword" required>
+        <label for="newPassword">New password</label>
+        <input type="password" name="newPassword" id="newPassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+          oninput="check_new_password(this)"
+          title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+          required>
+        <label for="confirmPassword">Confirm new password</label>
+        <input type="password" name="confirmPassword" id="confirmPassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+          oninput="check_confirm_password(this)"
+          title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+          required>
+        <br>
+        <div class="button-wrapper" style="margin-top: 10px;">
+          <button type='submit' class='button large-button-variant'>Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script>
+    function check_confirm_password(input) {
+      if (input.value != document.getElementById('newPassword').value) {
+        input.setCustomValidity('Password must be matching.');
+      } else {
+        // input is valid -- reset the error message
+        input.setCustomValidity('');
+      }
+    }
+
+    function check_new_password(input) {
+      if (input.value == document.getElementById('oldPassword').value) {
+        input.setCustomValidity('Please enter new password!');
+      } else {
+        // input is valid -- reset the error message
+        input.setCustomValidity('');
+      }
+    }
+  </script>
+</div>
