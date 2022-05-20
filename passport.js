@@ -70,6 +70,7 @@ passport.use(
             const newUser = new User();
             newUser.email = email.toLowerCase().trim();
             newUser.password = newUser.hashPassword(password);
+            newUser.leaderboardName = req.body.leaderboardName.trim();
             newUser.firstName = req.body.firstName.trim();
             newUser.lastName = req.body.lastName.trim();
             newUser.dateOfRegistration = new Date(now.getFullYear(), now.getMonth(), now.getDate());

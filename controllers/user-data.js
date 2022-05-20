@@ -23,13 +23,16 @@ const getLeaderboards = async () => {
     '_id',
     'firstName',
     'lastName',
+    'leaderboardName',
     'dateOfRegistration',
   ]).lean();
   let leaderboards = await Promise.all(
     patients.map(async (patient) => {
       let leaderboardEntry = {};
       let engagement = await getPatientEngagement(patient.dateOfRegistration, patient._id);
-      leaderboardEntry.name = patient.firstName + ' ' + patient.lastName;
+      if (!patient.leaderboardName || patient.leaderboardName.trim() == '')
+        leaderboardEntry.name = patient.firstName[0] + '. ' + patient.lastName[0] + '.';
+      else leaderboardEntry.name = patient.leaderboardName;
       leaderboardEntry.engagementRate = engagement.engagementRate * 100;
       return leaderboardEntry;
     })
