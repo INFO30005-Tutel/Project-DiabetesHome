@@ -34,6 +34,11 @@ const textStyle = [
 ];
 const renderNotes = async (req, res) => {
   const patId = req.params.patId;
+  const patient = await User.findById(patId);
+  if (!patient.clinicianId.equals(req.user._id)) {
+    res.status(403).send("Unauthorised to access this patient");
+    return;
+  }
   const notes = await NoteController.getNotes(patId);
 
   res.render('clinician/patient-notes.hbs', {
@@ -46,6 +51,11 @@ const renderNotes = async (req, res) => {
 };
 const renderMessages = async (req, res) => {
   const patId = req.params.patId;
+  const patient = await User.findById(patId);
+  if (!patient.clinicianId.equals(req.user._id)) {
+    res.status(403).send("Unauthorised to access this patient");
+    return;
+  }
   const messages = await MessageController.getMessages(patId);
   res.render('clinician/patient-messages.hbs', {
     layout: 'clinician-layout.hbs',
@@ -77,6 +87,11 @@ const renderClinicianDashboard = async (req, res) => {
 
 const renderPatientProfile = async (req, res) => {
   const patId = req.params.patId;
+  const patient = await User.findById(patId);
+  if (!patient.clinicianId.equals(req.user._id)) {
+    res.status(403).send("Unauthorised to access this patient");
+    return;
+  }
   const patPersonalInfo = await UserController.getPersonalInfo(patId);
   const formatDob = HelperController.getDateAndTime(patPersonalInfo.dateOfBirth);
   const thresholds = await UserDataController.getThresholds(patId, defaultDangerThreshold);
