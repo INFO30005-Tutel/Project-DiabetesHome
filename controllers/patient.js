@@ -80,8 +80,6 @@ const renderPatientDashboard = async (req, res) => {
   patientEngagement.badges = getBadges(patientEngagement.engagementRate);
   let leaderboards = await userDataController.getLeaderboards();
   let podium = getPodium(leaderboards);
-  // Truncate leaderboards to top 30
-  leaderboards = leaderboards.slice(0, 30);
   res.render('patient/patient-dashboard.hbs', {
     layout: 'patient-layout.hbs',
     userId: patient._id,
