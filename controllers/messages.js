@@ -15,7 +15,7 @@ const sendMessage = async(req, res)=>{
         if(!messages){
             let newM = [];
             newM.push(newMessage);
-            messages = new Messages({userId: patId}, {$push:{messages:newM}});
+            messages = new Messages({userId: patId, messages:newM});
             await messages.save();
             res.redirect(`/clinician/message/${patId}`);
             return;
