@@ -20,9 +20,7 @@ app.engine(
   exphbs.engine({
     defaultLayout: 'main',
     extname: 'hbs',
-    partialsDir: [
-      path.join(__dirname, 'views/clinician'),
-    ]
+    partialsDir: [path.join(__dirname, 'views/clinician')],
   })
 );
 app.set('View engine', 'hbs'); // set Handlebars view engine
@@ -38,7 +36,7 @@ app.use(
       sameSite: 'strict',
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      maxAge: 300000, // sessions expire after 5 minutes
+      maxAge: 24 * 60 * 60 * 1000, // sessions expire after 1 day
     },
   })
 );
