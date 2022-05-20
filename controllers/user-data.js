@@ -19,7 +19,7 @@ const getPatientEngagement = async (dateOfRegistration, patientId) => {
 };
 
 const getLeaderboards = async () => {
-  let patients = await UserModel.find({"clinicianId": {"$ne": null}}, ["_id", "firstName", "lastName", "dateOfRegistration"]).lean();
+  let patients = await UserModel.find({ "clinicianId": { "$ne": null } }, ["_id", "firstName", "lastName", "dateOfRegistration"]).lean();
   let leaderboards = await Promise.all(patients.map(async (patient) => {
     let leaderboardEntry = {}
     let engagement = await getPatientEngagement(patient.dateOfRegistration, patient._id);
@@ -34,7 +34,7 @@ const getLeaderboards = async () => {
   })
   // Add ranks, and then round engagement rate to 2 decimals
   for (let i = 0; i < leaderboards.length; ++i) {
-    leaderboards[i].rank = i+1;
+    leaderboards[i].rank = i + 1;
     leaderboards[i].engagementRate = leaderboards[i].engagementRate.toFixed(1);
   }
   return leaderboards
@@ -303,26 +303,30 @@ const extractOverviewData = async (dataList, dataIndex) => {
 
 // Extract data for overview render
 const extractDetailedData = async (dataList) => {
-  const range = 30; // Asume to show 20 days
+  const range = 20; // Asume to show 20 days
   let extractedData = [];
 
   if (!dataList) dataList = [];
+  let index = 0;
 
-  for (let i = 0; i < range; i++) {
-    let index = dataList.length - i - 1;
-    if (index < 0) {
+  for (let i = 0; i < dataList.length; i++) {
+    const dateTime = Helper.getDateAndTime(dataList[i].inputAt);
+    extractedData.push({
+      timestamp: dateTime.date + ' - ' + dateTime.time,
+      value: dataList[i].value,
+      note: dataList[i].note,
+    });
+    index++;
+  }
+  // console.log(index);
+  if (index < range) {
+    while (index < range) {
       extractedData.push({
         timestamp: 'No record',
         value: 0,
         note: '',
       });
-    } else {
-      const dateTime = Helper.getDateAndTime(dataList[index].inputAt);
-      extractedData.push({
-        timestamp: dateTime.date + ' - ' + dateTime.time,
-        value: dataList[index].value,
-        note: dataList[index].note,
-      });
+      index++;
     }
   }
 
