@@ -4,7 +4,6 @@ const Helper = require('./helper');
 
 const sendMessage = async(req, res)=>{
     const patId = req.params.patId; 
-    console.log(req.body);
     let style = Helper.styleSingleNoteOrMessage(req.body.fontFamily, req.body.fontSize, req.body.fontWeight, req.body.fontStyle, req.body.textAlign);
     let newMessage = {
         content: req.body.message,

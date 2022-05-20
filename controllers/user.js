@@ -68,7 +68,6 @@ const changePassword = async (req, res) => {
   if (!req.user) {
     return false;
   }
-  console.log(req.body);
 
   await User.findOne({ email: req.user.email }).then((user) => {
     user.verifyPassword(req.body.oldPassword, async (err, valid) => {

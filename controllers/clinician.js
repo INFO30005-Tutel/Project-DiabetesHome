@@ -1,5 +1,5 @@
 const handlebars = require('handlebars');
-const {create} = require("express-handlebars");
+const { create } = require('express-handlebars');
 const UserDataController = require('./user-data');
 const HelperController = require('./helper');
 const NoteController = require('./notes');
@@ -8,12 +8,30 @@ const User = require('../models/user');
 const UserController = require('./user');
 
 const hbs = create({
-  helpers:{
-    formateDateTime(input){HelperController.formatDateTime(input)}
-  }
-})
+  helpers: {
+    formateDateTime(input) {
+      HelperController.formatDateTime(input);
+    },
+  },
+});
 const textSize = [12, 14, 16, 18, 20, 22, 24, 26];
-const textStyle =  ["Arial", "Times New Roman", "Times", "Courier New",  "Courier", "Verdana", "Georgia", "Palantino", "Garamond", "Bookman", "Tahoma", "Trebuchet MS", "Arial Black", "Comic Sans Ms", "Impact"];
+const textStyle = [
+  'Arial',
+  'Times New Roman',
+  'Times',
+  'Courier New',
+  'Courier',
+  'Verdana',
+  'Georgia',
+  'Palantino',
+  'Garamond',
+  'Bookman',
+  'Tahoma',
+  'Trebuchet MS',
+  'Arial Black',
+  'Comic Sans Ms',
+  'Impact',
+];
 const renderNotes = async (req, res) => {
   const patId = req.params.patId;
   const notes = await NoteController.getNotes(patId);
@@ -23,19 +41,18 @@ const renderNotes = async (req, res) => {
     data: notes,
     patId: patId,
     textSize: textSize,
-    textStyle: textStyle
+    textStyle: textStyle,
   });
 };
 const renderMessages = async (req, res) => {
   const patId = req.params.patId;
   const messages = await MessageController.getMessages(patId);
-  console.log(messages);
   res.render('clinician/patient-messages.hbs', {
     layout: 'clinician-layout.hbs',
     data: messages,
     patId: patId,
     textSize: textSize,
-    textStyle: textStyle
+    textStyle: textStyle,
   });
 };
 
@@ -265,7 +282,7 @@ const getIconColor = (patient) => {
   return ok;
 };
 
-var formatDateTime = (inputDT)=>{
+var formatDateTime = (inputDT) => {
   var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   var months = [
     'January',
@@ -281,21 +298,13 @@ var formatDateTime = (inputDT)=>{
     'November',
     'December',
   ];
-  
-  var time =
-    inputDT.getHours() +
-    ':' +
-    inputDT.getMinutes();
 
-  var date =
-    inputDT.getDate() +
-    ' ' +
-    months[inputDT.getMonth()] +
-    ' ' +
-    inputDT.getFullYear();
-  var result = time.toString() + ' '+ date.toString();
+  var time = inputDT.getHours() + ':' + inputDT.getMinutes();
+
+  var date = inputDT.getDate() + ' ' + months[inputDT.getMonth()] + ' ' + inputDT.getFullYear();
+  var result = time.toString() + ' ' + date.toString();
   return result;
-}
+};
 
 handlebars.registerHelper('getTextColor', getTextColor);
 handlebars.registerHelper('getIcon', getIcon);
@@ -303,7 +312,7 @@ handlebars.registerHelper('getIconColor', getIconColor);
 handlebars.registerHelper('json', (obj) => {
   return JSON.stringify(obj);
 });
-handlebars.registerHelper('formatDateTime', formatDateTime); 
+handlebars.registerHelper('formatDateTime', formatDateTime);
 
 module.exports = {
   renderClinicianDashboard,
@@ -313,5 +322,5 @@ module.exports = {
   formatPatientRegister,
   renderMessages,
   renderNotes,
-  formatDateTime
+  formatDateTime,
 };

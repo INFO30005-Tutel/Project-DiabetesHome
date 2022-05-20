@@ -1,25 +1,17 @@
 // Start with /api/...
-// These are API that not render a .hbs file, just res.send() data back. Used for testing or POSTMAN.
-// Not required authenticated for easier testing. Maybe change this in production
 const express = require('express');
 const app = express();
 const userDataController = require('../controllers/user-data');
 const userController = require('../controllers/user');
-
-// THIS FILE IS ROUTE TESTING ONLY DONT USE IT FOR ACTUAL PRODUCTION
-
-// app.post('/change-parameter/:id', async (req, res) => {
-//   let updatedUserData = await userDataController.changePatientRecordParameter(req, res);
-//   res.status(200).send(updatedUserData);
-// });
+const helper = require('../controllers/helper');
 
 app.get('/today-userdata/:id', async (req, res) => {
   let todayUserData = await userDataController.getTodayData(req.params.id);
   res.status(200).send(todayUserData);
 });
 
-app.post('/update-personal-info', userController.updatePersonalInfo);
+app.post('/update-personal-info', helper.isAuthenticated, userController.updatePersonalInfo);
 
-app.post('/change-password', userController.changePassword);
+app.post('/change-password', helper.isAuthenticated, userController.changePassword);
 
 module.exports = app;
