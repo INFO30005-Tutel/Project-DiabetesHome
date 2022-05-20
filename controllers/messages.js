@@ -24,13 +24,7 @@ const sendMessage = async(req, res)=>{
         let storedM = messages.messages;
         let l = storedM.length;
         //overwrite the latest stored message 
-        if(l != 0 && isSameDate(storedM[l- 1].time, newMessage.time)){
-            storedM[l-1] = newMessage;
-        }
-        //it is a new day -> add a new message, no replacement
-        else{
-            storedM.push(newMessage);
-        }
+        storedM.push(newMessage);
         await messages.save();
         res.redirect(`/clinician/message/${patId}`);
     }
