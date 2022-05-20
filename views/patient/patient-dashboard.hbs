@@ -65,7 +65,7 @@
                     {{#each leaderboards}}
                     <tr>
                         <td>{{this.rank}}</td>
-                        <td>{{this.name}}</td>
+                        {{{boldNameIfCurrentPatient this.name ../userData}}}
                         <td>{{this.engagementRate}}%</td>
                     </tr>
                     {{/each}}

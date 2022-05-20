@@ -283,6 +283,18 @@ const isRequired = (patient, shortName) => {
   return hasEntry;
 };
 
+const boldNameIfCurrentPatient = (leaderboardDisplayName, userData) => {
+  let appearedName;
+  if (!userData.leaderboardName || userData.leaderboardName.trim() == '')
+    appearedName = userData.firstName[0] + '. ' + userData.lastName[0] + '.';
+  else appearedName = userData.leaderboardName;
+  if (leaderboardDisplayName == appearedName)
+    return '<td><b>' + leaderboardDisplayName + ' (You) </b></td>';
+  return '<td>' + leaderboardDisplayName + '</td>';
+};
+
+handlebars.registerHelper('boldNameIfCurrentPatient', boldNameIfCurrentPatient);
+
 module.exports = {
   renderPatientDashboard,
   getPatientHasData,
