@@ -10,7 +10,10 @@
         <h1>Today's message from your clinician</h1>
         <div class="box">
             {{#if todayMessage}}
-                {{todayMessage.content}}
+                <p>                
+                    {{todayMessage.content}}
+                </p>
+
             {{else}}
                 No messages today 😊
             {{/if}}
