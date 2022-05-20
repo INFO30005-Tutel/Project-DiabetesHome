@@ -4,7 +4,6 @@ const Helper = require('./helper');
 
 const sendMessage = async(req, res)=>{
     const patId = req.params.patId; 
-    console.log(req.body);
     let style = Helper.styleSingleNoteOrMessage(req.body.fontFamily, req.body.fontSize, req.body.fontWeight, req.body.fontStyle, req.body.textAlign);
     let newMessage = {
         content: req.body.message,
@@ -16,7 +15,7 @@ const sendMessage = async(req, res)=>{
         if(!messages){
             let newM = [];
             newM.push(newMessage);
-            messages = new Messages({userId: patId}, {$push:{messages:newM}});
+            messages = new Messages({userId: patId, messages:newM});
             await messages.save();
             res.redirect(`/clinician/message/${patId}`);
             return;
@@ -25,13 +24,7 @@ const sendMessage = async(req, res)=>{
         let storedM = messages.messages;
         let l = storedM.length;
         //overwrite the latest stored message 
-        if(l != 0 && isSameDate(storedM[l- 1].time, newMessage.time)){
-            storedM[l-1] = newMessage;
-        }
-        //it is a new day -> add a new message, no replacement
-        else{
-            storedM.push(newMessage);
-        }
+        storedM.push(newMessage);
         await messages.save();
         res.redirect(`/clinician/message/${patId}`);
     }
@@ -51,6 +44,23 @@ const getMessages = async(patId)=>{
     try{
         let messages = await Messages.findOne({userId: patId}).lean();
         return messages !== null ? messages.messages: null;
+    }
+    catch(err){
+        console.log(err);
+    }
+}
+
+const getTodayMessage = async(patId) => {
+    try{
+        let messages = await Messages.findOne({userId: patId}).lean();
+        if (messages !== null && messages.messages.length > 0) {
+            let lastMessage = messages.messages[messages.messages.length-1];
+            let now = new Date();
+            let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            if (lastMessage.time >= today) {
+                return lastMessage;
+            }
+        }
     }
     catch(err){
         console.log(err);
@@ -79,5 +89,6 @@ const deleteMessage = async(req, res)=>{
 module.exports = {
     sendMessage,
     getMessages,
-    deleteMessage
+    deleteMessage,
+    getTodayMessage
 }

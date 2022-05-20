@@ -70,7 +70,7 @@ function getEngagementData(dateOfRegistration, patientData) {
   }
 
   let engagementSinceStart = [];
-  let date = dateOfRegistration;
+  let date = new Date(dateOfRegistration.getFullYear(), dateOfRegistration.getMonth(), dateOfRegistration.getDate());
   let now = new Date();
   let tomorrowDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
   // Loop over all days since the user registered
@@ -89,7 +89,7 @@ function getEngagementData(dateOfRegistration, patientData) {
       // If there is an entry on this day
       if (
         patientDataIndices[i] < patientDataList[i].length &&
-        patientDataList[i][patientDataIndices[i]].inputAt <= nextDate
+        patientDataList[i][patientDataIndices[i]].inputAt < nextDate
       ) {
         hasEntry = true;
       }
@@ -211,9 +211,9 @@ const getDateAndTime = (dateString) => {
   ];
   //var today = new Date();
   var time =
-    dateString.getHours() +
+    ('0' + dateString.getHours()).slice(-2) +
     ':' +
-    dateString.getMinutes() +
+    ('0' + dateString.getMinutes()).slice(-2) +
     ' ' +
     Intl.DateTimeFormat().resolvedOptions().timeZone;
   var weekDay = days[dateString.getDay()] + ', ';

@@ -81,7 +81,7 @@ const renderPatientDashboard = async (req, res) => {
   patientEngagement.badges = getBadges(patientEngagement.engagementRate);
   let leaderboards = await userDataController.getLeaderboards();
   let podium = getPodium(leaderboards);
-  const messages = await MessageController.getMessages(req.user._id);
+  const todayMessage = await MessageController.getTodayMessage(req.user._id);
   res.render('patient/patient-dashboard.hbs', {
     layout: 'patient-layout.hbs',
     userId: patient._id,
@@ -92,7 +92,7 @@ const renderPatientDashboard = async (req, res) => {
     date: dateAndTime.date,
     weekDay: dateAndTime.weekDay,
     time: dateAndTime.time,
-    message: messages !== null ? messages.slice(-1).content: null,
+    todayMessage: todayMessage,
     inputDates: await userDataController.getAllDataDates(patient._id),
     leaderboards: leaderboards,
     leaderboardsPodium: podium,
@@ -127,18 +127,28 @@ const renderPatientDetails = async (req, res) => {
       dataId = 'step';
       break;
   }
-  const dataHistory = findDataById(allDataHistory, 'detailed-'+dataId, 'id');
-  const dataOverview = findDataById(overViewData, 'overview-'+dataId, 'id');
-  console.log(dataOverview);
+  const dataHistory = findDataById(allDataHistory, 'detailed-' + dataId, 'id');
+  const dataOverview = findDataById(overViewData, 'overview-' + dataId, 'id');
 
   res.render('patient/patient-details.hbs', {
     layout: 'patient-layout.hbs',
     metadata: metadata,
     todayData: todayData,
     historicalData: dataHistory.data,
-    dataOverview: dataOverview
+    dataOverview: dataOverview,
   });
 };
+
+const renderPatientMessages = async (req, res) => {
+  let messages = await MessageController.getMessages(req.user._id);
+  if (messages != null) {
+    messages = messages.reverse()
+  }
+  res.render('patient/patient-messages.hbs', {
+    layout: 'patient-layout.hbs',
+    messages: messages
+  })
+}
 
 const getPatientData = async (patientUser) => {
   // Clone the patient's User object
@@ -248,7 +258,7 @@ const renderSetting = async (req, res) => {
     clinicianInfo: clinicianInfo,
     formattedDobClinician: formattedDobClinician,
   });
-}
+};
 const getBadges = (engagement) => {
   let index = -1;
   while (index + 1 < badges.length && engagement >= badges[index + 1].engagement) {
@@ -287,9 +297,22 @@ const isRequired = (patient, shortName) => {
   return hasEntry;
 };
 
+const boldNameIfCurrentPatient = (leaderboardDisplayName, userData) => {
+  let appearedName;
+  if (!userData.leaderboardName || userData.leaderboardName.trim() == '')
+    appearedName = userData.firstName[0] + '. ' + userData.lastName[0] + '.';
+  else appearedName = userData.leaderboardName;
+  if (leaderboardDisplayName == appearedName)
+    return '<td><b>' + leaderboardDisplayName + ' (You) </b></td>';
+  return '<td>' + leaderboardDisplayName + '</td>';
+};
+
+handlebars.registerHelper('boldNameIfCurrentPatient', boldNameIfCurrentPatient);
+
 module.exports = {
   renderPatientDashboard,
   getPatientHasData,
   renderPatientDetails,
   renderSetting,
+  renderPatientMessages
 };

@@ -3,7 +3,8 @@ const bcrypt = require('bcrypt');
 
 const UserSchema = new mongoose.Schema({
   dateOfRegistration: {
-    type: Date, required: true
+    type: Date,
+    required: true,
   },
   email: {
     type: String,
@@ -12,6 +13,14 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
+  },
+  leaderboardName: {
+    // Clinician don't use this
+    // If not specified, it will be the first letters of their name
+    // when rendered the leaderboard (not saved to database)
+    // Ex: Davie Noon will appeared as "D. N."
+    type: String,
+    required: false,
   },
   firstName: {
     type: String,

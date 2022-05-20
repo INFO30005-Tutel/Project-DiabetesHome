@@ -1,5 +1,5 @@
 const handlebars = require('handlebars');
-const {create} = require("express-handlebars");
+const { create } = require('express-handlebars');
 const UserDataController = require('./user-data');
 const HelperController = require('./helper');
 const NoteController = require('./notes');
@@ -8,14 +8,37 @@ const User = require('../models/user');
 const UserController = require('./user');
 
 const hbs = create({
-  helpers:{
-    formateDateTime(input){HelperController.formatDateTime(input)}
-  }
-})
-const textSize = [12, 14, 16, 18, 20, 22, 24, 26];
-const textStyle =  ["Arial", "Times New Roman", "Times", "Courier New",  "Courier", "Verdana", "Georgia", "Palantino", "Garamond", "Bookman", "Tahoma", "Trebuchet MS", "Arial Black", "Comic Sans Ms", "Impact"];
+  helpers: {
+    formateDateTime(input) {
+      HelperController.formatDateTime(input);
+    },
+  },
+});
+const textSize = [20, 24, 28, 30, 36, 48];
+const textStyle = [
+  'Arial',
+  'Times New Roman',
+  'Times',
+  'Courier New',
+  'Courier',
+  'Verdana',
+  'Georgia',
+  'Palantino',
+  'Garamond',
+  'Bookman',
+  'Tahoma',
+  'Trebuchet MS',
+  'Arial Black',
+  'Comic Sans Ms',
+  'Impact',
+];
 const renderNotes = async (req, res) => {
   const patId = req.params.patId;
+  const patient = await User.findById(patId);
+  if (!patient.clinicianId.equals(req.user._id)) {
+    res.status(403).send("Unauthorised to access this patient");
+    return;
+  }
   const notes = await NoteController.getNotes(patId);
 
   res.render('clinician/patient-notes.hbs', {
@@ -23,19 +46,25 @@ const renderNotes = async (req, res) => {
     data: notes,
     patId: patId,
     textSize: textSize,
-    textStyle: textStyle
+    textStyle: textStyle,
+    patId: patId,
   });
 };
 const renderMessages = async (req, res) => {
   const patId = req.params.patId;
+  const patient = await User.findById(patId);
+  if (!patient.clinicianId.equals(req.user._id)) {
+    res.status(403).send("Unauthorised to access this patient");
+    return;
+  }
   const messages = await MessageController.getMessages(patId);
-  console.log(messages);
   res.render('clinician/patient-messages.hbs', {
     layout: 'clinician-layout.hbs',
     data: messages,
     patId: patId,
     textSize: textSize,
-    textStyle: textStyle
+    textStyle: textStyle,
+    patId: patId,
   });
 };
 
@@ -60,6 +89,11 @@ const renderClinicianDashboard = async (req, res) => {
 
 const renderPatientProfile = async (req, res) => {
   const patId = req.params.patId;
+  const patient = await User.findById(patId);
+  if (!patient.clinicianId.equals(req.user._id)) {
+    res.status(403).send("Unauthorised to access this patient");
+    return;
+  }
   const patPersonalInfo = await UserController.getPersonalInfo(patId);
   const formatDob = HelperController.getDateAndTime(patPersonalInfo.dateOfBirth);
   const thresholds = await UserDataController.getThresholds(patId, defaultDangerThreshold);
@@ -265,7 +299,7 @@ const getIconColor = (patient) => {
   return ok;
 };
 
-var formatDateTime = (inputDT)=>{
+var formatDateTime = (inputDT) => {
   var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   var months = [
     'January',
@@ -282,20 +316,13 @@ var formatDateTime = (inputDT)=>{
     'December',
   ];
   
-  var time =
-    inputDT.getHours() +
-    ':' +
-    inputDT.getMinutes();
+  var minute = inputDT.getMinutes().toString().length < 2 ? "0" + inputDT.getMinutes() : inputDT.getMinutes(); 
+  var time = inputDT.getHours() + ':' + minute;
 
-  var date =
-    inputDT.getDate() +
-    ' ' +
-    months[inputDT.getMonth()] +
-    ' ' +
-    inputDT.getFullYear();
-  var result = time.toString() + ' '+ date.toString();
+  var date = inputDT.getDate() + ' ' + months[inputDT.getMonth()] + ' ' + inputDT.getFullYear();
+  var result = time.toString() + ' ' + date.toString();
   return result;
-}
+};
 
 handlebars.registerHelper('getTextColor', getTextColor);
 handlebars.registerHelper('getIcon', getIcon);
@@ -303,7 +330,7 @@ handlebars.registerHelper('getIconColor', getIconColor);
 handlebars.registerHelper('json', (obj) => {
   return JSON.stringify(obj);
 });
-handlebars.registerHelper('formatDateTime', formatDateTime); 
+handlebars.registerHelper('formatDateTime', formatDateTime);
 
 module.exports = {
   renderClinicianDashboard,
@@ -313,5 +340,5 @@ module.exports = {
   formatPatientRegister,
   renderMessages,
   renderNotes,
-  formatDateTime
+  formatDateTime,
 };
