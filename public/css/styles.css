@@ -628,4 +628,11 @@ button:hover {
     border-radius: 12px;
     font-size: 1em;
   }
+
+  .large-button-variant {
+    height: 64px;
+    width: 180px;
+    border-radius: 24px;
+    font-size: 1.2em;
+  }
 }

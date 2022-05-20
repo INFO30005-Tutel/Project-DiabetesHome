@@ -1,16 +1,26 @@
 const express = require('express');
 const app = express();
 
-const controller = require('../controllers/patient');
+const patientController = require('../controllers/patient');
 const helper = require('../controllers/helper');
 
-app.get('/patient', helper.isAuthenticated, helper.isPatient, controller.renderPatientDashboard);
-app.get('/patient/setting', helper.isAuthenticated, helper.isPatient, controller.renderSetting);
+app.get(
+  '/patient',
+  helper.isAuthenticated,
+  helper.isPatient,
+  patientController.renderPatientDashboard
+);
+app.get(
+  '/patient/setting',
+  helper.isAuthenticated,
+  helper.isPatient,
+  patientController.renderSetting
+);
 app.get(
   '/patient/view-data/:dataSeries',
   helper.isAuthenticated,
   helper.isPatient,
-  controller.renderPatientDetails
+  patientController.renderPatientDetails
 );
 
 module.exports = app;

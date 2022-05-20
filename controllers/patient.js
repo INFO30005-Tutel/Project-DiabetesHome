@@ -80,6 +80,7 @@ const renderPatientDashboard = async (req, res) => {
   patientEngagement.badges = getBadges(patientEngagement.engagementRate);
   let leaderboards = await userDataController.getLeaderboards();
   let podium = getPodium(leaderboards);
+  console.log(podium);
   res.render('patient/patient-dashboard.hbs', {
     layout: 'patient-layout.hbs',
     userId: patient._id,
@@ -124,8 +125,8 @@ const renderPatientDetails = async (req, res) => {
       dataId = 'step';
       break;
   }
-  const dataHistory = findDataById(allDataHistory, 'detailed-'+dataId, 'id');
-  const dataOverview = findDataById(overViewData, 'overview-'+dataId, 'id');
+  const dataHistory = findDataById(allDataHistory, 'detailed-' + dataId, 'id');
+  const dataOverview = findDataById(overViewData, 'overview-' + dataId, 'id');
   console.log(dataOverview);
 
   res.render('patient/patient-details.hbs', {
@@ -133,7 +134,7 @@ const renderPatientDetails = async (req, res) => {
     metadata: metadata,
     todayData: todayData,
     historicalData: dataHistory.data,
-    dataOverview: dataOverview
+    dataOverview: dataOverview,
   });
 };
 
@@ -245,7 +246,7 @@ const renderSetting = async (req, res) => {
     clinicianInfo: clinicianInfo,
     formattedDobClinician: formattedDobClinician,
   });
-}
+};
 const getBadges = (engagement) => {
   let index = -1;
   while (index + 1 < badges.length && engagement >= badges[index + 1].engagement) {
