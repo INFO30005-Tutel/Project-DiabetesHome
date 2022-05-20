@@ -43,21 +43,33 @@
         </h2>
 
         <div class="table-parent">
-            <table class="data-table">
-                <tr>
-                    <th>Timestamp</th>
-                    <th>{{metadata.name}} ({{metadata.units}})</th>
-                    <th>Notes</th>
-                </tr>
-                {{#each historicalData}}
-                <tr>
-                    <td>{{this.timestamp}}</td>
-                    <td>{{this.value}}</td>
-                    <td>{{this.note}}</td>
-                </tr>
-                {{/each}}
+            <table class="data-table" id="patient-data">
+                <thead>
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>{{metadata.name}} ({{metadata.units}})</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each historicalData}}
+                    <tr>
+                        <td>{{this.timestamp}}</td>
+                        <td>{{this.value}}</td>
+                        <td>{{this.note}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
                 </tr>
             </table>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    var table = $('#patient-data').DataTable({
+                        "ordering": false
+                    });
+                    console.log("Stuff");
+                });
+            </script>
         </div>
     </div>
 
