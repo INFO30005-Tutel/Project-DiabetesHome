@@ -54,30 +54,31 @@
         </div>
         {{/with}}
         <h2>Leaderboards</h2>
-        <div class="table-parent">
-            <table class="data-table">
-                <tr>
+        <div class="table-parent" >
+            <table class="data-table" id="leaderboards-table">
+                <thead>
                     <th>Rank</th>
                     <th>Username</th>
                     <th>Engagement Rate</th>
-                </tr>
-                {{#each leaderboards}}
-                <tr>
-                    <td>{{this.rank}}</td>
-                    <td>{{this.name}}</td>
-                    <td>{{this.engagementRate}}%</td>
-                </tr>
-                {{/each}}
+                </thead>
+                <tbody>
+                    {{#each leaderboards}}
+                    <tr>
+                        <td>{{this.rank}}</td>
+                        <td>{{this.name}}</td>
+                        <td>{{this.engagementRate}}%</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
             </table>
-
-            <div class='page-change'>
-                <p style='text-align: center'>Show 1-5 of 5</p>
-                <div class='page-num'>
-                    <button><i class='fa fa-arrow-left' style="color: white;"></i></button>
-                    <b>1</b>
-                    <button><i class='fa fa-arrow-right' style="color: white;"></i></button>
-                </div>
-            </div>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    var table = $('#leaderboards-table').DataTable({
+                        "ordering": false
+                    });
+                    console.log("Stuff");
+                });
+            </script>
         </div>
     </div>
     <div class="dashboard-side">

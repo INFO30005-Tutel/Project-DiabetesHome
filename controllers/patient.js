@@ -80,8 +80,6 @@ const renderPatientDashboard = async (req, res) => {
   patientEngagement.badges = getBadges(patientEngagement.engagementRate);
   let leaderboards = await userDataController.getLeaderboards();
   let podium = getPodium(leaderboards);
-  // Truncate leaderboards to top 30
-  leaderboards = leaderboards.slice(0, 30);
   res.render('patient/patient-dashboard.hbs', {
     layout: 'patient-layout.hbs',
     userId: patient._id,
@@ -110,27 +108,32 @@ const renderPatientDetails = async (req, res) => {
   const todayData = findDataById(todayAllData.dataEntries, req.params.dataSeries);
 
   const allDataHistory = await userDataController.getDetailedData(patient._id);
+  const overViewData = await userDataController.getOverviewData(patient._id);
   let dataId;
   switch (req.params.dataSeries) {
     case 'glucose':
-      dataId = 'detailed-blood';
+      dataId = 'blood';
       break;
     case 'weight':
-      dataId = 'detailed-weight';
+      dataId = 'weight';
       break;
     case 'insulin':
-      dataId = 'detailed-insulin';
+      dataId = 'insulin';
       break;
     case 'exercise':
-      dataId = 'detailed-step';
+      dataId = 'step';
       break;
   }
-  const dataHistory = findDataById(allDataHistory, dataId, 'id');
+  const dataHistory = findDataById(allDataHistory, 'detailed-'+dataId, 'id');
+  const dataOverview = findDataById(overViewData, 'overview-'+dataId, 'id');
+  console.log(dataOverview);
+
   res.render('patient/patient-details.hbs', {
     layout: 'patient-layout.hbs',
     metadata: metadata,
     todayData: todayData,
     historicalData: dataHistory.data,
+    dataOverview: dataOverview
   });
 };
 
