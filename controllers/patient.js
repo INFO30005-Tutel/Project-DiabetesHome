@@ -81,7 +81,7 @@ const renderPatientDashboard = async (req, res) => {
   patientEngagement.badges = getBadges(patientEngagement.engagementRate);
   let leaderboards = await userDataController.getLeaderboards();
   let podium = getPodium(leaderboards);
-  const messages = await MessageController.getMessages(req.user._id);
+  const todaymessage = await MessageController.getTodayMessage(req.user._id);
   res.render('patient/patient-dashboard.hbs', {
     layout: 'patient-layout.hbs',
     userId: patient._id,
@@ -92,7 +92,7 @@ const renderPatientDashboard = async (req, res) => {
     date: dateAndTime.date,
     weekDay: dateAndTime.weekDay,
     time: dateAndTime.time,
-    message: messages !== null ? messages.slice(-1).content: null,
+    todayMessage: todaymessage,
     inputDates: await userDataController.getAllDataDates(patient._id),
     leaderboards: leaderboards,
     leaderboardsPodium: podium,

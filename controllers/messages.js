@@ -56,6 +56,23 @@ const getMessages = async(patId)=>{
     }
 }
 
+const getTodayMessage = async(patId) => {
+    try{
+        let messages = await Messages.findOne({userId: patId}).lean();
+        if (messages !== null && messages.messages.length > 0) {
+            let lastMessage = messages.messages[messages.length-1];
+            let now = new Date();
+            let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            if (lastMessage.time >= today) {
+                return lastMessage;
+            }
+        }
+    }
+    catch(err){
+        console.log(err);
+    }
+}
+
 //This function is called by a clinician to delete a message
 const deleteMessage = async(req, res)=>{
     const patId = req.params.patId;
@@ -78,5 +95,6 @@ const deleteMessage = async(req, res)=>{
 module.exports = {
     sendMessage,
     getMessages,
-    deleteMessage
+    deleteMessage,
+    getTodayMessage
 }
