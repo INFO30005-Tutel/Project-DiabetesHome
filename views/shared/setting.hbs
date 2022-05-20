@@ -48,14 +48,16 @@
       <input type="text" name="firstName" id="firstName" value="{{personalInfo.firstName}}">
       <label for="lastName">Last Name</label>
       <input type="text" name="lastName" id="lastName" value="{{personalInfo.lastName}}">
+      {{#if isPatient}}
       <label for="leaderboardName">Leaderboard Name</label>
       <input type="text" name="leaderboardName" id="leaderboardName" value="{{personalInfo.leaderboardName}}">
+      {{/if}}
       <label for="dateOfBirth">Date of Birth</label>
       <input type="date" name="dateOfBirth" id="dateOfBirth" value="{{personalInfo.dateOfBirth}}">
       <label for"phoneNumber">Phone Number</label>
       <input type="tel" name="phoneNumber" id="phoneNumber" value="{{personalInfo.phoneNumber}}">
       <label for="email">Email</label>
-      <input type="email" name="email" id="email" value="{{personalInfo.email}}">
+      <input type="email" name="email" id="email" value="{{personalInfo.email}}" disabled>
       <br>
       <div class="button-wrapper" style="margin-top: 15px;">
         <button type="submit" class="button large-button-variant">Save</button>
