@@ -42,6 +42,31 @@
             History
         </h2>
 
+        {{#with dataOverview}}
+        <div class='overview-chart'>
+        <h2>{{dataName}}</h2>
+        <div class='chart-card'>
+            <div id='{{id}}' class='chart-container'></div>
+            <script type="text/javascript" containerId="{{id}}" dataBlock="{{data}}" title="{{dataName}}">
+            // Decode data block
+            var data = JSON.parse(document.currentScript.getAttribute('dataBlock'));
+            var dataSet = anychart.data.set(data);
+
+            // Create diagram
+            var chart = anychart.column();
+            var series1 = chart.column(data);
+
+            var title = document.currentScript.getAttribute('title');
+            chart.title(title);
+
+            var containerId = document.currentScript.getAttribute('containerId');
+            chart.container(containerId);
+            chart.draw();
+            </script>
+        </div>
+        </div>
+        {{/with}}
+
         <div class="table-parent">
             <table class="data-table" id="patient-data">
                 <thead>
