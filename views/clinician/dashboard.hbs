@@ -12,7 +12,7 @@
   </div>
   {{! SEARCHING BAR }}
   <div class='searching-area'>
-    <input type='text' placeholder='Search patient..' />
+    <input type='text' id='searchBox' placeholder='Search patient..' />
     <button><i class='fa fa-search'></i></button>
     <a href="clinician/register-patient">
       <button><i class='fa fa-plus'></i></button>
@@ -20,53 +20,56 @@
   </div>
   {{! TABLE BODY}}
   <div class='flex-column table-section'>
-    <table class='dash-table'>
-      <tr>
+    <table class='dash-table' id="dashboard-table" style="width: 100%;">
+      <thead>
         <th>STATUS</th>
         <th>NAME</th>
         <th>BLOOD GLUCOSE LEVEL</th>
         <th>WEIGHT</th>
         <th>DOSES OF INSULIN TAKEN</th>
         <th>STEP COUNTS</th>
-      </tr>
-      {{#each tableData}}
-      <tr>
-        <td><i class='fa {{getIcon this}}' style='font-size:xx-large; color: {{getIconColor this}}'></i></td>
-        <td><a href='/clinician/view-patient/{{this._id}}'>{{this.firstName}}
-            {{this.lastName}}</a></td>
-        {{#with this.bloodGlucose}}
-        <td style='color: {{getTextColor value lowThresh highThresh "bloodGlucose"}}'>
-          {{#if value}}{{value}} mmol/L{{else if required}}??? mmol/L{{/if}}
-        </td>
-        {{/with}}
+      </thead>
+      <tbody>
+        {{#each tableData}}
+        <tr>
+          <td><i class='fa {{getIcon this}}' style='font-size:xx-large; color: {{getIconColor this}}'></i></td>
+          <td><a href='/clinician/view-patient/{{this._id}}'>{{this.firstName}}
+              {{this.lastName}}</a></td>
+          {{#with this.bloodGlucose}}
+          <td style='color: {{getTextColor value lowThresh highThresh "bloodGlucose"}}'>
+            {{#if value}}{{value}} mmol/L{{else if required}}??? mmol/L{{/if}}
+          </td>
+          {{/with}}
 
-        {{#with this.weight}}
-        <td style='color: {{getTextColor value lowThresh highThresh "weight"}}'>
-          {{#if required}}
-          {{#if value}}{{value}} kg{{else if required}}??? kg{{/if}}
-          {{/if}}
-        </td>
-        {{/with}}
-        {{#with this.insulinDose}}
-        <td style='color: {{getTextColor value lowThresh highThresh "insulinDose"}}'>
-          {{#if value}}{{value}} doses{{else if required}}??? doses{{/if}}
-        </td>
-        {{/with}}
-        {{#with this.stepCount}}
-        <td style='color: {{getTextColor value lowThresh highThresh "stepCount"}}'>
-          {{#if value}}{{value}}{{else if required}}???{{/if}}
-        </td>
-        {{/with}}
-      </tr>
-      {{/each}}
+          {{#with this.weight}}
+          <td style='color: {{getTextColor value lowThresh highThresh "weight"}}'>
+            {{#if required}}
+            {{#if value}}{{value}} kg{{else if required}}??? kg{{/if}}
+            {{/if}}
+          </td>
+          {{/with}}
+          {{#with this.insulinDose}}
+          <td style='color: {{getTextColor value lowThresh highThresh "insulinDose"}}'>
+            {{#if value}}{{value}} doses{{else if required}}??? doses{{/if}}
+          </td>
+          {{/with}}
+          {{#with this.stepCount}}
+          <td style='color: {{getTextColor value lowThresh highThresh "stepCount"}}'>
+            {{#if value}}{{value}}{{else if required}}???{{/if}}
+          </td>
+          {{/with}}
+        </tr>
+        {{/each}}
+      </tbody>
     </table>
-    <div class='page-change'>
-      <p style='text-align: center'>Show 1-{{numPatient}} of {{numPatient}}</p>
-      <div class='page-num'>
-        <button><i class='fa fa-arrow-left' style='color: white;'></i></button>
-        <h1><b>1</b></h1>
-        <button><i class='fa fa-arrow-right' style='color: white;'></i></button>
-      </div>
-    </div>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        var table = $('#dashboard-table').DataTable();
+
+        $('#searchBox').on('keyup', function () {
+          table.search(this.value).draw();
+        });
+      });
+    </script>
   </div>
 </div>

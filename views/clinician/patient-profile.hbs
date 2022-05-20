@@ -50,24 +50,46 @@
     {{#each detailedData}}
     <div id='{{id}}' class='flex-column detailed-table'>
       <h2>{{dataName}}</h2>
-      <table style="border-collapse: collapse; margin-bottom:1rem">
-        <tr style='border-bottom: 2px solid #0a57ae;'>
+      <table class="table-display" id='{{id}}-table'>
+        <thead style='border-bottom: 2px solid #0a57ae;'>
           <th>Timestamp</th>
           <th>{{unit}}</th>
           <th>Notes</th>
-        </tr>
-        {{#each data}}
-        <tr style='border-bottom: 1px solid #292929;'>
-          <td>{{timestamp}}</td>
-          <td>{{value}}</td>
-          <td>{{note}}</td>
-        </tr>
-        {{/each}}
+        </thead>
+        <tbody>
+          {{#each data}}
+          <tr style='border-bottom: 1px solid #292929;'>
+            <td>{{timestamp}}</td>
+            <td>{{value}}</td>
+            <td>{{note}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
       </table>
-      <a onclick="ExportToCSV('{{id}}.csv', '{{id}}')" style="cursor: pointer;">Download all data (.csv)
+      <a onclick="ExportToCSV('{{id}}.csv', '{{id}}')" style="cursor: pointer; margin-top:15px">Download all data (.csv)
         <i class='fa fa-download'></i></a>
     </div>
     {{/each}}
+    <script>
+      $(document).ready(function () {
+        $('table.table-display').DataTable({
+          scrollY: '54vh',
+          scrollCollapse: true,
+          paging: false,
+          ordering: false,
+        });
+        var headers = document.getElementsByClassName("dataTables_scrollHeadInner");
+        for (let i = 0; i < headers.length; i++) {
+          headers[i].style.width = null;
+        }
+
+        var headerInners = document.getElementsByClassName("table-display dataTable no-footer");
+        for (let j = 0; j < headerInners.length; j++) {
+          headerInners[j].style.width = null;
+          headerInners[j].style.borderBottom = 'solid 1px black';
+        }
+      });
+    </script>
   </div>
 </div>
 </div>

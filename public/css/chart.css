@@ -44,7 +44,6 @@
 }
 
 .table-section {
-  align-items: center;
   margin-top: 15px;
 }
 
@@ -118,6 +117,10 @@
   margin-bottom: 2rem;
 }
 
+.detailed-table .dataTables_info {
+  display: none;
+}
+
 .detailed-table h2 {
   margin-bottom: 1rem;
   text-align: center;
@@ -128,6 +131,31 @@
 .detailed-table tr {
   text-align: center;
   height: 30px;
+}
+
+.dataTables_length {
+  margin-bottom: 18px;
+}
+
+.dataTables_length label {
+  font-weight: bold;
+}
+
+.dataTables_filter {
+  display: none;
+}
+
+.dataTables_info {
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.dataTables_paginate {
+  margin-top: 15px;
+}
+
+.table-display {
+  margin-bottom: 1rem
 }
 
 .clinician-info {
