@@ -14,7 +14,7 @@ const hbs = create({
     },
   },
 });
-const textSize = [12, 14, 16, 18, 20, 22, 24, 26];
+const textSize = [20, 24, 28, 30, 36, 48];
 const textStyle = [
   'Arial',
   'Times New Roman',
